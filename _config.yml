@@ -5,7 +5,7 @@ description: Map creation with Python and D3js / JavaScript
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://rveciana.gihub.io" # the base hostname & protocol for your site
 
-
+teaser: teaser.png
 twitter_username: rveciana
 github_username:  rveciana
 

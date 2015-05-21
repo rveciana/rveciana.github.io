@@ -3,6 +3,7 @@ layout: post
 title:  "Basemap raster clipping with a shapefile"
 date:   2014-10-11
 categories: Basemap GDAL python
+teaser: basemapclipping.png
 ---
 Basemap is a great library for mapping faster than other python options, but there are some usual things I couldn't find how to do. Clipping a raster using a shape is one of them. Here's how do I do it:
 

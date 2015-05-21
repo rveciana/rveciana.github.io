@@ -3,6 +3,7 @@ layout: post
 title: Basemap tutorial
 date:   2014-11-26
 categories: python basemap tutorial
+teaser: basemaptutorial.png
 ---
 
 Basemap is a great tool for creating maps using python in a simple way. It's a [matplotlib](http://matplotlib.org/) extension, so it has got all its features to create data visualizations, and adds the geographical projections and some datasets to be able to plot coast lines, countries, and so on directly from the library.
