@@ -1,0 +1,8 @@
+<span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+<h2>
+  <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+</h2>
+{% if post.teaser %}<img class="teaser" src="{{ site.baseurl }}/images/teasers/{{ post.teaser }}" alt="teaser" itemprop="image">
+{% else %}<img class="teaser" src="{{ site.baseurl }}/images/{{ site.teaser }}" alt="teaser" itemprop="image">{% endif %}
+<div class="categories">Filed under {{ post.categories | category_links }}</div>

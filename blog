@@ -1,0 +1,20 @@
+---
+layout: page
+title: Blog
+permalink: /blog/
+---
+{% for category in site.categories %}
+    <li style="font-size: {{ category | last | size | times: 100 | divided_by: site.categories.size }}%">
+        <a href="/{{ category | first | slugize }}/">
+            {{ category | first }}
+        </a>
+    </li>
+{% endfor %}
+
+<ul class="post-list">
+  {% for post in site.posts %}
+    <li>
+      {% include post_title.html %}
+    </li>
+  {% endfor %}
+</ul>

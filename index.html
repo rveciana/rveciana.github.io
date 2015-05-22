@@ -7,15 +7,9 @@ layout: default
   <h1 class="page-heading">Posts</h1>
 
   <ul class="post-list">
-    {% for post in site.posts %}
+    {% for post in site.posts limit:3 %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-        {% if post.teaser %}<img class="teaser" src="{{ site.baseurl }}/images/teasers/{{ post.teaser }}" alt="teaser" itemprop="image">
-        {% else %}<img class="teaser" src="{{ site.baseurl }}/images/{{ site.teaser }}" alt="teaser" itemprop="image">{% endif %}
+        {% include post_title.html %}
       </li>
     {% endfor %}
   </ul>
