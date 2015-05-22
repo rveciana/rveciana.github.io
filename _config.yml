@@ -9,5 +9,7 @@ teaser: teaser.png
 twitter_username: rveciana
 github_username:  rveciana
 
+comments: True
+
 # Build settings
 markdown: kramdown
