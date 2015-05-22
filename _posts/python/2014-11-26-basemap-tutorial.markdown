@@ -2,7 +2,8 @@
 layout: post
 title: Basemap tutorial
 date:   2014-11-26
-categories: python basemap tutorial
+categories: python
+tags: [basemap, tutorial]
 teaser: basemaptutorial.png
 ---
 

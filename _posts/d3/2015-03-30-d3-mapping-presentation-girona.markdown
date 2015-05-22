@@ -2,7 +2,8 @@
 layout: post
 title:  "D3js mapping presentation at Girona"
 date:   2015-03-30
-categories: d3 SIGTE presentation
+categories: d3
+tags: [SIGTE, presentation]
 teaser: d3-mapping-presentation-girona.png
 ---
 Every year, [SIGTE](http://www.sigte.udg.edu/) organizes workshops and a [conference about Free GIS software](http://www.sigte.udg.edu/jornadassiglibre/) in [Girona](http://www.openstreetmap.org/#map=15/41.9750/2.8234).
