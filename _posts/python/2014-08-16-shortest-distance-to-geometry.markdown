@@ -4,7 +4,7 @@ title:  "Shortest distance to a geometry in a specified direction using Python"
 date:   2014-08-16
 categories: python
 tags: [basemap, geometry, OGR]
-teaser: d3-composite-projections.png
+teaser: shortest-distance-to-geometry.png
 ---
 
 Looking at [this map](http://knowmore.washingtonpost.com/2014/05/22/if-youre-on-the-beach-this-map-shows-you-whats-across-the-ocean/), I wondered how to calculate which geometry in a set is the closest to a point in a given direction.  
