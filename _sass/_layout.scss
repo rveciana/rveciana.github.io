@@ -246,3 +246,19 @@
   margin-bottom: .5em;
   width: 720px;
 }
+
+/**
+* Side info
+*/
+
+.tagcloud {
+  list-style: none;
+  padding: 0;
+  text-align: justify;
+  font-size: 16px;
+  max-width: $content-width/3;
+  li {
+    display: inline-block;
+    margin: 0 12px 12px 0;
+  }
+}
