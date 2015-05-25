@@ -4,8 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+<img src="{{ site.email | to_gravatar }}" alt="A photo of {{ site.author.name }}" class="left_picture"/>
+<h2>{{ site.author.name }}</h2>
+I'm a meteorologist based in Barcelona who likes maps and coding.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+I opened this blog to talk about the things I'm learning abut python and JavaScript mapping.
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+[The old GeoExamples blog](http://geoexamples.blogspot.com.es/) is still working with all its posts.

@@ -9,7 +9,7 @@ permalink: /blog/
         <a href="{{base_url}}/categories/{{ category | first}}/">
             {{ category | first }}
         </a>
-
+        {% unless forloop.last %}, {% endunless %}
 
 {% endfor %}
 <h1>Tags</h1>
