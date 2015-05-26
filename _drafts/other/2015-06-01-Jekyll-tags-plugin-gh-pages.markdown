@@ -13,8 +13,8 @@ layout: default
 
 <h1>Articles by category :{{ page.category }}</h1>
 <div>
-    {{ "{% if site.tags[page.category] " }}%}
-        {{ "{% for post in site.tags[page.category] " }}%}
+    {{ "{% if site.categories[page.category] " }}%}
+        {{ "{% for post in site.categories[page.category] " }}%}
             <a href="{{ "{{ post.url " }}}}/">{{ "{{ post.title " }}}}</a>
         {{ "{% endfor " }}%}
     {{ "{% else " }}%}

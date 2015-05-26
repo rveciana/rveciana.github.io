@@ -20,7 +20,7 @@ layout: default
     {% endfor %}</p>
     <p>Tags:
       {% for tag in page.tags %}
-      <a href="{{base_url}}/tag/{{tag | downcase | slugize}}">{{tag}}</a>
+      <a href="{{base_url}}/tags/{{tag | downcase | slugize}}">{{tag}}</a>
         {% if forloop.last == false %}, {% endif %}
       {% endfor %}</p>
 
