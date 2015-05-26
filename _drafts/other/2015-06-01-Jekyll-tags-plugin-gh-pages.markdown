@@ -2,6 +2,7 @@
 layout: post
 title:  "Jekyll tags and categories plugin for gh-pages"
 date:   2015-06-01 19:40:53
+teaser: jekyll-tags-categories.png
 categories: other
 tags: [jekyll]
 ---
@@ -16,7 +17,7 @@ I found two solutions to the problem:
 * Using a plugin like [this one](https://github.com/recurser/jekyll-plugins), which creates the pages. The problem is that GitHub doesn't accept custom plugins for security reasons.
 * Creating the templates for each tag and category, as explained in [this post](http://www.minddust.com/post/tags-and-categories-on-github-pages/). The solutions works perfectly on GitHub pages, but a new template has to be created manually every time a category or tag is added to the blog!
 
-So I decided creating a small plugin that pre-generates the templated needed by the second solution. You can create the posts locally, and the templated will be created by the plugin. Then, upload the new post and templates to GitHub and that's it. 
+So I decided creating a small plugin that pre-generates the templated needed by the second solution. You can create the posts locally, and the templated will be created by the plugin. Then, upload the new post and templates to GitHub and that's it.
 
 There are two problems:
 
@@ -87,7 +88,7 @@ module Jekyll
 
         site.tags.each do |i|
             if !File.exists?(tags_dir + '/' + i[0])
-                puts "Creating tag page for: " + i[0] 
+                puts "Creating tag page for: " + i[0]
                 tag_file = File.new(tags_dir + '/' + i[0], "w")
                 tag_file.puts("---\nlayout: blog_by_tag\ntag: " + i[0] + "\npermalink: /tags/" + i[0] + "/\n---")
                 tag_file.close
@@ -96,11 +97,11 @@ module Jekyll
             end
         end
 
-        if regenerate_flag   
+        if regenerate_flag
             FileUtils.touch Dir.pwd+'/_config.yml'
         end
-  
-         
+
+
 
     end
   end
