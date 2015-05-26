@@ -242,7 +242,8 @@
 
 .teaser {
   border: solid 1px $green-color-light;
-  height: 80px;
+  height: auto;
+  max-height: 80px;
   margin-bottom: .5em;
   width: 720px;
 }
