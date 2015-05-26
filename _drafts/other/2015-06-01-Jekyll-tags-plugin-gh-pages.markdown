@@ -3,6 +3,7 @@ layout: post
 title:  "Jekyll tags and categories plugin for gh-pages"
 date:   2015-06-01 19:40:53
 categories: other
+tags: [jekyll]
 ---
 Switching from [Blogger](http://www.blogger.com) to [Jekyll](http://jekyllrb.com/) was an amazing experience. Everything was quite easy (although not as fast as I thought, it's always the same). I found only one problem a bit difficult to solve:
 
