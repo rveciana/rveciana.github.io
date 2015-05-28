@@ -1,6 +1,5 @@
 module Jekyll
   class TagsGenerator < Generator
-
     def generate(site)
         tags_dir = Dir.pwd + '/tags'
 
@@ -11,21 +10,23 @@ module Jekyll
         regenerate_flag = false
 
         site.tags.each do |i|
-            if !File.exists?(tags_dir + '/' + i[0])
-                puts "Creating tag page for: " + i[0] 
-                tag_file = File.new(tags_dir + '/' + i[0], "w")
-                tag_file.puts("---\nlayout: blog_by_tag\ntag: " + i[0] + "\npermalink: /tags/" + i[0] + "/\n---")
+            tag_name = i[0]
+
+             if !File.exists?(tags_dir + '/' + tag_name)
+                puts "Creating tag page for: " + tag_name
+                tag_file = File.new(tags_dir + '/' + tag_name, "w")
+                tag_file.puts("---\nlayout: blog_by_tag\ntag: " + tag_name + "\npermalink: /tags/" + tag_name + "/\n---")
                 tag_file.close
 
                 regenerate_flag = true
             end
         end
 
-        if regenerate_flag   
+        if regenerate_flag
             FileUtils.touch Dir.pwd+'/_config.yml'
         end
-  
-         
+
+
 
     end
   end
@@ -43,7 +44,7 @@ module Jekyll
 
         site.categories.each do |i|
             if !File.exists?(category_dir + '/' + i[0])
-                puts "Creating category page for: " + i[0] 
+                puts "Creating category page for: " + i[0]
                 category_file = File.new(category_dir + '/' + i[0], "w")
                 category_file.puts("---\nlayout: blog_by_category\ncategory: " + i[0] + "\npermalink: /categories/" + i[0] + "/\n---")
                 category_file.close
@@ -52,11 +53,11 @@ module Jekyll
             end
         end
 
-        if regenerate_flag   
+        if regenerate_flag
             FileUtils.touch Dir.pwd+'/_config.yml'
         end
-  
-         
+
+
 
     end
   end
