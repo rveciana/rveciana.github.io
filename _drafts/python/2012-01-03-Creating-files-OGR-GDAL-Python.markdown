@@ -2,6 +2,7 @@
 layout: post
 title:  "Creating files with OGR, GDAL and python"
 date:   2012-01-03
+teaser: ogr-gdal-python-create.png
 categories: python
 tags: [OGR, GDAL]
 ---
