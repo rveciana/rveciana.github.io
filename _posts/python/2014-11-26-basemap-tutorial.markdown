@@ -15,7 +15,7 @@ Basemap has got [some documentation](http://matplotlib.org/basemap/index.html), 
 
 Some of the examples from the tutorial
 
-The tutorial can be found at http://basemaptutorial.readthedocs.org/, and all the examples and its source code, at GitHub and it's available for sharing or being modified by adding the attribution.
+The tutorial can be found at [http://basemaptutorial.readthedocs.org/](http://basemaptutorial.readthedocs.org/), and all the examples and its source code, at GitHub and it's available for sharing or being modified by adding the attribution.
 
 The tutorial covers:
 
