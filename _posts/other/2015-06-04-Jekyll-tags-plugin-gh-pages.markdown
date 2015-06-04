@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Jekyll tags and categories plugin for gh-pages"
-date:   2015-06-01 19:40:53
+date:   2015-06-04 18:40:53
 teaser: jekyll-tags-categories.png
 categories: other
 tags: [jekyll]
