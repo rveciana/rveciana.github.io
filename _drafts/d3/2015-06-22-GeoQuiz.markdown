@@ -1,0 +1,8 @@
+---
+layout: post
+title:  "A GeoQuiz made with D3js"
+date:   2015-06-22
+teaser: d3-geo-quiz.png
+categories: d3
+tags: [game]
+---
