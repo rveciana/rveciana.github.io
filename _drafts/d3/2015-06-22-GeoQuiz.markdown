@@ -1,8 +1,54 @@
 ---
 layout: post
 title:  "A GeoQuiz made with D3js"
-date:   2015-06-22
-teaser: d3-geo-quiz.png
+date:   2015-07-01
+teaser: d3-geoquiz.png
 categories: d3
 tags: [game]
 ---
+My older daughter Faru is studying the Catalan regions, called *comarques*. There are some online resources to test your knowledge about the regions, but we didn't like them, so we decided to design and code one.
+
+You can check the game: [http://geoexamples.com/comarques/][game_web] and take a look to its code at [GitHub][github]
+
+<img src="{{ site.baseurl }}/images/d3/d3-geoquiz/screenshot.png" width="70%"/>
+
+
+The main structure
+------------------
+
+After looking several examples on creating a quiz using JavaScript, I finally got the simplest code to do this kind of things.
+
+So we need two functions. I've called them *drawOptions* and *checkAnswer*. The code would be more or less:
+
+{% highlight js %}
+var checkAnswer = function(correct_answer, selected_answer){
+  //Check the answer, draw the results, whatever, here
+  drawOptions();
+};
+
+var drawOptions = function(){
+  button
+  .on("click", function(d){checkAnswer(id_question, d);});
+};
+
+drawOptions();
+{% endhighlight %}
+
+Basically, the first thing to do is drawing the region to ask for, and the buttons with the options. All this is made in the *drawOptions* function, we will se how a bit later.
+
+The buttons will have an event that will call the *checkAnswer* function, passing the selected option and the correct result. This function will add the score, change the score bar and finish the game if all the regions have been asked.
+
+
+
+Next steps
+----------
+
+The most important failure in the example are the transitions when a click is done before the current transition ends (which will happen for sure when a kid plays). I've tried with [named transitions][named_transitions] and [interrupting the transitions][interrupting_transitions] but none of them work.
+
+An other cool thing to do would be separating the code from the exact questions, making it able to create games for any empty map (to learn the World countries or any country regions). The only mandatory thing would be to have always the same topojson format.
+
+
+[game_web]: http://geoexamples.com/comarques/
+[github]: https://github.com/rveciana/comarques/tree/gh-pages
+[named_transitions]: http://bl.ocks.org/mbostock/5d8039fb983a29e2ad49
+[interrupting_transitions]: https://github.com/mbostock/d3/wiki/Selections#interrupt
