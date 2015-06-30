@@ -6,7 +6,7 @@ teaser: d3-geoquiz.png
 categories: d3
 tags: [game]
 ---
-My older daughter Faru is studying the Catalan regions, called *comarques*. There are some online resources to test your knowledge about the regions, but we didn't like them, so we decided to design and code one.
+My older daughter Farida is studying the Catalan regions, called *comarques*. There are some online resources to test your knowledge about the regions, but we didn't like them, so we decided to design and code one.
 
 You can check the game: [http://geoexamples.com/comarques/][game_web] and take a look to its code at [GitHub][github]
 
