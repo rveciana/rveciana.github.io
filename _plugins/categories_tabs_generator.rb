@@ -15,7 +15,7 @@ module Jekyll
              if !File.exists?(tags_dir + '/' + tag_name)
                 puts "Creating tag page for: " + tag_name
                 tag_file = File.new(tags_dir + '/' + tag_name, "w")
-                tag_file.puts("---\nlayout: blog_by_tag\ntag: " + tag_name + "\npermalink: /tags/" + tag_name + "/\n---")
+                tag_file.puts("---\nlayout: blog_by_tag\ntag: " + tag_name + "\npermalink: /tags/" + tag_name + "/\navoid_main_menu: true\n---")
                 tag_file.close
 
                 regenerate_flag = true
