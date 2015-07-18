@@ -56,6 +56,11 @@ Education
 ### [Universitat de Barcelona](http://www.ub.edu/fisica/)
 Bachelor in Physics, Atmospheric Sciences and Meteorology
 
+Languages
+---------
+
+Catalan - Spanish - English - French (read and spoken) - Moroccan Arabic (begginer level)
+
 Interests
 ---------
 
