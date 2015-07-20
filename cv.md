@@ -70,4 +70,5 @@ Interests
 
 Other
 -----
-[Published articles](https://scholar.google.es/citations?user=AExSTAwAAAAJ&hl=ca)
+* [Published articles](https://scholar.google.es/citations?user=AExSTAwAAAAJ&hl=ca)
+* Some slides from workshops: [SIGTE2015](http://geoexamples.com/Mapas-web-interactivos-con-D3js/) - [SIGTE2014](http://geoexamples.com/introduccion-python-geoespacial/)
