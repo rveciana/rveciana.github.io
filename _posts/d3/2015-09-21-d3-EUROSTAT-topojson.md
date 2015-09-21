@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Mapping EUROSTAT data with D3js: Creating the TopoJSON"
-date:   2015-09-03
+date:   2015-09-21
 categories: d3
 tags: [EUROSTAT, Open Data]
 teaser: d3-nuts.png
