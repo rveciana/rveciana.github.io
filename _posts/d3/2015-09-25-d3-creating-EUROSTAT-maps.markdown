@@ -144,7 +144,7 @@ div.tooltip {
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
-<script src="https://raw.githubusercontent.com/rveciana/d3-composite-projections/master/src/conicConformalEurope-proj.js"></script>
+<script src="https://cdn.rawgit.com/rveciana/d3-composite-projections/v0.2.0/composite-projections.min.js"></script>
 <script>
 
 var div = d3.select("body").append("div")
