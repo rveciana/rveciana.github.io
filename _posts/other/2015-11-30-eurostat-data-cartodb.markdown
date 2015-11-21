@@ -8,6 +8,8 @@ teaser: cartodb-eurostat.png
 ---
 It's been a long time since I wanted to learn how to use CartoDB. I had played a little with it, but without a small challenge it's difficult togo anywhere. So I've made a map with the same EUROSTAT data used in the [previous post][previous post].
 
+I'll go really step-by-step (I'm still a rookie), but it's really straight forward.
+
 Obtaining the data
 ------------------
 
@@ -29,12 +31,38 @@ Once you have both files, *nuts_rg_01m_2013.zip* and *povertry_rate.csv*, upload
 
 <img src="{{ site.baseurl }}/images/other/eurostat-cartodb/upload.png"/>
 
+If you open the *nuts_rg_01m_2013* dataset, you will get a table with all the shapefile fields. If you choose the *MAP VIEW* option, you can get a first view of the Shapefile:
 
+<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/nuts.png"/>
+
+Open now the *povertry_rate* dataset. There is a thing to do here. By default, the fields are all strings, and we want the povertry rates to be floats, since then CartoDB can order and colour the values. This image shoes how to do it. We will use the rate_2013 field, since its the one that will match the NUTS file from 2013 and has all the data (unlike the 2014):
+
+<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/data_type.png"/>
+
+Merging the datasets
+--------------------
+
+There are two options to join both tables. The first one is to use the *merge datasets* button:
+
+<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/merge_button.png"/>
+
+It's maybe an easiest option, but not very convenient, since it will create a new table with the merged data. If you are using the free CartoDB version, this will make you run out of space very fast.
+
+SELECT a.cartodb_id, a.the_geom_webmercator,
+b.rate_2013, b.geo_l_time as name
+FROM nuts_rg_01m_2013 a, povertry_rate b
+where
+b.geo = a.nuts_id
+and a.stat_levl_ = 0
+
+
+<iframe width="100%" height="520" frameborder="0" src="https://rveciana.cartodb.com/viz/5a239902-9074-11e5-a3da-0ecd1babdde5/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
 
 Links
 -----
-[Mapping EUROSTAT data with D3js][previous post]
 
+* [Mapping EUROSTAT data with D3js][previous post]
+* [Download the NUTS regions file][download regions]
 
 [previous post]: ../d3/2015/09/25/d3-creating-EUROSTAT-maps.html
 [download regions]: http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units
