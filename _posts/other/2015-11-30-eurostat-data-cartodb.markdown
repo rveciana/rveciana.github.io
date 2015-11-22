@@ -6,7 +6,9 @@ categories: other
 tags: [EUROSTAT, Open Data, CartoDB]
 teaser: cartodb-eurostat.png
 ---
-It's been a long time since I wanted to learn how to use CartoDB. I had played a little with it, but without a small challenge it's difficult togo anywhere. So I've made a map with the same EUROSTAT data used in the [previous post][previous post].
+It's been a long time since I wanted to learn how to use CartoDB. Everybody around me is using it, even some colleagues are now working there, so I definitely had to know how to use it so I can talk with them!
+
+I had played a little with it, but without a small challenge it's difficult to go anywhere. So I've made a map with the same EUROSTAT data used in the [previous post][previous post]. I'm happy with the result, and it's really a good tool to create nice and useful maps very fast.
 
 I'll go really step-by-step (I'm still a rookie), but it's really straight forward.
 
@@ -35,7 +37,7 @@ If you open the *nuts_rg_01m_2013* dataset, you will get a table with all the sh
 
 <img src="{{ site.baseurl }}/images/other/eurostat-cartodb/nuts.png"/>
 
-Open now the *povertry_rate* dataset. There is a thing to do here. By default, the fields are all strings, and we want the povertry rates to be floats, since then CartoDB can order and colour the values. This image shoes how to do it. We will use the rate_2013 field, since its the one that will match the NUTS file from 2013 and has all the data (unlike the 2014):
+Open now the *povertry_rate* dataset. There is a thing to do here. By default, the fields are all strings, and we want the povertry rates to be floats, since then CartoDB can order and color the values. This image shoes how to do it. We will use the rate_2013 field, since its the one that will match the NUTS file from 2013 and has all the data (unlike the 2014):
 
 <img src="{{ site.baseurl }}/images/other/eurostat-cartodb/data_type.png"/>
 
@@ -46,23 +48,71 @@ There are two options to join both tables. The first one is to use the *merge da
 
 <img src="{{ site.baseurl }}/images/other/eurostat-cartodb/merge_button.png"/>
 
-It's maybe an easiest option, but not very convenient, since it will create a new table with the merged data. If you are using the free CartoDB version, this will make you run out of space very fast.
+It's maybe an easiest option, but not very convenient, since it will create a new table with the merged data. If you are using the free CartoDB version, this will make you run out of space very fast. The alternative is creating a good SQL query that joins the two tables dynamically. I'll explain it in the next section.
 
+Creating the map
+----------------
+
+Creating a map is very easy. When you select a *dataset*, there's a button to do so. But in our case, we want to change the SQL, so we will create an independent map:
+
+Go to your account's maps section:
+
+<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/maps_section.png"/>
+
+Then, create a new map. At the *sql section*, paste the following code:
+
+{% highlight sql %}
 SELECT a.cartodb_id, a.the_geom_webmercator,
 b.rate_2013, b.geo_l_time as name
 FROM nuts_rg_01m_2013 a, povertry_rate b
-where
+WHERE
 b.geo = a.nuts_id
-and a.stat_levl_ = 0
+AND a.stat_levl_ = 0
+{% endhighlight %}
 
+* Note that the *SELECT* is a regular PosgreSQL/PostGIS query
+* At the *FROM* part of the query I've selected the two datasets
+* *a.cartodb_id* is necessary to make queries over the map (*onclick* and *onmouseover*)
+* *a.the_geom_webmercator* is necessary to get the geometries from the *nuts_rg_01m_2013* dataset. When joining two tables, CartoDB needs to know which is the geometry column from the result
+* The other selected fields are the name and the povertry rate, necessary to put colors and create the *onclick* queries
+* The *WHERE* section joins both tables and selects only the countries (NUTS0, stored at the *stat_levl_* field)
+
+<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/sql_section.png"/>
+
+Formatting the map
+------------------
+
+Now, we only have to format the map a little. The first thing, let's create a choropleth map. Just put the settings as in the following image:
+
+<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/colours.png"/>
+
+This will color the map, but with the intervals set automatically. It's a nice start, but the intervals aren't the best ones. To change it, just change the *css* section:
+
+<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/colours.png"/>
+
+You can change the scale at the *scale section* under the *css section*. Finally, activate the *onclick* behaviour:
+
+<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/click.png"/>
+
+
+The result
+----------
+
+At the top right corner, you can find how to publish the new map. Here you have the result:
 
 <iframe width="100%" height="520" frameborder="0" src="https://rveciana.cartodb.com/viz/5a239902-9074-11e5-a3da-0ecd1babdde5/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+
+Once done the first time, creating new maps is really easy. I'm impressed with it!
 
 Links
 -----
 
 * [Mapping EUROSTAT data with D3js][previous post]
 * [Download the NUTS regions file][download regions]
+* [CartoDB docs][general docs]
+* [CartoDB editor docs][editor docs]
 
 [previous post]: ../d3/2015/09/25/d3-creating-EUROSTAT-maps.html
 [download regions]: http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units
+[general docs]: http://docs.cartodb.com/
+[editor docs]: http://docs.cartodb.com/cartodb-editor/
