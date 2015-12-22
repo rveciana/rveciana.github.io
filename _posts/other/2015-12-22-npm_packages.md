@@ -1,18 +1,20 @@
 ---
 layout: post
-title:  "How did I create a D3 projection"
-date:   2016-01-01
+title:  "Creating a D3 NPM package"
+date:   2015-12-22
 teaser: npm-packages.png
-categories: d3
+categories: other
 tags: [npm, nodejs, bower, travis, mocha, tutorial, projections]
 ---
 
-Some months ago I created a D3js projection, and published it to NMP and Bower. I wanted to use the oportunity to learn about Nodejs, npm and so on. I write this post to remember all the steps I followed, maybe is interesting for someone else.
+Some months ago I created a D3js projection, and published it to NMP and Bower. I wanted to use the opportunity to learn about Nodejs, NPM and so on. I write this post to remember all the steps I followed, and maybe is interesting for someone else.
 
 The final code
 --------------
 
-[Original post][d3-composite-projections post]
+The library I will talk about is explained in the [original d3-composite-projections post][d3-composite-projections post]. You can download it or take a look to the code at the [project's GitHub page][github page]. If you already know how to use npm, just type `npm install d3-composite-projections`.
+
+I won't talk about the code itself, but about the tools I used to create it.
 
 Creating the nodejs project
 ---------------------------
@@ -46,7 +48,7 @@ npm install --save-dev name_of_the package
 Managing the workflow with gulp
 -------------------------------
 
-A task manager is very useful when working with node. Since I'm not using an IDE like Eclipse or NetBeans, all the tasks are run from the command line, and when the project grows a little, running all the commands can be long. Gulp helps you to do all this authomatically creating what they call *tasks*. The tasks use *strams*, which are remember me a little the unix pipes.
+A task manager is very useful when working with node. Since I'm not using an IDE like Eclipse or NetBeans, all the tasks are run from the command line, and when the project grows a little, running all the commands can be long. Gulp helps you to do all this automatically creating what they call *tasks*. The tasks use *streams*, which are remember me a little the unix pipes.
 
 To [install gulp][gulp-install], you have to type:
 {% highlight bash %}
@@ -85,7 +87,7 @@ This is one of the most common tasks. It takes several source files, removes the
 
 * gulp.src sets the source files. In our case, all the files under the *src* folder
 * gulp_newer adds a condition: Only act if the source is newer than the *composite-projections.js* file
-* gulp_strip removes the comments so the ouput file is smaller
+* gulp_strip removes the comments so the output file is smaller
 * gulp_concat merges all the files in one, named *composite-projections.js*. This will be the main file in our project
 * gulp.dest sets the output folder to this stream. Now, the file is saved, but the stream is still open to do the following steps
 * gulp_rename changes the name of the output
@@ -106,7 +108,7 @@ Usually, the *default* task will have several dependencies, so they run all, and
 gulp.task('default', ['lint','build', 'build_separated','test','license_year'], function(){});
 {% endhighlight %}
 
-There are several libraries similar to gulp, [grunt][grunt] is the most popular. I chose gulp after looking some comparisons, and because it was the las hype. I'm happy with it, but the others seem nice too.
+There are several libraries similar to gulp, [grunt][grunt] is the most popular. I chose gulp after looking some comparisons, and because it was the last hype. I'm happy with it, but the others seem nice too.
 
 
 Linting the code
@@ -228,8 +230,8 @@ npm publish
 {% endhighlight %}
 1. You have to either create a user or set your existing user to the project.
 2. config ls will test if the user is set properly
-3. publish will pusblish if everything is well configured
-4. If you want to publish a new bersion, you have first to create it using version. The *package.json* file will have a new version, and the git repo will be tagged with the new version too. The update types are:
+3. publish will publish if everything is well configured
+4. If you want to publish a new version, you have first to create it using version. The *package.json* file will have a new version, and the git repo will be tagged with the new version too. The update types are:
 ..1. patch: v0.0.1 will become v0.0.2
 ..2. minor: v0.0.1 will become v0.1.0
 ..3. major: v0.0.1 will become v1.0.0
@@ -271,12 +273,61 @@ bower register <my-package-name> <git-endpoint>
 {% endhighlight %}
 1. init will prompt some questions and create the *bower.json* file, as npm init did
 2. The install system is identical to the npm one
-3. Register uploads the project to bower. Ths works slightly different from npm, since bower will look at GitHub directly for new versions, so there is no need to interact with it any more, just remember to change the tag in the *bower.json* file
+3. Register uploads the project to bower. This works slightly different from npm, since bower will look at GitHub directly for new versions, so there is no need to interact with it any more, just remember to change the tag in the *bower.json* file
 
 Continuous integration with Travis
 ----------------------------------
 
+[Travis CI][travis home] is a continuous integration tool that works very well with node.js and GitHub. It builds and tests all your files each time a commit is pushed to GitHub, and can even deploy the changes to NPM automatically only if everything goes well.
+
+The first thing to set up Travis is to create your account. You can do it directly from GitHub, who will ask you a permission. Then, you can take the three steps shown in this image:
+
+<img src="{{ site.baseurl }}/images/other/d3-library/travis.png"/>
+
+* Select the project you want to link
+* Create the .travis.yml file. In our case, use the [Travis javascript tutorial][travis node], and specifically the [Travis gulp section][travis gulp]
+* Publishing any commit will run your project at travis
+
+Since I was using a nodejs version higher than 4, [this section][travis node4] applies too. It may seem complicated, but the resulting file is quite simple:
+{% highlight yaml %}
+language: node_js
+node_js:
+- 5.2.0
+before_script:
+- npm install -g gulp
+script: gulp
+env:
+- CXX=g++-4.8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+{% endhighlight %}
+To automatize the NPM publication, you can use the travis command line. First, install it [using this instructions][travis client]. Then, just type
+{% highlight bash %}
+travis encrypt YOUR_API_KEY --add deploy.api_key
 travis setup npm
+{% endhighlight %}
+The API key can be found at `~/.npmrc` and must be encrypted with the first command. The second command will add the configuration at your .travis.yml file. You just have to answer the questions. You can find more information in [this tutorial][travis npm]. My final deploy section looks like this:
+{% highlight yaml %}
+deploy:
+  provider: npm
+  email: rveciana@gmail.com
+  api_key:
+    secure: EncryptedAPI
+  on:
+    tags: true
+    repo: rveciana/d3-composite-projections
+{% endhighlight %}
+The `tags: true` tag makes travis to deploy to NPM only if a tag has been changed, so other commits I may push will run the tests but won't change anything at the NPM repository.
+
+When you go to the [travis project page][travis project page], you will find a small image like this:
+
+[![travis image][travis image]][travis project page]
+
+you can insert it into your README.md file or wherever you want so people can know if the last version is giving a good build result.
 
 [npm home]: https://www.npmjs.com/
 [installing Nodejs]: https://nodejs.org/en/download/
@@ -296,6 +347,13 @@ travis setup npm
 [gulp-git]: https://www.npmjs.com/package/gulp-git
 [bower]: http://bower.io/
 [bower creation]: http://bower.io/docs/creating-packages/
+[travis home]: https://travis-ci.org/
+[travis node]: https://docs.travis-ci.com/user/languages/javascript-with-nodejs
+[travis gulp]: https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Using-Gulp
+[travis node4]: https://docs.travis-ci.com/user/languages/javascript-with-nodejs#Node.js-v4-%28or-io.js-v3%29-compiler-requirements
 [travis npm]: https://docs.travis-ci.com/user/deployment/npm#stq=&stp=0
 [travis client]: https://blog.travis-ci.com/2013-01-14-new-client/
+[travis project page]: https://travis-ci.org/rveciana/d3-composite-projections
+[travis image]: https://travis-ci.org/rveciana/d3-composite-projections.svg?branch=master
 [d3-composite-projections post]: /d3/2015/05/12/d3-composite-projections.html
+[github page]: https://github.com/rveciana/d3-composite-projections
