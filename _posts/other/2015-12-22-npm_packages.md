@@ -316,7 +316,7 @@ deploy:
   provider: npm
   email: rveciana@gmail.com
   api_key:
-    secure: EncryptedAPI
+    secure: EncryptedAPIKey
   on:
     tags: true
     repo: rveciana/d3-composite-projections
