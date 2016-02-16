@@ -75,7 +75,7 @@ nosetests3 --with-coverage --cover-erase --cover-tests --cover-package `echo */|
 {% endhighlight %}
 And then, create the *external tool* this way:
 
-<img src="{{ site.baseurl }}/images/python/pycharm-coverage/coverage1.png"/>
+<img src="{{ site.baseurl }}/images/python/pycharm-coverage/coverage2.png"/>
 
 * All the available packages are passed to the *--cover-package* option so no prompt is needed
 * Since the *working directory* is set to the project root, the paths are at the correct point
