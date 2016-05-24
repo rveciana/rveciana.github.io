@@ -8,6 +8,6 @@ permalink: /about/
 <h2>{{ site.author.name }}</h2>
 I'm a meteorologist based in Barcelona who likes maps and coding. [You can take a look at my CV](/cv)
 
-I opened this blog to talk about the things I'm learning abut python and JavaScript mapping.
+I opened this blog to talk about the things I'm learning about python and JavaScript mapping.
 
 [The old GeoExamples blog](http://geoexamples.blogspot.com.es/) is still working with all its posts.
