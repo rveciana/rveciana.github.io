@@ -6,11 +6,13 @@
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
+  {% if page.twitter-card %}
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@rveciana" />
   <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
   <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}GeoExamples is a blog about JavaScript and python mapping{% endif %}" />
   <meta name="twitter:image" content="{% if page.thumbnail %}{{site.url}}{{page.thumbnail}}{% else %}{{site.url}}/images/twitter-simple-default.png{% endif %}" />
+  {% endif %}
 
   <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">

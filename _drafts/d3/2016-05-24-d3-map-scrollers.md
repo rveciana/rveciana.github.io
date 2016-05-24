@@ -7,6 +7,7 @@ tags: []
 teaser: d3-map-scrollers.png
 description: Tutorial about scrolled animated maps
 thumbnail: /images/d3/d3-scroller/twitter.png
+twitter-card: summary
 ---
 Scrollers are a cool way to show data visualizations in general, and maps where things happen in particular. I've been wanting to do one since I watched [this Mike Bostock example](http://www.nytimes.com/newsgraphics/2013/10/13/russia/), and now I've finally learned how to do it.
 
