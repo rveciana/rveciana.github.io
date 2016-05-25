@@ -3,7 +3,7 @@ layout: post
 title:  "D3 map scrollers"
 date:   2016-05-25
 categories: d3
-tags: []
+tags: [scroll]
 teaser: d3-map-scrollers.png
 description: Tutorial about scrolled animated maps
 thumbnail: /images/d3/d3-scroller/twitter.png
