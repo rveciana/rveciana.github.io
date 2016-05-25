@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "D3 map scrollers"
-date:   2016-05-24
+date:   2016-05-25
 categories: d3
 tags: []
 teaser: d3-map-scrollers.png
