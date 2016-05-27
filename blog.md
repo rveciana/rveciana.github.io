@@ -4,14 +4,9 @@ title: Blog
 permalink: /blog/
 ---
 <h1>Categories</h1>
-{% for category in site.categories %}
 
-        <a href="{{base_url}}/categories/{{ category | first}}/">
-            {{ category | first }}
-        </a>
-        {% unless forloop.last %}, {% endunless %}
+{% for category in site.categories %}<a href="{{base_url}}/categories/{{ category | first}}/">{{ category | first }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}
 
-{% endfor %}
 <h1>Tags</h1>
 <div class="tagcloud">
 {% for tag in site.tags %}
