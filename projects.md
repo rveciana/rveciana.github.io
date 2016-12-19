@@ -5,6 +5,12 @@ permalink: /projects/
 ---
 Some of my personal projects:
 
+<h2><a href="http://geoexamples.com/d3-raster-tools-docs/">d3-raster-tools-docs</a></h2>
+<a href="http://http://geoexamples.com/d3-raster-tools-docs/"><img class="teaser" src="{{ site.baseurl }}/images/teasers/d3-raster-tools-docs.png" alt="teaser" itemprop="image"></a>
+Drawing raster data using d3js is quite undocummented. This small documentation explains how to work with raster data and the d3js to create dynamic data visualizations.
+
+Includes isolines, isobands, direct raster values drawing and streamlines, barbs and vector images from vectorial fields.
+
 <h2><a href="http://geoexamples.com/d3-composite-projections/">d3-composite-projections</a></h2>
 <a href="http://geoexamples.com/d3-composite-projections/"><img class="teaser" src="{{ site.baseurl }}/images/teasers/d3-composite-projections.png" alt="teaser" itemprop="image"></a>
 Set of d3 projections for showing countries' distant lands together.
