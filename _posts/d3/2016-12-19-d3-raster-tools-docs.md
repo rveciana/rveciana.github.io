@@ -9,7 +9,7 @@ description: Use d3js for dynamic raster data drawing
 thumbnail: /images/d3/d3-raster-tools-docs/twitter.png
 twitter-card: summary
 ---
-I've written a [short tutorial]({{ site.baseurl }}/d3-raster-tools-docs) that explains how to work with raster data and the [d3js](https://d3js.org/) to create dynamic data visualizations.
+I've written a [short tutorial]({{ site.baseurl }}/d3-raster-tools-docs) explaining how to work with raster data and [d3js](https://d3js.org/) to create dynamic data visualizations.
 
 Usually, the examples show how to place points or polygons on a map. Those examples are working with [vectorial data](http://gis.stackexchange.com/questions/57142/what-is-the-difference-between-vector-and-raster-data-models ). But many datasets are rasters, so the lack of examples and libraries made difficult to use [d3js](https://d3js.org/) with meteorological data, [DEM data](https://en.wikipedia.org/wiki/Digital_elevation_model), etc.
 
