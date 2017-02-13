@@ -1,0 +1,83 @@
+{"width": 800,
+"height": 600,
+"minScale": 500,
+"maxScale": 20000,
+"iniScale": 700,
+"backgroundLayers":{"limits":{
+  "file": "data/world-110m.json",
+  "type": "topojson",
+  "topojsonName": "countries",
+  "bottomFill":"#ddd",
+  "topStroke":"#555",
+  "active": true
+  },
+  "limits2": {
+    "file": "data/world-110m.json",
+    "type": "topojson",
+    "topojsonName": "countries",
+    "bottomFill":"#fdd",
+    "topStroke":"#f55"
+    }},
+"dataLayers":{"gfs2m":
+  {
+    "model": "gfs",
+    "variable": "Temp",
+    "level": "sfc",
+    "file": "example_data/temp00.tiff",
+    "type": "isobands",
+    "scale": [{"value": -50, "color": "#f442e2"},
+            {"value": -42, "color": "#380332"},
+            {"value": -39, "color": "#5b0052"},
+            {"value": -36, "color": "#7a0045"},
+            {"value": -33, "color": "#b70068"},
+            {"value": -30, "color": "#fc008f"},
+            {"value": -27, "color": "#d80f81"},
+            {"value": -24, "color": "#c42d82"},
+            {"value": -21, "color": "#ef39a0"},
+            {"value": -18, "color": "#f442e2"},
+            {"value": -15, "color": "#df42f4"},
+            {"value": -12, "color": "#b642f4"},
+            {"value": -9, "color": "#8042f4"},
+            {"value": -6, "color": "#053061"},
+            {"value": -3, "color": "#2a71ae"},
+            {"value": 0, "color": "#6bacd0"},
+            {"value": 3, "color": "#bfdceb"},
+            {"value": 6, "color": "#f2efee"},
+            {"value": 9, "color": "#faccb4"},
+            {"value": 12, "color": "#e48268"},
+            {"value": 16, "color": "#b82d35"},
+            {"value": 19, "color": "#f48c42"},
+            {"value": 21, "color": "#f4ce42"},
+            {"value": 24, "color": "#f4ee42"},
+            {"value": 27, "color": "#968a1f"}],
+    "active": true
+    },
+    "wrft850":
+      {
+        "model": "wrf",
+        "variable": "Temp",
+        "level": "850",
+        "file": "example_data/t850.tiff",
+        "type": "isobands",
+        "scale": [{"value": -6, "color": "#053061"},
+                {"value": -3, "color": "#2a71ae"},
+                {"value": 0, "color": "#6bacd0"},
+                {"value": 3, "color": "#bfdceb"},
+                {"value": 6, "color": "#f2efee"},
+                {"value": 9, "color": "#faccb4"},
+                {"value": 12, "color": "#e48268"},
+                {"value": 16, "color": "#b82d35"}],
+        "active": false
+        },
+    "wrfpsfc":
+      {
+        "model": "gfs",
+        "variable": "Press",
+        "level": "sfc",
+        "file": "example_data/p00.tiff",
+        "type": "isolines",
+        "scale": [980, 985, 990, 995, 1000, 1005, 1010, 1015, 1020, 1025, 1030, 1035],
+        "active": true
+        }
+    }
+}

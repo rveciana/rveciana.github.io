@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+  <title>Visor de modelització</title>
+  <script src="model-viewer.js"></script>
+
+  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> load bootstrap css -->
+  <script src="bootstrap/jquery.min.js"></script>
+  <script src="bootstrap/bootstrap.min.js"></script>
+  <style>
+  .activeSelection {
+    color: blue !important;
+    background: red !important;
+  }
+
+  .glyphicon-isobands:before {
+    content: "\07fb";
+  }
+  .glyphicon-isolines:before {
+    content: "\07fc";
+  }
+
+  #toolTip {
+    margin: 0;
+    padding: 10px;
+    width: 180px;
+    color: white;
+    font-family: sans-serif;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-align: center;
+    background-color: rgba(150, 150, 150, 0.55);
+    pointer-events: none;
+    border-radius:5px;
+
+  }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="dropdown" id="backgroundSelect">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Background<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          </ul>
+        </li>
+        <li class="dropdown" id="modelSelect">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Model<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          </ul>
+        </li>
+        <li class="dropdown" id="variableSelect">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Variable<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          </ul>
+        </li>
+        <li class="dropdown" id="levelSelect">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Level<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+          </ul>
+        </li>
+        <li>
+          <a href="#" id="downloadButton"><span class="glyphicon glyphicon-cloud-download"></span> Download</a>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </nav>
+  <div id="viewer"></div>
+  <script>
+
+  var viewer = new d3.viewer(d3.select("#viewer"), "config.json", createControls);
+  function createControls(){
+    var config = viewer.getConfig();
+    var activeDataLayers = viewer.getActiveDataLayers();
+
+    //Backgrounds
+    Object.keys(config.backgroundLayers).forEach(function(layer){
+      var activeClass = "";
+      if(config.backgroundLayers[layer].active){activeClass = "class='activeSelection' ";}
+      $("#backgroundSelect ul").append("<li value='"+layer+"' "+activeClass+"><a href='#'>"+layer+"</a></li>");
+
+    });
+    $("#backgroundSelect li").click(function(c){
+      if($(this).hasClass('activeSelection')){
+        $(this).removeClass('activeSelection');
+        viewer.removeBackgroundLayer($(this).attr("value"))
+      } else {
+        $(this).addClass('activeSelection');
+        viewer.addBackgroundLayer($(this).attr("value"))
+      }
+
+    });
+
+  //Data layers
+  var dataOptions = {};
+  Object.keys(config.dataLayers).forEach(function(layerId){
+    var model = config.dataLayers[layerId].model;
+    var variable = config.dataLayers[layerId].variable;
+    var level = config.dataLayers[layerId].level;
+    if(!(model in dataOptions)){dataOptions[model] = {};}
+    if(!(variable in dataOptions[model])){dataOptions[model][variable] = {};}
+    dataOptions[model][variable][level] = {"active": config.dataLayers[layerId]['active']?true:false,
+                                          "layerId": layerId};
+  });
+
+  Object.keys(dataOptions).forEach(function(model){
+    $("#modelSelect ul").append("<li value='"+model+"' ><a href='#'>"+model+"</a></li>");
+    Object.keys(dataOptions[model]).forEach(function(variable){
+      $("#variableSelect ul").append("<li value='"+variable+"' ><a href='#'>"+variable+"</a></li>");
+      Object.keys(dataOptions[model][variable]).forEach(function(level){
+        $("#levelSelect ul").append("<li value='"+level+"' layer='"+dataOptions[model][variable][level]["layerId"]+"' ><a href='#'>"+level+"</a></li>");
+        });
+    });
+  });
+
+ colorSelectedFields();
+
+ function colorSelectedFields() {
+    $("#modelSelect li ").removeClass("activeSelection");
+    $("#variableSelect li ").removeClass("activeSelection");
+    $("#levelSelect li ").removeClass("activeSelection");
+    Object.keys(activeDataLayers).forEach(function(layer){
+      $("#modelSelect li ").filter(function(index){return $( this ).attr( "value" ) === activeDataLayers[layer]['model'];})
+        .addClass("activeSelection");
+      $("#variableSelect li ").filter(function(index){return $( this ).attr( "value" ) === activeDataLayers[layer]['variable'];})
+        .addClass("activeSelection");
+      $("#levelSelect li ").filter(function(index){return $( this ).attr( "value" ) === activeDataLayers[layer]['level'];})
+        .addClass("activeSelection");
+    });
+  }
+
+  $("#levelSelect li").click(function(c){
+    viewer.toggleDataLayer($(this).attr("layer"));
+    colorSelectedFields();
+  });
+
+  //DOWNLOAD BUTTON
+  $("#downloadButton").click(function(){
+    var dt = $("#viewer canvas").get(0).toDataURL('image/png');
+    dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
+    dt = dt.replace(/^data:application\/octet-stream/, 'data:application/octet-stream;headers=Content-Disposition%3A%20attachment%3B%20filename=Canvas.png');
+    this.href = dt;
+    this.download = "model.png";
+  });
+
+  }
+
+
+  </script>
+</body>
+</html>
