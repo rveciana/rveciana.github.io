@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <html>
 <head>
-  <title>Model viewer</title>
+  <title>Visor de modelització</title>
   <script src="model-viewer.js"></script>
 
   <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
@@ -108,17 +108,35 @@
                                           "layerId": layerId};
   });
 
-  Object.keys(dataOptions).forEach(function(model){
-    $("#modelSelect ul").append("<li value='"+model+"' ><a href='#'>"+model+"</a></li>");
-    Object.keys(dataOptions[model]).forEach(function(variable){
-      $("#variableSelect ul").append("<li value='"+variable+"' ><a href='#'>"+variable+"</a></li>");
-      Object.keys(dataOptions[model][variable]).forEach(function(level){
-        $("#levelSelect ul").append("<li value='"+level+"' layer='"+dataOptions[model][variable][level]["layerId"]+"' ><a href='#'>"+level+"</a></li>");
-        });
-    });
-  });
 
- colorSelectedFields();
+ setDropdown();
+
+  function setDropdown(modelId, variableId, levelId){
+    $("#modelSelect ul").empty();
+    $("#variableSelect ul").empty();
+    $("#levelSelect ul").empty();
+    Object.keys(dataOptions).forEach(function(model){
+      $("#modelSelect ul").append("<li value='"+model+"' ><a href='#'>"+model+"</a></li>");
+    });
+    if(!modelId){modelId = Object.keys(dataOptions)[0];}
+    Object.keys(dataOptions[modelId]).forEach(function(variable){
+      $("#variableSelect ul").append("<li value='"+variable+"' modelValue='"+modelId+"'><a href='#'>"+variable+"</a></li>");
+    });
+    if(!variableId){variableId = Object.keys(dataOptions[modelId])[0];}
+    Object.keys(dataOptions[modelId][variableId]).forEach(function(levelId){
+      $("#levelSelect ul").append("<li value='"+levelId+"' layer='"+dataOptions[modelId][variableId][levelId]["layerId"]+"' ><a href='#'>"+levelId+"</a></li>");
+    });
+
+    $("#variableSelect li").click(function(c){
+      setDropdown($( this ).attr( "modelValue" ), $( this ).attr( "value" ));
+    });
+
+    $("#levelSelect li").click(function(c){
+      viewer.toggleDataLayer($(this).attr("layer"));
+      colorSelectedFields();
+    });
+    colorSelectedFields();
+  };
 
  function colorSelectedFields() {
     $("#modelSelect li ").removeClass("activeSelection");
@@ -134,10 +152,6 @@
     });
   }
 
-  $("#levelSelect li").click(function(c){
-    viewer.toggleDataLayer($(this).attr("layer"));
-    colorSelectedFields();
-  });
 
   //DOWNLOAD BUTTON
   $("#downloadButton").click(function(){
