@@ -3,7 +3,7 @@ layout: post
 title: Cython with PyCharm community
 date:   2017-04-20
 categories: python
-tags: [PyCharm, Cython]
+tags: [PyCharm, cython]
 teaser: pycharm-coverage.png
 ---
 
