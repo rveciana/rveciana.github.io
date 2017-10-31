@@ -3,12 +3,25 @@ layout: post
 title: Raster file formats for JavaScript mapping
 date:   2017-10-26
 categories: d3
-tags: [raster, canvas, retina]
-teaser: canvas-retina.png
-description: Creating canvas maps compatible with retina screens
-thumbnail: /images/d3/canvas-mapping-retina/twitter.png
+tags: [raster, canvas, svg]
+teaser: raster-file-formats-javascript.png
+description: Different options to retrieve raster data using JavaScript
+thumbnail: /images/d3/raster-file-formats-javascript/twitter.png
 twitter-card: summary
 ---
+
+Some time ago, I made some docs about [drawing raster data with d3js][1]. 
+
+All the examples GeoTIFF files to get the data, but there are many other possibilities. I've made the exercice to create some examples using the same dataset but different strategies for creating the data with different formats.
+
+The data
+--------
+
+All the examples use the data from [this block][2]. You can see [how I got the data here][3]. I have taken only the first layer (msl pressure) to make the examples simpler:
+
+    gdal_translate -b 1 vardah.tiff vardah_new.tiff
+
+You can [download here][4] the original [vardah.tiff][4] file.
 
 Creating Python sample files
 ----------------------------
@@ -34,7 +47,6 @@ fp.write(struct.pack(str(len(out_data))+'f', *out_data))
 fp.close()
 
 
-##########
 # LZW
 
 def compress(uncompressed):
@@ -389,3 +401,17 @@ https://gist.github.com/revolunet/843889
 
 
  Convertir char a unsignedChar (struct c a B): String.charCodeAt(uncompressed[0])
+
+
+Links
+-----
+
+* [drawing raster data with d3js][1]
+* [Vardah and leaflet block][2]
+* [Generating the Vardah data file][3]
+* [The original geotiff file][4]
+
+[1]: http://geoexamples.com/d3-raster-tools-docs/
+[2]: http://bl.ocks.org/rveciana/420a33fd0963e2a6aad16da54725af36
+[3]: http://geoexamples.com/d3-raster-tools-docs/code_samples/vardah.html
+[4]: bl.ocks.org/rveciana/raw/420a33fd0963e2a6aad16da54725af36/vardah.tiff
