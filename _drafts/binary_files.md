@@ -14,6 +14,19 @@ Some time ago, I made some docs about [drawing raster data with d3js][1].
 
 All the examples GeoTIFF files to get the data, but there are many other possibilities. I've made the exercice to create some examples using the same dataset but different strategies for creating the data with different formats.
 
+* [The data](#the-data)
+* [GeoTIFF](#geotiff)
+    + [Compression](#compression)
+    + [HTML example](#html-example)
+* [NetCDF](#netcdf)
+    + [HTML example](#html-example-1)
+* [JSON](#json)
+* [JSON with encoded data](#json-with-encoded-data)
+* [Binary data](#binary-data)
+* [LZW compressed binary data](#lzw-compressed-binary-data)
+* [Performance comparison](#performance-comparison)
+
+
 The data
 --------
 
@@ -43,7 +56,7 @@ Other compression options are not available with the geotiffjs library.
 Another thing to take in account is the metadata. The geotransform data is stored in a quite strange way (see tiepoint and pxelscale in the [example][1], and the GDAL metadata, in a special "GDAL" tag, which is not easy to find, although it is not when using python+GDAL.
 
 ### HTML example
-
+{% highlight js %}
 <!DOCTYPE html>
 <html>
     <meta>
@@ -77,6 +90,59 @@ oReq.send(); //start process
 
 NetCDF
 ------
+NetCDF is a popular format among meteorology data. The format is quite simple and very flexible. As in the case of GeoTIFF, GDAL can write NetCDF files with a special form and there is a [JavaScript library, netcdfjs][6] that reads the format and it's fast and not very big.
+
+To create a NetCDF file from a GeoTIFF, just run:
+
+    gdal_translate -of netCDF -b 1 vardah.tiff vardah.nc
+
+The name of the output band will be *Band1*, which is not very nice, since the actual name is stored in another field, not the one used to retrieve the data.
+
+### HTML example
+{% highlight js %}
+<!DOCTYPE html>
+<html>
+    <meta>
+    <script src='netcdfjs.js'></script>
+    </meta>
+
+    <body>
+<script>
+
+var urlpath =  "vardah.nc"
+var reader;
+
+var oReq = new XMLHttpRequest();
+oReq.open("GET", urlpath, true);
+oReq.responseType = "blob";
+
+oReq.onload = function(oEvent) {
+  var t0 = performance.now();    
+  var blob = oReq.response;
+  reader_url = new FileReader();
+  
+  reader_url.onload = function(e) {
+    var t0 = performance.now();
+    reader = new netcdfjs(this.result);
+    var dataValues = reader.getDataVariable('Band1');
+    var t1 = performance.now();
+    console.log("Decoding took " + (t1 - t0) + " milliseconds.")
+  }
+      
+  var arrayBuffer = reader_url.readAsArrayBuffer(blob);
+  
+};
+oReq.send(); //start process
+
+
+</script>
+{% endhighlight %}
+
+* The variables *lat* and *lon* return the geographical coordinates for every pixel, which is a good feature
+* Some metadata is stored in different variables and fields. Take a look to the library api to see them, but:
+    * Printing *reader.variables* will output a set ob objects with the projection information, longitudes and latitudes
+    * *reader.dimensions* stores the matrix size
+    * *globalAttributes* stores other metadata, such as the creation date, GDAL information, etc
 
 JSON
 ----
@@ -398,50 +464,6 @@ function uncompress(compressed) {
 </script>
 {% endhighlight %}
 
-{% highlight js %}
-<!DOCTYPE html>
-<html>
-    <meta>
-    <script src='netcdfjs.js'></script>
-    </meta>
-
-    <body>
-<script>
-
-var urlpath =  "vardah.nc"
-var reader;
-
-var oReq = new XMLHttpRequest();
-oReq.open("GET", urlpath, true);
-oReq.responseType = "blob";
-
-oReq.onload = function(oEvent) {
-  var t0 = performance.now();    
-  var blob = oReq.response;
-  reader_url = new FileReader();
-  
-  reader_url.onload = function(e) {
-    reader = new netcdfjs(this.result);
-    console.info("DONE", reader.variables);
-    var dataValues = reader.getDataVariable('Band1');
-    //console.info(dataValues);
-    var t1 = performance.now();
-    console.log("Decoding took " + (t1 - t0) + " milliseconds.")
-    console.info(dataValues);
-    var dataValues = reader.getDataVariable('lat');
-    console.info(dataValues);
-  }
-      
-  var arrayBuffer = reader_url.readAsArrayBuffer(blob);
-  
-};
-oReq.send(); //start process
-
-
-</script>
-{% endhighlight %}
-
-
 Altres coses
 ------------
 gdal_translate -of netCDF -b 1 vardah.tiff vardah.nc
@@ -480,9 +502,11 @@ Links
 * [Generating the Vardah data file][3]
 * [The original geotiff file][4]
 * [The geotiff.js library][5]
+* [The netcdfjs library][6]
 
 [1]: http://geoexamples.com/d3-raster-tools-docs/
 [2]: http://bl.ocks.org/rveciana/420a33fd0963e2a6aad16da54725af36
 [3]: http://geoexamples.com/d3-raster-tools-docs/code_samples/vardah.html
 [4]: bl.ocks.org/rveciana/raw/420a33fd0963e2a6aad16da54725af36/vardah.tiff
 [5]: https://github.com/constantinius/geotiff.js
+[6]: https://github.com/cheminfo-js/netcdfjs
