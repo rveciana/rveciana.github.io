@@ -23,8 +23,77 @@ All the examples use the data from [this block][2]. You can see [how I got the d
 
 You can [download here][4] the original [vardah.tiff][4] file.
 
-Creating Python sample files
-----------------------------
+GeoTIFF
+-------
+As in the original example, GeoTIFF can be used as a way to get the raster data. It's got many advantages, such as being the most widespread format, able to be compressed, that it's possible to open it directly with any GIS program such as QGIS.
+
+To use it, use the [geotiff.js library][5]. 
+
+### Compression
+The compressed images are read directly by the latest versions of the library. The compression can reduce the size a lot, specially with the *Deflate* option. The parsing time is bigger when the image is compressed, but the time is acceptable.
+
+To create a compressed GeoTIFF file, use the gdal ctreation options:
+
+    gdal_translate -of GTiff -co COMPRESS=DEFLATE vardah.tiff vardah2.tiff
+    gdal_translate -of GTiff -co COMPRESS=LZW vardah.tiff vardah2.tiff
+    gdal_translate -of GTiff -co COMPRESS=PACKBITS vardah.tiff vardah2.tiff
+
+Other compression options are not available with the geotiffjs library.
+
+Another thing to take in account is the metadata. The geotransform data is stored in a quite strange way (see tiepoint and pxelscale in the [example][1], and the GDAL metadata, in a special "GDAL" tag, which is not easy to find, although it is not when using python+GDAL.
+
+### HTML example
+
+<!DOCTYPE html>
+<html>
+    <meta>
+    <script src='geotiff.min.js'></script>
+    </meta>
+
+    <body>
+<script>
+
+var urlpath =  "vardah.tiff"
+
+var oReq = new XMLHttpRequest();
+oReq.open("GET", urlpath, true);
+oReq.responseType = "arraybuffer";
+
+oReq.onload = function(oEvent) {
+  var t0 = performance.now();
+  var tiff = GeoTIFF.parse(this.response);
+  var image = tiff.getImage();
+  var data = image.readRasters()[0];
+  var tiepoint = image.getTiePoints()[0];
+  var pixelScale = image.getFileDirectory().ModelPixelScale;
+  var t1 = performance.now();
+  console.log("Decoding took " + (t1 - t0) + " milliseconds.")
+};
+oReq.send(); //start process
+
+
+</script>
+{% endhighlight %}
+
+NetCDF
+------
+
+JSON
+----
+
+JSON with encoded data
+----------------------
+
+Binary data
+-----------
+
+LZW compressed binary data
+--------------------------
+
+Performance comparison
+----------------------
+
+DEFLATE; LZW; PACKBITS
 
 {% highlight python %}
 import gdal
@@ -410,8 +479,10 @@ Links
 * [Vardah and leaflet block][2]
 * [Generating the Vardah data file][3]
 * [The original geotiff file][4]
+* [The geotiff.js library][5]
 
 [1]: http://geoexamples.com/d3-raster-tools-docs/
 [2]: http://bl.ocks.org/rveciana/420a33fd0963e2a6aad16da54725af36
 [3]: http://geoexamples.com/d3-raster-tools-docs/code_samples/vardah.html
 [4]: bl.ocks.org/rveciana/raw/420a33fd0963e2a6aad16da54725af36/vardah.tiff
+[5]: https://github.com/constantinius/geotiff.js
