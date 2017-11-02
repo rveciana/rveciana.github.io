@@ -33,7 +33,19 @@ $content-width:    800px;
 $on-palm:          600px;
 $on-laptop:        800px;
 
-
+// Table formating
+table{
+    thead{
+        background-color: $green-color;
+        th {
+        }
+    }
+    tbody{
+        tr:nth-of-type(even){
+            background-color: $green-color-light;
+        }
+    }
+}
 
 // Using media queries with like this:
 // @include media-query($on-palm) {

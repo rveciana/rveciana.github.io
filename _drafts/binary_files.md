@@ -14,18 +14,26 @@ Some time ago, I made some docs about [drawing raster data with d3js][1].
 
 All the examples GeoTIFF files to get the data, but there are many other possibilities. I've made the exercice to create some examples using the same dataset but different strategies for creating the data with different formats.
 
-* [The data](#the-data)
-* [GeoTIFF](#geotiff)
-    + [Compression](#compression)
-    + [HTML example](#html-example)
-* [NetCDF](#netcdf)
-    + [HTML example](#html-example-1)
-* [JSON](#json)
-* [JSON with encoded data](#json-with-encoded-data)
-* [Binary data](#binary-data)
-* [LZW compressed binary data](#lzw-compressed-binary-data)
-* [Performance comparison](#performance-comparison)
+Table of contents
+-----------------
 
+- [The data](#the-data)
+- [GeoTIFF](#geotiff)
+  * [Compression](#compression)
+  * [HTML example](#html-example)
+- [NetCDF](#netcdf)
+  * [HTML example](#html-example-1)
+  * [HTML example](#html-example-2)
+- [JSON with encoded data](#json-with-encoded-data)
+  * [HTML example](#html-example-3)
+- [Binary data](#binary-data)
+  * [HTML example](#html-example-4)
+- [LZW compressed binary data](#lzw-compressed-binary-data)
+  * [File creation using Python](#file-creation-using-python)
+  * [HTML example](#html-example-5)
+- [Performance comparison](#performance-comparison)
+- [What to do with all this binary data?](#what-to-do-with-all-this-binary-data)
+- [Links](#links)
 
 The data
 --------
