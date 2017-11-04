@@ -24,8 +24,7 @@ permalink: /blog/
     <ul class="post-list">
       {% for post in site.posts %}
         <li>
-          {% include post_title.html %}
-        </li>
+          {% include post_title.html %}    
       {% endfor %}
     </ul>
 

@@ -1,9 +1,9 @@
 ---
 layout: post
 title: Raster file formats for JavaScript mapping
-date:   2017-10-26
+date:   2017-11-04
 categories: d3
-tags: [raster, canvas, svg]
+tags: [raster]
 teaser: raster-file-formats-javascript.png
 description: Different options to retrieve raster data using JavaScript
 thumbnail: /images/d3/raster-file-formats-javascript/twitter.png
