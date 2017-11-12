@@ -23,6 +23,7 @@ Table of contents
   * [HTML example](#html-example)
 - [NetCDF](#netcdf)
   * [HTML example](#html-example-1)
+- [JSON](#json)
   * [HTML example](#html-example-2)
 - [JSON with encoded data](#json-with-encoded-data)
   * [HTML example](#html-example-3)
@@ -152,6 +153,7 @@ oReq.send(); //start process
     * *reader.dimensions* stores the matrix size
     * *globalAttributes* stores other metadata, such as the creation date, GDAL information, etc
 * Note that the request must be set with a *blob* *responsetype* 
+
 JSON
 ----
 
