@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  gpu.js
-date:   2018-02-03
+title:  Mapping with gpu.js
+date:   2018-02-01
 teaser: gpujs-mapping.png
 categories: other
 tags: [GPU, gpujs, canvas]
@@ -127,11 +127,26 @@ document.getElementsByTagName('body')[0].appendChild(canvas);
 * Inside the function, set the *this.color* field with four values (rgba) from 0 to 1
 * The y axis goes bottom to top! This is the opposite of the usual notation
 
-It's easy! The result:
+It's easy! The result looks like this:
 
 <img src="{{ site.baseurl }}/images/other/gpujs-mapping/result1.png"/>
 
+Some algorithms
+---------------
 
+### Inverse of the distance
+
+In [one of the first posts of this blog][7] I made a python script for drawing a grid from a set of scattered points. Using gpu.js this can be done at real-time and see the results when changing the parameters, as in [this ObservableHQ notebook][100]
+
+### Hillshade
+
+Projecting the data
+-------------------
+
+As usual, there are two possible situations: 
+
+1- The raster has the projection you want to show. Congratulations. You can use the canvas element directly
+2- The raster must be reprojected. The solution is not easy, since d3 projection functions won't work with gpu.js, so the job will be slow as in [this ObservableHQ example][104]. Reprojecting the raster is possible if the projection formulas are coded directly.
 
 Links
 -----
@@ -142,6 +157,21 @@ Links
 * [wzrd.in][4]
 * [generateMatrices source][5]
 * [List of gpu.js supported math functions][6]
+* [Creating a grid from scattered data using inverse of the distance with python (gdal_grid approach)][7]
+
+### ObservableHQ notebooks
+
+* [Most basic gpu.js example][100]
+* [Most basic gpu.js example with performance test][101]
+* [Basic gpu.js canvas example][102]
+* [Inverse of the distance with gpu.js][103]
+* [Shaded relief with gpu.js and d3.js][104]
+* [Shaded relief with gpu.js drawing the canvas directly][105]
+
+### Blocks with some of the examples
+
+* [Basic gpu.js canvas example][200]
+* [Inverse of the distance with gpu.js][201]
 
 [1]: http://gpu.rocks
 [2]: https://en.wikipedia.org/wiki/General-purpose_computing_on_graphics_processing_units
@@ -149,3 +179,14 @@ Links
 [4]: https://wzrd.in/
 [5]: https://hackernoon.com/introducing-gpu-js-gpu-accelerated-javascript-ba11a6069327
 [6]: https://github.com/gpujs/gpu.js?utm_source=recordnotfound.com#supported-math-functions
+[7]: http://geoexamples.blogspot.com.es/2012/05/creating-grid-from-scattered-data-using.html
+
+[100]: https://beta.observablehq.com/@rveciana/most-basic-gpu-js-example
+[101]: https://beta.observablehq.com/@rveciana/gpu-js-check-execution-time
+[102]: https://beta.observablehq.com/@rveciana/basic-gpu-js-canvas-example
+[103]: https://beta.observablehq.com/@rveciana/inverse-of-the-distance-with-gpu-js
+[104]: https://beta.observablehq.com/@rveciana/shaded-relief-with-gpujs-and-d3js
+[105]: https://beta.observablehq.com/@rveciana/shaded-relief-with-gpujs-and-d3js/2
+
+[200]: https://bl.ocks.org/rveciana/c664dffd8b94f0598543958433d415f4
+[201]: https://bl.ocks.org/rveciana/7419081f8931227769bae5255579e792
