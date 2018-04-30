@@ -366,8 +366,6 @@ def compress(uncompressed):
     # Build the dictionary.
     dict_size = 256
     dictionary = dict((chr(i), i) for i in xrange(dict_size))
-    # in Python 3: dictionary = {chr(i): i for i in range(dict_size)}
-    #dictionary = {chr(i): i for i in range(dict_size)}
  
     w = ""
     result = []
@@ -409,6 +407,38 @@ fp.close()
 * The data is written as a string of unsigned shorts. This is because the compressed data is a list with values from 0 to 65535, so the *unsigned short* will be the most efficient way to store its values
 
 The size is reduced by 50% in our example. If a classification is used instead of float values, the compression will be much more efficient.
+
+If using python3, the *compress* function would be:
+{% highlight python %}
+def compress(uncompressed):
+    """Compress a string to a list of output symbols."""
+ 
+    # Build the dictionary.
+    dict_size = 256
+    dictionary = {bytes([i]): i for i in range(dict_size)}
+    w = b""
+    result = []
+    for c in uncompressed:
+        #print(type(w), type(bytes([c])), c, bytes([c]))
+        wc = w + bytes([c])
+        if wc in dictionary:
+            w = wc
+        else:
+            result.append(dictionary[w])
+            # Add wc to the dictionary.
+            dictionary[wc] = dict_size
+            dict_size += 1
+            w = bytes([c])
+ 
+    # Output the code for w.
+    if w:
+        result.append(dictionary[w])
+    return result
+{% endhighlight %}
+
+* *str* vars in python 2 become *bytes* in python3, so everything has to be adapted
+* *xrange* has to be changed to *range*
+
 ### HTML example
 {% highlight js %}
 <!DOCTYPE html>
