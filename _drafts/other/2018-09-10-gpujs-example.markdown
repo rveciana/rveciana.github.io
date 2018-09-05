@@ -30,7 +30,7 @@ $$ temperature = \beta_{0} + \beta_{1} * altitude + \beta_{2} * distanceToCoast 
 
 So, given the station temperatures in a given moment and knowing the altitude and distance to the coast for each station, a [multiple-linear regrssion][7] can be done to get a formula.
 
-To calculate the multipl-linear regression, the matricial formula is this one:
+To calculate the multipl-linear regression, the [matricial formula is this one][9]:
 
 $$ \hat{\beta}=(X^{T}X)^{-1}X^{T}y\\
 \hat{y}=X\hat{\beta}$$
@@ -39,7 +39,37 @@ So there are matrix transpositions, matrix multiplications and other operations 
 
 Once the *beta values* are calculated, a temperature field can be created if the altitude and distance values for each pixel are known. This is quite fast to do in gpu.js.
 
-The problem with stopping here is that
+The result will look like this:
+
+<img src="{{ site.baseurl }}/images/other/complex-gis-calculations-gpu/first_temp.png"/>
+
+
+The problem with stopping here is that we are assuming that the formula is valid for all the territory, but we know that some regions have their own particularities (some regions may be a bit hotter or colder than what the formula expect). Let's try to correct that with the *residues method*:
+
+For each station, the real value is:
+
+$$temperature = fit + residual$$
+
+Using the matricial notation ,the errors or residuals are:
+
+$$e=y-\hat{y}$$
+
+Once we have the error in each point, we can interpolate them to create a *residuals field* that can be added to the original temperature calculation. To do it, we will use the inverse of the distance, which will give a result similar to:
+
+<img src="{{ site.baseurl }}/images/other/complex-gis-calculations-gpu/inverse.png"/>
+
+Finally, when adding the layer, some differences emerge:
+
+<img src="{{ site.baseurl }}/images/other/complex-gis-calculations-gpu/final_result.png"/>
+
+So, to create the final map, the following things must be calculated. We will use a 1000x1000 pixels so the calculation is long using the CPU:
+
+* Calculation of the multiple linear regression
+* Creation of the temperature raster from the regression formula (GPU 1000x1000 px)
+* Residuals calculation
+* Residuals interpolation (GPU 1000x1000 px)
+* Final temperature field adding the temperature and residuals (GPU 1000x1000 px)
+* Layer representation (GPU 1000x1000 px)
 
 Links
 -----
@@ -52,6 +82,7 @@ Links
 * [Conference paper about the product][6]
 * [Multiple Linear Regression][7]
 * [numeric.js][8]
+* [Multiple linear regression formulas][9]
 
 [1]: ../other/2018/04/30/mapping-with-gpujs.html
 [2]: http://gpu.rocks
@@ -61,3 +92,4 @@ Links
 [6]: https://www.researchgate.net/publication/283479429_Verification_of_a_weather_radar_derived_surface_precipitation_type_product
 [7]: http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm
 [8]: http://www.numericjs.com/
+[9]: http://reliawiki.org/index.php/Multiple_Linear_Regression_Analysis
