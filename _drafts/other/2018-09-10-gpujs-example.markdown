@@ -71,18 +71,171 @@ So, to create the final map, the following things must be calculated. We will us
 * Final temperature field adding the temperature and residuals (GPU 1000x1000 px)
 * Layer representation (GPU 1000x1000 px)
 
+The code
+--------
+
+To make the example interactive and easier to split and understand, I made [this observable notebook][10]. 
+
+### [Multiple linear regression][11]
+
+I'm using [numeric.js][8] here to avoid many complex gpu.js coding, since with only two hundred weather station, the ellapsed time is a very small part of the total (2 ms). 
+{% highlight js %}
+let result = {};
+const conv = convertData(data);
+const X = conv.X;
+const Y = conv.Y
+const X_T = numeric.transpose(X);
+const multipliedXMatrix = numeric.dot(X_T,X);
+const LeftSide = numeric.inv(multipliedXMatrix);
+const RightSide = numeric.dot(X_T,Y);
+result.beta = numeric.dot(LeftSide,RightSide);
+const yhat = numeric.dot(X, result.beta);
+result.residual = numeric.sub(Y, yhat);
+{% endhighlight %}
+
+Notice that the code is very easy to understand given the original formula:
+
+$$ \hat{\beta}=(X^{T}X)^{-1}X^{T}y\\
+\hat{y}=X\hat{\beta}$$
+
+### [Calculating the regression field][12]
+
+In this case, [gpu.js][2] will be used, since I've set a 1000x970 output field, which involves repeating the same operation about one million times, and this is where the gpu makes things much faster:
+
+{% highlight js %}
+let gpu = new GPU();
+  
+const calculateInterp = gpu.createKernel(function(altitude, dist, regrCoefs) {
+        return regrCoefs[0] + regrCoefs[1] * altitude[this.thread.y][this.thread.x] + regrCoefs[2] * dist[this.thread.y][this.thread.x];
+      })
+      .setOutput([fixData.xSize, fixData.ySize]);
+
+let interpResult = calculateInterp(
+        GPU.input(Float32Array.from(fixData.data[1]), [1000, 968]),
+        GPU.input(Float32Array.from(fixData.data[0]), [1000, 968]),
+        regression_result.beta);
+{% endhighlight %}
+
+As always when using gpu.js, the kernel mush be generated first. In this case, the parameters are altitude and distance to the sea, which are just matrices read from a goetiff, since are fixed values, and the regression result. Check the [fix data cell][13] to see how to read the data as a Float32 array and calculate the geotransform using the [GeoTIFF.js library][14].
+
+The formula itself to apply in the GPU is the independent term plus the variables multiplied by the coefficient:
+
+$$ temperature = \beta_{0} + \beta_{1} * altitude + \beta_{2} * distanceToCoast $$
+
+Also, I used the GPU.input method to pass the big matrices, since it's much faster. Check the [Flattened array type support section][15] of the docs to see how it works.
+
+### [Calculating the residuals field][16]
+
+To calculate the residuald field, we take the error in each weather station and apply the inverse of the distance in each pixel of the field. It's the most intensive calculation of all the process.
+
+{% highlight js %}
+let xPos = station_data.map(d => {return (d.lon - fixData.geoTransform[0])/fixData.geoTransform[1];});
+let yPos = station_data.map(d => {return (d.lat - fixData.geoTransform[3])/fixData.geoTransform[5];});
+let gpu = new GPU();
+  const calculateResidues = gpu.createKernel(function(xpos, ypos, values) {
+    let nominator=0;
+    let denominator=0;
+    let flagDist = -1;
+
+    for (let i = 0; i < this.constants.numPoints; i++) {
+
+      let dist = 5 + Math.sqrt((this.thread.x-xpos[i])*(this.thread.x-xpos[i])+
+                               (this.thread.y-ypos[i])*(this.thread.y-ypos[i]) + 2);
+      nominator=nominator+(values[i]/dist)
+      denominator=denominator+(1/dist)
+
+    }
+    return nominator/denominator;
+
+  })
+  .setConstants({ numPoints: xPos.length, tiffWidth: fixData.xSize, tiffHeight: fixData.ySize })
+  .setOutput([fixData.xSize, fixData.ySize]);
+  let residualsResult = calculateResidues(xPos, yPos, regression_result.residual);
+{% endhighlight %}
+
+* First, the station positions must be converted to pixels using the geotransform to be able to interpolate them
+* The gpu kernel function gets these positions plus the values of the errors in each station
+* Note that, since a loop with all the stations must be done for each pixel, the time spent to calculate this is the biggest of all the process.
+  * Since the distance has to be calculated, avoiding the far stations would only add an *if* statement and increase the time
+
+### [The final field][17]
+
+That's the easiest part, only substract the error to the original interpolation field:
+
+{% highlight js %}
+let gpu = new GPU();
+const addResidues = gpu.createKernel(function(interpResult, residuesResult) {
+  return interpResult[this.thread.y][this.thread.x] - residuesResult[this.thread.y][this.thread.x];
+})
+.setOutput([fixData.xSize, fixData.ySize]);
+ 
+let temperatureField = addResidues(interpolation_result, residuals_result);
+{% endhighlight %}
+
+### [Drawing the data][18]
+
+Since the example was not about projections or mapping, I didn't draw any border nor reprojected the data nor added it into a Leaflet layer. [Check the previous post][1] for that. Just drawing the matrices is easy:
+
+{% highlight js %}
+let gpu = new GPU();
+ let render = gpu.createKernel(function(interpolation_result, colorScale) {
+   let color = Math.ceil(255 * (interpolation_result[(this.constants.height - 1 - this.thread.y) * this.constants.width + this.thread.x] - this.constants.minVal)/(this.constants.maxVal - this.constants.minVal));
+   this.color(colorScale[color * 4]/255, colorScale[1+color * 4]/255, colorScale[2+color * 4]/255, 1);
+})
+  .setConstants({width: fixData.xSize, height: fixData.ySize, maxVal: 20, minVal: -7})
+  .setOutput([fixData.xSize, fixData.ySize])
+  .setGraphical(true);
+ 
+ 
+ render(final_result, tempColorScale);
+{% endhighlight %}
+
+* Of course, the *graphical* option is used here
+* A hidden canvas with the color scale is created in an other cell of the notebook containing the colorscale. Also explained in the [previous post][1]
+* The color is set by knowing the position of the pixel value between the minimum and maximum values
+
+Performance
+-----------
+
+As you may have noticed, I added a time mesurement on each important step, so the final performance can be quantified. On my simple computer, the times are:
+
+|Operation |	Ellapsed time |
+|---|---|
+|Multiple linear regression |	2 ms |
+|Calculate the regression field |	209 ms |
+|Calculate the residuals field |1084 ms |
+|Calculate the final field |52 ms |
+|Draw the regression field | 65 ms |
+|Draw residuals field | 70 ms |
+|Draw final result | 67 ms |
+|**Total time** | **1549 ms** |
+
+On the mobile phone, it's still under two seconds, which is a very good result when compared to the same code using python and without the GPU: I'll let this for the next post.
+
 Links
 -----
 
 * [Previous post][1]
-* [The gpu.js web site][2]
 * [The  conference at the *Jornadas SIG Libre*][3] (in Spanish)
 * [Jornadas SIG Libre][4] at Girona
 * [Catalan Meteorological Service][5]
 * [Conference paper about the product][6]
 * [Multiple Linear Regression][7]
+* [The gpu.js web site][2]
+* [GPU.js flattened type array support][15]
 * [numeric.js][8]
 * [Multiple linear regression formulas][9]
+* [Geotiff.js][14]
+
+ObservableHQ example:
+
+* [The observable example][10]
+* [Multiple linear regression][11]
+* [Interpolation field][12]
+* [Reading the fix data][13]
+* [Calculating the residuals field][16]
+* [Calculating the final result field][17]
+* [Drawing the final result field][18]
 
 [1]: ../other/2018/04/30/mapping-with-gpujs.html
 [2]: http://gpu.rocks
@@ -93,3 +246,12 @@ Links
 [7]: http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm
 [8]: http://www.numericjs.com/
 [9]: http://reliawiki.org/index.php/Multiple_Linear_Regression_Analysis
+[10]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js
+[11]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#regression
+[12]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#interpolation_result
+[13]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#fix_data
+[14]: https://geotiffjs.github.io/
+[15]: https://github.com/gpujs/gpu.js#flattened-typed-array-support
+[16]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#residuals_result
+[17]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#final_result
+[18]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#final_result_drawing
