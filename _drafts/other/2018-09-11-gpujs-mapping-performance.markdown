@@ -1,8 +1,8 @@
 ---
 layout: post
 title:  "gpu.js performance"
-date:   2018-09-17
-teaser: complex-gis-calculations-gpujs.png
+date:   2018-09-18
+teaser: gpujs-performance.png
 categories: other
 tags: [GPU, gpujs, cython]
 thumbnail: /images/other/complex-gis-calculations-gpu/twitter.png
@@ -76,6 +76,183 @@ def calculate_regression(data_file):
 
 Which is quite straightforward. Just prepare the data and [follow the docs][6].
 
+Note that the residuals are created applying the regression to the original data:
+
+    residuals = regr.predict(predictors) - temps
+
+It's a clean and fast way to do it and allows to access the results later in the script.
+
+### Applying the regression
+
+Applying the regressin results is easy with numpy, since it's just adding several matrices:
+{% highlight python %}
+def create_regression_field(regression, vars_file):
+    d_s = gdal.Open(vars_file)
+    distances = d_s.GetRasterBand(1).ReadAsArray()
+    altitudes = d_s.GetRasterBand(2).ReadAsArray()
+    temperature = (regression['intercept'] +
+                   altitudes * regression['coefs'][0] +
+                   distances * regression['coefs'][1])
+    return temperature
+{% endhighlight %}
+
+### Interpolating the residuals
+
+Interpolating the residuals can be done in several ways. I've tested three, two after looking example around and the original I used both at my workplace and in the gpu.js example.
+
+#### rbf
+
+The [radial basis function][8] is the one recommenden by scipy. The results can be a bit strange and the performance is poor, but:
+
+{% highlight python %}
+def rbf(regression, dimensions):
+    xi = linspace(regression['lons'].min(), regression['lons'].max(),
+                  dimensions[1])
+    yi = linspace(regression['lats'].min(), regression['lats'].max(),
+                  dimensions[0])
+    xi, yi = meshgrid(xi, yi)
+    xi, yi = xi.flatten(), yi.flatten()
+    interp = Rbf(regression['lons'], regression['lats'],
+                 regression['residuals'], function='linear')
+
+    residuals_field = interp(xi, yi).reshape(dimensions)
+    return residuals_field
+{% endhighlight %}
+
+The code, basically prepares the data for the *Rbf* function.
+
+### idw
+
+The inverse of the distance weighted code is [taken from a GitHub repo][9]. It's really efficient and the result is good, but more difficult to understand than the regular inverse of the distance:
+
+{% highlight python %}
+def idw(regression, dimensions):
+    X1 = array(list(zip(regression['lons'], regression['lats'])))
+
+    idw_tree = tree(X1, regression['residuals'])
+
+    xi = linspace(regression['lons'].min(), regression['lons'].max(),
+                  dimensions[1])
+    yi = linspace(regression['lats'].min(), regression['lats'].max(),
+                  dimensions[0])
+    X2 = meshgrid(xi, yi)
+    X2 = reshape(X2, (2, -1)).T
+    z2 = idw_tree(X2)
+
+    return z2.reshape(dimensions)
+{% endhighlight %}
+
+Again, the code is basically preparing the data for the function. 
+
+### Inverse of the distance using cython
+
+This is the original code I used, and the one in the [previous post][1]. Calculating it with pure numpy was a bit difficult, so I made the original algorithm optimized with [cython][10], so it's as fast as coded in C. The code to call it is:
+
+{% highlight python %}
+def cython_id(regression, dimensions):
+    
+    data = {}
+    
+    for i in range(len(regression['lons'])):
+        data[i] = {'x': regression['lons'][i],
+                   'y': regression['lats'][i],
+                   'value': regression['residuals'][i]}
+    
+    geotransform = [min(regression['lons']),
+        (max(regression['lons']) - min(regression['lons']))/dimensions[1],
+        0,
+        max(regression['lats']),
+        0,
+        (min(regression['lats']) - max(regression['lats']))/dimensions[0]
+    ]
+
+    result = interpolate_residuals(data, dimensions, geotransform)
+    return result
+{% endhighlight %}
+Note that I used geotransform, which turns things properly.
+
+The cython code is:
+{% highlight python %}
+#cython: boundscheck=False, wraparound=False, nonecheck=False, cdivision=True
+
+import numpy as np
+cimport numpy as np
+from libc.math cimport sqrt
+from libc.math cimport pow
+from cpython cimport array
+import array
+
+DTYPE = np.float64
+ctypedef np.float64_t DTYPE_t
+
+def interpolate_residuals(residues, size, geotransform):
+    cdef array.array da = array.array('d', [])
+    array.resize(da, size[0] * size[1])
+    cdef double[:] cda = da
+
+    xpos0 = []
+    ypos0 = []
+    values0 = []
+
+    for key in residues.keys():
+        xpos0.append(residues[key]['x'])
+        ypos0.append(residues[key]['y'])
+        values0.append(residues[key]['value'])
+
+    cdef int N
+    N = len(xpos0)
+    #http://cython.readthedocs.io/en/latest/src/tutorial/array.html
+    cdef array.array xpos = array.array('d', xpos0)
+    cdef double[:] cxpos = xpos
+    cdef array.array ypos = array.array('d', ypos0)
+    cdef double[:] cypos = ypos
+    cdef array.array values = array.array('d', values0)
+    cdef double[:] cvalues = values
+
+    cdef int i, j
+    cdef int xsize = size[1]
+    cdef int ysize = size[0]
+    cdef double y
+    cdef double x
+
+    cdef array.array geotransform0 = array.array('d', geotransform)
+    cdef double[:] cgeotransform = geotransform0
+
+    for j in range(ysize):
+        y = cgeotransform[3] + j * cgeotransform[5]
+        for i in range(xsize):
+            x = cgeotransform[0] + i * cgeotransform[1]
+            cda[i + j * xsize] = point_residue(x, y, cxpos, cypos, cvalues, N)
+
+    data_array = np.array(cda)
+    return data_array.reshape(size)
+
+cdef float point_residue(double x, double y, double[:] xpos, double[:] ypos, double[:] values, int N):
+    cdef int power = 2
+    cdef int smoothing = 0
+    cdef double numerator = 0
+    cdef int i
+    cdef double denominator
+    denominator = 0
+
+    for i in range(N):
+        dist = sqrt((x - xpos[i]) ** 2 + (
+            y - ypos[i]) ** 2 + smoothing * smoothing)
+
+        if dist < 0.00000000001:
+            return values[i]
+        numerator = numerator + (values[i] / pow(dist, power))
+        denominator = denominator + (1 / pow(dist, power))
+
+    if denominator != 0:
+        return numerator / denominator
+{% endhighlight %}
+
+You have to run
+
+    python setup.py build_ext --inplace
+
+to compile it before running the script for the first time.
 
 Results
 -------
@@ -100,6 +277,21 @@ With the different methods, the times were:
 
 So, in the first place, the residuals interpolation is, by far, the most expensive step. The IDW method I found is the fastest option, although I'm not sure that the result is as good as the cython method with the classical inverse of the distance.
 
+The original gpu.js method lasted:
+
+|Operation |	Ellapsed time |
+|---|---|
+|Multiple linear regression |	2 ms |
+|Calculate the regression field |	209 ms |
+|Calculate the residuals field |1084 ms |
+|Calculate the final field |52 ms |
+|Draw the regression field | 65 ms |
+|Draw residuals field | 70 ms |
+|Draw final result | 67 ms |
+|**Total time** | **1549 ms** |
+
+So it's a really good performance if you think that it's run on the browser using a non compiled language (although using the GPU, of course!)
+
 Links
 -----
 
@@ -112,6 +304,10 @@ Links
 * [The cython function][5]
 * [idw file][6]
 
+* [radialbasis function][8]
+* [IDW library][9]
+* [cython][10]
+
 
 [1]: ../other/2018/09/17/gpujs-example.html
 [2]: http://gpu.rocks
@@ -120,3 +316,6 @@ Links
 [5]: {{ site.baseurl }}/images/python/gpujs-performance/interpolate_residuals.pyx
 [6]: {{ site.baseurl }}/images/python/gpujs-performance/idw.py
 [7]: scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
+[8]: https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.Rbf.html
+[9]: https://github.com/paulbrodersen/inverse_distance_weighting
+[10]: http://cython.org/
