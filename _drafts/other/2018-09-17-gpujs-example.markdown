@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Complex GIS calculations with gpu.js: Temperature interpolation"
-date:   2018-09-01
+date:   2018-09-17
 teaser: complex-gis-calculations-gpujs.png
 categories: other
 tags: [GPU, gpujs, canvas, leaflet]
