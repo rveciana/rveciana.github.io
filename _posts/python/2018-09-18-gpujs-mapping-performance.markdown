@@ -5,7 +5,7 @@ date:   2018-09-18
 teaser: gpujs-performance.png
 categories: other
 tags: [GPU, gpujs, cython]
-thumbnail: /images/other/complex-gis-calculations-gpu/twitter.png
+thumbnail: /images/python/gpujs-performance/twitter.png
 twitter-card: summary
 description: Compare gpu.js with numpy and cython
 ---
@@ -33,7 +33,7 @@ My *pip list* command returns this:
     scipy (1.1.0)
     sklearn (0.0)
 
-Basically, scikit-learn, with numpy and scipy plud the cython library. Also, matplotlib to plot the data.
+Basically, scikit-learn, with numpy and scipy plus the cython library. Also, matplotlib to plot the data.
 
 To compile the cython part, there is a *setup.py* file that has to be run by:
 
@@ -84,7 +84,7 @@ It's a clean and fast way to do it and allows to access the results later in the
 
 ### Applying the regression
 
-Applying the regressin results is easy with numpy, since it's just adding several matrices:
+Applying the regression results is easy with numpy, since it's just adding several matrices:
 {% highlight python %}
 def create_regression_field(regression, vars_file):
     d_s = gdal.Open(vars_file)
@@ -102,7 +102,7 @@ Interpolating the residuals can be done in several ways. I've tested three, two 
 
 #### rbf
 
-The [radial basis function][8] is the one recommenden by scipy. The results can be a bit strange and the performance is poor, but:
+The [radial basis function][8] is the one most srecommended by scipy. The results can be a bit strange and the performance is poor, but:
 
 {% highlight python %}
 def rbf(regression, dimensions):
@@ -123,7 +123,7 @@ The code, basically prepares the data for the *Rbf* function.
 
 ### idw
 
-The inverse of the distance weighted code is [taken from a GitHub repo][9]. It's really efficient and the result is good, but more difficult to understand than the regular inverse of the distance:
+The inverse of the distance weighted code is [taken from a GitHub repo][9]. It's really efficient and the result is good, but more difficult to understand than the regular inverse of the distance. Also, maintains steep changes, which is not the best situation in our case, where we want a smooth residuals field all around, even if a single station has a different local value:
 
 {% highlight python %}
 def idw(regression, dimensions):
@@ -150,14 +150,14 @@ This is the original code I used, and the one in the [previous post][1]. Calcula
 
 {% highlight python %}
 def cython_id(regression, dimensions):
-    
+
     data = {}
-    
+
     for i in range(len(regression['lons'])):
         data[i] = {'x': regression['lons'][i],
                    'y': regression['lats'][i],
                    'value': regression['residuals'][i]}
-    
+
     geotransform = [min(regression['lons']),
         (max(regression['lons']) - min(regression['lons']))/dimensions[1],
         0,
@@ -259,8 +259,7 @@ Results
 
 In my computer, which is not a new or powerful one, the times were, for the common steps:
 
-
-|Operation |Ellapsed time |
+|Operation |Elapsed time |
 |---|---|
 |Regression time|  3 ms |
 |Temperature field time| 44 ms |
@@ -279,10 +278,10 @@ So, in the first place, the residuals interpolation is, by far, the most expensi
 
 The original gpu.js method lasted:
 
-|Operation |	Ellapsed time |
+|Operation |Elapsed time |
 |---|---|
-|Multiple linear regression |	2 ms |
-|Calculate the regression field |	209 ms |
+|Multiple linear regression |2 ms |
+|Calculate the regression field |209 ms |
 |Calculate the residuals field |1084 ms |
 |Calculate the final field |52 ms |
 |Draw the regression field | 65 ms |
@@ -297,14 +296,16 @@ Links
 
 * [Last post: Complex GIS calculations with gpu.js: Temperature interpolation][1]
 * [The gpu.js web site][2]
-* [scikit-learn multilinear regression][7]
+* [scikit-learn multiple linear regression][7]
 
 * [The example script][3]
 * [setup.py for cython][4]
 * [The cython function][5]
 * [idw file][6]
+* [The vars.tiff file][11]
+* [The station data file][12]
 
-* [radialbasis function][8]
+* [radial basis function][8]
 * [IDW library][9]
 * [cython][10]
 
@@ -319,3 +320,5 @@ Links
 [8]: https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.Rbf.html
 [9]: https://github.com/paulbrodersen/inverse_distance_weighting
 [10]: http://cython.org/
+[11]: {{ site.baseurl }}/images/python/gpujs-performance/vars.tiff
+[12]: {{ site.baseurl }}/images/python/gpujs-performance/station_data.json
