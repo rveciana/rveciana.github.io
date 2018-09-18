@@ -312,7 +312,7 @@ Links
 * [cython][10]
 
 
-[1]: ../other/2018/09/17/gpujs-example.html
+[1]: {{ site.baseurl }}/other/2018/09/17/gpujs-example.html
 [2]: http://gpu.rocks
 [3]: {{ site.baseurl }}/images/python/gpujs-performance/calculate_temp.py
 [4]: {{ site.baseurl }}/images/python/gpujs-performance/setup.py
