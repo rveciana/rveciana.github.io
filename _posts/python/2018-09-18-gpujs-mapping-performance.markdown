@@ -291,6 +291,8 @@ The original gpu.js method lasted:
 
 So it's a really good performance if you think that it's run on the browser using a non compiled language (although using the GPU, of course!)
 
+Finally, it would be nice to check the performance against python + GPU, but I have never worked with it.
+
 Links
 -----
 
