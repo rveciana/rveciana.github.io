@@ -5,8 +5,12 @@ permalink: /projects/
 ---
 Some of my personal projects:
 
+<h2><a href="https://geoexamples.com/svg-path-properties/">svg-path-properties</a></h2>
+<a href="https://geoexamples.com/svg-path-properties/"><img class="teaser" src="{{ site.baseurl }}/images/teasers/svg-path-properties.png" alt="teaser" itemprop="image"></a>
+Calculate the length, point and tangent at distance for an SVG path, to use it with node, Canvas or SVG element
+
 <h2><a href="http://geoexamples.com/d3-raster-tools-docs/">d3-raster-tools-docs</a></h2>
-<a href="http://http://geoexamples.com/d3-raster-tools-docs/"><img class="teaser" src="{{ site.baseurl }}/images/teasers/d3-raster-tools-docs.png" alt="teaser" itemprop="image"></a>
+<a href="http://geoexamples.com/d3-raster-tools-docs/"><img class="teaser" src="{{ site.baseurl }}/images/teasers/d3-raster-tools-docs.png" alt="teaser" itemprop="image"></a>
 Drawing raster data using d3js is quite undocummented. This small documentation explains how to work with raster data and the d3js to create dynamic data visualizations.
 
 Includes isolines, isobands, direct raster values drawing and streamlines, barbs and vector images from vectorial fields.
