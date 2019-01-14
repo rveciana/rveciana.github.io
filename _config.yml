@@ -5,7 +5,7 @@ description: Map creation with Python and D3js / JavaScript
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://geoexamples.com" # the base hostname & protocol for your site
 
-image: images/manifest/512x512-icon.png
+image: images/manifest/512X512-icon.png
 teaser: teaser.png
 twitter_username: rveciana
 github_username:  rveciana

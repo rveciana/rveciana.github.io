@@ -18,7 +18,7 @@ permalink: manifest.json
       "type": "image/png"
     },
     {
-      "src": "images/manifest/512x512-icon.png",
+      "src": "images/manifest/512X512-icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
