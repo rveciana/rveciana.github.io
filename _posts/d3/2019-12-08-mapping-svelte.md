@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Mapping with Svelte"
+title: "Mapping with Svelte and D3js"
 date: 2019-12-08
 categories: other
 tags: [svelte, projections, svg]
@@ -13,6 +13,13 @@ twitter-card: summary
 [Svelte][svelte] is a very nice framework for building user interfaces. I wanted to learn more about it, and loved that the _d3-like_ transitions are included and well documented, and much easier than in React, that is my daily library.
 
 So I thought that some cool mapping examples could be done easily and I was right, so here we go!
+
+Don't want to read all this? Check the examples:
+
+- [Example 1: Basic map][basic]
+- [Example 2: Multiple geometries and color scale][multiple]
+- [Example 3: Adding transitions][transitions]
+- [Example 4: Adding circles][circles]
 
 ## DOM, projections and scales
 
