@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "svg-path-properties 1.0.0"
-date: 2019-12-08
+date: 2019-12-07
 categories: other
 tags: [canvas, svg]
 teaser: svg-path-properties.png

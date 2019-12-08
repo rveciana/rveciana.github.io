@@ -1,6 +1,6 @@
 ---
 layout: blog_by_tag
-tag: leaflet
-permalink: /tags/leaflet/
+tag: svelte
+permalink: /tags/svelte/
 avoid_main_menu: true
 ---
