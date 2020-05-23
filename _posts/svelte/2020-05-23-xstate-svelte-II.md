@@ -4,7 +4,7 @@ title:  "XState and Svelte II: Creating the traffic lights"
 date:   2020-05-23
 categories: svelte
 teaser: xpath-svelte2.png
-tags: [jekyll]
+tags: [xstate]
 ---
 In the [last post][last_post], the [XState][xstate] machine combined with Svelte was explained.
 Now, let's check how to prepare a semaphore to show the library capabilities in a nice way.

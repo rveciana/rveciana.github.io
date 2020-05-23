@@ -4,7 +4,7 @@ title:  "XState and Svelte I: initial setup"
 date:   2020-05-08
 categories: svelte
 teaser: xpath-svelte1.png
-tags: [jekyll]
+tags: [xstate]
 ---
 
 I'm learning [XState][xstate]. Every time I've used redux I find myself getting bugs because the site state becames more and more complex and I don't handle the transitions and possible states properly.
