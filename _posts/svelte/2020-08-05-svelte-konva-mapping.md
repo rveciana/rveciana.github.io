@@ -3,13 +3,15 @@ layout: post
 title:  "Mapping with Svelte and Konva"
 date:   2020-08-05
 categories: svelte
-teaser: xpath-svelte1.png
+teaser: svelte-konva.png
 tags: [konva]
+thumbnail: /images/svelte/svelte-konva-mapping/twitter.png
+twitter-card: summary
 ---
 
-After some attempts [mapping with Svelte][[svelte_mapping]], I missed using canvas instead of SVG. SVG has the advantage that integrates very well with Svelte, since it's an XML and the nodes can be managed as if they were HTML. On the other hand, Canvas is more efficient, but it has to be generated entirely with JavaScript.
+After some attempts [mapping with Svelte][svelte_mapping], I missed using canvas instead of SVG. SVG has the advantage that integrates very well with Svelte, since it's an XML and the nodes can be managed as if they were HTML. On the other hand, Canvas is more efficient, but it has to be generated entirely with JavaScript.
 
-At the same time, I found [Konva][https://konvajs.org/], a promising library to draw Canvas elements and make them interactive in an easy way. It allows animations, Drag and Drop, actions, filters, etc. so it's possible to do the same things as in SVG. I didn't find any example of Konva for drawing maps, so here we'll find a declarative way to do it, using Svelte.
+At the same time, I found [Konva][konva], a promising library to draw Canvas elements and make them interactive in an easy way. It allows animations, Drag and Drop, actions, filters, etc. so it's possible to do the same things as in SVG. I didn't find any example of Konva for drawing maps, so here we'll find a declarative way to do it, using Svelte.
 
 Using Konva with Svelte
 =======================
@@ -212,6 +214,7 @@ Let's start from the other side now! The App.svelte file is this one:
 
 * We are using a *BackgroundMap* component and as many *Marker* components as we want.
 * There's a writable store where the children will put the name of the hovered feature. In the App component we'll just render it.
+* I use two layers because when using one, the markers can't be detected if they are over a country. z-index is not well managed in konvas.
 
 The projection and D3 GeoPath are defined in their own file so they can be accessed from all the components:
 
@@ -325,6 +328,11 @@ Finally, the markers with animation:
 * The animation is a rotation in this case. But the color can be changed too, the size, etc.
 * I checked using a path instead of a star and a scale must be applied unless your icon has the proper size. Then, an animation that changes this size can't be used easily. Also, the scale is difficult to find. There's a width and height prop that isn't used. 
 
+Conclusions
+===========
+
+I'm very happy with the result. In not many hours, I could make a base for mapping in an easy way with all the Svelte capabilities. Svelte is awesome!
+
 Links
 =====
 * [First example] First example: Svelte and Konva
@@ -332,11 +340,11 @@ Links
 * [Intermediate third example] Intermediate third example
 * [Third example] Second example: Mapping with actions and animations
 * [Mapping with Svelte][svelte_mapping]
-* [Konva web site][https://konvajs.org/]
+* [Konva web site][konva]
 
 [First example]: https://svelte.dev/repl/75082b2a3383482d969f99b509f9b7a4?version=3.24.1
 [Second example]: https://svelte.dev/repl/db922f45dff8483082e18d6555ad5b50?version=3.24.1
 [Intermediate third example]: https://svelte.dev/repl/7c3e009c6f82414aa011a313b76a5eeb?version=3.24.1
 [Third example]: https://svelte.dev/repl/8f38e2c895284c13a3e3f534d01dd171?version=3.24.1
 [svelte_mapping]: https://geoexamples.com/other/2019/12/08/mapping-svelte.html
-[konva][https://konvajs.org/]
+[konva]: https://konvajs.org/
