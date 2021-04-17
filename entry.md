@@ -72,8 +72,11 @@ prism scss a app.scss
 
 
 Blog page (wordcloud)
+
+
 A FER
 
 
 rss!
 
+Errors

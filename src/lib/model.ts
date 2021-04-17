@@ -22,7 +22,6 @@ export interface Post {
 export interface PageSummary {
 	title: string;
 	permalink: string;
-	excerpt: string;
 	avoidMainMenu?: boolean;
 }
 

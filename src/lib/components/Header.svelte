@@ -3,6 +3,9 @@
 	import type { PageSummary } from '$lib/model';
 
 	export let pages: PageSummary[] = [];
+	const pagesPlusBlog = [...pages, { title: 'Blog', permalink: '/blog' }].sort((a, b) =>
+		a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+	);
 </script>
 
 <header class="site-header">
@@ -28,7 +31,7 @@
 			</div>
 
 			<div class="trigger">
-				{#each pages as page}
+				{#each pagesPlusBlog as page}
 					{#if !page.avoidMainMenu}<a class="page-link" href={page.permalink}>{page.title}</a>{/if}
 				{/each}
 			</div>
