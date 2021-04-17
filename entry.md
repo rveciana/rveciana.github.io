@@ -70,10 +70,10 @@ Formatting handlebars Problems with tables
 regexp
 prism scss a app.scss
 
+
+Blog page (wordcloud)
 A FER
 
-Summary
-Posts
-PAges
+
 rss!
 

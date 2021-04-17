@@ -27,6 +27,10 @@ export interface PageSummary {
 }
 
 export interface TagsAndCategories {
-	tags: string[];
+	tags: Tag[];
 	categories: string[];
+}
+export interface Tag {
+	label: string;
+	occurrences: number;
 }

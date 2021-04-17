@@ -27,17 +27,15 @@
 <h1>Tags</h1>
 <div class="tagcloud">
 	{#each tagsAndCategories.tags as tag}
-		<a href="/tag/{tag}/">{tag}</a>{' '}
+		<a
+			href="/tags/{tag.label}/"
+			style="font-size: {`${
+				70 +
+				100 *
+					((tag.occurrences - 1) / Math.max(...tagsAndCategories.tags.map((d) => d.occurrences)))
+			}%`}">{tag.label}</a
+		>{' '}
 	{/each}
-	<!-- {% for tag in site.tags %}
-
-    <li style="font-size: {{ tag | last | size | times: 100 | divided_by: site.tags.size| plus: 70 }}%">
-        <a href="{{base_url}}/tags/{{ tag | first }}/">
-            {{ tag | first }}
-        </a>
-
-    </li>
-{% endfor %} -->
 </div>
 <article class="post-content">
 	<h1>Posts</h1>
