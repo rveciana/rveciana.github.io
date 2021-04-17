@@ -1,0 +1,10 @@
+{
+	"name": "markdown-json",
+	"cwd": "./",
+	"src": "content/",
+	"filePattern": "**/*.m*",
+	"ignore": "",
+	"dist": "src/lib/data.json",
+	"metadata": true,
+	"server": false
+}

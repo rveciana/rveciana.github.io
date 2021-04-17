@@ -1,0 +1,23 @@
+
+{
+    "lang": "en",
+    "background_color":"#ffffff",
+    "theme_color": "#ffffff",
+    "name": "GeoExamples",
+    "short_name": "GeoExamples",
+    "start_url": ".",
+    "display": "standalone",
+    "description": "Map creation with Python and D3js / Svelte / JavaScript",
+    "icons": [
+      {
+        "src": "images/manifest/144X144-icon.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "images/manifest/512X512-icon.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
