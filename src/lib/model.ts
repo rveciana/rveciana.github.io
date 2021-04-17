@@ -25,3 +25,8 @@ export interface PageSummary {
 	excerpt: string;
 	avoidMainMenu?: boolean;
 }
+
+export interface TagsAndCategories {
+	tags: string[];
+	categories: string[];
+}

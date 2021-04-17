@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	export async function load({ fetch }) {
-		const resultPosts = await fetch('summary.json');
+		const resultPosts = await fetch('summary.json?num_posts=5');
 		const posts = (await resultPosts.json()) as PostSummary[];
 
 		return {
