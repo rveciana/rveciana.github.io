@@ -71,12 +71,22 @@ regexp
 prism scss a app.scss
 
 
-Blog page (wordcloud)
 
+Blog page (wordcloud) Be careful with trailing /!!!! They create infinite loops
+
+
+watch md files
+https://itnext.io/4-solutions-to-run-multiple-node-js-or-npm-commands-simultaneously-9edaa6215a93
 
 A FER
 
+deploy -> outdir
 
-rss!
 
 Errors
+
+Problems: 
+
+
+../
+links without http

@@ -19,7 +19,6 @@
 
 <div class="home">
 	<h1 class="page-heading">Posts by tag: {slug}</h1>
-	{posts[0].title}
 	<ul class="post-list">
 		{#each posts as post}
 			<li>

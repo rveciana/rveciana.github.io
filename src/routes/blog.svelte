@@ -21,14 +21,14 @@
 
 <h1>Categories</h1>
 
-{#each tagsAndCategories.categories as category, i}<a href="/categories/{category}/">{category}</a>
+{#each tagsAndCategories.categories as category, i}<a href="/categories/{category}">{category}</a>
 	{#if i < tagsAndCategories.categories.length - 1},{' '}{/if}
 {/each}
 <h1>Tags</h1>
 <div class="tagcloud">
 	{#each tagsAndCategories.tags as tag}
 		<a
-			href="/tags/{tag.label}/"
+			href="/tags/{tag.label}"
 			style="font-size: {`${
 				70 +
 				100 *

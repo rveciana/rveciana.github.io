@@ -28,5 +28,5 @@
 	</ul>
 </div>
 
-<h2><a href="/blog">Older posts</a></h2>
+<h2><a href="blog">Older posts</a></h2>
 <p class="rss-subscribe">subscribe <a href="http://feeds.feedburner.com/Geoexamples">via RSS</a></p>

@@ -236,7 +236,7 @@ ObservableHQ example:
 - [Calculating the final result field][17]
 - [Drawing the final result field][18]
 
-[1]: ../other/2018/04/30/mapping-with-gpujs.html
+[1]: /other/2018/04/30/mapping-with-gpujs.html
 [2]: http://gpu.rocks
 [3]: https://vimeo.com/album/5268941/video/278133346
 [4]: http://www.sigte.udg.edu/jornadassiglibre/

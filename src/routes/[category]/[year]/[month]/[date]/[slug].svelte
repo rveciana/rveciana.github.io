@@ -30,19 +30,4 @@
 	<article class="post-content">
 		{@html post.contents}
 	</article>
-	<!-- <details>
-  
-      <p>Categories:
-      {% for category in page.categories %}
-      <a href="{{base_url}}/categories/{{category}}">{{category | downcase | slugize}}</a>{% if forloop.last == false %}, {% endif %}
-      {% endfor %}</p>
-      <p>Tags:
-        {% for tag in page.tags %}
-        <a href="{{base_url}}/tags/{{tag | downcase | slugize}}">{{tag}}</a>
-          {% if forloop.last == false %}, {% endif %}
-        {% endfor %}</p>
-  
-  
-  </details>
-  {% include comments.html %} -->
 </div>

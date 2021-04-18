@@ -26,7 +26,7 @@
 			/>
 		{:else}<img
 				class="teaser"
-				src="/images/{configuration.site.teaser}"
+				src={configuration.site.teaser}
 				alt="teaser"
 				itemprop="image"
 			/>{/if}</a
@@ -35,12 +35,12 @@
 
 <div class="categories">
 	Category:
-	<a href="/categories/{post.categories}/">{post.categories}</a>
+	<a href="/categories/{post.categories}">{post.categories}</a>
 </div>
 <div class="tags">
 	Tags:
 	{#each post.tags as tag, i}
-		<a href="/tags/{tag}/">{tag}</a>
+		<a href="/tags/{tag}">{tag}</a>
 		{#if i < post.tags.length - 1},{' '}{/if}
 	{/each}
 </div>

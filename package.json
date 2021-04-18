@@ -7,18 +7,23 @@
 		"start": "svelte-kit start",
 		"lint": "prettier --check . && eslint --ignore-path .gitignore .",
 		"format": "prettier --write .",
-		"contentGen": "markdown-json -c markdown-config.json"
+		"contentGen": "markdown-json -c markdown-config.json",
+		"watch-md": "nodemon -e md -x \"npm run contentGen\"",
+		"dev-md": "concurrently \"npm run dev\" \"npm run watch-md\""
+
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "next",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^4.19.0",
 		"@typescript-eslint/parser": "^4.19.0",
+		"concurrently": "^6.0.2",
 		"eslint": "^7.22.0",
 		"eslint-config-prettier": "^8.1.0",
 		"eslint-plugin-svelte3": "^3.1.0",
 		"handlebars": "^4.7.7",
 		"markdown-json": "^1.5.1",
+		"nodemon": "^2.0.7",
 		"prettier": "^2.2.1",
 		"prettier-plugin-svelte": "^2.2.0",
 		"prismjs": "^1.23.0",

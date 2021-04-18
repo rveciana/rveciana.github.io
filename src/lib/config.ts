@@ -7,7 +7,7 @@ export const configuration = {
 		url: 'http://geoexamples.com',
 
 		image: 'https://geoexamples.com/images/siteImage.png',
-		teaser: 'images/teaser.png',
+		teaser: '/images/teaser.png',
 
 		twitter_username: 'rveciana',
 		github_username: 'rveciana',

@@ -11,9 +11,13 @@ avoid_main_menu: true
 Jobs
 ----
 
-### [Servei Meteorològic de Catalunya](www.meteo.cat)
+### [Adaptive Consulting](http://weareadaptive.com)
+* Senior Front-end developer
+2019 - present
+  * Complex app applications in the energy sector
+### [Servei Meteorològic de Catalunya](http://www.meteo.cat)
 * Research and modelization technician
-2013 – Present
+2013 – 2019
   * Model postprocessing
   * Roadcasting
 
@@ -65,8 +69,8 @@ Interests
 ---------
 
 * Data visualization
-* [Learning about coding and mapping](www.geoexamples.com)
-* [Several personal coding projects](www.geoexamples.com/projects)
+* [Learning about coding and mapping](http://www.geoexamples.com)
+* [Several personal coding projects](http://www.geoexamples.com/projects)
 
 Other
 -----

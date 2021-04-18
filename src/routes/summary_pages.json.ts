@@ -8,7 +8,7 @@ const contents: PageSummary[] = Object.values(data)
 	.map((post) => {
 		return {
 			title: post.title,
-			permalink: post.permalink,
+			permalink: post.permalink.replace(/\/+$/, ''),
 			excerpt: post.excerpt,
 			avoidMainMenu: post.avoid_main_menu
 		};

@@ -573,7 +573,7 @@ With the html canvas element and some libraries around there, many visualization
 [1]: http://geoexamples.com/d3-raster-tools-docs/
 [2]: http://bl.ocks.org/rveciana/420a33fd0963e2a6aad16da54725af36
 [3]: http://geoexamples.com/d3-raster-tools-docs/code_samples/vardah.html
-[4]: bl.ocks.org/rveciana/raw/420a33fd0963e2a6aad16da54725af36/vardah.tiff
+[4]: http://bl.ocks.org/rveciana/raw/420a33fd0963e2a6aad16da54725af36/vardah.tiff
 [5]: https://github.com/constantinius/geotiff.js
 [6]: https://github.com/cheminfo-js/netcdfjs
 [7]: https://en.wikipedia.org/wiki/Base64
