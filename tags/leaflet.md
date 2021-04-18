@@ -1,6 +1,0 @@
----
-layout: blog_by_tag
-tag: leaflet
-permalink: /tags/leaflet/
-avoid_main_menu: true
----
