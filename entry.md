@@ -82,6 +82,8 @@ A FER
 
 deploy -> outdir
 
+CNAME, Readme.md
+
 
 Errors
 
