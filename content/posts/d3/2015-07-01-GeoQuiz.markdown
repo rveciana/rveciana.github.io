@@ -1,0 +1,360 @@
+---
+layout: post
+title: 'A GeoQuiz made with D3js'
+date: 2015-07-01
+teaser: d3-geoquiz.png
+categories: d3
+tags: [game]
+---
+
+My older daughter Farida is studying the Catalan regions, called _comarques_. There are some online resources to test your knowledge about the regions, but we didn't like them, so we decided to design and code one.
+
+You can check the game: [http://geoexamples.com/comarques/][game_web] and take a look to its code at [GitHub][github]
+
+<img src="{{ site.baseurl }}/images/d3/d3-geoquiz/screenshot.png" width="70%"/>
+
+## The main structure
+
+After looking several examples on creating a quiz using JavaScript, I finally got the simplest code to do this kind of things.
+
+So we need two functions. I've called them _drawOptions_ and _checkAnswer_. The code would be more or less:
+
+{% highlight js %}
+var checkAnswer = function(correct_answer, selected_answer){
+//Check the answer, draw the results, whatever, here
+drawOptions();
+};
+
+var drawOptions = function(){
+button
+.on("click", function(d){checkAnswer(id_question, d);});
+};
+
+drawOptions();
+{% endhighlight %}
+
+Basically, the first thing to do is drawing the region to ask for, and the buttons with the options. All this is made in the _drawOptions_ function, we will se how a bit later.
+
+The buttons will have an event that will call the _checkAnswer_ function, passing the selected option and the correct result. This function will add the score, change the score bar and finish the game if all the regions have been asked.
+
+Finally, _drawOptions()_ has to be called at the beginning so the game can start.
+
+## Detailed code
+
+The complete code can be found at [GitHub][github], but the most important parts are:
+
+# Creating the svg
+
+{% highlight js %}
+var width = 580,
+height = 450;
+
+var projection = d3.geo.conicConformal()
+.center([3.6,41.5])
+.scale(12000);
+
+var path = d3.geo.path()
+.projection(projection);
+
+var svg = d3.select("#map").append("svg")
+.attr("width", width)
+.attr("height", height);
+
+var results = svg.append("g")
+.attr("id", "results")
+.attr("transform", "translate(140,390)");
+
+results.append("text")
+.attr("dy", "-0.25em")
+.attr("dx", ".0em")
+.style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
+.text("Progrés");
+
+results.append("rect")
+.attr("class","pendingAnswers")
+.attr("width",300)
+.attr("height",20)
+.attr("x",0)
+.style("fill", "#888");
+
+results.append("rect")
+.attr("class","negativeAnswers")
+.attr("width",0)
+.attr("height",20)
+.attr("x",0)
+.style("fill", "#f44");
+
+results.append("rect")
+.attr("class","positiveAnswers")
+.attr("width",0)
+.attr("height",20)
+.attr("x",0)
+.style("fill", "#4f4");
+{% endhighlight %}
+
+As you can see, I create the svg with the desired size here, and add three _rect_ elements, that will be the score bar. All them are in a group called _results_
+
+# Creating the base map
+
+To create the base map, I just draw a simple polygon map as usual:
+{% highlight js %}
+d3.json("comarques.topo.json", function(error, comarques) {
+var land = topojson.feature(comarques, comarques.objects.comarques);
+var capitals = topojson.feature(comarques, comarques.objects.capitals);
+
+svg.selectAll("path")
+.data(land.features)
+.enter()
+.append("path")
+.attr("d", path)
+.style("stroke","#555")
+.style("stroke-width",".5px")
+.style("fill", "#cdc");
+
+var ids = d3.range(1,42);
+var remaining_ids = ids.slice();
+
+var positive_answers = 0;
+var negative_answers = 0;
+{% endhighlight %}
+
+- The land and the capitals are both in the same topojson.
+- _ids_ will have all the regions id nmbers (they go from 1 to 41)
+- _remaining_ids_ is the same array as the ids, but when a region is put as a question, it's removed from it. This way, we know which regions haven't been asked yet, and have all the numbers so the random buttons can be generated from _ids_. I found that using _slice_ is the fastest way to clone an array.
+- _positive_answers_ and _negative_answers_ will have the scored points
+
+# drawOptions()
+
+{% highlight js %}
+var drawOptions = function(){
+var id_question = remaining_ids[Math.floor(Math.random() * remaining_ids.length)];
+remaining_ids.splice(remaining_ids.indexOf(id_question),1);
+
+    options = [];
+    while (options.length < 3) {
+      id = Math.round(Math.random() * (ids.length-1));
+      if(options.indexOf(id) == -1 && id != id_question)
+      options.push(id);
+    }
+    options.push(id_question);
+    options
+          .sort(function(a,b){
+            return d3.ascending(land.features[a].properties.name ,land.features[b].properties.name);
+          });
+
+{% endhighlight %}
+This first part takes the region to ask from the _remaining_ids_ array, and three more false answers to create the buttons.
+{% highlight js %}
+//Drawing the answer buttons
+var selection = d3.select("#answers")
+.selectAll(".answer")
+.data(options, function(d){return d;});
+
+    selection
+      .enter()
+      .append("button")
+      .attr("class","answer")
+      .text(function(d){return land.features[d].properties.name;})
+      .on("click", function(d){checkAnswer(id_question, d);});
+
+    selection
+      .exit()
+      .remove();
+
+{% endhighlight %}
+Here, the buttons are drawn. Note the use of _selection.exit()_. This will remove the buttons when the new question comes, since the _options_ will be different.
+{% highlight js %}
+//Drawing the selected region
+var land_feature = land.features[id_question]
+var capitals_feature = capitals.features.filter(
+function(d){
+if (d.properties.id_comarca == parseInt(land_feature.properties.comarca)) return d;
+});
+
+    var selectionLand = svg.selectAll(".selectedPath")
+      .data([land_feature], function(d){return d.properties.comarca;});
+
+      selectionLand
+      .enter()
+      .append("path")
+      .attr("d", path)
+      .attr("class", "selectedPath")
+      .style("stroke-width",".5px")
+      .style("stroke","#555")
+      .style("fill", "#ffa000")
+      .style("opacity", 0)
+      .transition()
+      .duration(1000)
+      .style("opacity", 1);
+
+      selectionLand
+      .exit()
+      .transition()
+      .duration(1000)
+      .style("opacity", 0)
+      .remove();
+
+      var selectionCircle = svg.selectAll(".capitalLocation")
+          .data(capitals_feature, function(d){return d.properties.id_comarca;});
+
+      selectionCircle
+          .enter()
+          .append("circle")
+          .attr("class", "capitalLocation")
+          .attr("r", 2)
+          .attr("transform",function(d){return"translate("+projection(d.geometry.coordinates)+")";})
+          .style("fill", "black")
+          .style("opacity", 0)
+          .transition()
+          .duration(1000)
+          .style("opacity", 1);
+
+        selectionCircle
+          .exit()
+          .transition()
+          .duration(1000)
+          .style("opacity", 0)
+          .remove();
+
+      var selectionText = svg.selectAll(".capitalName")
+        .data(capitals_feature, function(d){return d.properties.id_comarca;});
+
+      selectionText
+        .enter()
+        .append("text")
+        .attr("class","capitalName")
+        .attr("transform", function(d) { return "translate(" + projection(d.geometry.coordinates) + ")"; })
+        .attr("dy", ".35em")
+        .attr("dx", ".35em")
+        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
+        .text(function(d) {return d.properties.name;})
+        .style("opacity", 0)
+        .transition()
+        .duration(1000)
+        .style("opacity", 1);
+
+      selectionText
+        .exit()
+        .transition()
+        .duration(1000)
+        .style("opacity", 0)
+        .remove();
+
+};
+{% endhighlight %}
+Finally, the selected region is drawn, along with the point indicating the capital name and the capital nema. Again, the _selection.exit()_ method is used to remove the elements when a new one is created.
+
+The first lines match the region id with the capital.
+
+# checkAnswer
+
+{% highlight js %}
+var checkAnswer = function(correct_answer, selected_answer){
+if (correct_answer == selected_answer){
+positive_answers++;
+var selectionLand = svg.select(".selectedPath")
+.style("fill","#4f4");
+} else {
+negative_answers++;
+var selectionLand = svg.select(".selectedPath")
+.style("fill","#f44");
+}
+{% endhighlight %}
+This is the part where the answer is checked. Of course, when the answer is correct, the counter of correct answers goes up (and the same for wrong answers). The region color is changed too depending on the answer.
+
+The next steps simply change the status bar or put the final result at the end.
+{% highlight js %}
+svg.select(".positiveAnswers")
+.transition()
+.duration(1000)
+.attr("x", 0)
+.attr("width",function(){return 300.0\*(positive_answers/41);});
+
+      svg.select(".negativeAnswers")
+        .transition()
+        .duration(1000)
+        .attr("x", function(){return positive_answers * 300/41;})
+        .attr("width",function(){return 300.0*(negative_answers/41);});
+
+      if (remaining_ids.length > 0){
+        //Draw the next question
+        drawOptions();
+      } else {
+        svg.selectAll(".selectedPath")
+          .transition()
+          .duration(1000)
+          .remove();
+        svg.selectAll(".capitalLocation")
+          .transition()
+          .duration(1000)
+          .remove();
+        svg.selectAll(".capitalName")
+          .transition()
+          .duration(1000)
+          .remove();
+
+        d3.selectAll("#answers")
+          .style('opacity',1)
+          .transition()
+          .duration(1000)
+          .style('opacity',0)
+          .remove();
+
+        //Draw the results
+        svg.append('text')
+        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
+        .style("font-size","30px")
+        .style("font-weight", "bold")
+        .attr("y", 225)
+        .attr("x",80)
+        .text("Has acabat!")
+        .style("opacity",0)
+        .transition()
+        .duration(2000)
+        .style("opacity",1);
+
+        svg.append('text')
+        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
+        .style("font-size","30px")
+        .style("font-weight", "bold")
+        .style("fill", "#4f4")
+        .style("stroke", "#000")
+        .attr("y", 255)
+        .attr("x",80)
+        .text(function(){ return "Respostes correctes: "+positive_answers;})
+        .style("opacity",0)
+        .transition()
+        .duration(2000)
+        .delay(2000)
+        .style("opacity",1);
+
+        svg.append('text')
+        .style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
+        .style("font-size","30px")
+        .style("font-weight", "bold")
+        .style("fill", "#f44")
+        .style("stroke", "#000")
+        .attr("y", 285)
+        .attr("x",80)
+        .text(function(){ return "Respostes equivocades: "+negative_answers;})
+        .style("opacity",0)
+        .transition()
+        .duration(2000)
+        .delay(4000)
+        .style("opacity",1);
+      }
+
+};
+{% endhighlight %}
+If there are still elements into _remaining_ids_, the _drawOptions_ function is called again. If the game has ended, the buttons and selected region and capital are removed and the final results are displayed with some delay.
+
+## Next steps
+
+The most important failure in the example are the transitions when a click is done before the current transition ends (which will happen for sure when a kid plays). I've tried with [named transitions][named_transitions] and [interrupting the transitions][interrupting_transitions] but none of them work.
+
+An other cool thing to do would be separating the code from the exact questions, making it able to create games for any empty map (to learn the World countries or any country regions). The only mandatory thing would be to have always the same topojson format.
+
+[game_web]: http://geoexamples.com/comarques/
+[github]: https://github.com/rveciana/comarques/tree/gh-pages
+[named_transitions]: http://bl.ocks.org/mbostock/5d8039fb983a29e2ad49
+[interrupting_transitions]: https://github.com/mbostock/d3/wiki/Selections#interrupt

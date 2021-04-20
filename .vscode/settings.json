@@ -1,0 +1,13 @@
+{
+    {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[typescript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+        },
+        "[svelte]": {
+          "editor.defaultFormatter": "svelte.svelte-vscode",
+          "editor.formatOnSave": true
+        }
+      }
+}
