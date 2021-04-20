@@ -38,15 +38,15 @@
 
 
 
-<link rel="modulepreload" href="/./_app/start-44631b0b.js">
-			<link rel="modulepreload" href="/./_app/chunks/vendor-ff3d1764.js">
-			<link rel="modulepreload" href="/./_app/chunks/config-b3bde751.js">
-			<link rel="modulepreload" href="/./_app/pages\[category]\[year]\[month]\[date]\[slug].svelte-a77716b3.js">
-			<link rel="stylesheet" href="/./_app/assets/start-34a290f9.css">
+<link rel="modulepreload" href="/./staticApp/start-44631b0b.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/vendor-ff3d1764.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/config-b3bde751.js">
+			<link rel="modulepreload" href="/./staticApp/pages\[category]\[year]\[month]\[date]\[slug].svelte-a77716b3.js">
+			<link rel="stylesheet" href="/./staticApp/assets/start-34a290f9.css">
 
 
 		<script type="module">
-			import { start } from "/./_app/start-44631b0b.js";
+			import { start } from "/./staticApp/start-44631b0b.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":"/."},
@@ -57,7 +57,7 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/./_app/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a77716b3.js")
+						import("/./staticApp/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a77716b3.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -117,7 +117,7 @@ leafletMap<span class="token punctuation">.</span>attributionControl<span class=
 
 
 
-	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
+	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
 
 	<script type="svelte-data" url="leaflet-attribution.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"Leaflet Attribution\",\"contents\":\"\u003Cp\u003EThis is a fast tip post I wrote for myself so I can remember this situation. Leaflet makes easy to add attributions (usually) at the bottom right of the map. \u003Ca href=\\\"http:\u002F\u002Fleafletjs.com\u002Freference-1.2.0.html#control-attribution\\\"\u003EThe docs\u003C\u002Fa\u003E show three methods:\u003C\u002Fp\u003E\\n\u003Cul\u003E\\n\u003Cli\u003EsetPrefix(\u003CString\u003E prefix): Changes the \u003Cem\u003ELeaflet\u003C\u002Fem\u003E link to the desired one\u003C\u002Fli\u003E\\n\u003Cli\u003EaddAttribution(\u003CString\u003E text): Adds a new attribution text after the leaflet link. If called multiple times, the texts are separated by commas\u003C\u002Fli\u003E\\n\u003Cli\u003EremoveAttribution(\u003CString\u003E text): Removes the indicated attribution. You must know the text to remove\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\u003Cp\u003ESo what happens when you want to erase all the current attributions to add new ones? A use case could be when each layer must have different attributions. There are two options:\u003C\u002Fp\u003E\\n\u003Cp\u003E1.- Store the added attributions and call \u003Cem\u003EremoveAttribution\u003C\u002Fem\u003E as many times as needed\\n2.- Reset the internal variable:\u003C\u002Fp\u003E\\n\u003Cp\u003ELooking at \u003Ca href=\\\"https:\u002F\u002Fgithub.com\u002FLeaflet\u002FLeaflet\u002Fblob\u002Fmaster\u002Fsrc\u002Fcontrol\u002FControl.Attribution.js\\\"\u003Ethe code\u003C\u002Fa\u003E, there is a variable named \u003Cem\u003E\\\\\u003C\u002Fem\u003Eattributions_, which is a key-value object. The keys are the attribution texts and the values the position numbers.\u003C\u002Fp\u003E\\n\u003Cp\u003ERemoving all the attributions, then is as easy as:\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Cpre\u003E\u003Ccode\u003E\\nleafletMap\u003Cspan class=\\\"token punctuation\\\"\u003E.\u003C\u002Fspan\u003EattributionControl\u003Cspan class=\\\"token punctuation\\\"\u003E.\u003C\u002Fspan\u003E_attributions \u003Cspan class=\\\"token operator\\\"\u003E=\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\nleafletMap\u003Cspan class=\\\"token punctuation\\\"\u003E.\u003C\u002Fspan\u003EattributionControl\u003Cspan class=\\\"token punctuation\\\"\u003E.\u003C\u002Fspan\u003E\u003Cspan class=\\\"token function\\\"\u003EaddAttribution\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E(\u003C\u002Fspan\u003E\u003Cspan class=\\\"token string\\\"\u003E\\\"New attribution\\\"\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E)\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\u003C\u002Fp\u003E\\n\",\"tags\":[\"leaflet\"],\"date\":\"2018-01-08T00:00:00.000Z\"}"}</script>
 </div>

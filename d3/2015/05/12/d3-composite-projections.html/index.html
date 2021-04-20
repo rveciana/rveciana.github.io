@@ -38,15 +38,15 @@
 
 
 
-<link rel="modulepreload" href="/./_app/start-44631b0b.js">
-			<link rel="modulepreload" href="/./_app/chunks/vendor-ff3d1764.js">
-			<link rel="modulepreload" href="/./_app/chunks/config-b3bde751.js">
-			<link rel="modulepreload" href="/./_app/pages\[category]\[year]\[month]\[date]\[slug].svelte-a77716b3.js">
-			<link rel="stylesheet" href="/./_app/assets/start-34a290f9.css">
+<link rel="modulepreload" href="/./staticApp/start-44631b0b.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/vendor-ff3d1764.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/config-b3bde751.js">
+			<link rel="modulepreload" href="/./staticApp/pages\[category]\[year]\[month]\[date]\[slug].svelte-a77716b3.js">
+			<link rel="stylesheet" href="/./staticApp/assets/start-34a290f9.css">
 
 
 		<script type="module">
-			import { start } from "/./_app/start-44631b0b.js";
+			import { start } from "/./staticApp/start-44631b0b.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":"/."},
@@ -57,7 +57,7 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/./_app/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a77716b3.js")
+						import("/./staticApp/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a77716b3.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -169,7 +169,7 @@ But the other countries didn&#39;t have a projectino like this. That&#39;s why I
 
 
 
-	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
+	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
 
 	<script type="svelte-data" url="d3-composite-projections.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"D3 Composite Projections\",\"contents\":\"\u003Cp\u003ESome countries have regions sparse around the globe, which adds difficulties when drawing maps for them.\u003C\u002Fp\u003E\\n\u003Cp\u003ED3 already had the \u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Fmbostock\u002F5545680\\\"\u003EalbersUsa\u003C\u002Fa\u003E projection that solved this problem by creating a composed projection, moving Alaska and Hawaii close to the main part of the USA.\\nBut the other countries didn&#39;t have a projectino like this. That&#39;s why I made \u003Ca href=\\\"http:\u002F\u002Frveciana.github.io\u002Fd3-composite-projections\u002F\\\"\u003Ethis library\u003C\u002Fa\u003E.\u003C\u002Fp\u003E\\n\u003Cscript src=\\\"http:\u002F\u002Fd3js.org\u002Fd3.v3.min.js\\\"\u003E\u003C\u002Fscript\u003E\\n\u003Cscript src=\\\"http:\u002F\u002Fd3js.org\u002Ftopojson.v1.min.js\\\"\u003E\u003C\u002Fscript\u003E\\n\u003Cscript src=\\\"https:\u002F\u002Fraw.githubusercontent.com\u002Frveciana\u002Fd3-composite-projections\u002F0.0.3\u002Fcomposite-projections.min.js\\\"\u003E\u003C\u002Fscript\u003E\\n\u003Cdiv id=\\\"example_map\\\"\u003E\u003C\u002Fdiv\u003E\\n\\n\u003Cscript\u003E\\n\\n  var width = 700,\\n      height = 500;\\n\\n  var projection = d3.geo.conicConformalFrance();\\n  var path = d3.geo.path()\\n      .projection(projection);\\n\\n  var svg = d3.select(\\\"#example_map\\\").append(\\\"svg\\\")\\n      .attr(\\\"width\\\", width)\\n      .attr(\\\"height\\\", height)\\n      .attr(\\\"transform\\\",\\\"translate(-130)\\\");\\n\\n  d3.json(\\\"https:\u002F\u002Fcdn.rawgit.com\u002Frveciana\u002F5919944\u002Fraw\u002Fb1f826319231c3e06d6e8548bc947ca2c29dc9e8\u002Ffrance.json\\\", function(error, regions) {\\n  var land = topojson.feature(regions, regions.objects.regions);\\n\\n  svg.selectAll(\\\"path\\\")\\n    .data(land.features)\\n    .enter()\\n    .append(\\\"path\\\")\\n    .attr(\\\"d\\\", path)\\n    .style(\\\"stroke\\\",\\\"#000\\\")\\n    .style(\\\"stroke-width\\\",\\\".5px\\\")\\n    .style(\\\"fill\\\",\\\"#aca\\\")\\n    .on(\\\"mouseover\\\", function(d,i) {\\n      d3.select(this)\\n        .transition()\\n        .style(\\\"fill\\\", \\\"red\\\");\\n      })\\n    .on(\\\"mouseout\\\", function(d,i) {\\n      d3.select(this)\\n        .transition()\\n        .style(\\\"fill\\\", \\\"#aca\\\");\\n      });\\n\\n\\n  svg\\n    .append(\\\"path\\\")\\n      .style(\\\"fill\\\",\\\"none\\\")\\n      .style(\\\"stroke\\\",\\\"#000\\\")\\n      .attr(\\\"d\\\", projection.getCompositionBorders());\\n\\n\\n});\\n\\n\u003C\u002Fscript\u003E\\n\\n\u003Cp\u003EIt adds the composite projection for:\u003C\u002Fp\u003E\\n\u003Cul\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Frveciana\u002F472b7749352554ca4b68\\\"\u003ESpain\u003C\u002Fa\u003E\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Frveciana\u002F02eb5b83848e0b06fa8e\\\"\u003EFrance\u003C\u002Fa\u003E\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Frveciana\u002Faec08199d43759e98afe\\\"\u003EPortugal\u003C\u002Fa\u003E\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Frveciana\u002F170a76b8dc1f9cfd8b2d\\\"\u003EUSA\u003C\u002Fa\u003E\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\u003Cp\u003EWith a function that draws a border between the composition zones by returning an SVG path.\u003C\u002Fp\u003E\\n\u003Cp\u003EThere is an example for each region, linked in the list above.\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Ca href=\\\"http:\u002F\u002Frveciana.github.io\u002Fd3-composite-projections\u002F\\\"\u003EThe library web page\u003C\u002Fa\u003E explains the usage and installation\u002Ftesting\u003C\u002Fp\u003E\\n\u003Cp\u003EIf you are going to use it, need more regions\u002Fcountries or find an error, please leave a comment here.\u003C\u002Fp\u003E\\n\",\"tags\":[\"projections\",\"library\",\"npm\",\"bower\",\"nodejs\"],\"date\":\"2015-05-12T00:00:00.000Z\"}"}</script>
 </div>
