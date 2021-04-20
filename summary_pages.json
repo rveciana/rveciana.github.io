@@ -1,1 +1,1 @@
-[{"title":"About","permalink":"/about","excerpt":"<p>{{ site.author.name }}</p>"},{"title":"CV","permalink":"/cv","excerpt":"<h2 id=\"jobs\">Jobs</h2>","avoidMainMenu":true},{"title":"Projects","permalink":"/projects","excerpt":"<p>Some of my personal projects:</p>"}]
+[{"title":"CV","permalink":"/cv","excerpt":"<h2 id=\"jobs\">Jobs</h2>","avoidMainMenu":true},{"title":"Projects","permalink":"/projects","excerpt":"<p>Some of my personal projects:</p>"},{"title":"About","permalink":"/about","excerpt":"<p>{{ site.author.name }}</p>"}]
