@@ -3,7 +3,9 @@ import { md2html } from '$lib/md2html';
 import type { Post } from '$lib/model';
 
 const getContents = (slug: string): Post => {
-	const post = Object.values(data).find((d) => d.meta.relativePath.includes(slug));
+	const post = Object.values(data).find((d) => d.meta.relativePath.toLowerCase().includes(slug));
+
+	console.log(slug);
 
 	const htmlText = md2html(post ? post.contents : '');
 	return post

@@ -27,6 +27,8 @@ export const md2html = (mdContent: string): string => {
 				return `<pre><code>${Prism.highlight(code, Prism.languages.javascript)}</code></pre>`;
 			case 'json':
 				return `<pre><code>${Prism.highlight(code, Prism.languages.javascript)}</code></pre>`;
+			case 'html':
+				return `<pre><code>${Prism.highlight(code, Prism.languages.html)}</code></pre>`;
 		}
 		return code;
 	});
