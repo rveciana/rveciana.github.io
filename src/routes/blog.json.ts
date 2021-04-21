@@ -6,5 +6,5 @@ interface Response {
 	status: number;
 }
 export function get(): Response {
-	return { body: getContents('5'), status: 200 };
+	return { body: getContents(undefined), status: 200 };
 }

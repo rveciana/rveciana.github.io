@@ -107,8 +107,8 @@ This is the result:
 
 # Links
 
-[XState website][xstate]
-[Accessing a readable store value in Svelte][readable store]
+- [XState website][xstate]
+- [Accessing a readable store value in Svelte][readable store]
 
 [xstate]: https://xstate.js.org/
 [readable store]: https://svelte.dev/docs#4_Prefix_stores_with_$_to_access_their_values

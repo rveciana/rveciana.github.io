@@ -288,6 +288,7 @@ As you can see, it's really easy to control when the states are well defined
      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
+
 Links
 =====
 
@@ -298,9 +299,9 @@ Links
 - [Third example on CodeSandbox][codesandbox_3]
 - [svelte tweened motion][tweened]
 
-[xstate]: https://xstate.js.org/
 
-[last_post]: {{ site.baseurl }}/svelte/2020/04/08/gpujs-example.html
+[xstate]: https://xstate.js.org/
+[last_post]: /svelte/2020/04/08/gpujs-example.html
 [codesandbox_1]: https://codesandbox.io/s/traffic-lights-the-lights-ohnru
 [codesandbox_2]: https://codesandbox.io/s/traffic-lights-pedestrian-1ky4d?file=/App.svelte
 [codesandbox_3]: https://codesandbox.io/s/traffic-lights-state-nodes-9w9n6?file=/App.svelte

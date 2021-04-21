@@ -22,6 +22,7 @@ export const md2html = (mdContent: string): string => {
 			.replace(/&gt;/gi, '>')
 			.replace(/{% highlight [a-z]* %}/g, '')
 			.replace(/{% endhighlight %}/g, '');
+
 		switch (lang) {
 			case 'js':
 				return `<pre><code>${Prism.highlight(code, Prism.languages.javascript)}</code></pre>`;
@@ -29,8 +30,11 @@ export const md2html = (mdContent: string): string => {
 				return `<pre><code>${Prism.highlight(code, Prism.languages.javascript)}</code></pre>`;
 			case 'html':
 				return `<pre><code>${Prism.highlight(code, Prism.languages.html)}</code></pre>`;
+			case 'python':
+				return `<pre><code>${Prism.highlight(code, Prism.languages.js)}</code></pre>`;
+			default:
+				return `<pre><code>${Prism.highlight(code, Prism.languages.js)}</code></pre>`;
 		}
-		return code;
 	});
 
 	return codeMatches?.reduce((acc, curr, i) => acc.replace(curr, formattedCode[i]), text) ?? text;

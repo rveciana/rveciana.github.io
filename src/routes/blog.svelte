@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	export async function load({ fetch }) {
-		const resultPosts = await fetch('summary.json');
+		const resultPosts = await fetch('blog.json');
 		const posts = (await resultPosts.json()) as PostSummary[];
 		const resultTagsAndCategories = await fetch('tags-and-categories.json');
 		const tagsAndCategories = (await resultTagsAndCategories.json()) as TagsAndCategories[];

@@ -1,10 +1,11 @@
 import { data } from '$lib/data.json';
-import type { PostSummary } from '$lib/model';
+import type { PostSummary } from './model';
 
-const getContents = (slug: string): PostSummary[] =>
+export const getContents = (num_posts: string | undefined): PostSummary[] =>
 	Object.values(data)
-		.filter((value) => value.layout === 'post' && value.categories.toLowerCase() === slug)
+		.filter((value) => value.layout === 'post')
 		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+		.slice(0, num_posts ? parseInt(num_posts) : undefined)
 		.map((post) => {
 			const postDate = new Date(post.date);
 
@@ -30,11 +31,3 @@ const getContents = (slug: string): PostSummary[] =>
 				)}/${postDate.toLocaleDateString('en-US', { day: '2-digit' })}/${htmlPath}`
 			};
 		});
-
-interface Response {
-	body: PostSummary[];
-	status: number;
-}
-export function get(req): Response {
-	return { body: getContents(req.params.slug.toLowerCase()), status: 200 };
-}

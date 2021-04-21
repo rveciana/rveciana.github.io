@@ -31,15 +31,14 @@ Copy the following files to the _\_layouts_ dir:
 
 blog_by_category.html
 
-## {% highlight html+django %}
+{% highlight html %}
 
-## layout: default
 
 <h1>Articles by category :{{ page.category }}</h1>
 <div>
     {{ "{% if site.categories[page.category] " }}%}
         {{ "{% for post in site.categories[page.category] " }}%}
-            <a href="{{ "{{ post.url " }}}}/">{{ "{{ post.title " }}}}</a>
+            <a href="{{ "{{ post.url  }} "}}/">{{ "{{ post.title " }}}}</a>
         {{ "{% endfor " }}%}
     {{ "{% else " }}%}
         <p>There are no posts for this category.</p>
@@ -49,10 +48,8 @@ blog_by_category.html
 {% endhighlight %}
 
 blog_by_tag.html
+ {% highlight html %}
 
-## {% highlight html+django %}
-
-## layout: default
 
 <h1>Articles by tag :{{ page.tag }}</h1>
 <div>
@@ -109,7 +106,7 @@ end
 
 Now you will have the url _/tags/[name_of_the_tag]_ and _/categories/[name_of_teh_category]_ pages accessible. There are many ways to create the links to them. To put an example, I create a category list and a tag word cloud using this code in the _blog_ page:
 
-{% highlight html+django %}
+{% highlight html %}
 
 <h1>Categories</h1>
 {{ "{% for category in site.categories " }}%}
