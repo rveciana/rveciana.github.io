@@ -38,7 +38,7 @@ blog_by_category.html
 <div>
     {{ "{% if site.categories[page.category] " }}%}
         {{ "{% for post in site.categories[page.category] " }}%}
-            <a href="{{ "{{ post.url  }} "}}/">{{ "{{ post.title  }}"}}</a>
+            <a href="{{  post.url  }}">{{ "{{ post.title  }}"}}</a>
         {{ "{% endfor " }}%}
     {{ "{% else " }}%}
         <p>There are no posts for this category.</p>
@@ -55,7 +55,7 @@ blog_by_tag.html
 <div>
    {{ "{% if site.tags[page.tag] " }}%}
         {{ "{% for post in site.tags[page.tag] " }}%}
-            <a href={{ "{{ post.url " }}}}/>{{ "{{ post.title " }}}}</a>
+            <a href={{ post.url }}/>{{  post.title  }}</a>
         {{ "{% endfor " }}%}
     {{ "{% else " }}%}
         <p>There are no posts for this tag.</p>
@@ -106,39 +106,6 @@ end
 
 Now you will have the url _/tags/[name_of_the_tag]_ and _/categories/[name_of_teh_category]_ pages accessible. There are many ways to create the links to them. To put an example, I create a category list and a tag word cloud using this code in the _blog_ page:
 
-{% highlight html %}
 
-<h1>Categories</h1>
-{{ "{% for category in site.categories " }}%}
-
-        <a href="{{ "{{base_url" }}}}/categories/{{ "{{ category | first" }}}}/">
-            {{ "{{ category | first " }}}}
-        </a>
-        {{ "{% unless forloop.last " }}%}, {{ "{% endunless " }}%}
-
-{{ "{% endfor " }}%}
-
-<h1>Tags</h1>
-<div class="tagcloud">
-{{ "{% for tag in site.tags " }}%}
-
-    <li style="font-size: {{ "{{ tag | last | size | times: 100 | divided_by: site.tags.size| plus: 70 " }}}}%">
-        <a href="{{ "{{base_url" }}}}/tags/{{ "{{ tag | first |downcase | slugize " }}}}/">
-            {{ "{{ tag | first " }}}}
-        </a>
-
-    </li>
-
-{{ "{% endfor " }}%}
-{% endhighlight %}
-
-When in a page, you can use something like this to get all the tag links:
-{% highlight html+django %}
-
-<div class="tags">Tags: {{ "{% for tag in post.tags " }}%}
-<a href="{{ "{{base_url" }}}}/tags/{{ "{{ tag |downcase | slugize " }}}}/">{{ "{{tag" }}}}</a>
-  {{ "{% unless forloop.last " }}%}, {{ "{% endunless " }}%}
-{{ "{% endfor " }}%}</div>
-{% endhighlight %}
 
 Next post will be about maps again!

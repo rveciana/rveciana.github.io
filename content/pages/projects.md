@@ -31,4 +31,4 @@ Basemap has got [some documentation](http://matplotlib.org/basemap/index.html), 
 <a href="http://www.gdal.org/frmt_various.html#IRIS"><img class="teaser" src="{{ site.baseurl }}/images/teasers/gdal-iris-driver.png" alt="teaser" itemprop="image"></a>
 VAISALA/SIGMET weather radars have their own format to store the generated products, so opening them can be quite difficult without their software.
 
-This driver, integrated in the default [GDAL library](http://www.gdal.org/), makes possible to open these files from any software using GDAL, including [QGIS](www.qgis.org) and the [GDAL Python bindings](http://trac.osgeo.org/gdal/wiki/GdalOgrInPython).
+This driver, integrated in the default [GDAL library](http://www.gdal.org/), makes possible to open these files from any software using GDAL, including [QGIS](http://www.qgis.org) and the [GDAL Python bindings](http://trac.osgeo.org/gdal/wiki/GdalOgrInPython).
