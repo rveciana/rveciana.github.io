@@ -17,6 +17,7 @@ export interface Post {
 	contents: string;
 	tags: string[];
 	date: string;
+	thumbnail: string;
 }
 
 export interface PageSummary {

@@ -16,6 +16,27 @@
 	export let posts: PostSummary[] = [];
 </script>
 
+<svelte:head>
+	<title>GeoExamples - Roger Veciana</title>
+	<!-- Twitter Meta Tags -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:title" content="GeoExamples - Roger Veciana" />
+	<meta
+		name="twitter:description"
+		content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
+	/>
+	<meta name="twitter:image" content="https://geoexamples.com/siteImage.png" />
+	<!-- Facebook Meta Tags -->
+	<meta property="og:url" content="https://geoexamples.com" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="GeoExamples - Roger Veciana" />
+	<meta
+		property="og:description"
+		content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
+	/>
+	<meta property="og:image" content="https://geoexamples.com/siteImage.png" />
+</svelte:head>
+
 <div class="home">
 	<h1 class="page-heading">Posts</h1>
 

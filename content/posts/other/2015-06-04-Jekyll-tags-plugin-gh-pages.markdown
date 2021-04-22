@@ -38,7 +38,7 @@ blog_by_category.html
 <div>
     {{ "{% if site.categories[page.category] " }}%}
         {{ "{% for post in site.categories[page.category] " }}%}
-            <a href="{{ "{{ post.url  }} "}}/">{{ "{{ post.title " }}}}</a>
+            <a href="{{ "{{ post.url  }} "}}/">{{ "{{ post.title  }}"}}</a>
         {{ "{% endfor " }}%}
     {{ "{% else " }}%}
         <p>There are no posts for this category.</p>

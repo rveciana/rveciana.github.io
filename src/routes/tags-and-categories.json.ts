@@ -17,7 +17,7 @@ const getContents = (): TagsAndCategories =>
 					...curr.tags
 						.filter((d) => !acc.tags.some((tag) => tag.label === d))
 						.map((d) => ({ label: d, occurrences: 1 }))
-				]
+				].sort((a, b) => a.label.toLowerCase().localeCompare(b.label.toLowerCase()))
 			}),
 			{
 				tags: [] as Tag[],
