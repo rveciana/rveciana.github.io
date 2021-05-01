@@ -289,8 +289,7 @@ As you can see, it's really easy to control when the states are well defined
      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
    ></iframe>
 
-Links
-=====
+# Links
 
 - [XState website][xstate]
 - [XState and Svelte I: initial setup][last_post]
@@ -298,7 +297,6 @@ Links
 - [Second example on CodeSandbox][codesandbox_2]
 - [Third example on CodeSandbox][codesandbox_3]
 - [svelte tweened motion][tweened]
-
 
 [xstate]: https://xstate.js.org/
 [last_post]: /svelte/2020/04/08/gpujs-example.html

@@ -3,6 +3,7 @@ layout: page
 title: Projects
 permalink: /projects/
 ---
+
 Some of my personal projects:
 
 <h2><a href="https://geoexamples.com/svg-path-properties/">svg-path-properties</a></h2>

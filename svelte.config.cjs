@@ -11,7 +11,7 @@ module.exports = {
 		// By default, `npm run build` will create a standard Node app.
 		// You can create optimized builds for different platforms by
 		// specifying a different adapter
-		adapter: nodeStatic({pages: "../build", assets: "../build"}),
+		adapter: nodeStatic({ pages: '../build', assets: '../build' }),
 		appDir: 'staticApp',
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',

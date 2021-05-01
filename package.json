@@ -10,7 +10,6 @@
 		"contentGen": "markdown-json -c markdown-config.json",
 		"watch-md": "nodemon -e md -x \"npm run contentGen\"",
 		"dev-md": "concurrently \"npm run dev\" \"npm run watch-md\""
-
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "next",

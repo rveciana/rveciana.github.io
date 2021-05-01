@@ -235,5 +235,5 @@ var land = topojson.feature(europe, europe.objects.nuts2);
 [gist]: https://gist.github.com/rveciana/5919944
 [topojson tutorial]: d3-EUROSTAT-topojson.html
 [eurostat]: http://ec.europa.eu/eurostat
-[gist example]:http://bl.ocks.org/rveciana/e3c02fe71f8dc63041ea
-[colorbrewer]:http://colorbrewer2.org/
+[gist example]: http://bl.ocks.org/rveciana/e3c02fe71f8dc63041ea
+[colorbrewer]: http://colorbrewer2.org/
