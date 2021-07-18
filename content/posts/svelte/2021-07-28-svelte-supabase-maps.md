@@ -2,7 +2,7 @@
 layout: post
 title: 'Mapping with supabase and Svelte'
 date: 2021-07-18 18:40:53
-teaser: migrate-jekyll-svelte.png
+teaser: supabase-svelte.png
 categories: svelte
 tags: [supabase, postgis]
 ---
