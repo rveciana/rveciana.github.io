@@ -7,7 +7,23 @@ categories: svelte
 tags: [jekyll, svelte-kit, markdown]
 ---
 
-Five years ago I changed my [old blogger blog][blogspot] to Jekyll. Now I've changed to Svelte, and here you have the steps and issues I found.
+Five years ago I changed my [old blogger blog][blogspot] to Jekyll. Now I've changed to Svelte, and here you have the steps and issues I found. You can find [the blog code repo here][blogcode].
+
+### TOC
+
+- [Why?](#why)
+- [Technologies used](#technologies-used)
+- [Starting the project](#starting-the-project)
+- [package.json](#packagejson)
+- [markdown-config-json](#markdown-config-json)
+- [Svelte config](#svelte-config)
+- [app.html and $layout.svelte](#apphtml-and-layoutsvelte)
+- [Endpoints](#endpoints)
+- [Getting the data](#getting-the-data)
+- [Components](#components)
+- [Routes](#routes)
+- [Deploying](#deploying)
+- [Links](#links)
 
 ## Why?
 
@@ -20,6 +36,7 @@ There are many reasons to change an old Jekyll blog (but mine is, honestly, that
 You have more reasons and explanations in [this post][nextjs].
 
 I could use some of the react based solutions, but I like Svelte and I couldn't find docs for doing it, so I chose ir. Also, svelte-kit seems a really nice solution, although is still very new.
+
 
 ## Technologies used
 
@@ -119,15 +136,15 @@ The svelte config I used is the following, prepared to generate the static site:
 
 
 {% highlight js %}
-const sveltePreprocess = require('svelte-preprocess');
-const nodeStatic = require('@sveltejs/adapter-static');
-const pkg = require('./package.json');
+const sveltePreprocess = require("svelte-preprocess");
+const nodeStatic = require("@sveltejs/adapter-static");
+const pkg = require("./package.json");
 module.exports = {
 	preprocess: sveltePreprocess(),
 	kit: {
-		adapter: nodeStatic({ pages: '../build', assets: '../build' }),
-		appDir: 'staticApp',
-		target: '#svelte',
+		adapter: nodeStatic({ pages: "../build", assets: "../build" }),
+		appDir: "staticApp",
+		target: "#svelte",
 		vite: {
 			ssr: {
 				noExternal: Object.keys(pkg.dependencies || {})
@@ -364,10 +381,15 @@ export const md2html = (mdContent: string): string => {
 - Prism has to detect the language. The problem is that by default it doesn't include Python and I didn't find the way to do it in Svelte (instructions are for babel). Using the Javascript hightlighting for python doesn't give a bad result.
 - HTML entities give some problems, so I had to replace them. Maybe there's a better way...
 
+## Deploying
 
+To make things faster I didn't want to change my GitHub hosting with gh-pages. To upload a site there, a repo with the name *username.github.io* has to be created. With Jekyll is cool because you can upload your Jekyll code directly there and GitHub creates the static site directly. In this case, we have the html and this is what has to go there, while the site code can go either in another branch or another repo (my option).
+
+To make the custom domain work, a file called *CNAME* with the domain as the content must be in the *static* folder.
 
 ## Links
 
+- [Blog code repo][blogcode]
 - [Blogspot blog][blogspot]
 - [Migrating from Jekyll to Nextjs][nextjs]
 - [svelte-kit][svelte-kit]
@@ -378,6 +400,7 @@ export const md2html = (mdContent: string): string => {
 - [GitHub pages][gh-pages]
 - [Front Matter][front-matter]
 
+[blogcode]: https://github.com/rveciana/geoexamples-blog
 [blogspot]: http://geoexamples.blogspot.com/
 [nextjs]: https://ghostinspector.com/blog/rebuilding-jekyll-website-next-js-theme-ui/
 [svelte-kit]: https://kit.svelte.dev/docs
