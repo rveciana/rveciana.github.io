@@ -5,6 +5,8 @@ date: 2021-07-18 18:40:53
 teaser: supabase-svelte.png
 categories: svelte
 tags: [supabase, postgis]
+thumbnail: /images/svelte/svelte-supabase/twitter.png
+twitter-card: summary
 ---
 
 I discovered [supabase][supabase] some days ago as a substitute to Firebase. As it was using PostgreSQL as the database, I checked if it had extensions and yes! it's got PostGIS and all its siblings!
