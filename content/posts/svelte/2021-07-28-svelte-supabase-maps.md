@@ -13,7 +13,7 @@ Using it it's not that straight forward, but it's not that difficult, so supabas
 
 <img src="{{ site.baseurl }}/images/svelte/svelte-supabase/map.png"/>
 
-We'll show the user's point data on a map, a list and will let them add new points too. 
+We'll show the user's point data on a map, a list and will let them add new points too.  You can see the [working example here][workingExample].
 
 ## Installation
 
@@ -207,12 +207,14 @@ This calls the function and gets its results. The newly created rows are added t
 
 ## Links
 
+- [Working example][workingExample]
 - [supabase][supabase]
 - [supabase and Svelte setup tutorial][supabaseSvelte]
 - [wkx library][wkx]
 - [wkx bug][bug]
 - [using a PostgreSQL function][functions]
 
+[workingExample]: https://bl.ocks.org/rveciana/ca929e406e6bac979cd7a7f263303bad
 [supabase]: https://supabase.io/
 [supabaseSvelte]: https://supabase.io/docs/guides/with-svelte#initialize-a-svelte-app
 [wkx]: https://github.com/cschwarz/wkx
