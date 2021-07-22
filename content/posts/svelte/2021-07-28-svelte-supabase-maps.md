@@ -13,7 +13,7 @@ I discovered [supabase][supabase] some days ago as a substitute to Firebase. As 
 
 Using it it's not that straight forward, but it's not that difficult, so supabase can be a great solution if your backed it's not really complex.
 
-<img src="{{ site.baseurl }}/images/svelte/svelte-supabase/map.png"/>
+<img src="{{ site.baseurl }}/images/svelte/svelte-supabase/map.png" />
 
 We'll show the user's point data on a map, a list and will let them add new points too.  You can see the [working example here][workingExample].
 
@@ -38,10 +38,13 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 Then, the data can be accessed like this (that would get all the elements from the *geometries* table)
 
-{% highlight js %}import { supabase } from "./supabaseClient";
-const { data, error } = await supabase
-    .from('geometries')
-    .select();
+{% highlight js %}
+import { createClient } from '@supabase/supabase-js'
+
+const supabaseUrl = __api.env.SVELTE_APP_SUPABASE_URL
+const supabaseAnonKey = __api.env.SVELTE_APP_SUPABASE_ANON_KEY
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 {% endhighlight %}
 
 ## Creating the table
@@ -88,10 +91,12 @@ We'll use two components, one for the map and the other for the rest. Let's see 
     import { geoEqualEarth, geoPath } from "d3-geo";
     import { onMount } from "svelte";
     import { feature } from "topojson";
+
     export let points;
     let data;
     const projection = geoEqualEarth();
     const path = geoPath().projection(projection);
+	
     onMount(async function() {
       const response = await fetch(
         "https://gist.githubusercontent.com/rveciana/502db152b70cddfd554e9d48ee23e279/raw/cc51c1b46199994b123271c629541d417f2f7d86/world-110m.json"
@@ -152,6 +157,7 @@ The main component of the site is *App.svelte*:
 		} finally {
 			loading = false
 		}
+
         }
 }
 </script>
@@ -216,7 +222,7 @@ This calls the function and gets its results. The newly created rows are added t
 - [wkx bug][bug]
 - [using a PostgreSQL function][functions]
 
-[workingExample]: https://bl.ocks.org/rveciana/ca929e406e6bac979cd7a7f263303bad
+[workingExample]: https://bl.ocks.org/rveciana/raw/ca929e406e6bac979cd7a7f263303bad/?raw=true
 [supabase]: https://supabase.io/
 [supabaseSvelte]: https://supabase.io/docs/guides/with-svelte#initialize-a-svelte-app
 [wkx]: https://github.com/cschwarz/wkx

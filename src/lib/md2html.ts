@@ -5,7 +5,9 @@ import Prism from 'prismjs';
 export const md2html = (mdContent: string): string => {
 	const template = Handlebars.compile(mdContent);
 
-	const text = template(configuration);
+	const text = template(configuration)
+		.replace(/<pre><code>/g, '')
+		.replace(/<\/code><\/pre>/g, '');
 
 	const codeMatches = text.match(/{% highlight [a-z]* %}(.|\n)*?{% endhighlight %}/g);
 
@@ -18,6 +20,7 @@ export const md2html = (mdContent: string): string => {
 			.replace(/<p>/g, '\n')
 			.replace(/<\/p>/g, '')
 			.replace(/&quot;/gi, `"`)
+			.replace(/&#39;/gi, `'`)
 			.replace(/&lt;/gi, '<')
 			.replace(/&gt;/gi, '>')
 			.replace(/{% highlight [a-z]* %}/g, '')
@@ -25,17 +28,21 @@ export const md2html = (mdContent: string): string => {
 
 		switch (lang) {
 			case 'js':
-				return `<pre><code>${Prism.highlight(code, Prism.languages.javascript)}</code></pre>`;
+				return `${Prism.highlight(code, Prism.languages.javascript)}`;
 			case 'json':
-				return `<pre><code>${Prism.highlight(code, Prism.languages.javascript)}</code></pre>`;
+				return `${Prism.highlight(code, Prism.languages.javascript)}`;
 			case 'html':
-				return `<pre><code>${Prism.highlight(code, Prism.languages.html)}</code></pre>`;
+				return `${Prism.highlight(code, Prism.languages.html)}`;
 			case 'python':
-				return `<pre><code>${Prism.highlight(code, Prism.languages.js)}</code></pre>`;
+				return `${Prism.highlight(code, Prism.languages.js)}`;
 			default:
-				return `<pre><code>${Prism.highlight(code, Prism.languages.js)}</code></pre>`;
+				return `${Prism.highlight(code, Prism.languages.js)}`;
 		}
 	});
 
-	return codeMatches?.reduce((acc, curr, i) => acc.replace(curr, formattedCode[i]), text) ?? text;
+	return (
+		codeMatches?.reduce((acc, curr, i) => {
+			return acc.replace(curr, `<pre><code>${formattedCode[i]}</code></pre>`);
+		}, text) ?? text
+	);
 };
