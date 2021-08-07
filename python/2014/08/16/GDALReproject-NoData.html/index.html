@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BD6G9PF6NH"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-BD6G9PF6NH');
+		</script>
+
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="manifest" href="/manifest.json" />
-		<meta name="theme-color" content="#cdffcd">
+		<meta name="theme-color" content="#cdffcd" />
 		<!-- HTML Meta Tags -->
-		<title>GeoExamples - Roger Veciana</title>
 		<meta
 			name="description"
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
@@ -19,34 +30,20 @@
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
 		/>
 		<meta itemprop="image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Facebook Meta Tags -->
-		<meta property="og:url" content="https://geoexamples.com" />
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="GeoExamples - Roger Veciana" />
-		<meta
-			property="og:description"
-			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
-		/>
-		<meta property="og:image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Twitter Meta Tags -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content="GeoExamples - Roger Veciana" />
-		<meta name="twitter:description"
-		  content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." />
-		<meta name="twitter:image" content="https://geoexamples.com/siteImage.png" />
-		
+
+		<title>GeoExamples - Shortest distance to a geometry in a specified direction using Python</title><meta name="twitter:card" content="summary" data-svelte="svelte-4aysgi"><meta name="twitter:title" content="GeoExamples - Shortest distance to a geometry in a specified direction using Python" data-svelte="svelte-4aysgi"><meta name="twitter:description" content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." data-svelte="svelte-4aysgi"><meta name="twitter:image" content="https://geoexamples.com/images/d3/d3-shaded-relief/twitter.png" data-svelte="svelte-4aysgi"><meta property="og:url" content="https://geoexamples.com" data-svelte="svelte-4aysgi"><meta property="og:type" content="website" data-svelte="svelte-4aysgi"><meta property="og:title" content="GeoExamples - Shortest distance to a geometry in a specified direction using Python" data-svelte="svelte-4aysgi"><meta property="og:description" content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." data-svelte="svelte-4aysgi"><meta property="og:image" content="https://geoexamples.com/images/d3/d3-shaded-relief/twitter.png" data-svelte="svelte-4aysgi">
 
 
 
-<link rel="modulepreload" href="/./_app/start-44631b0b.js">
-			<link rel="modulepreload" href="/./_app/chunks/vendor-ff3d1764.js">
-			<link rel="modulepreload" href="/./_app/chunks/config-b3bde751.js">
-			<link rel="modulepreload" href="/./_app/pages\[category]\[year]\[month]\[date]\[slug].svelte-a77716b3.js">
-			<link rel="stylesheet" href="/./_app/assets/start-34a290f9.css">
+<link rel="modulepreload" href="/./staticApp/start-b8adad58.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/vendor-aee76599.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/config-b3bde751.js">
+			<link rel="modulepreload" href="/./staticApp/pages\[category]\[year]\[month]\[date]\[slug].svelte-a8f2e1c8.js">
+			<link rel="stylesheet" href="/./staticApp/assets/start-2b8dc5e2.css">
 
 
 		<script type="module">
-			import { start } from "/./_app/start-44631b0b.js";
+			import { start } from "/./staticApp/start-b8adad58.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":"/."},
@@ -57,7 +54,7 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/./_app/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a77716b3.js")
+						import("/./staticApp/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a8f2e1c8.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -79,10 +76,205 @@
 
 	<div class="trigger"><a class="page-link" href="/about">About</a><a class="page-link" href="/blog">Blog</a><a class="page-link" href="/projects">Projects</a></div></nav></div></header>
 
-<main class="page-content"><div class="wrapper"><div class="post"><header class="post-header"><h1 class="post-title">NOT FOUND</h1>
-<p class="post-meta">Apr 18, 2021</p></header>
+<main class="page-content"><div class="wrapper">
+<div class="post"><header class="post-header"><h1 class="post-title">Shortest distance to a geometry in a specified direction using Python</h1>
+<p class="post-meta">Aug 16, 2014</p></header>
 
-	<article class="post-content">No post with this title: gdalreproject-nodata.html </article></div></div></main>
+	<article class="post-content"><p>from osgeo import gdal
+from osgeo import osr</p>
+<p>driver = gdal.GetDriverByName(&#39;GTiff&#39;)</p>
+<p>ds_in = gdal.Open(&#39;/DADES/MODELS/PRESCAT/2017/01/01/PRESCAT-2017010100_0.tiff&#39;)</p>
+<p>proj_in = ds_in.GetProjection()</p>
+<p>ds_out = driver.Create(&#39;/tmp/out.tiff&#39;, 675, 655,
+4, gdal.GDT_Float32)</p>
+<p>ds_out.SetGeoTransform([260000, 400, 0, 4750000, 0, -400])</p>
+<p>proj_out = osr.SpatialReference()
+proj_out.ImportFromEPSG(25831)
+proj_out = proj_out.ExportToWkt()</p>
+<p>ds_out.SetProjection(proj_out)</p>
+<p>method = gdal.GRA_Cubic</p>
+<p>gdal.ReprojectImage(ds_in, ds_out,
+proj_in, proj_out,
+method)</p>
+<p>//////////////////</p>
+<p>from osgeo import gdal
+from osgeo import osr</p>
+<p>driver = gdal.GetDriverByName(&#39;GTiff&#39;)</p>
+<p>ds_in = gdal.Open(&#39;/DADES/MODELS/PRESCAT/2017/01/01/PRESCAT-2017010100_0.tiff&#39;)</p>
+<p>proj_in = ds_in.GetProjection()</p>
+<p>proj_out = osr.SpatialReference()
+proj_out.ImportFromEPSG(25831)
+proj_out = proj_out.ExportToWkt()</p>
+<p>reproj_file = gdal.AutoCreateWarpedVRT( ds_in, ds_in.GetProjection(), proj_out )</p>
+<p>driver = gdal.GetDriverByName(&quot;GTiff&quot;)
+dest_file = driver.CreateCopy(&quot;/tmp/t.tiff&quot;, reproj_file, 0)</p>
+<p>/////VRT//// --&gt; <Option name="INIT_DEST">0</Option></p>
+<VRTDataset rasterXSize="80" rasterYSize="74" subClass="VRTWarpedDataset">
+  <SRS>PROJCS["ETRS89 / UTM zone 31N",GEOGCS["ETRS89",DATUM["European_Terrestrial_Reference_System_1989",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6258"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4258"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",3],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","25831"]]</SRS>
+  <GeoTransform>  2.4390661575654868e+05,  3.7262015453620070e+03,  0.0000000000000000e+00,  4.7562398508180482e+06,  0.0000000000000000e+00, -3.7262015453620070e+03</GeoTransform>
+  <VRTRasterBand dataType="Float32" band="1" subClass="VRTWarpedRasterBand">
+    <Metadata>
+      <MDI key="GRIB_ELEMENT">PRECIPITACIO</MDI>
+      <MDI key="GRIB_REF_TIME">1483228800</MDI>
+      <MDI key="GRIB_SHORT_NAME">SFC</MDI>
+      <MDI key="GRIB_UNIT">%</MDI>
+      <MDI key="GRIB_VALID_TIME">1483228800</MDI>
+      <MDI key="STATISTICS_MAXIMUM">14,285714149475</MDI>
+      <MDI key="STATISTICS_MEAN">2,1959420650101</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_STDDEV">3,4693737669996</MDI>
+    </Metadata>
+    <NoDataValue>-9.99000000000000E+02</NoDataValue>
+    <ColorInterp>Red</ColorInterp>
+    <Histograms>
+      <HistItem>
+        <HistMin>-0,007142857074737548</HistMin>
+        <HistMax>14,29285700654984</HistMax>
+        <BucketCount>1000</BucketCount>
+        <IncludeOutOfRange>0</IncludeOutOfRange>
+        <Approximate>0</Approximate>
+        <HistCounts>1861|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|6|0|0|0|0|0|0|0|0|0|0|0|0|0|156|0|0|0|0|0|0|0|0|0|0|0|0|0|0|578|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|34|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|136|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|26|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|57</HistCounts>
+      </HistItem>
+    </Histograms>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Float32" band="2" subClass="VRTWarpedRasterBand">
+    <Metadata>
+      <MDI key="GRIB_ELEMENT">TMAX</MDI>
+      <MDI key="GRIB_REF_TIME">1483228800</MDI>
+      <MDI key="GRIB_SHORT_NAME">SFC</MDI>
+      <MDI key="GRIB_UNIT">C</MDI>
+      <MDI key="GRIB_VALID_TIME">1483228800</MDI>
+      <MDI key="STATISTICS_MAXIMUM">18,936731338501</MDI>
+      <MDI key="STATISTICS_MEAN">10,682648704348</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_STDDEV">3,6697751457734</MDI>
+    </Metadata>
+    <NoDataValue>-9.99000000000000E+02</NoDataValue>
+    <ColorInterp>Green</ColorInterp>
+    <Histograms>
+      <HistItem>
+        <HistMin>-0,009468365669250488</HistMin>
+        <HistMax>18,94619970417023</HistMax>
+        <BucketCount>1000</BucketCount>
+        <IncludeOutOfRange>0</IncludeOutOfRange>
+        <Approximate>0</Approximate>
+        <HistCounts>180|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|2|0|0|0|0|0|1|0|0|0|0|1|0|0|0|0|0|0|0|2|3|0|0|0|3|0|0|0|0|0|0|0|0|0|2|0|0|0|0|0|3|0|0|1|1|0|0|2|0|0|1|0|0|0|1|2|0|1|1|1|1|0|2|2|2|1|2|0|2|2|0|0|0|0|1|1|0|0|1|1|1|0|1|0|1|3|0|0|0|2|0|2|3|1|3|0|0|2|2|1|0|1|3|1|3|3|4|6|3|1|8|12|2|6|9|7|5|9|11|1|6|13|5|7|2|7|10|8|10|4|5|14|5|6|15|10|10|7|9|10|11|12|12|13|16|9|9|14|9|8|5|17|12|11|17|10|15|13|9|11|12|10|10|5|12|16|5|9|11|14|10|9|11|10|13|6|7|7|12|8|9|13|10|6|4|11|12|9|7|8|17|8|12|7|9|9|5|10|7|13|7|12|5|10|7|9|2|3|10|9|6|11|5|6|5|9|6|8|9|9|5|9|3|6|8|4|6|7|13|7|3|11|5|3|3|4|2|6|6|2|7|7|7|9|3|5|14|5|6|6|5|7|4|10|7|3|7|6|4|3|1|5|4|2|7|0|5|4|5|2|5|6|2|1|4|3|5|3|2|0|1|3|2|5|5|5|6|4|4|4|4|4|3|3|2|2|4|1|3|1|4|6|5|5|6|4|4|1|6|6|1|3|3|3|3|1|7|4|7|3|3|10|4|5|6|4|1|3|4|4|9|3|7|2|2|7|8|2|3|3|4|5|9|2|7|3|5|7|6|9|7|3|5|6|5|1|4|4|7|5|8|4|1|2|2|5|6|7|6|6|6|5|6|7|5|5|8|3|6|6|6|3|9|1|6|10|4|7|4|8|9|6|1|8|5|9|5|1|12|6|6|9|5|7|10|6|5|4|8|6|12|6|6|13|9|14|7|1|5|9|7|2|4|7|4|8|10|10|3|5|6|6|6|4|7|6|6|3|4|2|8|4|7|5|5|4|5|12|4|5|7|6|6|7|6|5|5|6|5|7|10|10|13|9|9|7|6|13|3|12|4|5|8|9|1|3|3|8|2|8|4|4|9|6|4|6|6|2|9|5|6|3|1|6|3|1|5|2|3|6|2|0|8|1|1|0|2|6|3|0|8|4|3|3|3|3|0|2|2|5|1|2|0|0|0|3|0|0|0|2|2|0|0|1|1|2|0|0|1|0|3|1|0|0|0|1|2|0|0|1|1|0|0|0|1|0|2|0|1|0|0|0|1|0|0|0|0|2|0|2|0|1|0|0|0|1|1|0|1|0|0|3|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|3|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1</HistCounts>
+      </HistItem>
+    </Histograms>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Float32" band="3" subClass="VRTWarpedRasterBand">
+    <Metadata>
+      <MDI key="GRIB_ELEMENT">TMIN</MDI>
+      <MDI key="GRIB_REF_TIME">1483228800</MDI>
+      <MDI key="GRIB_SHORT_NAME">SFC</MDI>
+      <MDI key="GRIB_UNIT">C</MDI>
+      <MDI key="GRIB_VALID_TIME">1483228800</MDI>
+      <MDI key="STATISTICS_MAXIMUM">9,4128904342651</MDI>
+      <MDI key="STATISTICS_MEAN">-0,14479932243621</MDI>
+      <MDI key="STATISTICS_MINIMUM">-5,2890510559082</MDI>
+      <MDI key="STATISTICS_STDDEV">2,6801332980903</MDI>
+    </Metadata>
+    <NoDataValue>-9.99000000000000E+02</NoDataValue>
+    <ColorInterp>Blue</ColorInterp>
+    <Histograms>
+      <HistItem>
+        <HistMin>-5,29640202665329</HistMin>
+        <HistMax>9,420241405010223</HistMax>
+        <BucketCount>1000</BucketCount>
+        <IncludeOutOfRange>0</IncludeOutOfRange>
+        <Approximate>0</Approximate>
+        <HistCounts>2|1|0|0|0|0|0|0|1|2|0|1|0|1|0|1|0|2|1|1|4|2|1|4|2|0|7|1|1|2|2|0|2|1|1|0|3|1|3|1|1|4|2|2|0|6|2|0|4|2|0|2|4|5|1|3|9|4|6|3|5|7|5|2|6|5|4|6|2|1|5|2|9|2|4|2|3|4|6|6|2|2|8|5|2|3|1|5|3|0|3|4|6|6|2|4|5|4|3|8|4|2|4|3|6|5|6|5|2|4|2|2|5|2|5|3|7|3|4|6|2|1|2|3|5|7|6|4|2|3|5|2|8|4|4|7|4|5|1|5|10|5|2|2|9|3|5|2|4|0|3|7|2|3|3|3|5|8|10|9|5|7|4|5|9|1|3|2|4|7|6|4|2|7|1|4|4|6|3|1|7|5|4|1|5|3|2|5|1|1|3|3|5|6|3|9|3|4|2|4|4|2|1|2|2|6|5|2|1|4|7|3|3|7|5|1|1|4|6|0|1|3|3|2|4|1|8|7|1|4|4|4|2|2|5|4|5|4|5|2|5|3|3|4|3|2|8|7|4|3|3|5|1|5|3|5|8|1|8|5|3|0|2|9|3|3|3|3|6|2|6|4|7|6|5|4|8|3|1|2|8|5|1|4|5|4|10|10|3|2|3|4|7|8|5|7|5|5|5|9|6|11|8|4|8|7|6|8|6|3|7|9|5|4|5|5|9|4|3|3|8|7|6|4|5|8|3|7|4|7|6|11|3|8|6|12|5|7|10|10|8|7|3|7|4|6|10|5|6|5|8|6|7|7|2|6|6|3|5|186|5|4|6|3|5|7|1|9|9|5|4|8|1|4|5|7|1|6|4|3|4|0|4|9|3|2|8|5|9|6|5|3|4|3|1|4|1|9|5|3|6|5|0|6|5|2|4|4|2|3|6|2|5|9|3|3|2|3|0|3|6|5|2|4|4|1|5|6|2|0|7|5|3|3|5|2|3|8|4|7|1|10|2|3|2|3|2|5|4|6|6|6|2|4|3|7|3|2|4|2|5|0|3|5|3|4|5|4|5|1|7|6|3|4|10|5|1|2|4|3|6|3|3|3|3|5|6|5|9|6|5|1|6|12|4|1|5|6|2|2|5|3|3|4|6|2|4|2|0|2|5|1|3|2|6|5|5|2|4|4|2|3|4|2|2|3|3|2|6|4|0|5|6|2|1|4|1|1|3|3|1|5|0|2|4|3|3|3|10|1|0|4|9|4|0|3|2|7|0|4|0|0|6|0|3|2|3|7|3|2|3|1|0|1|7|4|4|2|1|3|1|2|5|3|1|1|1|1|7|3|7|3|0|2|6|5|5|1|0|4|3|0|5|2|0|0|5|3|6|6|7|1|2|5|3|3|5|4|4|5|1|0|2|1|0|2|2|1|3|2|5|0|1|1|2|3|3|3|3|2|2|2|1|3|2|0|2|2|0|2|2|5|3|1|1|0|2|1|2|2|0|5|1|3|0|3|1|3|4|4|0|2|0|1|5|1|1|1|3|2|2|6|0|4|0|0|0|0|0|0|1|4|2|2|1|2|2|0|3|2|0|1|0|3|3|5|2|3|0|2|2|3|1|2|1|0|2|3|1|0|0|1|1|3|2|0|3|2|1|0|1|1|0|2|0|1|2|0|0|0|0|1|2|0|0|0|2|4|0|0|0|2|1|1|0|1|0|1|2|0|1|1|1|0|0|0|0|0|0|0|0|0|0|1|2|0|0|1|0|1|2|0|0|0|0|0|1|0|0|0|0|0|1|0|0|0|0|0|0|0|0|1|2|0|0|0|1|0|1|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|1|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1</HistCounts>
+      </HistItem>
+    </Histograms>
+  </VRTRasterBand>
+  <VRTRasterBand dataType="Float32" band="4" subClass="VRTWarpedRasterBand">
+    <Metadata>
+      <MDI key="GRIB_ELEMENT">ESTATCEL</MDI>
+      <MDI key="GRIB_REF_TIME">1483228800</MDI>
+      <MDI key="GRIB_SHORT_NAME">SFC</MDI>
+      <MDI key="GRIB_UNIT">--</MDI>
+      <MDI key="GRIB_VALID_TIME">1483228800</MDI>
+      <MDI key="STATISTICS_MAXIMUM">3</MDI>
+      <MDI key="STATISTICS_MEAN">1,2654991243433</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_STDDEV">0,80600888335785</MDI>
+    </Metadata>
+    <NoDataValue>-9.99000000000000E+02</NoDataValue>
+  </VRTRasterBand>
+  <BlockXSize>80</BlockXSize>
+  <BlockYSize>74</BlockYSize>
+  <GDALWarpOptions>
+    <WarpMemoryLimit>6.71089e+07</WarpMemoryLimit>
+    <ResampleAlg>NearestNeighbour</ResampleAlg>
+    <WorkingDataType>Float32</WorkingDataType>
+    <Option name="INIT_DEST">0</Option>
+    <Option name="UNIFIED_SRC_NODATA">YES</Option>
+    <Option name="EXTRA_ELTS">1</Option>
+    <Option name="EXTRA_ELTS">1</Option>
+    <SourceDataset relativeToVRT="0">/DADES/MODELS/PRESCAT/2017/01/01/PRESCAT-2017010100_0.tiff</SourceDataset>
+    <Transformer>
+      <GenImgProjTransformer>
+        <SrcGeoTransform>-0.0199999511241912842,0.0399999991059303284,0,42.9200007356703281,0,-0.0399999991059303284</SrcGeoTransform>
+        <SrcInvGeoTransform>0.49999878928062591,25.000000558793559,0,1073.00004237517805,0,-25.000000558793559</SrcInvGeoTransform>
+        <DstGeoTransform>243906.615756548679,3726.20154536200698,0,4756239.85081804823,0,-3726.20154536200698</DstGeoTransform>
+        <DstInvGeoTransform>-65.4571720792018255,0.000268369809798586279,0,1276.4311841204958,0,-0.000268369809798586279</DstInvGeoTransform>
+        <ReprojectTransformer>
+          <ReprojectionTransformer>
+            <SourceSRS>GEOGCS["ED50",DATUM["European_Datum_1950",SPHEROID["International 1924",6378388,297.000000000005,AUTHORITY["EPSG","7022"]],AUTHORITY["EPSG","6230"]],PRIMEM["Greenwich",0],UNIT["degree",0.0174532925199433],AUTHORITY["EPSG","4230"],EXTENSION["CENTER_LONG",1.74]]</SourceSRS>
+            <TargetSRS>PROJCS["ETRS89 / UTM zone 31N",GEOGCS["ETRS89",DATUM["European_Terrestrial_Reference_System_1989",SPHEROID["GRS 1980",6378137,298.257222101,AUTHORITY["EPSG","7019"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY["EPSG","6258"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4258"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",3],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",0],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","25831"]]</TargetSRS>
+          </ReprojectionTransformer>
+        </ReprojectTransformer>
+      </GenImgProjTransformer>
+    </Transformer>
+    <BandList>
+      <BandMapping src="1" dst="1">
+        <SrcNoDataReal>-999</SrcNoDataReal>
+        <SrcNoDataImag>0</SrcNoDataImag>
+        <DstNoDataReal>-999</DstNoDataReal>
+        <DstNoDataImag>0</DstNoDataImag>
+      </BandMapping>
+      <BandMapping src="2" dst="2">
+        <SrcNoDataReal>0</SrcNoDataReal>
+        <SrcNoDataImag>0</SrcNoDataImag>
+        <DstNoDataReal>0</DstNoDataReal>
+        <DstNoDataImag>0</DstNoDataImag>
+      </BandMapping>
+      <BandMapping src="3" dst="3">
+        <SrcNoDataReal>0</SrcNoDataReal>
+        <SrcNoDataImag>0</SrcNoDataImag>
+        <DstNoDataReal>0</DstNoDataReal>
+        <DstNoDataImag>0</DstNoDataImag>
+      </BandMapping>
+      <BandMapping src="4" dst="4">
+        <SrcNoDataReal>0</SrcNoDataReal>
+        <SrcNoDataImag>0</SrcNoDataImag>
+        <DstNoDataReal>0</DstNoDataReal>
+        <DstNoDataImag>0</DstNoDataImag>
+      </BandMapping>
+    </BandList>
+  </GDALWarpOptions>
+</VRTDataset>
+
+<hr>
+<p>./gdalwarp --config GDAL_DATA &quot;../data/&quot; -t_srs &quot;EPSG:25831&quot; /DADES/MODELS/PRESCAT/2017/01/01/PRESCAT-2017010100_0.tiff /tmp/l.tiff</p>
+<p>./configure
+make
+cd swig/python
+python setup install</p>
+<p>LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/tmp/gdal-2.1.0/.libs:/usr/lib64
+export LD_LIBRARY_PATH
+GDAL_DATA=/tmp/gdal-2.1.0/data
+export GDAL_DATA</p>
+<hr>
+<h2 id="links">Links</h2>
+<p><a href="http://www.gdal.org/warptut.html">http://www.gdal.org/warptut.html</a>
+<a href="http://www.gdal.org/gdal_tutorial.html">http://www.gdal.org/gdal_tutorial.html</a></p>
+<p><a href="https://github.com/rouault/gdal2/blob/trunk/gdal/swig/python/scripts/gdal2tiles.py">https://github.com/rouault/gdal2/blob/trunk/gdal/swig/python/scripts/gdal2tiles.py</a></p>
+<p><a href="http://gis.stackexchange.com/questions/143966/why-is-gdalwarp-changing-value-in-nodata-pixels">http://gis.stackexchange.com/questions/143966/why-is-gdalwarp-changing-value-in-nodata-pixels</a>
+<a href="http://trac.osgeo.org/gdal/ticket/5675">http://trac.osgeo.org/gdal/ticket/5675</a></p>
+<p><a href="https://gist.github.com/cspanring/5680334">https://gist.github.com/cspanring/5680334</a></p>
+<p>Install gdal 2.1.0</p>
+</article></div></div></main>
 <footer class="site-footer"><div class="wrapper"><div class="footer-col-wrapper"><div class="footer-col  footer-col-1"><ul class="contact-list"><li>GeoExamples - Roger Veciana</li></ul></div>
 
 	<div class="footer-col  footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/rveciana"><span class="icon  icon--github"><svg viewBox="0 0 16 16"><path fill="#89b889" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"></path></svg></span>
@@ -102,9 +294,9 @@
 
 
 
-	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
+	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
 
-	<script type="svelte-data" url="GDALReproject-NoData.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"NOT FOUND\",\"contents\":\"No post with this title: gdalreproject-nodata.html \",\"tags\":[],\"date\":\"Sun, 18 Apr 2021 20:41:48 GMT\"}"}</script>
+	<script type="svelte-data" url="GDALReproject-NoData.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"Shortest distance to a geometry in a specified direction using Python\",\"contents\":\"\u003Cp\u003Efrom osgeo import gdal\\nfrom osgeo import osr\u003C\u002Fp\u003E\\n\u003Cp\u003Edriver = gdal.GetDriverByName(&#39;GTiff&#39;)\u003C\u002Fp\u003E\\n\u003Cp\u003Eds_in = gdal.Open(&#39;\u002FDADES\u002FMODELS\u002FPRESCAT\u002F2017\u002F01\u002F01\u002FPRESCAT-2017010100_0.tiff&#39;)\u003C\u002Fp\u003E\\n\u003Cp\u003Eproj_in = ds_in.GetProjection()\u003C\u002Fp\u003E\\n\u003Cp\u003Eds_out = driver.Create(&#39;\u002Ftmp\u002Fout.tiff&#39;, 675, 655,\\n4, gdal.GDT_Float32)\u003C\u002Fp\u003E\\n\u003Cp\u003Eds_out.SetGeoTransform([260000, 400, 0, 4750000, 0, -400])\u003C\u002Fp\u003E\\n\u003Cp\u003Eproj_out = osr.SpatialReference()\\nproj_out.ImportFromEPSG(25831)\\nproj_out = proj_out.ExportToWkt()\u003C\u002Fp\u003E\\n\u003Cp\u003Eds_out.SetProjection(proj_out)\u003C\u002Fp\u003E\\n\u003Cp\u003Emethod = gdal.GRA_Cubic\u003C\u002Fp\u003E\\n\u003Cp\u003Egdal.ReprojectImage(ds_in, ds_out,\\nproj_in, proj_out,\\nmethod)\u003C\u002Fp\u003E\\n\u003Cp\u003E\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u002F\u003C\u002Fp\u003E\\n\u003Cp\u003Efrom osgeo import gdal\\nfrom osgeo import osr\u003C\u002Fp\u003E\\n\u003Cp\u003Edriver = gdal.GetDriverByName(&#39;GTiff&#39;)\u003C\u002Fp\u003E\\n\u003Cp\u003Eds_in = gdal.Open(&#39;\u002FDADES\u002FMODELS\u002FPRESCAT\u002F2017\u002F01\u002F01\u002FPRESCAT-2017010100_0.tiff&#39;)\u003C\u002Fp\u003E\\n\u003Cp\u003Eproj_in = ds_in.GetProjection()\u003C\u002Fp\u003E\\n\u003Cp\u003Eproj_out = osr.SpatialReference()\\nproj_out.ImportFromEPSG(25831)\\nproj_out = proj_out.ExportToWkt()\u003C\u002Fp\u003E\\n\u003Cp\u003Ereproj_file = gdal.AutoCreateWarpedVRT( ds_in, ds_in.GetProjection(), proj_out )\u003C\u002Fp\u003E\\n\u003Cp\u003Edriver = gdal.GetDriverByName(&quot;GTiff&quot;)\\ndest_file = driver.CreateCopy(&quot;\u002Ftmp\u002Ft.tiff&quot;, reproj_file, 0)\u003C\u002Fp\u003E\\n\u003Cp\u003E\u002F\u002F\u002F\u002F\u002FVRT\u002F\u002F\u002F\u002F --&gt; \u003COption name=\\\"INIT_DEST\\\"\u003E0\u003C\u002FOption\u003E\u003C\u002Fp\u003E\\n\u003CVRTDataset rasterXSize=\\\"80\\\" rasterYSize=\\\"74\\\" subClass=\\\"VRTWarpedDataset\\\"\u003E\\n  \u003CSRS\u003EPROJCS[\\\"ETRS89 \u002F UTM zone 31N\\\",GEOGCS[\\\"ETRS89\\\",DATUM[\\\"European_Terrestrial_Reference_System_1989\\\",SPHEROID[\\\"GRS 1980\\\",6378137,298.257222101,AUTHORITY[\\\"EPSG\\\",\\\"7019\\\"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY[\\\"EPSG\\\",\\\"6258\\\"]],PRIMEM[\\\"Greenwich\\\",0,AUTHORITY[\\\"EPSG\\\",\\\"8901\\\"]],UNIT[\\\"degree\\\",0.0174532925199433,AUTHORITY[\\\"EPSG\\\",\\\"9122\\\"]],AUTHORITY[\\\"EPSG\\\",\\\"4258\\\"]],PROJECTION[\\\"Transverse_Mercator\\\"],PARAMETER[\\\"latitude_of_origin\\\",0],PARAMETER[\\\"central_meridian\\\",3],PARAMETER[\\\"scale_factor\\\",0.9996],PARAMETER[\\\"false_easting\\\",500000],PARAMETER[\\\"false_northing\\\",0],UNIT[\\\"metre\\\",1,AUTHORITY[\\\"EPSG\\\",\\\"9001\\\"]],AXIS[\\\"Easting\\\",EAST],AXIS[\\\"Northing\\\",NORTH],AUTHORITY[\\\"EPSG\\\",\\\"25831\\\"]]\u003C\u002FSRS\u003E\\n  \u003CGeoTransform\u003E  2.4390661575654868e+05,  3.7262015453620070e+03,  0.0000000000000000e+00,  4.7562398508180482e+06,  0.0000000000000000e+00, -3.7262015453620070e+03\u003C\u002FGeoTransform\u003E\\n  \u003CVRTRasterBand dataType=\\\"Float32\\\" band=\\\"1\\\" subClass=\\\"VRTWarpedRasterBand\\\"\u003E\\n    \u003CMetadata\u003E\\n      \u003CMDI key=\\\"GRIB_ELEMENT\\\"\u003EPRECIPITACIO\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_REF_TIME\\\"\u003E1483228800\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_SHORT_NAME\\\"\u003ESFC\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_UNIT\\\"\u003E%\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_VALID_TIME\\\"\u003E1483228800\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MAXIMUM\\\"\u003E14,285714149475\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MEAN\\\"\u003E2,1959420650101\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MINIMUM\\\"\u003E0\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_STDDEV\\\"\u003E3,4693737669996\u003C\u002FMDI\u003E\\n    \u003C\u002FMetadata\u003E\\n    \u003CNoDataValue\u003E-9.99000000000000E+02\u003C\u002FNoDataValue\u003E\\n    \u003CColorInterp\u003ERed\u003C\u002FColorInterp\u003E\\n    \u003CHistograms\u003E\\n      \u003CHistItem\u003E\\n        \u003CHistMin\u003E-0,007142857074737548\u003C\u002FHistMin\u003E\\n        \u003CHistMax\u003E14,29285700654984\u003C\u002FHistMax\u003E\\n        \u003CBucketCount\u003E1000\u003C\u002FBucketCount\u003E\\n        \u003CIncludeOutOfRange\u003E0\u003C\u002FIncludeOutOfRange\u003E\\n        \u003CApproximate\u003E0\u003C\u002FApproximate\u003E\\n        \u003CHistCounts\u003E1861|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|6|0|0|0|0|0|0|0|0|0|0|0|0|0|156|0|0|0|0|0|0|0|0|0|0|0|0|0|0|578|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|34|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|136|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|26|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|57\u003C\u002FHistCounts\u003E\\n      \u003C\u002FHistItem\u003E\\n    \u003C\u002FHistograms\u003E\\n  \u003C\u002FVRTRasterBand\u003E\\n  \u003CVRTRasterBand dataType=\\\"Float32\\\" band=\\\"2\\\" subClass=\\\"VRTWarpedRasterBand\\\"\u003E\\n    \u003CMetadata\u003E\\n      \u003CMDI key=\\\"GRIB_ELEMENT\\\"\u003ETMAX\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_REF_TIME\\\"\u003E1483228800\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_SHORT_NAME\\\"\u003ESFC\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_UNIT\\\"\u003EC\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_VALID_TIME\\\"\u003E1483228800\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MAXIMUM\\\"\u003E18,936731338501\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MEAN\\\"\u003E10,682648704348\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MINIMUM\\\"\u003E0\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_STDDEV\\\"\u003E3,6697751457734\u003C\u002FMDI\u003E\\n    \u003C\u002FMetadata\u003E\\n    \u003CNoDataValue\u003E-9.99000000000000E+02\u003C\u002FNoDataValue\u003E\\n    \u003CColorInterp\u003EGreen\u003C\u002FColorInterp\u003E\\n    \u003CHistograms\u003E\\n      \u003CHistItem\u003E\\n        \u003CHistMin\u003E-0,009468365669250488\u003C\u002FHistMin\u003E\\n        \u003CHistMax\u003E18,94619970417023\u003C\u002FHistMax\u003E\\n        \u003CBucketCount\u003E1000\u003C\u002FBucketCount\u003E\\n        \u003CIncludeOutOfRange\u003E0\u003C\u002FIncludeOutOfRange\u003E\\n        \u003CApproximate\u003E0\u003C\u002FApproximate\u003E\\n        \u003CHistCounts\u003E180|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|2|0|0|0|0|0|1|0|0|0|0|1|0|0|0|0|0|0|0|2|3|0|0|0|3|0|0|0|0|0|0|0|0|0|2|0|0|0|0|0|3|0|0|1|1|0|0|2|0|0|1|0|0|0|1|2|0|1|1|1|1|0|2|2|2|1|2|0|2|2|0|0|0|0|1|1|0|0|1|1|1|0|1|0|1|3|0|0|0|2|0|2|3|1|3|0|0|2|2|1|0|1|3|1|3|3|4|6|3|1|8|12|2|6|9|7|5|9|11|1|6|13|5|7|2|7|10|8|10|4|5|14|5|6|15|10|10|7|9|10|11|12|12|13|16|9|9|14|9|8|5|17|12|11|17|10|15|13|9|11|12|10|10|5|12|16|5|9|11|14|10|9|11|10|13|6|7|7|12|8|9|13|10|6|4|11|12|9|7|8|17|8|12|7|9|9|5|10|7|13|7|12|5|10|7|9|2|3|10|9|6|11|5|6|5|9|6|8|9|9|5|9|3|6|8|4|6|7|13|7|3|11|5|3|3|4|2|6|6|2|7|7|7|9|3|5|14|5|6|6|5|7|4|10|7|3|7|6|4|3|1|5|4|2|7|0|5|4|5|2|5|6|2|1|4|3|5|3|2|0|1|3|2|5|5|5|6|4|4|4|4|4|3|3|2|2|4|1|3|1|4|6|5|5|6|4|4|1|6|6|1|3|3|3|3|1|7|4|7|3|3|10|4|5|6|4|1|3|4|4|9|3|7|2|2|7|8|2|3|3|4|5|9|2|7|3|5|7|6|9|7|3|5|6|5|1|4|4|7|5|8|4|1|2|2|5|6|7|6|6|6|5|6|7|5|5|8|3|6|6|6|3|9|1|6|10|4|7|4|8|9|6|1|8|5|9|5|1|12|6|6|9|5|7|10|6|5|4|8|6|12|6|6|13|9|14|7|1|5|9|7|2|4|7|4|8|10|10|3|5|6|6|6|4|7|6|6|3|4|2|8|4|7|5|5|4|5|12|4|5|7|6|6|7|6|5|5|6|5|7|10|10|13|9|9|7|6|13|3|12|4|5|8|9|1|3|3|8|2|8|4|4|9|6|4|6|6|2|9|5|6|3|1|6|3|1|5|2|3|6|2|0|8|1|1|0|2|6|3|0|8|4|3|3|3|3|0|2|2|5|1|2|0|0|0|3|0|0|0|2|2|0|0|1|1|2|0|0|1|0|3|1|0|0|0|1|2|0|0|1|1|0|0|0|1|0|2|0|1|0|0|0|1|0|0|0|0|2|0|2|0|1|0|0|0|1|1|0|1|0|0|3|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|3|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1\u003C\u002FHistCounts\u003E\\n      \u003C\u002FHistItem\u003E\\n    \u003C\u002FHistograms\u003E\\n  \u003C\u002FVRTRasterBand\u003E\\n  \u003CVRTRasterBand dataType=\\\"Float32\\\" band=\\\"3\\\" subClass=\\\"VRTWarpedRasterBand\\\"\u003E\\n    \u003CMetadata\u003E\\n      \u003CMDI key=\\\"GRIB_ELEMENT\\\"\u003ETMIN\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_REF_TIME\\\"\u003E1483228800\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_SHORT_NAME\\\"\u003ESFC\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_UNIT\\\"\u003EC\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_VALID_TIME\\\"\u003E1483228800\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MAXIMUM\\\"\u003E9,4128904342651\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MEAN\\\"\u003E-0,14479932243621\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MINIMUM\\\"\u003E-5,2890510559082\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_STDDEV\\\"\u003E2,6801332980903\u003C\u002FMDI\u003E\\n    \u003C\u002FMetadata\u003E\\n    \u003CNoDataValue\u003E-9.99000000000000E+02\u003C\u002FNoDataValue\u003E\\n    \u003CColorInterp\u003EBlue\u003C\u002FColorInterp\u003E\\n    \u003CHistograms\u003E\\n      \u003CHistItem\u003E\\n        \u003CHistMin\u003E-5,29640202665329\u003C\u002FHistMin\u003E\\n        \u003CHistMax\u003E9,420241405010223\u003C\u002FHistMax\u003E\\n        \u003CBucketCount\u003E1000\u003C\u002FBucketCount\u003E\\n        \u003CIncludeOutOfRange\u003E0\u003C\u002FIncludeOutOfRange\u003E\\n        \u003CApproximate\u003E0\u003C\u002FApproximate\u003E\\n        \u003CHistCounts\u003E2|1|0|0|0|0|0|0|1|2|0|1|0|1|0|1|0|2|1|1|4|2|1|4|2|0|7|1|1|2|2|0|2|1|1|0|3|1|3|1|1|4|2|2|0|6|2|0|4|2|0|2|4|5|1|3|9|4|6|3|5|7|5|2|6|5|4|6|2|1|5|2|9|2|4|2|3|4|6|6|2|2|8|5|2|3|1|5|3|0|3|4|6|6|2|4|5|4|3|8|4|2|4|3|6|5|6|5|2|4|2|2|5|2|5|3|7|3|4|6|2|1|2|3|5|7|6|4|2|3|5|2|8|4|4|7|4|5|1|5|10|5|2|2|9|3|5|2|4|0|3|7|2|3|3|3|5|8|10|9|5|7|4|5|9|1|3|2|4|7|6|4|2|7|1|4|4|6|3|1|7|5|4|1|5|3|2|5|1|1|3|3|5|6|3|9|3|4|2|4|4|2|1|2|2|6|5|2|1|4|7|3|3|7|5|1|1|4|6|0|1|3|3|2|4|1|8|7|1|4|4|4|2|2|5|4|5|4|5|2|5|3|3|4|3|2|8|7|4|3|3|5|1|5|3|5|8|1|8|5|3|0|2|9|3|3|3|3|6|2|6|4|7|6|5|4|8|3|1|2|8|5|1|4|5|4|10|10|3|2|3|4|7|8|5|7|5|5|5|9|6|11|8|4|8|7|6|8|6|3|7|9|5|4|5|5|9|4|3|3|8|7|6|4|5|8|3|7|4|7|6|11|3|8|6|12|5|7|10|10|8|7|3|7|4|6|10|5|6|5|8|6|7|7|2|6|6|3|5|186|5|4|6|3|5|7|1|9|9|5|4|8|1|4|5|7|1|6|4|3|4|0|4|9|3|2|8|5|9|6|5|3|4|3|1|4|1|9|5|3|6|5|0|6|5|2|4|4|2|3|6|2|5|9|3|3|2|3|0|3|6|5|2|4|4|1|5|6|2|0|7|5|3|3|5|2|3|8|4|7|1|10|2|3|2|3|2|5|4|6|6|6|2|4|3|7|3|2|4|2|5|0|3|5|3|4|5|4|5|1|7|6|3|4|10|5|1|2|4|3|6|3|3|3|3|5|6|5|9|6|5|1|6|12|4|1|5|6|2|2|5|3|3|4|6|2|4|2|0|2|5|1|3|2|6|5|5|2|4|4|2|3|4|2|2|3|3|2|6|4|0|5|6|2|1|4|1|1|3|3|1|5|0|2|4|3|3|3|10|1|0|4|9|4|0|3|2|7|0|4|0|0|6|0|3|2|3|7|3|2|3|1|0|1|7|4|4|2|1|3|1|2|5|3|1|1|1|1|7|3|7|3|0|2|6|5|5|1|0|4|3|0|5|2|0|0|5|3|6|6|7|1|2|5|3|3|5|4|4|5|1|0|2|1|0|2|2|1|3|2|5|0|1|1|2|3|3|3|3|2|2|2|1|3|2|0|2|2|0|2|2|5|3|1|1|0|2|1|2|2|0|5|1|3|0|3|1|3|4|4|0|2|0|1|5|1|1|1|3|2|2|6|0|4|0|0|0|0|0|0|1|4|2|2|1|2|2|0|3|2|0|1|0|3|3|5|2|3|0|2|2|3|1|2|1|0|2|3|1|0|0|1|1|3|2|0|3|2|1|0|1|1|0|2|0|1|2|0|0|0|0|1|2|0|0|0|2|4|0|0|0|2|1|1|0|1|0|1|2|0|1|1|1|0|0|0|0|0|0|0|0|0|0|1|2|0|0|1|0|1|2|0|0|0|0|0|1|0|0|0|0|0|1|0|0|0|0|0|0|0|0|1|2|0|0|0|1|0|1|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|1|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|0|1\u003C\u002FHistCounts\u003E\\n      \u003C\u002FHistItem\u003E\\n    \u003C\u002FHistograms\u003E\\n  \u003C\u002FVRTRasterBand\u003E\\n  \u003CVRTRasterBand dataType=\\\"Float32\\\" band=\\\"4\\\" subClass=\\\"VRTWarpedRasterBand\\\"\u003E\\n    \u003CMetadata\u003E\\n      \u003CMDI key=\\\"GRIB_ELEMENT\\\"\u003EESTATCEL\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_REF_TIME\\\"\u003E1483228800\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_SHORT_NAME\\\"\u003ESFC\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_UNIT\\\"\u003E--\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"GRIB_VALID_TIME\\\"\u003E1483228800\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MAXIMUM\\\"\u003E3\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MEAN\\\"\u003E1,2654991243433\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_MINIMUM\\\"\u003E0\u003C\u002FMDI\u003E\\n      \u003CMDI key=\\\"STATISTICS_STDDEV\\\"\u003E0,80600888335785\u003C\u002FMDI\u003E\\n    \u003C\u002FMetadata\u003E\\n    \u003CNoDataValue\u003E-9.99000000000000E+02\u003C\u002FNoDataValue\u003E\\n  \u003C\u002FVRTRasterBand\u003E\\n  \u003CBlockXSize\u003E80\u003C\u002FBlockXSize\u003E\\n  \u003CBlockYSize\u003E74\u003C\u002FBlockYSize\u003E\\n  \u003CGDALWarpOptions\u003E\\n    \u003CWarpMemoryLimit\u003E6.71089e+07\u003C\u002FWarpMemoryLimit\u003E\\n    \u003CResampleAlg\u003ENearestNeighbour\u003C\u002FResampleAlg\u003E\\n    \u003CWorkingDataType\u003EFloat32\u003C\u002FWorkingDataType\u003E\\n    \u003COption name=\\\"INIT_DEST\\\"\u003E0\u003C\u002FOption\u003E\\n    \u003COption name=\\\"UNIFIED_SRC_NODATA\\\"\u003EYES\u003C\u002FOption\u003E\\n    \u003COption name=\\\"EXTRA_ELTS\\\"\u003E1\u003C\u002FOption\u003E\\n    \u003COption name=\\\"EXTRA_ELTS\\\"\u003E1\u003C\u002FOption\u003E\\n    \u003CSourceDataset relativeToVRT=\\\"0\\\"\u003E\u002FDADES\u002FMODELS\u002FPRESCAT\u002F2017\u002F01\u002F01\u002FPRESCAT-2017010100_0.tiff\u003C\u002FSourceDataset\u003E\\n    \u003CTransformer\u003E\\n      \u003CGenImgProjTransformer\u003E\\n        \u003CSrcGeoTransform\u003E-0.0199999511241912842,0.0399999991059303284,0,42.9200007356703281,0,-0.0399999991059303284\u003C\u002FSrcGeoTransform\u003E\\n        \u003CSrcInvGeoTransform\u003E0.49999878928062591,25.000000558793559,0,1073.00004237517805,0,-25.000000558793559\u003C\u002FSrcInvGeoTransform\u003E\\n        \u003CDstGeoTransform\u003E243906.615756548679,3726.20154536200698,0,4756239.85081804823,0,-3726.20154536200698\u003C\u002FDstGeoTransform\u003E\\n        \u003CDstInvGeoTransform\u003E-65.4571720792018255,0.000268369809798586279,0,1276.4311841204958,0,-0.000268369809798586279\u003C\u002FDstInvGeoTransform\u003E\\n        \u003CReprojectTransformer\u003E\\n          \u003CReprojectionTransformer\u003E\\n            \u003CSourceSRS\u003EGEOGCS[\\\"ED50\\\",DATUM[\\\"European_Datum_1950\\\",SPHEROID[\\\"International 1924\\\",6378388,297.000000000005,AUTHORITY[\\\"EPSG\\\",\\\"7022\\\"]],AUTHORITY[\\\"EPSG\\\",\\\"6230\\\"]],PRIMEM[\\\"Greenwich\\\",0],UNIT[\\\"degree\\\",0.0174532925199433],AUTHORITY[\\\"EPSG\\\",\\\"4230\\\"],EXTENSION[\\\"CENTER_LONG\\\",1.74]]\u003C\u002FSourceSRS\u003E\\n            \u003CTargetSRS\u003EPROJCS[\\\"ETRS89 \u002F UTM zone 31N\\\",GEOGCS[\\\"ETRS89\\\",DATUM[\\\"European_Terrestrial_Reference_System_1989\\\",SPHEROID[\\\"GRS 1980\\\",6378137,298.257222101,AUTHORITY[\\\"EPSG\\\",\\\"7019\\\"]],TOWGS84[0,0,0,0,0,0,0],AUTHORITY[\\\"EPSG\\\",\\\"6258\\\"]],PRIMEM[\\\"Greenwich\\\",0,AUTHORITY[\\\"EPSG\\\",\\\"8901\\\"]],UNIT[\\\"degree\\\",0.0174532925199433,AUTHORITY[\\\"EPSG\\\",\\\"9122\\\"]],AUTHORITY[\\\"EPSG\\\",\\\"4258\\\"]],PROJECTION[\\\"Transverse_Mercator\\\"],PARAMETER[\\\"latitude_of_origin\\\",0],PARAMETER[\\\"central_meridian\\\",3],PARAMETER[\\\"scale_factor\\\",0.9996],PARAMETER[\\\"false_easting\\\",500000],PARAMETER[\\\"false_northing\\\",0],UNIT[\\\"metre\\\",1,AUTHORITY[\\\"EPSG\\\",\\\"9001\\\"]],AXIS[\\\"Easting\\\",EAST],AXIS[\\\"Northing\\\",NORTH],AUTHORITY[\\\"EPSG\\\",\\\"25831\\\"]]\u003C\u002FTargetSRS\u003E\\n          \u003C\u002FReprojectionTransformer\u003E\\n        \u003C\u002FReprojectTransformer\u003E\\n      \u003C\u002FGenImgProjTransformer\u003E\\n    \u003C\u002FTransformer\u003E\\n    \u003CBandList\u003E\\n      \u003CBandMapping src=\\\"1\\\" dst=\\\"1\\\"\u003E\\n        \u003CSrcNoDataReal\u003E-999\u003C\u002FSrcNoDataReal\u003E\\n        \u003CSrcNoDataImag\u003E0\u003C\u002FSrcNoDataImag\u003E\\n        \u003CDstNoDataReal\u003E-999\u003C\u002FDstNoDataReal\u003E\\n        \u003CDstNoDataImag\u003E0\u003C\u002FDstNoDataImag\u003E\\n      \u003C\u002FBandMapping\u003E\\n      \u003CBandMapping src=\\\"2\\\" dst=\\\"2\\\"\u003E\\n        \u003CSrcNoDataReal\u003E0\u003C\u002FSrcNoDataReal\u003E\\n        \u003CSrcNoDataImag\u003E0\u003C\u002FSrcNoDataImag\u003E\\n        \u003CDstNoDataReal\u003E0\u003C\u002FDstNoDataReal\u003E\\n        \u003CDstNoDataImag\u003E0\u003C\u002FDstNoDataImag\u003E\\n      \u003C\u002FBandMapping\u003E\\n      \u003CBandMapping src=\\\"3\\\" dst=\\\"3\\\"\u003E\\n        \u003CSrcNoDataReal\u003E0\u003C\u002FSrcNoDataReal\u003E\\n        \u003CSrcNoDataImag\u003E0\u003C\u002FSrcNoDataImag\u003E\\n        \u003CDstNoDataReal\u003E0\u003C\u002FDstNoDataReal\u003E\\n        \u003CDstNoDataImag\u003E0\u003C\u002FDstNoDataImag\u003E\\n      \u003C\u002FBandMapping\u003E\\n      \u003CBandMapping src=\\\"4\\\" dst=\\\"4\\\"\u003E\\n        \u003CSrcNoDataReal\u003E0\u003C\u002FSrcNoDataReal\u003E\\n        \u003CSrcNoDataImag\u003E0\u003C\u002FSrcNoDataImag\u003E\\n        \u003CDstNoDataReal\u003E0\u003C\u002FDstNoDataReal\u003E\\n        \u003CDstNoDataImag\u003E0\u003C\u002FDstNoDataImag\u003E\\n      \u003C\u002FBandMapping\u003E\\n    \u003C\u002FBandList\u003E\\n  \u003C\u002FGDALWarpOptions\u003E\\n\u003C\u002FVRTDataset\u003E\\n\\n\u003Chr\u003E\\n\u003Cp\u003E.\u002Fgdalwarp --config GDAL_DATA &quot;..\u002Fdata\u002F&quot; -t_srs &quot;EPSG:25831&quot; \u002FDADES\u002FMODELS\u002FPRESCAT\u002F2017\u002F01\u002F01\u002FPRESCAT-2017010100_0.tiff \u002Ftmp\u002Fl.tiff\u003C\u002Fp\u003E\\n\u003Cp\u003E.\u002Fconfigure\\nmake\\ncd swig\u002Fpython\\npython setup install\u003C\u002Fp\u003E\\n\u003Cp\u003ELD_LIBRARY_PATH=$LD_LIBRARY_PATH:\u002Ftmp\u002Fgdal-2.1.0\u002F.libs:\u002Fusr\u002Flib64\\nexport LD_LIBRARY_PATH\\nGDAL_DATA=\u002Ftmp\u002Fgdal-2.1.0\u002Fdata\\nexport GDAL_DATA\u003C\u002Fp\u003E\\n\u003Chr\u003E\\n\u003Ch2 id=\\\"links\\\"\u003ELinks\u003C\u002Fh2\u003E\\n\u003Cp\u003E\u003Ca href=\\\"http:\u002F\u002Fwww.gdal.org\u002Fwarptut.html\\\"\u003Ehttp:\u002F\u002Fwww.gdal.org\u002Fwarptut.html\u003C\u002Fa\u003E\\n\u003Ca href=\\\"http:\u002F\u002Fwww.gdal.org\u002Fgdal_tutorial.html\\\"\u003Ehttp:\u002F\u002Fwww.gdal.org\u002Fgdal_tutorial.html\u003C\u002Fa\u003E\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Ca href=\\\"https:\u002F\u002Fgithub.com\u002Frouault\u002Fgdal2\u002Fblob\u002Ftrunk\u002Fgdal\u002Fswig\u002Fpython\u002Fscripts\u002Fgdal2tiles.py\\\"\u003Ehttps:\u002F\u002Fgithub.com\u002Frouault\u002Fgdal2\u002Fblob\u002Ftrunk\u002Fgdal\u002Fswig\u002Fpython\u002Fscripts\u002Fgdal2tiles.py\u003C\u002Fa\u003E\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Ca href=\\\"http:\u002F\u002Fgis.stackexchange.com\u002Fquestions\u002F143966\u002Fwhy-is-gdalwarp-changing-value-in-nodata-pixels\\\"\u003Ehttp:\u002F\u002Fgis.stackexchange.com\u002Fquestions\u002F143966\u002Fwhy-is-gdalwarp-changing-value-in-nodata-pixels\u003C\u002Fa\u003E\\n\u003Ca href=\\\"http:\u002F\u002Ftrac.osgeo.org\u002Fgdal\u002Fticket\u002F5675\\\"\u003Ehttp:\u002F\u002Ftrac.osgeo.org\u002Fgdal\u002Fticket\u002F5675\u003C\u002Fa\u003E\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Ca href=\\\"https:\u002F\u002Fgist.github.com\u002Fcspanring\u002F5680334\\\"\u003Ehttps:\u002F\u002Fgist.github.com\u002Fcspanring\u002F5680334\u003C\u002Fa\u003E\u003C\u002Fp\u003E\\n\u003Cp\u003EInstall gdal 2.1.0\u003C\u002Fp\u003E\\n\",\"tags\":[\"GDAL\",\"projections\",\"raster\"],\"date\":\"2014-08-16T00:00:00.000Z\",\"thumbnail\":\"\u002Fimages\u002Fd3\u002Fd3-shaded-relief\u002Ftwitter.png\"}"}</script>
 </div>
 	</body>
 </html>

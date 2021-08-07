@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BD6G9PF6NH"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-BD6G9PF6NH');
+		</script>
+
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="manifest" href="/manifest.json" />
-		<meta name="theme-color" content="#cdffcd">
+		<meta name="theme-color" content="#cdffcd" />
 		<!-- HTML Meta Tags -->
-		<title>GeoExamples - Roger Veciana</title>
 		<meta
 			name="description"
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
@@ -19,34 +30,20 @@
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
 		/>
 		<meta itemprop="image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Facebook Meta Tags -->
-		<meta property="og:url" content="https://geoexamples.com" />
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="GeoExamples - Roger Veciana" />
-		<meta
-			property="og:description"
-			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
-		/>
-		<meta property="og:image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Twitter Meta Tags -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content="GeoExamples - Roger Veciana" />
-		<meta name="twitter:description"
-		  content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." />
-		<meta name="twitter:image" content="https://geoexamples.com/siteImage.png" />
+
 		
 
 
 
-<link rel="modulepreload" href="/./_app/start-44631b0b.js">
-			<link rel="modulepreload" href="/./_app/chunks/vendor-ff3d1764.js">
-			<link rel="modulepreload" href="/./_app/chunks/config-b3bde751.js">
-			<link rel="modulepreload" href="/./_app/pages\[slug].svelte-c87d01ab.js">
-			<link rel="stylesheet" href="/./_app/assets/start-34a290f9.css">
+<link rel="modulepreload" href="/./staticApp/start-b8adad58.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/vendor-aee76599.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/config-b3bde751.js">
+			<link rel="modulepreload" href="/./staticApp/pages\[slug].svelte-bb0f1fde.js">
+			<link rel="stylesheet" href="/./staticApp/assets/start-2b8dc5e2.css">
 
 
 		<script type="module">
-			import { start } from "/./_app/start-44631b0b.js";
+			import { start } from "/./staticApp/start-b8adad58.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":"/."},
@@ -57,7 +54,7 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/./_app/pages\\[slug].svelte-c87d01ab.js")
+						import("/./staticApp/pages\\[slug].svelte-bb0f1fde.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -84,7 +81,7 @@
 	<article class="post-content"><img src="http://www.gravatar.com/avatar/a2746d9ceb326e71181a6629031faf81?s=135" alt="A photo of Roger Veciana i Rovira" class="left_picture"/>
 
 <p>Roger Veciana i Rovira</p>
-<p>I&#39;m a meteorologist based in Barcelona who likes maps and coding. <a href="/cv">Take a look at my CV</a> </p>
+<p>I&#39;m a meteorologist based in Barcelona who likes maps and coding. <a href="/cv">Take a look at my CV</a></p>
 <p>I opened this blog to talk about the things I&#39;m learning about python and JavaScript mapping.</p>
 <p><a href="http://geoexamples.blogspot.com.es/">The old GeoExamples blog</a> is still working with all its posts.</p>
 </article></div></div></main>
@@ -107,9 +104,9 @@
 
 
 
-	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
+	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
 
-	<script type="svelte-data" url="about.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"About\",\"contents\":\"\u003Cimg src=\\\"http:\u002F\u002Fwww.gravatar.com\u002Favatar\u002Fa2746d9ceb326e71181a6629031faf81?s=135\\\" alt=\\\"A photo of Roger Veciana i Rovira\\\" class=\\\"left_picture\\\"\u002F\u003E\\n\\n\u003Cp\u003ERoger Veciana i Rovira\u003C\u002Fp\u003E\\n\u003Cp\u003EI&#39;m a meteorologist based in Barcelona who likes maps and coding. \u003Ca href=\\\"\u002Fcv\\\"\u003ETake a look at my CV\u003C\u002Fa\u003E \u003C\u002Fp\u003E\\n\u003Cp\u003EI opened this blog to talk about the things I&#39;m learning about python and JavaScript mapping.\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.blogspot.com.es\u002F\\\"\u003EThe old GeoExamples blog\u003C\u002Fa\u003E is still working with all its posts.\u003C\u002Fp\u003E\\n\"}"}</script>
+	<script type="svelte-data" url="about.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"About\",\"contents\":\"\u003Cimg src=\\\"http:\u002F\u002Fwww.gravatar.com\u002Favatar\u002Fa2746d9ceb326e71181a6629031faf81?s=135\\\" alt=\\\"A photo of Roger Veciana i Rovira\\\" class=\\\"left_picture\\\"\u002F\u003E\\n\\n\u003Cp\u003ERoger Veciana i Rovira\u003C\u002Fp\u003E\\n\u003Cp\u003EI&#39;m a meteorologist based in Barcelona who likes maps and coding. \u003Ca href=\\\"\u002Fcv\\\"\u003ETake a look at my CV\u003C\u002Fa\u003E\u003C\u002Fp\u003E\\n\u003Cp\u003EI opened this blog to talk about the things I&#39;m learning about python and JavaScript mapping.\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.blogspot.com.es\u002F\\\"\u003EThe old GeoExamples blog\u003C\u002Fa\u003E is still working with all its posts.\u003C\u002Fp\u003E\\n\"}"}</script>
 </div>
 	</body>
 </html>

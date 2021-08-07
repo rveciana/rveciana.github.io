@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BD6G9PF6NH"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-BD6G9PF6NH');
+		</script>
+
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="manifest" href="/manifest.json" />
-		<meta name="theme-color" content="#cdffcd">
+		<meta name="theme-color" content="#cdffcd" />
 		<!-- HTML Meta Tags -->
-		<title>GeoExamples - Roger Veciana</title>
 		<meta
 			name="description"
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
@@ -19,34 +30,20 @@
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
 		/>
 		<meta itemprop="image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Facebook Meta Tags -->
-		<meta property="og:url" content="https://geoexamples.com" />
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="GeoExamples - Roger Veciana" />
-		<meta
-			property="og:description"
-			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
-		/>
-		<meta property="og:image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Twitter Meta Tags -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content="GeoExamples - Roger Veciana" />
-		<meta name="twitter:description"
-		  content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." />
-		<meta name="twitter:image" content="https://geoexamples.com/siteImage.png" />
-		
+
+		<title>GeoExamples - Basemap tutorial</title><meta name="twitter:card" content="summary" data-svelte="svelte-4aysgi"><meta name="twitter:title" content="GeoExamples - Basemap tutorial" data-svelte="svelte-4aysgi"><meta name="twitter:description" content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." data-svelte="svelte-4aysgi"><meta name="twitter:image" content="https://geoexamples.com/siteImage.png" data-svelte="svelte-4aysgi"><meta property="og:url" content="https://geoexamples.com" data-svelte="svelte-4aysgi"><meta property="og:type" content="website" data-svelte="svelte-4aysgi"><meta property="og:title" content="GeoExamples - Basemap tutorial" data-svelte="svelte-4aysgi"><meta property="og:description" content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." data-svelte="svelte-4aysgi"><meta property="og:image" content="https://geoexamples.com/siteImage.png" data-svelte="svelte-4aysgi">
 
 
 
-<link rel="modulepreload" href="/./_app/start-44631b0b.js">
-			<link rel="modulepreload" href="/./_app/chunks/vendor-ff3d1764.js">
-			<link rel="modulepreload" href="/./_app/chunks/config-b3bde751.js">
-			<link rel="modulepreload" href="/./_app/pages\[category]\[year]\[month]\[date]\[slug].svelte-a77716b3.js">
-			<link rel="stylesheet" href="/./_app/assets/start-34a290f9.css">
+<link rel="modulepreload" href="/./staticApp/start-b8adad58.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/vendor-aee76599.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/config-b3bde751.js">
+			<link rel="modulepreload" href="/./staticApp/pages\[category]\[year]\[month]\[date]\[slug].svelte-a8f2e1c8.js">
+			<link rel="stylesheet" href="/./staticApp/assets/start-2b8dc5e2.css">
 
 
 		<script type="module">
-			import { start } from "/./_app/start-44631b0b.js";
+			import { start } from "/./staticApp/start-b8adad58.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":"/."},
@@ -57,7 +54,7 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/./_app/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a77716b3.js")
+						import("/./staticApp/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a8f2e1c8.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -79,7 +76,8 @@
 
 	<div class="trigger"><a class="page-link" href="/about">About</a><a class="page-link" href="/blog">Blog</a><a class="page-link" href="/projects">Projects</a></div></nav></div></header>
 
-<main class="page-content"><div class="wrapper"><div class="post"><header class="post-header"><h1 class="post-title">Basemap tutorial</h1>
+<main class="page-content"><div class="wrapper">
+<div class="post"><header class="post-header"><h1 class="post-title">Basemap tutorial</h1>
 <p class="post-meta">Nov 26, 2014</p></header>
 
 	<article class="post-content"><p>Basemap is a great tool for creating maps using python in a simple way. It&#39;s a <a href="http://matplotlib.org/">matplotlib</a> extension, so it has got all its features to create data visualizations, and adds the geographical projections and some datasets to be able to plot coast lines, countries, and so on directly from the library.</p>
@@ -115,7 +113,7 @@
 
 
 
-	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
+	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
 
 	<script type="svelte-data" url="basemap-tutorial.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"Basemap tutorial\",\"contents\":\"\u003Cp\u003EBasemap is a great tool for creating maps using python in a simple way. It&#39;s a \u003Ca href=\\\"http:\u002F\u002Fmatplotlib.org\u002F\\\"\u003Ematplotlib\u003C\u002Fa\u003E extension, so it has got all its features to create data visualizations, and adds the geographical projections and some datasets to be able to plot coast lines, countries, and so on directly from the library.\u003C\u002Fp\u003E\\n\u003Cp\u003EBasemap has got \u003Ca href=\\\"http:\u002F\u002Fmatplotlib.org\u002Fbasemap\u002Findex.html\\\"\u003Esome documentation\u003C\u002Fa\u003E, but some things are a bit more difficult to find. I started a readthedocs page to extend a little the original documentation and examples, but it grew a little, and now covers many of the basemap possibilities.\u003C\u002Fp\u003E\\n\u003Cimg src=\\\"\u002Fimages\u002Fpython\u002Fbasemaptutorial.png\\\" width=\\\"50%\\\"\u002F\u003E\\n\\n\u003Cp\u003ESome of the examples from the tutorial\u003C\u002Fp\u003E\\n\u003Cp\u003EThe tutorial can be found at \u003Ca href=\\\"http:\u002F\u002Fbasemaptutorial.readthedocs.org\u002F\\\"\u003Ehttp:\u002F\u002Fbasemaptutorial.readthedocs.org\u002F\u003C\u002Fa\u003E, and all the examples and its source code, at GitHub and it&#39;s available for sharing or being modified by adding the attribution.\u003C\u002Fp\u003E\\n\u003Cp\u003EThe tutorial covers:\u003C\u002Fp\u003E\\n\u003Cul\u003E\\n\u003Cli\u003EAn introductory chapter, showing the basic functionalities, and how to work with the included methods for reading shapefiles\u003C\u002Fli\u003E\\n\u003Cli\u003EThe explanation and an example for each of the basemap methods\u003C\u002Fli\u003E\\n\u003Cli\u003EA section with more advanced examples, such as 3D maps, multiplots or WRF examples\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\u003Cp\u003EI would really appreciate some feedback, the comments are open!\u003C\u002Fp\u003E\\n\",\"tags\":[\"basemap\",\"tutorial\"],\"date\":\"2014-11-26T00:00:00.000Z\"}"}</script>
 </div>

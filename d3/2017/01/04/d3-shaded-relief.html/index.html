@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BD6G9PF6NH"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-BD6G9PF6NH');
+		</script>
+
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="manifest" href="/manifest.json" />
-		<meta name="theme-color" content="#cdffcd">
+		<meta name="theme-color" content="#cdffcd" />
 		<!-- HTML Meta Tags -->
-		<title>GeoExamples - Roger Veciana</title>
 		<meta
 			name="description"
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
@@ -19,34 +30,20 @@
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
 		/>
 		<meta itemprop="image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Facebook Meta Tags -->
-		<meta property="og:url" content="https://geoexamples.com" />
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="GeoExamples - Roger Veciana" />
-		<meta
-			property="og:description"
-			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
-		/>
-		<meta property="og:image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Twitter Meta Tags -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content="GeoExamples - Roger Veciana" />
-		<meta name="twitter:description"
-		  content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." />
-		<meta name="twitter:image" content="https://geoexamples.com/siteImage.png" />
-		
+
+		<title>GeoExamples - d3-shaded-relief</title><meta name="twitter:card" content="summary" data-svelte="svelte-4aysgi"><meta name="twitter:title" content="GeoExamples - d3-shaded-relief" data-svelte="svelte-4aysgi"><meta name="twitter:description" content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." data-svelte="svelte-4aysgi"><meta name="twitter:image" content="https://geoexamples.com/images/d3/d3-shaded-relief/twitter.png" data-svelte="svelte-4aysgi"><meta property="og:url" content="https://geoexamples.com" data-svelte="svelte-4aysgi"><meta property="og:type" content="website" data-svelte="svelte-4aysgi"><meta property="og:title" content="GeoExamples - d3-shaded-relief" data-svelte="svelte-4aysgi"><meta property="og:description" content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." data-svelte="svelte-4aysgi"><meta property="og:image" content="https://geoexamples.com/images/d3/d3-shaded-relief/twitter.png" data-svelte="svelte-4aysgi">
 
 
 
-<link rel="modulepreload" href="/./_app/start-44631b0b.js">
-			<link rel="modulepreload" href="/./_app/chunks/vendor-ff3d1764.js">
-			<link rel="modulepreload" href="/./_app/chunks/config-b3bde751.js">
-			<link rel="modulepreload" href="/./_app/pages\[category]\[year]\[month]\[date]\[slug].svelte-a77716b3.js">
-			<link rel="stylesheet" href="/./_app/assets/start-34a290f9.css">
+<link rel="modulepreload" href="/./staticApp/start-b8adad58.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/vendor-aee76599.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/config-b3bde751.js">
+			<link rel="modulepreload" href="/./staticApp/pages\[category]\[year]\[month]\[date]\[slug].svelte-a8f2e1c8.js">
+			<link rel="stylesheet" href="/./staticApp/assets/start-2b8dc5e2.css">
 
 
 		<script type="module">
-			import { start } from "/./_app/start-44631b0b.js";
+			import { start } from "/./staticApp/start-b8adad58.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":"/."},
@@ -57,7 +54,7 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/./_app/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a77716b3.js")
+						import("/./staticApp/pages\\[category]\\[year]\\[month]\\[date]\\[slug].svelte-a8f2e1c8.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -79,13 +76,14 @@
 
 	<div class="trigger"><a class="page-link" href="/about">About</a><a class="page-link" href="/blog">Blog</a><a class="page-link" href="/projects">Projects</a></div></nav></div></header>
 
-<main class="page-content"><div class="wrapper"><div class="post"><header class="post-header"><h1 class="post-title">d3-shaded-relief</h1>
+<main class="page-content"><div class="wrapper">
+<div class="post"><header class="post-header"><h1 class="post-title">d3-shaded-relief</h1>
 <p class="post-meta">Jan 4, 2017</p></header>
 
 	<article class="post-content"><p>The <a href="http://www.shadedrelief.com/">shaded relief</a> technique is a method for representing the topography which is prettier and intuitive.</p>
 <p>I found <a href="http://bl.ocks.org/mjhoy/5301594">some examples</a> about doing them with d3js, but required a previous preparation with gdal. I wanted to show how to create the effect using the DEM file directly. I added the tutorial to the <a href="http://geoexamples.com/d3-raster-tools-docs/">d3-raster-tools-docs</a> tutorial.</p>
 <p>The result:</p>
-<iframe frameborder="no" border="0" scrolling="no" marginwidth="0" marginheight="0" width="690" height="510" src="/d3-raster-tools-docs/code_samples/dem-shaded.html"></iframe>
+<iframe frameborder="no" border="0" scrolling="no" marginwidth="0" marginheight="0" width="690" height="510" src="http://www.geoexamples.com/d3-raster-tools-docs/code_samples/dem-shaded.html"></iframe>
 
 <ul>
 <li>[The code explanation](/d3-raster-tools-docs/plot/shaded-relief.html)</li>
@@ -119,9 +117,9 @@
 
 
 
-	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
+	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
 
-	<script type="svelte-data" url="d3-shaded-relief.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"d3-shaded-relief\",\"contents\":\"\u003Cp\u003EThe \u003Ca href=\\\"http:\u002F\u002Fwww.shadedrelief.com\u002F\\\"\u003Eshaded relief\u003C\u002Fa\u003E technique is a method for representing the topography which is prettier and intuitive.\u003C\u002Fp\u003E\\n\u003Cp\u003EI found \u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Fmjhoy\u002F5301594\\\"\u003Esome examples\u003C\u002Fa\u003E about doing them with d3js, but required a previous preparation with gdal. I wanted to show how to create the effect using the DEM file directly. I added the tutorial to the \u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-raster-tools-docs\u002F\\\"\u003Ed3-raster-tools-docs\u003C\u002Fa\u003E tutorial.\u003C\u002Fp\u003E\\n\u003Cp\u003EThe result:\u003C\u002Fp\u003E\\n\u003Ciframe frameborder=\\\"no\\\" border=\\\"0\\\" scrolling=\\\"no\\\" marginwidth=\\\"0\\\" marginheight=\\\"0\\\" width=\\\"690\\\" height=\\\"510\\\" src=\\\"\u002Fd3-raster-tools-docs\u002Fcode_samples\u002Fdem-shaded.html\\\"\u003E\u003C\u002Fiframe\u003E\\n\\n\u003Cul\u003E\\n\u003Cli\u003E[The code explanation](\u002Fd3-raster-tools-docs\u002Fplot\u002Fshaded-relief.html)\u003C\u002Fli\u003E\\n\u003Cli\u003E[The source code](\u002Fd3-raster-tools-docs\u002Fcode_samples\u002Fdem-shaded-page.html)\u003C\u002Fli\u003E\\n\u003Cli\u003E[How to get the data](\u002Fd3-raster-tools-docs\u002Fcode_samples\u002Fswiss-page.html)\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\u003Ch2 id=\\\"links\\\"\u003ELinks\u003C\u002Fh2\u003E\\n\u003Cul\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fwww.reliefshading.com\u002F\\\"\u003Ereliefshading\u003C\u002Fa\u003E, a web with lots of examples and theory\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fwww.shadedrelief.com\u002F\\\"\u003Eshaded relief\u003C\u002Fa\u003E, with many gorgeous examples\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fedndoc.esri.com\u002Farcobjects\u002F9.2\u002Fnet\u002Fshared\u002Fgeoprocessing\u002Fspatial_analyst_tools\u002Fhow_hillshade_works.htm\\\"\u003EThe hillshade algorithm\u003C\u002Fa\u003E\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.blogspot.com.es\u002F2014\u002F03\u002Fshaded-relief-images-using-gdal-python.html\\\"\u003EA post\u003C\u002Fa\u003E with the same content, but using python\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\",\"tags\":[\"raster\",\"canvas\",\"shaded relief\"],\"date\":\"2017-01-04T00:00:00.000Z\"}"}</script>
+	<script type="svelte-data" url="d3-shaded-relief.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"d3-shaded-relief\",\"contents\":\"\u003Cp\u003EThe \u003Ca href=\\\"http:\u002F\u002Fwww.shadedrelief.com\u002F\\\"\u003Eshaded relief\u003C\u002Fa\u003E technique is a method for representing the topography which is prettier and intuitive.\u003C\u002Fp\u003E\\n\u003Cp\u003EI found \u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Fmjhoy\u002F5301594\\\"\u003Esome examples\u003C\u002Fa\u003E about doing them with d3js, but required a previous preparation with gdal. I wanted to show how to create the effect using the DEM file directly. I added the tutorial to the \u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-raster-tools-docs\u002F\\\"\u003Ed3-raster-tools-docs\u003C\u002Fa\u003E tutorial.\u003C\u002Fp\u003E\\n\u003Cp\u003EThe result:\u003C\u002Fp\u003E\\n\u003Ciframe frameborder=\\\"no\\\" border=\\\"0\\\" scrolling=\\\"no\\\" marginwidth=\\\"0\\\" marginheight=\\\"0\\\" width=\\\"690\\\" height=\\\"510\\\" src=\\\"http:\u002F\u002Fwww.geoexamples.com\u002Fd3-raster-tools-docs\u002Fcode_samples\u002Fdem-shaded.html\\\"\u003E\u003C\u002Fiframe\u003E\\n\\n\u003Cul\u003E\\n\u003Cli\u003E[The code explanation](\u002Fd3-raster-tools-docs\u002Fplot\u002Fshaded-relief.html)\u003C\u002Fli\u003E\\n\u003Cli\u003E[The source code](\u002Fd3-raster-tools-docs\u002Fcode_samples\u002Fdem-shaded-page.html)\u003C\u002Fli\u003E\\n\u003Cli\u003E[How to get the data](\u002Fd3-raster-tools-docs\u002Fcode_samples\u002Fswiss-page.html)\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\u003Ch2 id=\\\"links\\\"\u003ELinks\u003C\u002Fh2\u003E\\n\u003Cul\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fwww.reliefshading.com\u002F\\\"\u003Ereliefshading\u003C\u002Fa\u003E, a web with lots of examples and theory\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fwww.shadedrelief.com\u002F\\\"\u003Eshaded relief\u003C\u002Fa\u003E, with many gorgeous examples\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fedndoc.esri.com\u002Farcobjects\u002F9.2\u002Fnet\u002Fshared\u002Fgeoprocessing\u002Fspatial_analyst_tools\u002Fhow_hillshade_works.htm\\\"\u003EThe hillshade algorithm\u003C\u002Fa\u003E\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.blogspot.com.es\u002F2014\u002F03\u002Fshaded-relief-images-using-gdal-python.html\\\"\u003EA post\u003C\u002Fa\u003E with the same content, but using python\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\",\"tags\":[\"raster\",\"canvas\",\"shaded relief\"],\"date\":\"2017-01-04T00:00:00.000Z\",\"thumbnail\":\"\u002Fimages\u002Fd3\u002Fd3-shaded-relief\u002Ftwitter.png\"}"}</script>
 </div>
 	</body>
 </html>

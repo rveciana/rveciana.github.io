@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BD6G9PF6NH"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-BD6G9PF6NH');
+		</script>
+
 		<meta charset="utf-8" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="manifest" href="/manifest.json" />
-		<meta name="theme-color" content="#cdffcd">
+		<meta name="theme-color" content="#cdffcd" />
 		<!-- HTML Meta Tags -->
-		<title>GeoExamples - Roger Veciana</title>
 		<meta
 			name="description"
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
@@ -19,34 +30,20 @@
 			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
 		/>
 		<meta itemprop="image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Facebook Meta Tags -->
-		<meta property="og:url" content="https://geoexamples.com" />
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="GeoExamples - Roger Veciana" />
-		<meta
-			property="og:description"
-			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
-		/>
-		<meta property="og:image" content="https://geoexamples.com/siteImage.png" />
-		<!-- Twitter Meta Tags -->
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content="GeoExamples - Roger Veciana" />
-		<meta name="twitter:description"
-		  content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." />
-		<meta name="twitter:image" content="https://geoexamples.com/siteImage.png" />
+
 		
 
 
 
-<link rel="modulepreload" href="/./_app/start-44631b0b.js">
-			<link rel="modulepreload" href="/./_app/chunks/vendor-ff3d1764.js">
-			<link rel="modulepreload" href="/./_app/chunks/config-b3bde751.js">
-			<link rel="modulepreload" href="/./_app/pages\[slug].svelte-c87d01ab.js">
-			<link rel="stylesheet" href="/./_app/assets/start-34a290f9.css">
+<link rel="modulepreload" href="/./staticApp/start-b8adad58.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/vendor-aee76599.js">
+			<link rel="modulepreload" href="/./staticApp/chunks/config-b3bde751.js">
+			<link rel="modulepreload" href="/./staticApp/pages\[slug].svelte-bb0f1fde.js">
+			<link rel="stylesheet" href="/./staticApp/assets/start-2b8dc5e2.css">
 
 
 		<script type="module">
-			import { start } from "/./_app/start-44631b0b.js";
+			import { start } from "/./staticApp/start-b8adad58.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":"/."},
@@ -57,7 +54,7 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/./_app/pages\\[slug].svelte-c87d01ab.js")
+						import("/./staticApp/pages\\[slug].svelte-bb0f1fde.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -105,7 +102,7 @@ Basemap is a great tool for creating maps using python in a simple way. It’s a
 <a href="http://www.gdal.org/frmt_various.html#IRIS"><img class="teaser" src="/images/teasers/gdal-iris-driver.png" alt="teaser" itemprop="image"></a>
 VAISALA/SIGMET weather radars have their own format to store the generated products, so opening them can be quite difficult without their software.
 
-<p>This driver, integrated in the default <a href="http://www.gdal.org/">GDAL library</a>, makes possible to open these files from any software using GDAL, including <a href="www.qgis.org">QGIS</a> and the <a href="http://trac.osgeo.org/gdal/wiki/GdalOgrInPython">GDAL Python bindings</a>.</p>
+<p>This driver, integrated in the default <a href="http://www.gdal.org/">GDAL library</a>, makes possible to open these files from any software using GDAL, including <a href="http://www.qgis.org">QGIS</a> and the <a href="http://trac.osgeo.org/gdal/wiki/GdalOgrInPython">GDAL Python bindings</a>.</p>
 </article></div></div></main>
 <footer class="site-footer"><div class="wrapper"><div class="footer-col-wrapper"><div class="footer-col  footer-col-1"><ul class="contact-list"><li>GeoExamples - Roger Veciana</li></ul></div>
 
@@ -126,9 +123,9 @@ VAISALA/SIGMET weather radars have their own format to store the generated produ
 
 
 
-	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
+	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
 
-	<script type="svelte-data" url="projects.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"Projects\",\"contents\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\\n\u003Ch2\u003E\u003Ca href=\\\"https:\u002F\u002Fgeoexamples.com\u002Fsvg-path-properties\u002F\\\"\u003Esvg-path-properties\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"https:\u002F\u002Fgeoexamples.com\u002Fsvg-path-properties\u002F\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fsvg-path-properties.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nCalculate the length, point and tangent at distance for an SVG path, to use it with node, Canvas or SVG element\\n\\n\u003Ch2\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-raster-tools-docs\u002F\\\"\u003Ed3-raster-tools-docs\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-raster-tools-docs\u002F\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fd3-raster-tools-docs.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nDrawing raster data using d3js is quite undocummented. This small documentation explains how to work with raster data and the d3js to create dynamic data visualizations.\\n\\n\u003Cp\u003EIncludes isolines, isobands, direct raster values drawing and streamlines, barbs and vector images from vectorial fields.\u003C\u002Fp\u003E\\n\u003Ch2\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-composite-projections\u002F\\\"\u003Ed3-composite-projections\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-composite-projections\u002F\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fd3-composite-projections.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nSet of d3 projections for showing countries' distant lands together.\\n\\n\u003Cp\u003EDrawing choropleth maps is difficult in some countries when parts of them are far away from the mainland. This set of projections work like the original \u003Ca href=\\\"https:\u002F\u002Fgithub.com\u002Fmbostock\u002Fd3\u002Fwiki\u002FGeo-Projections#albersUsa\\\"\u003EAlbersUSA projection\u003C\u002Fa\u003E, putting all the regions together.\u003C\u002Fp\u003E\\n\u003Ch2\u003E\u003Ca href=\\\"https:\u002F\u002Fbasemaptutorial.readthedocs.org\u002Fen\u002Flatest\u002F\\\"\u003EBasemap tutorial\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"https:\u002F\u002Fbasemaptutorial.readthedocs.org\u002Fen\u002Flatest\u002F\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fbasemaptutorial.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nBasemap is a great tool for creating maps using python in a simple way. It’s a matplotlib extension, so it has got all its features to create data visualizations, and adds the geographical projections and some datasets to be able to plot coast lines, countries, and so on directly from the library.\\n\\n\u003Cp\u003EBasemap has got \u003Ca href=\\\"http:\u002F\u002Fmatplotlib.org\u002Fbasemap\u002Findex.html\\\"\u003Esome documentation\u003C\u002Fa\u003E, but some things are a bit more difficult to find. I started this documentation to extend a little the original documentation and examples, but it grew a little, and now covers many of the basemap possibilities.\u003C\u002Fp\u003E\\n\u003Ch2\u003E\u003Ca href=\\\"http:\u002F\u002Fwww.gdal.org\u002Ffrmt_various.html#IRIS\\\"\u003EGDAL IRIS driver\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"http:\u002F\u002Fwww.gdal.org\u002Ffrmt_various.html#IRIS\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fgdal-iris-driver.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nVAISALA\u002FSIGMET weather radars have their own format to store the generated products, so opening them can be quite difficult without their software.\\n\\n\u003Cp\u003EThis driver, integrated in the default \u003Ca href=\\\"http:\u002F\u002Fwww.gdal.org\u002F\\\"\u003EGDAL library\u003C\u002Fa\u003E, makes possible to open these files from any software using GDAL, including \u003Ca href=\\\"www.qgis.org\\\"\u003EQGIS\u003C\u002Fa\u003E and the \u003Ca href=\\\"http:\u002F\u002Ftrac.osgeo.org\u002Fgdal\u002Fwiki\u002FGdalOgrInPython\\\"\u003EGDAL Python bindings\u003C\u002Fa\u003E.\u003C\u002Fp\u003E\\n\"}"}</script>
+	<script type="svelte-data" url="projects.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"{\"title\":\"Projects\",\"contents\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\\n\u003Ch2\u003E\u003Ca href=\\\"https:\u002F\u002Fgeoexamples.com\u002Fsvg-path-properties\u002F\\\"\u003Esvg-path-properties\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"https:\u002F\u002Fgeoexamples.com\u002Fsvg-path-properties\u002F\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fsvg-path-properties.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nCalculate the length, point and tangent at distance for an SVG path, to use it with node, Canvas or SVG element\\n\\n\u003Ch2\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-raster-tools-docs\u002F\\\"\u003Ed3-raster-tools-docs\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-raster-tools-docs\u002F\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fd3-raster-tools-docs.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nDrawing raster data using d3js is quite undocummented. This small documentation explains how to work with raster data and the d3js to create dynamic data visualizations.\\n\\n\u003Cp\u003EIncludes isolines, isobands, direct raster values drawing and streamlines, barbs and vector images from vectorial fields.\u003C\u002Fp\u003E\\n\u003Ch2\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-composite-projections\u002F\\\"\u003Ed3-composite-projections\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-composite-projections\u002F\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fd3-composite-projections.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nSet of d3 projections for showing countries' distant lands together.\\n\\n\u003Cp\u003EDrawing choropleth maps is difficult in some countries when parts of them are far away from the mainland. This set of projections work like the original \u003Ca href=\\\"https:\u002F\u002Fgithub.com\u002Fmbostock\u002Fd3\u002Fwiki\u002FGeo-Projections#albersUsa\\\"\u003EAlbersUSA projection\u003C\u002Fa\u003E, putting all the regions together.\u003C\u002Fp\u003E\\n\u003Ch2\u003E\u003Ca href=\\\"https:\u002F\u002Fbasemaptutorial.readthedocs.org\u002Fen\u002Flatest\u002F\\\"\u003EBasemap tutorial\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"https:\u002F\u002Fbasemaptutorial.readthedocs.org\u002Fen\u002Flatest\u002F\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fbasemaptutorial.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nBasemap is a great tool for creating maps using python in a simple way. It’s a matplotlib extension, so it has got all its features to create data visualizations, and adds the geographical projections and some datasets to be able to plot coast lines, countries, and so on directly from the library.\\n\\n\u003Cp\u003EBasemap has got \u003Ca href=\\\"http:\u002F\u002Fmatplotlib.org\u002Fbasemap\u002Findex.html\\\"\u003Esome documentation\u003C\u002Fa\u003E, but some things are a bit more difficult to find. I started this documentation to extend a little the original documentation and examples, but it grew a little, and now covers many of the basemap possibilities.\u003C\u002Fp\u003E\\n\u003Ch2\u003E\u003Ca href=\\\"http:\u002F\u002Fwww.gdal.org\u002Ffrmt_various.html#IRIS\\\"\u003EGDAL IRIS driver\u003C\u002Fa\u003E\u003C\u002Fh2\u003E\\n\u003Ca href=\\\"http:\u002F\u002Fwww.gdal.org\u002Ffrmt_various.html#IRIS\\\"\u003E\u003Cimg class=\\\"teaser\\\" src=\\\"\u002Fimages\u002Fteasers\u002Fgdal-iris-driver.png\\\" alt=\\\"teaser\\\" itemprop=\\\"image\\\"\u003E\u003C\u002Fa\u003E\\nVAISALA\u002FSIGMET weather radars have their own format to store the generated products, so opening them can be quite difficult without their software.\\n\\n\u003Cp\u003EThis driver, integrated in the default \u003Ca href=\\\"http:\u002F\u002Fwww.gdal.org\u002F\\\"\u003EGDAL library\u003C\u002Fa\u003E, makes possible to open these files from any software using GDAL, including \u003Ca href=\\\"http:\u002F\u002Fwww.qgis.org\\\"\u003EQGIS\u003C\u002Fa\u003E and the \u003Ca href=\\\"http:\u002F\u002Ftrac.osgeo.org\u002Fgdal\u002Fwiki\u002FGdalOgrInPython\\\"\u003EGDAL Python bindings\u003C\u002Fa\u003E.\u003C\u002Fp\u003E\\n\"}"}</script>
 </div>
 	</body>
 </html>
