@@ -11,7 +11,7 @@ twitter-card: summary
 
 In the [previous post][previous_post] I explained a fast way to use [Supabase][supabase] with Svelte to store and show geographical data. Supabase offers a really cool way to use websockets so the page updates when some data in the database changes. They call it *subscription* and it's adding *subscribe()* function on a *select*.
 
-So I created this new example. On a mobile phone (allowing geolocation), we write the location into the database, and on another device you can follow the position in real-time. Everything without having to install any library except for Supabase! You can [get the source code][source_code] and see the [demo page][working_site].
+So I created this new example. On a mobile phone (allowing geolocation), we write the location into the database, and on another device you can follow the position in real-time. Everything without having to install any library except for Supabase! You can [get the source code][source_code] and see the [demo page][working_site]. When using on a mobile device, always use https or the geolocation will be deactivated.
 
 The app
 =======
