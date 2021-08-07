@@ -9,9 +9,9 @@ thumbnail: /images/svelte/svelte-supabase/twitter.png
 twitter-card: summary
 ---
 
-I discovered [supabase][supabase] some days ago as a substitute to Firebase. As it was using PostgreSQL as the database, I checked if it had extensions and yes! it's got PostGIS and all its siblings!
+I discovered [supabase][supabase] some days ago as a substitute for Firebase. As it was using PostgreSQL as the database, I checked if it had extensions and yes! it's got PostGIS and all its siblings!
 
-Using it it's not that straight forward, but it's not that difficult, so supabase can be a great solution if your backed it's not really complex.
+Using supabase is not that straightforward, but it's not that difficult, so supabase can be a great solution if your backend it's not really complex.
 
 <img src="{{ site.baseurl }}/images/svelte/svelte-supabase/map.png" />
 
@@ -19,7 +19,7 @@ We'll show the user's point data on a map, a list and will let them add new poin
 
 ## Installation
 
-The first step will be creating your supabase account, of course. Then, setup a Svelte project.
+The first step will be creating your supabase account, of course. Then, set up a Svelte project.
 
 I used the [supabase tutorial for Svelte][supabaseSvelte] to do it. Basically, you need to set the *.env* file with your keys (check at your supabase account)
 
