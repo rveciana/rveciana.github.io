@@ -27,7 +27,10 @@
 	<!-- Twitter Meta Tags -->
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content="GeoExamples - {post.title}" />
-	<meta name="twitter:description" content={configuration.site.description} />
+	<meta
+		name="twitter:description"
+		content={post.contents.substring(0, 20) ?? configuration.site.description}
+	/>
 	<meta
 		name="twitter:image"
 		content="https://geoexamples.com{post.thumbnail ?? '/siteImage.png'}"

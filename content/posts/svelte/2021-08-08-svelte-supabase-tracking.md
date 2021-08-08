@@ -5,7 +5,7 @@ date: 2021-08-07 18:40:53
 teaser: supabase-svelte-track.png
 categories: svelte
 tags: [supabase, postgis]
-thumbnail: /images/svelte/svelte-supabase/twitter.png
+thumbnail: /images/svelte/svelte-supabase-track/twitter.png
 twitter-card: summary
 ---
 
