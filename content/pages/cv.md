@@ -13,7 +13,7 @@ avoid_main_menu: true
 
 - Senior Front-end developer
   2019 - present
-  - Complex app applications in the energy sector
+  - I've been working on a complex app applications in the energy sector.
 
 ### [Servei Meteorològic de Catalunya](http://www.meteo.cat)
 
