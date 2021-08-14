@@ -35,16 +35,16 @@
 
 		
 
-		<link rel="modulepreload" href="/_app/start-9934143f.js">
-		<link rel="modulepreload" href="/_app/chunks/vendor-f4f84e30.js">
-		<link rel="modulepreload" href="/_app/pages/__layout.svelte-b5745e7e.js">
-		<link rel="modulepreload" href="/_app/chunks/config-b3bde751.js">
-		<link rel="modulepreload" href="/_app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js">
-		<link rel="stylesheet" href="/_app/assets/start-a8cd1609.css">
-		<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-294fb61c.css">
+		<link rel="modulepreload" href="/app/start-98c290b0.js">
+		<link rel="modulepreload" href="/app/chunks/vendor-f4f84e30.js">
+		<link rel="modulepreload" href="/app/pages/__layout.svelte-b5745e7e.js">
+		<link rel="modulepreload" href="/app/chunks/config-b3bde751.js">
+		<link rel="modulepreload" href="/app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js">
+		<link rel="stylesheet" href="/app/assets/start-a8cd1609.css">
+		<link rel="stylesheet" href="/app/assets/pages/__layout.svelte-294fb61c.css">
 
 		<script type="module">
-			import { start } from "/_app/start-9934143f.js";
+			import { start } from "/app/start-98c290b0.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":""},
@@ -57,8 +57,8 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/_app/pages/__layout.svelte-b5745e7e.js"),
-						import("/_app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js")
+						import("/app/pages/__layout.svelte-b5745e7e.js"),
+						import("/app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -121,7 +121,7 @@
 
 
 
-	<script type="application/json" data-type="svelte-data" data-url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
+	<script type="application/json" data-type="svelte-data" data-url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
 
 	<script type="application/json" data-type="svelte-data" data-url="d3-shaded-relief.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"title\":\"d3-shaded-relief\",\"contents\":\"\u003Cp\u003EThe \u003Ca href=\\\"http:\u002F\u002Fwww.shadedrelief.com\u002F\\\"\u003Eshaded relief\u003C\u002Fa\u003E technique is a method for representing the topography which is prettier and intuitive.\u003C\u002Fp\u003E\\n\u003Cp\u003EI found \u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Fmjhoy\u002F5301594\\\"\u003Esome examples\u003C\u002Fa\u003E about doing them with d3js, but required a previous preparation with gdal. I wanted to show how to create the effect using the DEM file directly. I added the tutorial to the \u003Ca href=\\\"http:\u002F\u002Fgeoexamples.com\u002Fd3-raster-tools-docs\u002F\\\"\u003Ed3-raster-tools-docs\u003C\u002Fa\u003E tutorial.\u003C\u002Fp\u003E\\n\u003Cp\u003EThe result:\u003C\u002Fp\u003E\\n\u003Ciframe frameborder=\\\"no\\\" border=\\\"0\\\" scrolling=\\\"no\\\" marginwidth=\\\"0\\\" marginheight=\\\"0\\\" width=\\\"690\\\" height=\\\"510\\\" src=\\\"http:\u002F\u002Fwww.geoexamples.com\u002Fd3-raster-tools-docs\u002Fcode_samples\u002Fdem-shaded.html\\\"\u003E\u003C\u002Fiframe\u003E\\n\\n\u003Cul\u003E\\n\u003Cli\u003E[The code explanation](\u002Fd3-raster-tools-docs\u002Fplot\u002Fshaded-relief.html)\u003C\u002Fli\u003E\\n\u003Cli\u003E[The source code](\u002Fd3-raster-tools-docs\u002Fcode_samples\u002Fdem-shaded-page.html)\u003C\u002Fli\u003E\\n\u003Cli\u003E[How to get the data](\u002Fd3-raster-tools-docs\u002Fcode_samples\u002Fswiss-page.html)\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\u003Ch2 id=\\\"links\\\"\u003ELinks\u003C\u002Fh2\u003E\\n\u003Cul\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fwww.reliefshading.com\u002F\\\"\u003Ereliefshading\u003C\u002Fa\u003E, a web with lots of examples and theory\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fwww.shadedrelief.com\u002F\\\"\u003Eshaded relief\u003C\u002Fa\u003E, with many gorgeous examples\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fedndoc.esri.com\u002Farcobjects\u002F9.2\u002Fnet\u002Fshared\u002Fgeoprocessing\u002Fspatial_analyst_tools\u002Fhow_hillshade_works.htm\\\"\u003EThe hillshade algorithm\u003C\u002Fa\u003E\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.blogspot.com.es\u002F2014\u002F03\u002Fshaded-relief-images-using-gdal-python.html\\\"\u003EA post\u003C\u002Fa\u003E with the same content, but using python\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\",\"tags\":[\"raster\",\"canvas\",\"shaded relief\"],\"date\":\"2017-01-04T00:00:00.000Z\",\"thumbnail\":\"\u002Fimages\u002Fd3\u002Fd3-shaded-relief\u002Ftwitter.png\"}"}</script>
 </div>
