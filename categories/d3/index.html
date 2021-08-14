@@ -33,29 +33,33 @@
 
 		
 
+		
 
-
-<link rel="modulepreload" href="/./staticApp/start-b8adad58.js">
-			<link rel="modulepreload" href="/./staticApp/chunks/vendor-aee76599.js">
-			<link rel="modulepreload" href="/./staticApp/chunks/config-b3bde751.js">
-			<link rel="modulepreload" href="/./staticApp/pages\categories\[slug].svelte-29e940c6.js">
-			<link rel="modulepreload" href="/./staticApp/chunks/PostCard-94d94500.js">
-			<link rel="stylesheet" href="/./staticApp/assets/start-2b8dc5e2.css">
-
+		<link rel="modulepreload" href="/_app/start-9934143f.js">
+		<link rel="modulepreload" href="/_app/chunks/vendor-f4f84e30.js">
+		<link rel="modulepreload" href="/_app/pages/__layout.svelte-b5745e7e.js">
+		<link rel="modulepreload" href="/_app/chunks/config-b3bde751.js">
+		<link rel="modulepreload" href="/_app/pages/categories/[slug].svelte-bc1e8fe9.js">
+		<link rel="modulepreload" href="/_app/chunks/PostCard-4120333c.js">
+		<link rel="stylesheet" href="/_app/assets/start-a8cd1609.css">
+		<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-294fb61c.css">
 
 		<script type="module">
-			import { start } from "/./staticApp/start-b8adad58.js";
+			import { start } from "/_app/start-9934143f.js";
 			start({
 				target: document.querySelector("#svelte"),
-				paths: {"base":"","assets":"/."},
+				paths: {"base":"","assets":""},
 				session: {},
 				host: location.host,
 				route: true,
+				spa: false,
+				trailing_slash: "never",
 				hydrate: {
 					status: 200,
 					error: null,
 					nodes: [
-						import("/./staticApp/pages\\categories\\[slug].svelte-29e940c6.js")
+						import("/_app/pages/__layout.svelte-b5745e7e.js"),
+						import("/_app/pages/categories/[slug].svelte-bc1e8fe9.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -260,9 +264,9 @@
 
 
 
-	<script type="svelte-data" url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
+	<script type="application/json" data-type="svelte-data" data-url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
 
-	<script type="svelte-data" url="d3.json">{"status":200,"statusText":"","headers":{"content-type":"application/json"},"body":"[{\"title\":\"Raster file formats for JavaScript mapping\",\"date\":\"2017-11-04T00:00:00.000Z\",\"tags\":[\"raster\"],\"categories\":\"d3\",\"teaser\":\"raster-file-formats-javascript.png\",\"slug\":\"\u002Fd3\u002F2017\u002F11\u002F04\u002Fraster-file-formats.html\"},{\"title\":\"Canvas mapping with a retina display\",\"date\":\"2017-10-24T00:00:00.000Z\",\"tags\":[\"raster\",\"canvas\",\"retina\"],\"categories\":\"d3\",\"teaser\":\"canvas-retina.png\",\"slug\":\"\u002Fd3\u002F2017\u002F10\u002F24\u002Fcanvas-mapping-with-retina.html\"},{\"title\":\"d3-shaded-relief\",\"date\":\"2017-01-04T00:00:00.000Z\",\"tags\":[\"raster\",\"canvas\",\"shaded relief\"],\"categories\":\"d3\",\"teaser\":\"d3-shaded-relief.png\",\"slug\":\"\u002Fd3\u002F2017\u002F01\u002F04\u002Fd3-shaded-relief.html\"},{\"title\":\"d3-raster-tools-docs\",\"date\":\"2016-12-19T00:00:00.000Z\",\"tags\":[\"raster\",\"isolines\",\"isobands\",\"streamlines\"],\"categories\":\"d3\",\"teaser\":\"d3-raster-tools-docs.png\",\"slug\":\"\u002Fd3\u002F2016\u002F12\u002F19\u002Fd3-raster-tools-docs.html\"},{\"title\":\"d3-composite-projections update\",\"date\":\"2016-10-03T00:00:00.000Z\",\"tags\":[\"projections\",\"npm\",\"nodejs\"],\"categories\":\"d3\",\"teaser\":\"d3-composite-projections2.png\",\"slug\":\"\u002Fd3\u002F2016\u002F10\u002F03\u002Fde-composite-projections.html\"},{\"title\":\"D3 map scrollers\",\"date\":\"2016-05-25T00:00:00.000Z\",\"tags\":[\"scroll\"],\"categories\":\"d3\",\"teaser\":\"d3-map-scrollers.png\",\"slug\":\"\u002Fd3\u002F2016\u002F05\u002F25\u002Fd3-map-scrollers.html\"},{\"title\":\"Mapping EUROSTAT data with D3js\",\"date\":\"2015-09-25T00:00:00.000Z\",\"tags\":[\"EUROSTAT\",\"Open Data\"],\"categories\":\"d3\",\"teaser\":\"d3-nuts2.png\",\"slug\":\"\u002Fd3\u002F2015\u002F09\u002F25\u002Fd3-creating-EUROSTAT-maps.html\"},{\"title\":\"Mapping EUROSTAT data with D3js: Creating the TopoJSON\",\"date\":\"2015-09-25T00:00:00.000Z\",\"tags\":[\"EUROSTAT\",\"Open Data\"],\"categories\":\"d3\",\"teaser\":\"d3-nuts.png\",\"slug\":\"\u002Fd3\u002F2015\u002F09\u002F25\u002Fd3-EUROSTAT-topojson.html\"},{\"title\":\"A GeoQuiz made with D3js\",\"date\":\"2015-07-01T00:00:00.000Z\",\"tags\":[\"game\"],\"categories\":\"d3\",\"teaser\":\"d3-geoquiz.png\",\"slug\":\"\u002Fd3\u002F2015\u002F07\u002F01\u002FGeoQuiz.html\"},{\"title\":\"Creating maps using D3js and nodejs\",\"date\":\"2015-05-29T00:00:00.000Z\",\"tags\":[\"npm\",\"nodejs\"],\"categories\":\"d3\",\"teaser\":\"d3-node.png\",\"slug\":\"\u002Fd3\u002F2015\u002F05\u002F29\u002Fd3-maps-nodejs.html\"},{\"title\":\"D3 Composite Projections\",\"date\":\"2015-05-12T00:00:00.000Z\",\"tags\":[\"projections\",\"library\",\"npm\",\"bower\",\"nodejs\"],\"categories\":\"d3\",\"teaser\":\"d3-composite-projections.png\",\"slug\":\"\u002Fd3\u002F2015\u002F05\u002F12\u002Fd3-composite-projections.html\"},{\"title\":\"D3js mapping presentation at Girona\",\"date\":\"2015-03-30T00:00:00.000Z\",\"tags\":[\"SIGTE\",\"presentation\"],\"categories\":\"d3\",\"teaser\":\"d3-mapping-presentation-girona.png\",\"slug\":\"\u002Fd3\u002F2015\u002F03\u002F30\u002Fd3-mapping-presentation-girona.html\"}]"}</script>
+	<script type="application/json" data-type="svelte-data" data-url="d3.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"title\":\"Raster file formats for JavaScript mapping\",\"date\":\"2017-11-04T00:00:00.000Z\",\"tags\":[\"raster\"],\"categories\":\"d3\",\"teaser\":\"raster-file-formats-javascript.png\",\"slug\":\"\u002Fd3\u002F2017\u002F11\u002F04\u002Fraster-file-formats.html\"},{\"title\":\"Canvas mapping with a retina display\",\"date\":\"2017-10-24T00:00:00.000Z\",\"tags\":[\"raster\",\"canvas\",\"retina\"],\"categories\":\"d3\",\"teaser\":\"canvas-retina.png\",\"slug\":\"\u002Fd3\u002F2017\u002F10\u002F24\u002Fcanvas-mapping-with-retina.html\"},{\"title\":\"d3-shaded-relief\",\"date\":\"2017-01-04T00:00:00.000Z\",\"tags\":[\"raster\",\"canvas\",\"shaded relief\"],\"categories\":\"d3\",\"teaser\":\"d3-shaded-relief.png\",\"slug\":\"\u002Fd3\u002F2017\u002F01\u002F04\u002Fd3-shaded-relief.html\"},{\"title\":\"d3-raster-tools-docs\",\"date\":\"2016-12-19T00:00:00.000Z\",\"tags\":[\"raster\",\"isolines\",\"isobands\",\"streamlines\"],\"categories\":\"d3\",\"teaser\":\"d3-raster-tools-docs.png\",\"slug\":\"\u002Fd3\u002F2016\u002F12\u002F19\u002Fd3-raster-tools-docs.html\"},{\"title\":\"d3-composite-projections update\",\"date\":\"2016-10-03T00:00:00.000Z\",\"tags\":[\"projections\",\"npm\",\"nodejs\"],\"categories\":\"d3\",\"teaser\":\"d3-composite-projections2.png\",\"slug\":\"\u002Fd3\u002F2016\u002F10\u002F03\u002Fde-composite-projections.html\"},{\"title\":\"D3 map scrollers\",\"date\":\"2016-05-25T00:00:00.000Z\",\"tags\":[\"scroll\"],\"categories\":\"d3\",\"teaser\":\"d3-map-scrollers.png\",\"slug\":\"\u002Fd3\u002F2016\u002F05\u002F25\u002Fd3-map-scrollers.html\"},{\"title\":\"Mapping EUROSTAT data with D3js\",\"date\":\"2015-09-25T00:00:00.000Z\",\"tags\":[\"EUROSTAT\",\"Open Data\"],\"categories\":\"d3\",\"teaser\":\"d3-nuts2.png\",\"slug\":\"\u002Fd3\u002F2015\u002F09\u002F25\u002Fd3-creating-EUROSTAT-maps.html\"},{\"title\":\"Mapping EUROSTAT data with D3js: Creating the TopoJSON\",\"date\":\"2015-09-25T00:00:00.000Z\",\"tags\":[\"EUROSTAT\",\"Open Data\"],\"categories\":\"d3\",\"teaser\":\"d3-nuts.png\",\"slug\":\"\u002Fd3\u002F2015\u002F09\u002F25\u002Fd3-EUROSTAT-topojson.html\"},{\"title\":\"A GeoQuiz made with D3js\",\"date\":\"2015-07-01T00:00:00.000Z\",\"tags\":[\"game\"],\"categories\":\"d3\",\"teaser\":\"d3-geoquiz.png\",\"slug\":\"\u002Fd3\u002F2015\u002F07\u002F01\u002FGeoQuiz.html\"},{\"title\":\"Creating maps using D3js and nodejs\",\"date\":\"2015-05-29T00:00:00.000Z\",\"tags\":[\"npm\",\"nodejs\"],\"categories\":\"d3\",\"teaser\":\"d3-node.png\",\"slug\":\"\u002Fd3\u002F2015\u002F05\u002F29\u002Fd3-maps-nodejs.html\"},{\"title\":\"D3 Composite Projections\",\"date\":\"2015-05-12T00:00:00.000Z\",\"tags\":[\"projections\",\"library\",\"npm\",\"bower\",\"nodejs\"],\"categories\":\"d3\",\"teaser\":\"d3-composite-projections.png\",\"slug\":\"\u002Fd3\u002F2015\u002F05\u002F12\u002Fd3-composite-projections.html\"},{\"title\":\"D3js mapping presentation at Girona\",\"date\":\"2015-03-30T00:00:00.000Z\",\"tags\":[\"SIGTE\",\"presentation\"],\"categories\":\"d3\",\"teaser\":\"d3-mapping-presentation-girona.png\",\"slug\":\"\u002Fd3\u002F2015\u002F03\u002F30\u002Fd3-mapping-presentation-girona.html\"}]"}</script>
 </div>
 	</body>
 </html>
