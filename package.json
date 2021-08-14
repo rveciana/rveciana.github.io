@@ -9,7 +9,9 @@
 		"format": "prettier --write .",
 		"contentGen": "markdown-json -c markdown-config.json",
 		"watch-md": "nodemon -e md -x \"npm run contentGen\"",
-		"dev-md": "concurrently \"npm run dev\" \"npm run watch-md\""
+		"dev-md": "concurrently \"npm run dev\" \"npm run watch-md\"",
+		"predeploy": "npm run build",
+        "deploy": "gh-pages -d build -t" 
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "next",
