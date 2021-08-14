@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-BD6G9PF6NH"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag('js', new Date());
+
+			gtag('config', 'G-BD6G9PF6NH');
+		</script>
+
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="manifest" href="/manifest.json" />
+		<meta name="theme-color" content="#cdffcd" />
+		<!-- HTML Meta Tags -->
+		<meta
+			name="description"
+			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
+		/>
+		<!-- Google / Search Engine Tags -->
+		<meta itemprop="name" content=">GeoExamples - Roger Veciana" />
+		<meta
+			itemprop="description"
+			content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time."
+		/>
+		<meta itemprop="image" content="https://geoexamples.com/siteImage.png" />
+
+		<title>GeoExamples - XState and Svelte I: initial setup</title><meta name="twitter:card" content="summary" data-svelte="svelte-w2s84v"><meta name="twitter:title" content="GeoExamples - XState and Svelte I: initial setup" data-svelte="svelte-w2s84v"><meta name="twitter:description" content="&lt;p&gt;I&amp;#39;m learning " data-svelte="svelte-w2s84v"><meta name="twitter:image" content="https://geoexamples.com/siteImage.png" data-svelte="svelte-w2s84v"><meta property="og:url" content="https://geoexamples.com" data-svelte="svelte-w2s84v"><meta property="og:type" content="website" data-svelte="svelte-w2s84v"><meta property="og:title" content="GeoExamples - XState and Svelte I: initial setup" data-svelte="svelte-w2s84v"><meta property="og:description" content="I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time." data-svelte="svelte-w2s84v"><meta property="og:image" content="https://geoexamples.com/siteImage.png" data-svelte="svelte-w2s84v">
+
+		
+
+		<link rel="modulepreload" href="/_app/start-9934143f.js">
+		<link rel="modulepreload" href="/_app/chunks/vendor-f4f84e30.js">
+		<link rel="modulepreload" href="/_app/pages/__layout.svelte-b5745e7e.js">
+		<link rel="modulepreload" href="/_app/chunks/config-b3bde751.js">
+		<link rel="modulepreload" href="/_app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js">
+		<link rel="stylesheet" href="/_app/assets/start-a8cd1609.css">
+		<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-294fb61c.css">
+
+		<script type="module">
+			import { start } from "/_app/start-9934143f.js";
+			start({
+				target: document.querySelector("#svelte"),
+				paths: {"base":"","assets":""},
+				session: {},
+				host: location.host,
+				route: true,
+				spa: false,
+				trailing_slash: "never",
+				hydrate: {
+					status: 200,
+					error: null,
+					nodes: [
+						import("/_app/pages/__layout.svelte-b5745e7e.js"),
+						import("/_app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js")
+					],
+					page: {
+						host: location.host, // TODO this is redundant
+						path: "/svelte/2020/05/08/xstate-svelte-I.html",
+						query: new URLSearchParams(""),
+						params: {"category":"svelte","year":"2020","month":"05","date":"08","slug":"xstate-svelte-I.html"}
+					}
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="svelte">
+
+
+<header class="site-header"><div class="wrapper"><a class="site-title" href="/">GeoExamples - Roger Veciana</a>
+
+<nav class="site-nav"><div href="#" class="menu-icon"><svg viewBox="0 0 18 15"><path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"></path><path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"></path><path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"></path></svg></div>
+
+	<div class="trigger"><a class="page-link" href="/about">About</a><a class="page-link" href="/blog">Blog</a><a class="page-link" href="/projects">Projects</a></div></nav></div></header>
+
+<main class="page-content"><div class="wrapper">
+<div class="post"><header class="post-header"><h1 class="post-title">XState and Svelte I: initial setup</h1>
+<p class="post-meta">May 8, 2020</p></header>
+
+	<article class="post-content"><!-- HTML_TAG_START --><p>I&#39;m learning <a href="https://xstate.js.org/">XState</a>. Every time I&#39;ve used redux I find myself getting bugs because the site state becames more and more complex and I don&#39;t handle the transitions and possible states properly.</p>
+<p>Also, I love Svelte. Doing the stuff I like in D3js with it is always possible, but coding with a framework that allows much more complex apps.</p>
+<p>But I didn&#39;t find many documentation on using both, so I decided to do this post to show it.</p>
+<p>I&#39;ve using CodeSandbox for all the examples so the result is visible and editable by yourself if you want to.</p>
+<h1 id="using-xstate-and-svelte">Using XState and Svelte</h1>
+<p>The first thing to do is using the XState state instead of the regular svelte store.</p>
+<p>I started the project copying the standard Svelte template from codesandbox, but if working locally, you could just:</p>
+npx degit sveltejs/template my-svelte-project<p>and install XState by running</p>
+npm install --save xstate<p>Start the project running</p>
+npm install
+npm run dev<p>Now we can create one of the simplest state machine taken from the docs, that just toggles between two states:</p>
+<p><pre><code>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Machine <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"xstate"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> toggleMachine <span class="token operator">=</span> <span class="token function">Machine</span><span class="token punctuation">(</span>
+<span class="token punctuation">{</span>
+id<span class="token operator">:</span> <span class="token string">"toggle"</span><span class="token punctuation">,</span>
+initial<span class="token operator">:</span> <span class="token string">"inactive"</span><span class="token punctuation">,</span>
+states<span class="token operator">:</span> <span class="token punctuation">{</span>
+inactive<span class="token operator">:</span> <span class="token punctuation">{</span>
+on<span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token constant">TOGGLE</span><span class="token operator">:</span> <span class="token string">"active"</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+active<span class="token operator">:</span> <span class="token punctuation">{</span>
+on<span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token constant">TOGGLE</span><span class="token operator">:</span> <span class="token string">"inactive"</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></p>
+<p>As you can see, the initial state would be <em>inactive</em> and can be changed to <em>active</em> by sending the <em>TOGGLE</em> action. Let&#39;s see the javascript file that does this:</p>
+<p><pre><code>
+<span class="token operator">&lt;</span>script<span class="token operator">></span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> useMachine <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./useMachine"</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> toggleMachine <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./toggleMachine"</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> state<span class="token punctuation">,</span> send <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">useMachine</span><span class="token punctuation">(</span>toggleMachine<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">handleClick</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"TOGGLE"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>style<span class="token operator">></span>
+  main <span class="token punctuation">{</span>
+    text<span class="token operator">-</span>align<span class="token operator">:</span> center<span class="token punctuation">;</span>
+    padding<span class="token operator">:</span> <span class="token number">1</span>em<span class="token punctuation">;</span>
+    max<span class="token operator">-</span>width<span class="token operator">:</span> <span class="token number">240</span>px<span class="token punctuation">;</span>
+    margin<span class="token operator">:</span> <span class="token number">0</span> auto<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  h1 <span class="token punctuation">{</span>
+    color<span class="token operator">:</span> #ff3e00<span class="token punctuation">;</span>
+    text<span class="token operator">-</span>transform<span class="token operator">:</span> uppercase<span class="token punctuation">;</span>
+    font<span class="token operator">-</span>size<span class="token operator">:</span> <span class="token number">4</span>em<span class="token punctuation">;</span>
+    font<span class="token operator">-</span>weight<span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>main<span class="token operator">></span>
+  <span class="token operator">&lt;</span>h1<span class="token operator">></span>Hello <span class="token punctuation">{</span>$state<span class="token punctuation">.</span>value<span class="token punctuation">}</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+  <span class="token operator">&lt;</span>button on<span class="token operator">:</span>click<span class="token operator">=</span><span class="token punctuation">{</span>handleClick<span class="token punctuation">}</span><span class="token operator">></span>Toggle<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>main<span class="token operator">></span>
+</code></pre>
+
+<p>As all the svelte projects, every component has three parts with the javsascript, the css and the html template.</p>
+<ul>
+<li>The <em>useMachine</em> will be explained later, but gives access to the current state and the function to send actions. When the state changes, the rendered component will change too. It&#39;s as easy as this!</li>
+<li>To render the value, use <em>{$state.value}</em>. <a href="https://svelte.dev/docs#4_Prefix_stores_with_$_to_access_their_values">The $ indicates that <em>state</em> is a store and the value has to be accessed this way</a>.</li>
+<li><em>handleClick</em> sends the action when the button is pressed. ote the <em>on:click</em> in the button element</li>
+</ul>
+<p>This is the result:</p>
+<iframe
+     src="https://codesandbox.io/embed/traffic-lights-hello-xstate-zd2yl?fontsize=14&hidenavigation=1&module=%2FApp.svelte&theme=light"
+     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+     title="traffic-lights-hello-xstate"
+     allow=""
+     sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"
+   ></iframe>
+
+<h1 id="links">Links</h1>
+<ul>
+<li><a href="https://xstate.js.org/">XState website</a></li>
+<li><a href="https://svelte.dev/docs#4_Prefix_stores_with_$_to_access_their_values">Accessing a readable store value in Svelte</a></li>
+</ul>
+<!-- HTML_TAG_END --></article></div></div></main>
+<footer class="site-footer"><div class="wrapper"><div class="footer-col-wrapper"><div class="footer-col  footer-col-1"><ul class="contact-list"><li>GeoExamples - Roger Veciana</li></ul></div>
+
+	<div class="footer-col  footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/rveciana"><span class="icon  icon--github"><svg viewBox="0 0 16 16"><path fill="#89b889" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"></path></svg></span>
+
+						<span class="username">rveciana</span></a></li>
+
+			<li><a href="https://twitter.com/rveciana"><span class="icon  icon--twitter"><svg viewBox="0 0 16 16"><path fill="#89b889" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                    c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"></path></svg></span>
+
+						<span class="username">rveciana</span></a></li>
+			<li><a href="https://www.linkedin.com/in/rogerveciana"><span class="icon  icon--twitter"><svg width="16" height="15.28958"><path d="M 0,1.77606 Q 0,1.00386 0.54054,0.50193 1.08108,0 1.94595,0 2.79537,0 3.32047,0.49421 3.86101,1.00386 3.86101,1.8224 q 0,0.74131 -0.5251,1.23552 -0.54054,0.50965 -1.42085,0.50965 l -0.0154,0 q -0.84942,0 -1.37452,-0.50965 Q 4e-5,2.54827 4e-5,1.77606 Z m 0.20078,13.51352 0,-10.3166 3.42857,0 0,10.3166 -3.42857,0 z m 5.32818,0 3.42857,0 0,-5.76062 q 0,-0.54054 0.12355,-0.83398 0.21622,-0.52509 0.65638,-0.88803 0.44015,-0.36293 1.10424,-0.36293 1.72973,0 1.72973,2.33205 l 0,5.51351 3.42857,0 0,-5.91506 Q 16,7.08881 14.91892,5.90734 13.83784,4.72587 12.06178,4.72587 q -1.99228,0 -3.10425,1.71429 l 0,0.0309 -0.0154,0 0.0154,-0.0309 0,-1.46718 -3.42857,0 q 0.0309,0.49421 0.0309,3.07336 0,2.57915 -0.0309,7.24324 z"></path></svg></span>
+
+						<span class="username">rogerveciana</span></a></li></ul></div>
+
+	<div class="footer-col  footer-col-3"><p class="text">I am a software developer and meteorologist who likes mapping. I put here the things I learn on my free time.</p>
+		<p class="text">Roger Veciana i Rovira</p></div></div></div></footer>
+
+
+
+	<script type="application/json" data-type="svelte-data" data-url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
+
+	<script type="application/json" data-type="svelte-data" data-url="xstate-svelte-I.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"title\":\"XState and Svelte I: initial setup\",\"contents\":\"\u003Cp\u003EI&#39;m learning \u003Ca href=\\\"https:\u002F\u002Fxstate.js.org\u002F\\\"\u003EXState\u003C\u002Fa\u003E. Every time I&#39;ve used redux I find myself getting bugs because the site state becames more and more complex and I don&#39;t handle the transitions and possible states properly.\u003C\u002Fp\u003E\\n\u003Cp\u003EAlso, I love Svelte. Doing the stuff I like in D3js with it is always possible, but coding with a framework that allows much more complex apps.\u003C\u002Fp\u003E\\n\u003Cp\u003EBut I didn&#39;t find many documentation on using both, so I decided to do this post to show it.\u003C\u002Fp\u003E\\n\u003Cp\u003EI&#39;ve using CodeSandbox for all the examples so the result is visible and editable by yourself if you want to.\u003C\u002Fp\u003E\\n\u003Ch1 id=\\\"using-xstate-and-svelte\\\"\u003EUsing XState and Svelte\u003C\u002Fh1\u003E\\n\u003Cp\u003EThe first thing to do is using the XState state instead of the regular svelte store.\u003C\u002Fp\u003E\\n\u003Cp\u003EI started the project copying the standard Svelte template from codesandbox, but if working locally, you could just:\u003C\u002Fp\u003E\\nnpx degit sveltejs\u002Ftemplate my-svelte-project\u003Cp\u003Eand install XState by running\u003C\u002Fp\u003E\\nnpm install --save xstate\u003Cp\u003EStart the project running\u003C\u002Fp\u003E\\nnpm install\\nnpm run dev\u003Cp\u003ENow we can create one of the simplest state machine taken from the docs, that just toggles between two states:\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Cpre\u003E\u003Ccode\u003E\\n\u003Cspan class=\\\"token keyword\\\"\u003Eimport\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E Machine \u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E \u003Cspan class=\\\"token keyword\\\"\u003Efrom\u003C\u002Fspan\u003E \u003Cspan class=\\\"token string\\\"\u003E\\\"xstate\\\"\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n\\n\u003Cspan class=\\\"token keyword\\\"\u003Eexport\u003C\u002Fspan\u003E \u003Cspan class=\\\"token keyword\\\"\u003Econst\u003C\u002Fspan\u003E toggleMachine \u003Cspan class=\\\"token operator\\\"\u003E=\u003C\u002Fspan\u003E \u003Cspan class=\\\"token function\\\"\u003EMachine\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E(\u003C\u002Fspan\u003E\\n\u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E\\nid\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token string\\\"\u003E\\\"toggle\\\"\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E,\u003C\u002Fspan\u003E\\ninitial\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token string\\\"\u003E\\\"inactive\\\"\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E,\u003C\u002Fspan\u003E\\nstates\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E\\ninactive\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E\\non\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E \u003Cspan class=\\\"token constant\\\"\u003ETOGGLE\u003C\u002Fspan\u003E\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token string\\\"\u003E\\\"active\\\"\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\\n\u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E,\u003C\u002Fspan\u003E\\nactive\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E\\non\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E \u003Cspan class=\\\"token constant\\\"\u003ETOGGLE\u003C\u002Fspan\u003E\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token string\\\"\u003E\\\"inactive\\\"\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\\n\u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\\n\u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\\n\u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\\n\u003Cspan class=\\\"token punctuation\\\"\u003E)\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\u003C\u002Fp\u003E\\n\u003Cp\u003EAs you can see, the initial state would be \u003Cem\u003Einactive\u003C\u002Fem\u003E and can be changed to \u003Cem\u003Eactive\u003C\u002Fem\u003E by sending the \u003Cem\u003ETOGGLE\u003C\u002Fem\u003E action. Let&#39;s see the javascript file that does this:\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Cpre\u003E\u003Ccode\u003E\\n\u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003Escript\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003E\\n  \u003Cspan class=\\\"token keyword\\\"\u003Eimport\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E useMachine \u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E \u003Cspan class=\\\"token keyword\\\"\u003Efrom\u003C\u002Fspan\u003E \u003Cspan class=\\\"token string\\\"\u003E\\\".\u002FuseMachine\\\"\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n  \u003Cspan class=\\\"token keyword\\\"\u003Eimport\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E toggleMachine \u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E \u003Cspan class=\\\"token keyword\\\"\u003Efrom\u003C\u002Fspan\u003E \u003Cspan class=\\\"token string\\\"\u003E\\\".\u002FtoggleMachine\\\"\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n\\n  \u003Cspan class=\\\"token keyword\\\"\u003Econst\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E state\u003Cspan class=\\\"token punctuation\\\"\u003E,\u003C\u002Fspan\u003E send \u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E \u003Cspan class=\\\"token operator\\\"\u003E=\u003C\u002Fspan\u003E \u003Cspan class=\\\"token function\\\"\u003EuseMachine\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E(\u003C\u002Fspan\u003EtoggleMachine\u003Cspan class=\\\"token punctuation\\\"\u003E)\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n  \u003Cspan class=\\\"token keyword\\\"\u003Efunction\u003C\u002Fspan\u003E \u003Cspan class=\\\"token function\\\"\u003EhandleClick\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E(\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E)\u003C\u002Fspan\u003E \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E\\n    \u003Cspan class=\\\"token function\\\"\u003Esend\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E(\u003C\u002Fspan\u003E\u003Cspan class=\\\"token string\\\"\u003E\\\"TOGGLE\\\"\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E)\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n  \u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\\n\u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003E\u003Cspan class=\\\"token operator\\\"\u003E\u002F\u003C\u002Fspan\u003Escript\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003E\\n\\n\u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003Estyle\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003E\\n  main \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E\\n    text\u003Cspan class=\\\"token operator\\\"\u003E-\u003C\u002Fspan\u003Ealign\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E center\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n    padding\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token number\\\"\u003E1\u003C\u002Fspan\u003Eem\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n    max\u003Cspan class=\\\"token operator\\\"\u003E-\u003C\u002Fspan\u003Ewidth\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token number\\\"\u003E240\u003C\u002Fspan\u003Epx\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n    margin\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token number\\\"\u003E0\u003C\u002Fspan\u003E auto\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n  \u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\\n\\n  h1 \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E\\n    color\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E #ff3e00\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n    text\u003Cspan class=\\\"token operator\\\"\u003E-\u003C\u002Fspan\u003Etransform\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E uppercase\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n    font\u003Cspan class=\\\"token operator\\\"\u003E-\u003C\u002Fspan\u003Esize\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token number\\\"\u003E4\u003C\u002Fspan\u003Eem\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n    font\u003Cspan class=\\\"token operator\\\"\u003E-\u003C\u002Fspan\u003Eweight\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003E \u003Cspan class=\\\"token number\\\"\u003E100\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E;\u003C\u002Fspan\u003E\\n  \u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\\n\u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003E\u003Cspan class=\\\"token operator\\\"\u003E\u002F\u003C\u002Fspan\u003Estyle\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003E\\n\\n\u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003Emain\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003E\\n  \u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003Eh1\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003EHello \u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003E$state\u003Cspan class=\\\"token punctuation\\\"\u003E.\u003C\u002Fspan\u003Evalue\u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003E\u003Cspan class=\\\"token operator\\\"\u003E\u002F\u003C\u002Fspan\u003Eh1\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003E\\n  \u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003Ebutton on\u003Cspan class=\\\"token operator\\\"\u003E:\u003C\u002Fspan\u003Eclick\u003Cspan class=\\\"token operator\\\"\u003E=\u003C\u002Fspan\u003E\u003Cspan class=\\\"token punctuation\\\"\u003E{\u003C\u002Fspan\u003EhandleClick\u003Cspan class=\\\"token punctuation\\\"\u003E}\u003C\u002Fspan\u003E\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003EToggle\u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003E\u003Cspan class=\\\"token operator\\\"\u003E\u002F\u003C\u002Fspan\u003Ebutton\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003E\\n\u003Cspan class=\\\"token operator\\\"\u003E&lt;\u003C\u002Fspan\u003E\u003Cspan class=\\\"token operator\\\"\u003E\u002F\u003C\u002Fspan\u003Emain\u003Cspan class=\\\"token operator\\\"\u003E\u003E\u003C\u002Fspan\u003E\\n\u003C\u002Fcode\u003E\u003C\u002Fpre\u003E\\n\\n\u003Cp\u003EAs all the svelte projects, every component has three parts with the javsascript, the css and the html template.\u003C\u002Fp\u003E\\n\u003Cul\u003E\\n\u003Cli\u003EThe \u003Cem\u003EuseMachine\u003C\u002Fem\u003E will be explained later, but gives access to the current state and the function to send actions. When the state changes, the rendered component will change too. It&#39;s as easy as this!\u003C\u002Fli\u003E\\n\u003Cli\u003ETo render the value, use \u003Cem\u003E{$state.value}\u003C\u002Fem\u003E. \u003Ca href=\\\"https:\u002F\u002Fsvelte.dev\u002Fdocs#4_Prefix_stores_with_$_to_access_their_values\\\"\u003EThe $ indicates that \u003Cem\u003Estate\u003C\u002Fem\u003E is a store and the value has to be accessed this way\u003C\u002Fa\u003E.\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Cem\u003EhandleClick\u003C\u002Fem\u003E sends the action when the button is pressed. ote the \u003Cem\u003Eon:click\u003C\u002Fem\u003E in the button element\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\u003Cp\u003EThis is the result:\u003C\u002Fp\u003E\\n\u003Ciframe\\n     src=\\\"https:\u002F\u002Fcodesandbox.io\u002Fembed\u002Ftraffic-lights-hello-xstate-zd2yl?fontsize=14&hidenavigation=1&module=%2FApp.svelte&theme=light\\\"\\n     style=\\\"width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;\\\"\\n     title=\\\"traffic-lights-hello-xstate\\\"\\n     allow=\\\"\\\"\\n     sandbox=\\\"allow-modals allow-forms allow-popups allow-scripts allow-same-origin\\\"\\n   \u003E\u003C\u002Fiframe\u003E\\n\\n\u003Ch1 id=\\\"links\\\"\u003ELinks\u003C\u002Fh1\u003E\\n\u003Cul\u003E\\n\u003Cli\u003E\u003Ca href=\\\"https:\u002F\u002Fxstate.js.org\u002F\\\"\u003EXState website\u003C\u002Fa\u003E\u003C\u002Fli\u003E\\n\u003Cli\u003E\u003Ca href=\\\"https:\u002F\u002Fsvelte.dev\u002Fdocs#4_Prefix_stores_with_$_to_access_their_values\\\"\u003EAccessing a readable store value in Svelte\u003C\u002Fa\u003E\u003C\u002Fli\u003E\\n\u003C\u002Ful\u003E\\n\",\"tags\":[\"xstate\"],\"date\":\"2020-05-08T00:00:00.000Z\"}"}</script>
+</div>
+	</body>
+</html>
