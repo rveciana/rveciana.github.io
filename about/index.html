@@ -35,16 +35,16 @@
 
 		
 
-		<link rel="modulepreload" href="/app/start-98c290b0.js">
-		<link rel="modulepreload" href="/app/chunks/vendor-f4f84e30.js">
-		<link rel="modulepreload" href="/app/pages/__layout.svelte-b5745e7e.js">
-		<link rel="modulepreload" href="/app/chunks/config-b3bde751.js">
-		<link rel="modulepreload" href="/app/pages/[slug].svelte-0be33325.js">
-		<link rel="stylesheet" href="/app/assets/start-a8cd1609.css">
-		<link rel="stylesheet" href="/app/assets/pages/__layout.svelte-294fb61c.css">
+		<link rel="modulepreload" href="/_app/start-9934143f.js">
+		<link rel="modulepreload" href="/_app/chunks/vendor-f4f84e30.js">
+		<link rel="modulepreload" href="/_app/pages/__layout.svelte-b5745e7e.js">
+		<link rel="modulepreload" href="/_app/chunks/config-b3bde751.js">
+		<link rel="modulepreload" href="/_app/pages/[slug].svelte-0be33325.js">
+		<link rel="stylesheet" href="/_app/assets/start-a8cd1609.css">
+		<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-294fb61c.css">
 
 		<script type="module">
-			import { start } from "/app/start-98c290b0.js";
+			import { start } from "/_app/start-9934143f.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":""},
@@ -57,8 +57,8 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/app/pages/__layout.svelte-b5745e7e.js"),
-						import("/app/pages/[slug].svelte-0be33325.js")
+						import("/_app/pages/__layout.svelte-b5745e7e.js"),
+						import("/_app/pages/[slug].svelte-0be33325.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -108,7 +108,7 @@
 
 
 
-	<script type="application/json" data-type="svelte-data" data-url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
+	<script type="application/json" data-type="svelte-data" data-url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
 
 	<script type="application/json" data-type="svelte-data" data-url="about.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"title\":\"About\",\"contents\":\"\u003Cimg src=\\\"http:\u002F\u002Fwww.gravatar.com\u002Favatar\u002Fa2746d9ceb326e71181a6629031faf81?s=135\\\" alt=\\\"A photo of Roger Veciana i Rovira\\\" class=\\\"left_picture\\\"\u002F\u003E\\n\\n\u003Cp\u003ERoger Veciana i Rovira\u003C\u002Fp\u003E\\n\u003Cp\u003EI&#39;m a meteorologist based in Barcelona who likes maps and coding. \u003Ca href=\\\"\u002Fcv\\\"\u003ETake a look at my CV\u003C\u002Fa\u003E\u003C\u002Fp\u003E\\n\u003Cp\u003EI opened this blog to talk about the things I&#39;m learning about python and JavaScript mapping.\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Ca href=\\\"http:\u002F\u002Fgeoexamples.blogspot.com.es\u002F\\\"\u003EThe old GeoExamples blog\u003C\u002Fa\u003E is still working with all its posts.\u003C\u002Fp\u003E\\n\"}"}</script>
 </div>

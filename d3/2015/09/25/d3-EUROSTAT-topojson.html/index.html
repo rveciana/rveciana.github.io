@@ -35,16 +35,16 @@
 
 		
 
-		<link rel="modulepreload" href="/app/start-98c290b0.js">
-		<link rel="modulepreload" href="/app/chunks/vendor-f4f84e30.js">
-		<link rel="modulepreload" href="/app/pages/__layout.svelte-b5745e7e.js">
-		<link rel="modulepreload" href="/app/chunks/config-b3bde751.js">
-		<link rel="modulepreload" href="/app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js">
-		<link rel="stylesheet" href="/app/assets/start-a8cd1609.css">
-		<link rel="stylesheet" href="/app/assets/pages/__layout.svelte-294fb61c.css">
+		<link rel="modulepreload" href="/_app/start-9934143f.js">
+		<link rel="modulepreload" href="/_app/chunks/vendor-f4f84e30.js">
+		<link rel="modulepreload" href="/_app/pages/__layout.svelte-b5745e7e.js">
+		<link rel="modulepreload" href="/_app/chunks/config-b3bde751.js">
+		<link rel="modulepreload" href="/_app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js">
+		<link rel="stylesheet" href="/_app/assets/start-a8cd1609.css">
+		<link rel="stylesheet" href="/_app/assets/pages/__layout.svelte-294fb61c.css">
 
 		<script type="module">
-			import { start } from "/app/start-98c290b0.js";
+			import { start } from "/_app/start-9934143f.js";
 			start({
 				target: document.querySelector("#svelte"),
 				paths: {"base":"","assets":""},
@@ -57,8 +57,8 @@
 					status: 200,
 					error: null,
 					nodes: [
-						import("/app/pages/__layout.svelte-b5745e7e.js"),
-						import("/app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js")
+						import("/_app/pages/__layout.svelte-b5745e7e.js"),
+						import("/_app/pages/[category]/[year]/[month]/[date]/[slug].svelte-dcec41b3.js")
 					],
 					page: {
 						host: location.host, // TODO this is redundant
@@ -123,7 +123,7 @@ topojson -e demo_r_pjanaggr3.csv --id-property NUTS_ID,id -p nuts_id=NUTS_ID,nam
 
 
 
-	<script type="application/json" data-type="svelte-data" data-url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"}]"}</script>
+	<script type="application/json" data-type="svelte-data" data-url="/summary_pages.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"[{\"title\":\"About\",\"permalink\":\"\u002Fabout\",\"excerpt\":\"\u003Cp\u003E{{ site.author.name }}\u003C\u002Fp\u003E\"},{\"title\":\"Projects\",\"permalink\":\"\u002Fprojects\",\"excerpt\":\"\u003Cp\u003ESome of my personal projects:\u003C\u002Fp\u003E\"},{\"title\":\"CV\",\"permalink\":\"\u002Fcv\",\"excerpt\":\"\u003Ch2 id=\\\"jobs\\\"\u003EJobs\u003C\u002Fh2\u003E\",\"avoidMainMenu\":true}]"}</script>
 
 	<script type="application/json" data-type="svelte-data" data-url="d3-EUROSTAT-topojson.html.json">{"status":200,"statusText":"","headers":{"content-type":"application/json; charset=utf-8"},"body":"{\"title\":\"Mapping EUROSTAT data with D3js: Creating the TopoJSON\",\"contents\":\"\u003Cimg width=\\\"50%\\\" src=\\\"\u002Fimages\u002Fd3\u002Fd3-nuts\u002Fexample.png\\\"\u002F\u003E\\n\\n\u003Cp\u003E\u003Ca href=\\\"http:\u002F\u002Fec.europa.eu\u002Feurostat\u002Fstatistics-explained\u002Fimages\u002Fa\u002Fae\u002FUrban_rural_typology_for_NUTS3_new.png\\\"\u003Eclick to see the original map by EUROSTAT\u003C\u002Fa\u003E\u003C\u002Fp\u003E\\n\u003Ch2 id=\\\"creating-nuts-regions-file\\\"\u003ECreating NUTS regions file\u003C\u002Fh2\u003E\\n\u003Cp\u003E\u003Ca href=\\\"http:\u002F\u002Fec.europa.eu\u002Feurostat\u002Fweb\u002Fgisco\u002Fgeodata\u002Freference-data\u002Fadministrative-units-statistical-units\\\"\u003EDownload the NUTS regions in shp format\u003C\u002Fa\u003E\u003C\u002Fp\u003E\\n\u003Cp\u003EIt&#39;s interesting to have the population associated to each region, so the absolute number of some statistics can be changed to density (number of crimes to crimes\u002F100000 people, for instance). The population data can be downloaded from \u003Ca href=\\\"http:\u002F\u002Fappsso.eurostat.ec.europa.eu\u002Fnui\u002Fshow.do?dataset=demo_r_pjanaggr3&amp;lang=en\\\"\u003Ethis url\u003C\u002Fa\u003E:\u003C\u002Fp\u003E\\n\u003Cp\u003ESelect the population columns\\nFormat-&gt;numerical format-&gt;number 11.000.638 --&gt; 11000638\\nSave as csv\\nRemove headers and appended data\u003C\u002Fp\u003E\\n\u003Cp\u003EThe header will be:\u003C\u002Fp\u003E\\nGEO,GEO(L)\u002FTIME,2010,2011,2012,2013,2014\u003Cp\u003EAnd I changed it to\u003C\u002Fp\u003E\\nid,name,pop2010,pop2011,pop2012,pop2013,pop2014\u003Cp\u003EThe reason is that the \u003Cem\u003Etopojson\u003C\u002Fem\u003E program failed to take numeric column names (2013, in our case), and the complex \u003Cem\u003EGEO(L)\u002FTIME\u003C\u002Fem\u003E.\u003C\u002Fp\u003E\\n\u003Cp\u003ETo separate the data into different files for each NUTS level, so the file to load from the browser is smaller:\u003C\u002Fp\u003E\\nogr2ogr  -where &quot;STAT_LEVL_=1&quot; nuts1.shp NUTS_RG_01M_2013.shp\u003Cp\u003EFor level 1. To get all the levels, levels 0,1,2,3 must be generated.\u003C\u002Fp\u003E\\n\u003Cp\u003ETo create the final topoJSON for nuts level 1, type:\u003C\u002Fp\u003E\\ntopojson -e demo_r_pjanaggr3.csv --id-property NUTS_ID,id -p nuts_id=NUTS_ID,name,population=+pop2013 -o nuts1.json -- nuts1.shp\u003Ch2 id=\\\"using-the-generated-files\\\"\u003EUsing the generated files\u003C\u002Fh2\u003E\\n\u003Cp\u003EIf yo don&#39;t want to create the same topojson, you can just get them from \u003Ca href=\\\"https:\u002F\u002Fgist.github.com\u002Frveciana\u002F5919944\\\"\u003Ethis GIST\u003C\u002Fa\u003E, with the names nuts0.json, nuts1.json, etc.\u003C\u002Fp\u003E\\n\u003Cp\u003E\u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Frveciana\u002F4bcc5750c776c22ffda6\\\"\u003EHere\u003C\u002Fa\u003E, you can see a \u003Ca href=\\\"http:\u002F\u002Fbl.ocks.org\u002Frveciana\u002F4bcc5750c776c22ffda6\\\"\u003Eworking example\u003C\u002Fa\u003E too, that gives this result: \u003Cimg  src=\\\"\u002Fimages\u002Fd3\u002Fd3-nuts\u002Fexample-gist.png\\\"\u002F\u003E\u003C\u002Fp\u003E\\n\",\"tags\":[\"EUROSTAT\",\"Open Data\"],\"date\":\"2015-09-25T00:00:00.000Z\"}"}</script>
 </div>
