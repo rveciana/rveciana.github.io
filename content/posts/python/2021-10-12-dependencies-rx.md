@@ -38,6 +38,8 @@ Basically, it takes the temperature field, the relative humidity (or dew point t
 The code
 ========
 
+As usual, you can [get the code at GitHub][code].
+
 So the first thing to do is act when some file appears. The file could be a temperature, dew point or radar file. To do it, we'll use the [*watchdog* library][watchdog]
 
 {% highlight python %}import time
@@ -216,6 +218,7 @@ rx.combine_latest(pot_ros, radar).subscribe(process_ros, scheduler=thread_pool_s
 Links
 =====
 
+- [Post code on GitHub][code]
 - [ReactiveX][ReactiveX]
 - [PyPROS, precipitation type calculation: rain or snow][pypros]
 - [Rain or snow operative output][plujaoneu]
@@ -225,6 +228,7 @@ Links
 - [RxPY parallel threads][rxpy_parallel_threads]
 - [*from_future* example][from_future]
 
+[code]: https://github.com/rveciana/rxpyexample
 [ReactiveX]: http://reactivex.io/
 [pypros]: https://github.com/meteocat/pypros
 [plujaoneu]: https://www.meteo.cat/observacions/plujaONeu
