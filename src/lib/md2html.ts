@@ -23,6 +23,8 @@ export const md2html = (mdContent: string): string => {
 			.replace(/&#39;/gi, `'`)
 			.replace(/&lt;/gi, '<')
 			.replace(/&gt;/gi, '>')
+			.replace(/<strong>/gi, '__')
+			.replace(/<\/strong>/gi, '__')
 			.replace(/{% highlight [a-z]* %}/g, '')
 			.replace(/{% endhighlight %}/g, '');
 
