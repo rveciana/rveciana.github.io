@@ -1,0 +1,24 @@
+{
+"title": "GeoExamples",
+"email": "rveciana@gmail.com",
+"description": "Map creation with Python and D3js / JavaScript",
+"baseurl": "",
+"url": "http://geoexamples.com",
+"image": "images/manifest/512X512-icon.png",
+"teaser": "teaser.png",
+"twitter_username": "rveciana",
+"github_username": "rveciana",
+"linkedin_username": "rogerveciana",
+"author":{
+  "name": "Roger Veciana i Rovira"},
+"manifest":{
+"manifest_name": "GeoExamples",
+"manifest_description": "Map creation with Python and D3js / JavaScript",
+"manifest_lang": "en",
+"manifest_background_color": "#fff",
+"manifest_short_name":"",
+"manifest_display": "standalone"
+}
+
+
+}
