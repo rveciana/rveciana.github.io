@@ -7,7 +7,7 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   markdown: {
     shikiConfig: {
-      theme: "vitesse-light",
+      theme: "github-light",
       langs: ["js", "ts", "python", "java", "bash", "json"],
       wrap: true,
     },

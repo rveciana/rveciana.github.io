@@ -10,32 +10,6 @@ twitter-card: summary
 description: Creating and using COG files
 ---
 
-```python
-def calculate_regression(data_file):
-    regr = LinearRegression()
-
-    with open(data_file) as f_p:
-        data = load(f_p)
-        temps = []
-        predictors = []
-        lats = []
-        lons = []
-        for station_data in data:
-            temps.append(station_data['temp'])
-            predictors.append([station_data['alt'], station_data['dist']])
-            lats.append(station_data['lat'])
-            lons.append(station_data['lon'])
-
-        regr.fit(predictors, temps)
-        score = regr.score(predictors, temps)
-        residuals = regr.predict(predictors) - temps
-
-        print("Multiple linear regression score: {}".format(score))
-        return {'coefs': regr.coef_, 'intercept': regr.intercept_,
-                'residuals': array(residuals),
-                'lats': array(lats), 'lons': array(lons)}
-```
-
 Cloud Optimized GeoTIFF (COG) is simply an intelligent way to store a GeoTIFF file. Or, better defined in the [COG web site][cog_site]:
 
 > A Cloud Optimized GeoTIFF (COG) is a regular GeoTIFF file, aimed at being hosted on a HTTP file server, with an internal organization that enables more efficient workflows on the cloud. It does this by leveraging the ability of clients issuing ​HTTP GET range requests to ask for just the parts of a file they need.
@@ -90,9 +64,7 @@ But, before trying to convert anything, better check if the file is already in a
 
 The basic thing to understand is that the GeoTIFF must be _tiled_. This is, that instead of writing all the row, the image is divided in small tiles, so only some of them are downloaded. Compression can be _DEFLATE_ or _LZW_. The first compresses more but is less compatible with some libraries.
 
-```
-$ gdal_translate ori.tiff out.tiff -co COMPRESS=LZW -co TILED=YES
-```
+    $ gdal_translate ori.tiff out.tiff -co COMPRESS=LZW -co TILED=YES
 
 This is ok if you want to download all the bands at once, like in an aerial photo. If you have independent bands, or many of them, you may want to download only one band at once. The, you may use the _INTERLEAVE=BAND_ option:
 
@@ -244,7 +216,7 @@ console.log("Values:", data);
 
 The output is:
 
-<img src="/images/other/cog/console_gtiffjs.png"/>
+<img src="{{ site.baseurl }}/images/other/cog/console_gtiffjs.png"/>
 
 - I used the async/await technique to make the code easier to understand. In this case, opening the image, getting the actual image and reading the image data are three asynchronous methods.
 - _getImage()_ will return the main pyramid, with the original resolution. Is the same as _.getImage(0)_. In the example, another pyramid is created, so using _.getImage(1)_, an image with a 500px width would returned
@@ -254,7 +226,7 @@ The output is:
 
 What about the queries? This is the _network_ tab on the developer tools:
 
-<img src="/images/other/cog/network_gtiffjs.png"/>
+<img src="{{ site.baseurl }}/images/other/cog/network_gtiffjs.png"/>
 
 We can see three downloads of the _out.tiff_ file:
 
@@ -269,7 +241,7 @@ Note that all the above has been transparent, which is really cool.
 
 There's [a nice example at ObservableHQ][observable_example] showing how to use an RGB GeoTIFF when it's cloud optimized.
 
-<img src="/images/other/cog/rgb.png"/>
+<img src="{{ site.baseurl }}/images/other/cog/rgb.png"/>
 
 The _interesting_ part is this one:
 
@@ -344,7 +316,7 @@ rasterData = rasterData[0];
 
 The output will be like this (all the GeoTIFF coverage):
 
-<img src="/images/other/cog/js_example1.png"/>
+<img src="{{ site.baseurl }}/images/other/cog/js_example1.png"/>
 
 - In this case, only the smallest overlay is used. Why? Because it's got about 350x350 pixels. This is enough to create the isobands. So, in case you don't know which overlay to take, this is a good orientation
   - _tiff.getImage(3)_ is the place where the overlay is chosen
@@ -354,56 +326,54 @@ Let's see another example using the image with the highest resolution, but downl
 
 [Click here to see the working example][block2]]
 
-```js
-(async function () {
-  let origin = [700, 600];
-  let size = [500, 450];
-  const tiff = await GeoTIFF.fromUrl(
-    "/rveciana/raw/9d9ef3282959a41c3e54cedb717bdddf/sample.tiff"
-  );
-  let image = await tiff.getImage(0);
-  let rasterData = await image.readRasters({
-    window: [origin[0], origin[1], origin[0] + size[0], origin[1] + size[1]],
-    samples: [0],
-  });
-  rasterData = rasterData[0];
+{% highlight js %}
+(async function() {
+let origin = [700, 600];
+let size = [500, 450];
+const tiff = await GeoTIFF.fromUrl("/rveciana/raw/9d9ef3282959a41c3e54cedb717bdddf/sample.tiff");
+let image = await tiff.getImage(0);
+let rasterData = await image.readRasters({window: [origin[0], origin[1],
+origin[0] + size[0], origin[1] + size[1]],
+samples: [0]});
+rasterData = rasterData[0];
 
-  let data = new Array(size[1]);
-  for (let j = 0; j < size[1]; j++) {
-    data[j] = new Array(size[0]);
-    for (let i = 0; i < size[0]; i++) {
-      data[j][i] = rasterData[i + j * size[0]];
+    let data = new Array(size[1]);
+    for (let j = 0; j<size[1]; j++){
+        data[j] = new Array(size[0]);
+        for (let i = 0; i<size[0]; i++){
+          data[j][i] = rasterData[i + j*size[0]];
+        }
     }
-  }
 
-  let intervals = [-2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
-  let bands = rastertools.isobands(data, [0, 1, 0, 0, 0, 1], intervals);
+    let intervals = [-2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+    let bands = rastertools.isobands(data, [0, 1, 0, 0, 0, 1], intervals);
 
-  let colorScale = d3.scaleSequential(d3.interpolateBuPu);
+    let colorScale = d3.scaleSequential(d3.interpolateBuPu);
 
-  let canvas = d3
-    .select("body")
-    .append("canvas")
+    let canvas = d3.select("body").append("canvas")
     .attr("width", 680)
     .attr("height", 500);
 
-  let context = canvas.node().getContext("2d");
+    let context = canvas.node().getContext("2d");
 
-  let path = d3.geoPath().context(context);
+    let path = d3.geoPath()
+                 .context(context);
 
-  bands.features.forEach(function (d, i) {
-    context.beginPath();
-    context.globalAlpha = 0.7;
-    context.fillStyle = colorScale((2 + intervals[i]) / 22);
-    path(d);
-    context.fill();
-  });
+    bands.features.forEach(function(d, i) {
+      context.beginPath();
+      context.globalAlpha = 0.7;
+      context.fillStyle = colorScale((2 + intervals[i])/22);
+      path(d);
+      context.fill();
+
+});
+
 })();
-```
+{% endhighlight %}
 
 The output will be like this (a zoomed portion of the previous example):
 
-<img src="/images/other/cog/js_example2.png"/>
+<img src="{{ site.baseurl }}/images/other/cog/js_example2.png"/>
 
 - _tiff.getImage(0)_ will get the main image, not an overview. Using _tiff.getImage()_ would give the same result
 - Note that _image.getHeight()_ and _image.getWidth()_ have been changed by the width and height we want to show. That's, of course, because we want to get just a part of the image

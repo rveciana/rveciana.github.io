@@ -5,11 +5,18 @@ import MainLayout from "../layouts/MainLayout.astro";
 import type { Frontmatter } from "../model";
 
 const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>("./*/*.md*");
+const indexPagePosts = allPosts
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).valueOf() -
+      new Date(a.frontmatter.date).valueOf()
+  )
+  .slice(0, 5);
 ---
 
 <MainLayout
   title="Home"
   description={`Welcome to GeoExamples, maps, javascript, python and more.`}
 >
-  <PostList posts={allPosts} />
+  <PostList posts={indexPagePosts} />
 </MainLayout>

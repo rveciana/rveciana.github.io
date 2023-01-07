@@ -28,12 +28,14 @@ function formatDate(date: string) {
           <a class="post-link" href={post.url}>
             {!!post.frontmatter.teaser ? (
               <img
+                class="teaser"
                 src={`/images/teasers/${post.frontmatter.teaser}`}
                 alt="post teaser"
                 itemprop="teaser"
               />
             ) : (
               <img
+                class="teaser"
                 class="teaser"
                 src={`/images/${config.teaser}`}
                 alt="teaser"
