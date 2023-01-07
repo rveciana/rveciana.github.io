@@ -1,0 +1,67 @@
+---
+import MainLayout from "./MainLayout.astro";
+import config from "../config.json";
+
+const { frontmatter } = Astro.props;
+function formatDate(date: string) {
+  return new Date(date).toUTCString().replace(/(\d\d\d\d) .*/, "$1");
+}
+---
+
+<MainLayout title={frontmatter.title} description={frontmatter.description}>
+  <div class="post">
+    <header class="post-header">
+      <h1 class="post-title">{frontmatter.title}</h1>
+      <p class="post-meta">{formatDate(frontmatter.date)}</p>
+    </header>
+
+    <article class="post-content">
+      <slot />
+    </article>
+    <details></details>
+  </div>
+</MainLayout>
+
+<style>
+  .post-header {
+    margin-bottom: $spacing-unit;
+  }
+
+  .post-title {
+    font-size: 42px;
+    letter-spacing: -1px;
+    line-height: 1;
+
+    @include media-query($on-laptop) {
+      font-size: 36px;
+    }
+  }
+
+  .post-content {
+    margin-bottom: $spacing-unit;
+
+    h2 {
+      font-size: 32px;
+
+      @include media-query($on-laptop) {
+        font-size: 28px;
+      }
+    }
+
+    h3 {
+      font-size: 26px;
+
+      @include media-query($on-laptop) {
+        font-size: 22px;
+      }
+    }
+
+    h4 {
+      font-size: 20px;
+
+      @include media-query($on-laptop) {
+        font-size: 18px;
+      }
+    }
+  }
+</style>

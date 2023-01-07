@@ -1,0 +1,71 @@
+---
+import type { MarkdownInstance } from "astro";
+import type { Frontmatter } from "../model";
+import config from "../config.json";
+
+interface Props {
+  posts: MarkdownInstance<Frontmatter>[];
+}
+const { posts } = Astro.props;
+
+function formatDate(date: string) {
+  return new Date(date).toUTCString().replace(/(\d\d\d\d) .*/, "$1");
+}
+---
+
+<section>
+  <h1 class="page-heading">Posts</h1>
+  <ul class="post-list">
+    {
+      posts.map((post) => (
+        <li>
+          <span class="post-meta">{formatDate(post.frontmatter.date)}</span>
+          <h2>
+            <a class="post-link" href={post.url}>
+              {post.frontmatter.title}
+            </a>
+          </h2>
+          <a class="post-link" href={post.url}>
+            {!!post.frontmatter.teaser ? (
+              <img
+                src={`/images/teasers/${post.frontmatter.teaser}`}
+                alt="post teaser"
+                itemprop="teaser"
+              />
+            ) : (
+              <img
+                class="teaser"
+                src={`/images/${config.teaser}`}
+                alt="teaser"
+                itemprop="teaser"
+              />
+            )}
+          </a>
+          {post.frontmatter.categories && (
+            <div class="categories">
+              Categories:
+              {(Array.isArray(post.frontmatter.categories)
+                ? post.frontmatter.categories
+                : [post.frontmatter.categories]
+              ).map((category) => (
+                <a href={`/categories/${category}/`}>{category}</a>
+              ))}
+            </div>
+          )}
+          {post.frontmatter.tags && (
+            <div class="tags">
+              Tags:
+              {post.frontmatter.tags.map((tag, i, tags) => (
+                <a href={`/tags/${tag}`}>
+                  {i !== tags.length - 1 ? <>{tag}, </> : <>{tag}</>}
+                </a>
+              ))}
+            </div>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style></style>

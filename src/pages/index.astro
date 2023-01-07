@@ -1,13 +1,15 @@
 ---
+import type { MarkdownInstance } from "astro";
+import PostList from "../components/PostList.astro";
 import MainLayout from "../layouts/MainLayout.astro";
+import type { Frontmatter } from "../model";
 
-let allPosts = await Astro.glob("../content/**/*.md");
-console.log('----',allPosts);
+const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>("./*/*.md*");
 ---
+
 <MainLayout
   title="Home"
-  description={`Wellcome to GeoExamples, maps, javascript, python and more.`}
+  description={`Welcome to GeoExamples, maps, javascript, python and more.`}
 >
-Posts list
-
+  <PostList posts={allPosts} />
 </MainLayout>

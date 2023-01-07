@@ -6,11 +6,17 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro check && tsc --noEmit && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^0.14.0",
     "astro": "^1.9.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.1",
+    "prettier-plugin-astro": "^0.7.2",
+    "sass": "^1.57.1"
   }
 }
