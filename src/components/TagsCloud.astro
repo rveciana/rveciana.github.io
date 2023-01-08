@@ -1,0 +1,11 @@
+---
+import type { MarkdownInstance } from "astro";
+import type { Frontmatter } from "../model";
+
+interface Props {
+  posts: MarkdownInstance<Frontmatter>[];
+}
+const { posts } = Astro.props;
+---
+
+<h1>Tags</h1>

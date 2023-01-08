@@ -1,0 +1,38 @@
+---
+import type { MarkdownInstance } from "astro";
+import type { Frontmatter } from "../model";
+
+interface Props {
+  posts: MarkdownInstance<Frontmatter>[];
+}
+const { posts } = Astro.props;
+
+const distinctCategories = posts
+  .reduce(
+    (cur, acc) => [
+      ...new Set([
+        ...cur,
+        ...((acc.frontmatter.categories &&
+          [acc.frontmatter.categories].flat()) ??
+          []),
+      ]),
+    ],
+    [] as string[]
+  )
+  .sort();
+---
+
+<h1>Categories</h1>
+<div>
+  {
+    distinctCategories.map((category, i) => (
+      <a>
+        {i !== distinctCategories.length - 1 ? (
+          <>{category}, </>
+        ) : (
+          <>{category}</>
+        )}
+      </a>
+    ))
+  }
+</div>

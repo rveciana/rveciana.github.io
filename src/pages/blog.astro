@@ -1,0 +1,22 @@
+---
+import type { MarkdownInstance } from "astro";
+import CategoriesList from "../components/CategoriesList.astro";
+import PostList from "../components/PostList.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+import type { Frontmatter } from "../model";
+
+const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>("./*/*.md*");
+const indexPagePosts = allPosts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.date).valueOf() -
+    new Date(a.frontmatter.date).valueOf()
+);
+---
+
+<MainLayout
+  title="Blog"
+  description={`Welcome to GeoExamples, maps, javascript, python and more.`}
+>
+  <CategoriesList posts={indexPagePosts} />
+  <PostList posts={indexPagePosts} />
+</MainLayout>
