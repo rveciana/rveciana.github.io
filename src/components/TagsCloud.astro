@@ -5,7 +5,34 @@ import type { Frontmatter } from "../model";
 interface Props {
   posts: MarkdownInstance<Frontmatter>[];
 }
+
 const { posts } = Astro.props;
+
+type Tags = { [key: string]: number };
+
+const tags = posts.reduce((cur, acc) => {
+  const newCur = { ...cur };
+  (acc.frontmatter.tags ?? []).forEach(
+    (tag) => (newCur[tag] = newCur[tag] ? newCur[tag] + 1 : 1)
+  );
+  return newCur;
+}, {} as Tags);
+
+const maxOccurrencies = Math.max(...Object.values(tags));
 ---
 
 <h1>Tags</h1>
+<div class="tagcloud">
+  {
+    Object.entries(tags).map(([tag, occurrencies], i) => (
+      <a
+        href={`/tags/${tag}`}
+        style={{
+          fontSize: `${1 + (occurrencies - 1) / maxOccurrencies}em`,
+        }}
+      >
+        {tag},{" "}
+      </a>
+    ))
+  }
+</div>

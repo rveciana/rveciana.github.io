@@ -26,7 +26,7 @@ const distinctCategories = posts
 <div>
   {
     distinctCategories.map((category, i) => (
-      <a>
+      <a href={`/category/${category}`}>
         {i !== distinctCategories.length - 1 ? (
           <>{category}, </>
         ) : (
