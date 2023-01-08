@@ -2,6 +2,7 @@
 import type { MarkdownInstance } from "astro";
 import CategoriesList from "../components/CategoriesList.astro";
 import PostList from "../components/PostList.astro";
+import TagsCloud from "../components/TagsCloud.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import type { Frontmatter } from "../model";
 
@@ -18,5 +19,7 @@ const indexPagePosts = allPosts.sort(
   description={`Welcome to GeoExamples, maps, javascript, python and more.`}
 >
   <CategoriesList posts={indexPagePosts} />
+  <TagsCloud posts={indexPagePosts} />
+
   <PostList posts={indexPagePosts} />
 </MainLayout>
