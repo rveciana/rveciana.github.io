@@ -87,13 +87,13 @@ It's a clean and fast way to do it and allows to access the results later in the
 
 Applying the regression results is easy with numpy, since it's just adding several matrices:
 {% highlight python %}
-def create_regression_field(regression, vars_file):
+def create*regression_field(regression, vars_file):
 d_s = gdal.Open(vars_file)
 distances = d_s.GetRasterBand(1).ReadAsArray()
 altitudes = d_s.GetRasterBand(2).ReadAsArray()
 temperature = (regression['intercept'] +
-altitudes _ regression['coefs'][0] +
-distances _ regression['coefs'][1])
+altitudes * regression['coefs'][0] +
+distances \_ regression['coefs'][1])
 return temperature
 {% endhighlight %}
 

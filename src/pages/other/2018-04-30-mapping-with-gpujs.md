@@ -193,7 +193,7 @@ else gradY = (demData[yPos+1][this.thread.x] - demData[yPos][this.thread.x])/2 +
 let slope = 3.141593/2 - Math.atan(Math.sqrt(gradX*gradX + gradY*gradY));
 let aspect = Math.atan(-gradY, gradX); //should be atan2, but not working!
 
-let hs_value = Math.sin(altituderad) _ Math.sin(slope) + Math.cos(altituderad) _ Math.cos(slope) \* Math.cos(azimuthrad - aspect);
+let hs*value = Math.sin(altituderad) * Math.sin(slope) + Math.cos(altituderad) \_ Math.cos(slope) \* Math.cos(azimuthrad - aspect);
 
 this.color(hs_value, hs_value, hs_value, 0.1);
 

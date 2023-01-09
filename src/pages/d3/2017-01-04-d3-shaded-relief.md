@@ -16,7 +16,7 @@ I found [some examples](http://bl.ocks.org/mjhoy/5301594) about doing them with 
 
 The result:
 
-<iframe frameborder="no" border="0" scrolling="no" marginwidth="0" marginheight="0" width="690" height="510" src="{{ site.baseurl }}/d3-raster-tools-docs/code_samples/dem-shaded.html"></iframe>
+<iframe frameborder="no" border="0" scrolling="no" marginwidth="0" marginheight="0" width="690" height="510" src="http://www.geoexamples.com/d3-raster-tools-docs/code_samples/dem-shaded.html"></iframe>
 
 - [The code explanation]({{ site.baseurl }}/d3-raster-tools-docs/plot/shaded-relief.html)
 - [The source code]({{ site.baseurl }}/d3-raster-tools-docs/code_samples/dem-shaded-page.html)

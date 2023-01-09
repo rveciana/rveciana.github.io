@@ -6,7 +6,7 @@ import TagsCloud from "../components/TagsCloud.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import type { Frontmatter } from "../model";
 
-const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>("./*/*.md*");
+const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>("./*/*.m*d*");
 const indexPagePosts = allPosts.sort(
   (a, b) =>
     new Date(b.frontmatter.date).valueOf() -

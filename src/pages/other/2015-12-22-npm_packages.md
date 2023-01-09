@@ -84,9 +84,9 @@ return gulp.src(['./src/*.js'])
 This is one of the most common tasks. It takes several source files, removes the comments, merges them and, finally, minifies the resulting file.
 
 - gulp.src sets the source files. In our case, all the files under the _src_ folder
-- gulp_newer adds a condition: Only act if the source is newer than the _composite-projections.js_ file
+- gulp*newer adds a condition: Only act if the source is newer than the \_composite-projections.js* file
 - gulp_strip removes the comments so the output file is smaller
-- gulp_concat merges all the files in one, named _composite-projections.js_. This will be the main file in our project
+- gulp*concat merges all the files in one, named \_composite-projections.js*. This will be the main file in our project
 - gulp.dest sets the output folder to this stream. Now, the file is saved, but the stream is still open to do the following steps
 - gulp_rename changes the name of the output
 - [gulp_uglify][gulp-uglify] runs [UglifyJS][uglifyjs], which minifies the code, renaming all the variables, removing spaces and newlines, etc. so a compact and more efficient file is created
@@ -96,10 +96,10 @@ To build again the file, just type _gulp build_. Of course, usually we want to r
 {% highlight javascript %}
 gulp.task('test', ['build', 'build_separated', 'get_sample_data'], function(){
 return gulp.src('./test/test.js', {read: false})
-.pipe(gp_mocha({reporter: 'nyan'}));
+.pipe(gp*mocha({reporter: 'nyan'}));
 });
 {% endhighlight %}
-This task, that will test the files as we'll see later, requires the tasks _'build', 'build_separated'_ and _'get_sample_data'_ to be run before it starts. It's logical, since no test can be done if the final file isn't built and the needed data is available. I like this method, since you only take care of the dependencies for each task, and the system decides what to run depending on the calculated final dependencies, which can be complicated.
+This task, that will test the files as we'll see later, requires the tasks *'build', 'build*separated'* and _'get_sample_data'_ to be run before it starts. It's logical, since no test can be done if the final file isn't built and the needed data is available. I like this method, since you only take care of the dependencies for each task, and the system decides what to run depending on the calculated final dependencies, which can be complicated.
 
 Usually, the _default_ task will have several dependencies, so they run all, and in parallel when possible. The default task itself can be void:
 {% highlight javascript %}
@@ -169,11 +169,11 @@ In the case of d3-composite-projections, I found two things a bit more difficult
 The other is using the created javascript files without including the libraries in the code. Using d3js with node implies requiring it at the begining with `require('d3');`. But my generated file doesn't have that. [I found my solution at Stackoverflow][stackoverflow solution]. Basically, you load the modules at _test.js_ and pass it to the file as the context. In my example:
 {% highlight javascript %}
 var execfile = require("./execfile.js");
-var d3 = require('../node_modules/d3/d3.js');
+var d3 = require('../node*modules/d3/d3.js');
 var composite_projection = execfile(\_\_dirname+"/../composite-projections.js",
 {d3: d3, console: console});
 {% endhighlight %}
-This will allow the functions in composite-projections.js to use _d3_ ant the console if necessary.
+This will allow the functions in composite-projections.js to use \_d3* ant the console if necessary.
 
 Mocha can do many other stuff, I have only used a very small part of it.
 

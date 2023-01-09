@@ -105,7 +105,7 @@ Once done the first time, creating new maps is really easy. I'm impressed with i
 - [CartoDB docs][general docs]
 - [CartoDB editor docs][editor docs]
 
-[previous post]: ../d3/2015/09/25/d3-creating-EUROSTAT-maps.html
+[previous post]: /d3/2015/09/25/d3-creating-EUROSTAT-maps.html
 [download regions]: http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units
 [general docs]: http://docs.cartodb.com/
 [editor docs]: http://docs.cartodb.com/cartodb-editor/

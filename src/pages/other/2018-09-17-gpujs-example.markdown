@@ -180,8 +180,8 @@ Since the example was not about projections or mapping, I didn't draw any border
 
 {% highlight js %}
 let gpu = new GPU();
-let render = gpu.createKernel(function(interpolation_result, colorScale) {
-let color = Math.ceil(255 _ (interpolation_result[(this.constants.height - 1 - this.thread.y) _ this.constants.width + this.thread.x] - this.constants.minVal)/(this.constants.maxVal - this.constants.minVal));
+let render = gpu.createKernel(function(interpolation*result, colorScale) {
+let color = Math.ceil(255 * (interpolation*result[(this.constants.height - 1 - this.thread.y) * this.constants.width + this.thread.x] - this.constants.minVal)/(this.constants.maxVal - this.constants.minVal));
 this.color(colorScale[color * 4]/255, colorScale[1+color * 4]/255, colorScale[2+color * 4]/255, 1);
 })
 .setConstants({width: fixData.xSize, height: fixData.ySize, maxVal: 20, minVal: -7})
@@ -236,7 +236,7 @@ ObservableHQ example:
 - [Calculating the final result field][17]
 - [Drawing the final result field][18]
 
-[1]: ../other/2018/04/30/mapping-with-gpujs.html
+[1]: /other/2018/04/30/mapping-with-gpujs.html
 [2]: http://gpu.rocks
 [3]: https://vimeo.com/album/5268941/video/278133346
 [4]: http://www.sigte.udg.edu/jornadassiglibre/

@@ -229,11 +229,11 @@ var land = topojson.feature(europe, europe.objects.nuts2);
 </script>
 {% endhighlight %}
 
-[original post]: [http://geoexamples.blogspot.com.es/2013/10/using-eurostats-data-with-d3js.html]
-[d3-composite-projections]: [http://geoexamples.com/d3-composite-projections/]
+[original post]: http://geoexamples.blogspot.com.es/2013/10/using-eurostats-data-with-d3js.html
+[d3-composite-projections]: http://geoexamples.com/d3-composite-projections/
 [example map]: http://ec.europa.eu/eurostat/statistics-explained/images/a/ae/Urban_rural_typology_for_NUTS3_new.png
 [gist]: https://gist.github.com/rveciana/5919944
 [topojson tutorial]: d3-EUROSTAT-topojson.html
 [eurostat]: http://ec.europa.eu/eurostat
-[gist example]:http://bl.ocks.org/rveciana/e3c02fe71f8dc63041ea
-[colorbrewer]:http://colorbrewer2.org/
+[gist example]: http://bl.ocks.org/rveciana/e3c02fe71f8dc63041ea
+[colorbrewer]: http://colorbrewer2.org/
