@@ -1,0 +1,49 @@
+---
+import type { MarkdownInstance } from "astro";
+import PostList from "../../components/PostList.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import type { Frontmatter } from "../../model";
+
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>(
+    "./../*/*.m*d*"
+  );
+  const allCategories = new Set<string>();
+  allPosts.map((post) => {
+    post.frontmatter.categories &&
+      [post.frontmatter.categories]
+        .flat()
+        .map((category) => allCategories.add(category));
+  });
+
+  return Array.from(allCategories).map((category) => {
+    const filteredPosts = allPosts
+      .filter((post) => post.frontmatter.categories?.includes(category))
+      .sort(
+        (a, b) =>
+          new Date(b.frontmatter.date).valueOf() -
+          new Date(a.frontmatter.date).valueOf()
+      );
+
+    return {
+      params: { category },
+      props: {
+        page: filteredPosts,
+      },
+    };
+  });
+}
+const { page } = Astro.props;
+const { category } = Astro.params;
+let title = `Posts by Category: ${category}`;
+
+console.log(Astro.params);
+---
+
+<MainLayout
+  title={title}
+  description={`All GeoExamples posts that include the category "${category}"`}
+>
+  <h1>{title}</h1>
+  <PostList posts={page} />
+</MainLayout>

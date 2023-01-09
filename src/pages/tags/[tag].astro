@@ -1,0 +1,43 @@
+---
+import type { MarkdownInstance } from "astro";
+import PostList from "../../components/PostList.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import type { Frontmatter } from "../../model";
+
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>(
+    "./../*/*.m*d*"
+  );
+  const allTags = new Set<string>();
+  allPosts.map((post) => {
+    post.frontmatter.tags &&
+      post.frontmatter.tags.map((tag) => allTags.add(tag));
+  });
+  return Array.from(allTags).map((tag) => {
+    const filteredPosts = allPosts
+      .filter((post) => post.frontmatter.tags?.includes(tag))
+      .sort(
+        (a, b) =>
+          new Date(b.frontmatter.date).valueOf() -
+          new Date(a.frontmatter.date).valueOf()
+      );
+    return {
+      params: { tag },
+      props: {
+        page: filteredPosts,
+      },
+    };
+  });
+}
+const { page } = Astro.props;
+const { tag } = Astro.params;
+let title = `Posts by Tag: ${tag}`;
+---
+
+<MainLayout
+  title={title}
+  description={`All GeoExamples posts that include the tag "${tag}"`}
+>
+  <h1>{title}</h1>
+  <PostList posts={page} />
+</MainLayout>
