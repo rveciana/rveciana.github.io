@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "svg-path-properties"
-date: 2016-12-01
+pubDate: 2016-12-01
 categories: other
 tags: [canvas, svg]
 teaser: svg-path-properties.png

@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Shortest distance to a geometry in a specified direction using Python"
-date: 2014-08-16
+pubDate: 2014-08-16
 categories: python
 tags: [GDAL, projections, raster]
 teaser: shortest-distance-to-geometry.png

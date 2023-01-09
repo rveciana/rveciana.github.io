@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: Raster file formats for JavaScript mapping
-date: 2017-11-04
+pubDate: 2017-11-04
 categories: d3
 tags: [raster]
 teaser: raster-file-formats-javascript.png

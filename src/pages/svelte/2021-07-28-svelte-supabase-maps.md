@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Mapping with supabase and Svelte"
-date: 2021-07-18 18:40:53
+pubDate: 2021-07-18 18:40:53
 teaser: supabase-svelte.png
 categories: svelte
 tags: [supabase, postgis]

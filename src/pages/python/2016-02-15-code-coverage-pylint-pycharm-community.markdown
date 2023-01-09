@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: Code coverage and pylint with PyCharm community
-date: 2016-02-15
+pubDate: 2016-02-15
 categories: python
 tags: [PyCharm, coverage, lint]
 teaser: pycharm-coverage.png

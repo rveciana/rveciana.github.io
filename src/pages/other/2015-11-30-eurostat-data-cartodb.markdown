@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Mapping EUROSTAT data with CartoDB"
-date: 2015-11-30
+pubDate: 2015-11-30
 categories: other
 tags: [EUROSTAT, Open Data, CartoDB]
 teaser: cartodb-eurostat.png

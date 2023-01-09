@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "D3 Composite Projections"
-date: 2015-05-12
+pubDate: 2015-05-12
 categories: d3
 tags: [projections, library, npm, bower, nodejs]
 teaser: d3-composite-projections.png

@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Jekyll tags and categories plugin for gh-pages"
-date: 2015-06-04 18:40:53
+pubDate: 2015-06-04 18:40:53
 teaser: jekyll-tags-categories.png
 categories: other
 tags: [jekyll]

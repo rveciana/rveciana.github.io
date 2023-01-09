@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "d3-composite-projections update"
-date: 2016-10-03
+pubDate: 2016-10-03
 categories: d3
 tags: [projections, npm, nodejs]
 teaser: d3-composite-projections2.png

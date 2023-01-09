@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "D3js mapping presentation at Girona"
-date: 2015-03-30
+pubDate: 2015-03-30
 categories: d3
 tags: [SIGTE, presentation]
 teaser: d3-mapping-presentation-girona.png

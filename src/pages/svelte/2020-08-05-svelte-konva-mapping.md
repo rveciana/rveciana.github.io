@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Mapping with Svelte and Konva"
-date: 2020-08-05
+pubDate: 2020-08-05
 categories: svelte
 teaser: svelte-konva.png
 tags: [konva]

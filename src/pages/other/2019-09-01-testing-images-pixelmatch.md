@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Testing generated images with pixelmatch"
-date: 2019-09-01
+pubDate: 2019-09-01
 teaser: d3-composite-projections.png
 categories: other
 tags: [testing]

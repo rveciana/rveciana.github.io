@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "d3-shaded-relief"
-date: 2017-01-04
+pubDate: 2017-01-04
 categories: d3
 tags: [raster, canvas, shaded relief]
 teaser: d3-shaded-relief.png

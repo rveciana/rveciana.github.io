@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "gpu.js performance"
-date: 2018-09-18
+pubDate: 2018-09-18
 teaser: gpujs-performance.png
 categories: other
 tags: [GPU, gpujs, cython]

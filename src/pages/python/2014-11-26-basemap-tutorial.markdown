@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: Basemap tutorial
-date: 2014-11-26
+pubDate: 2014-11-26
 categories: python
 tags: [basemap, tutorial]
 teaser: basemaptutorial.png

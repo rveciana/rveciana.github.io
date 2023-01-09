@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: Canvas mapping with a retina display
-date: 2017-10-24
+pubDate: 2017-10-24
 categories: d3
 tags: [raster, canvas, retina]
 teaser: canvas-retina.png

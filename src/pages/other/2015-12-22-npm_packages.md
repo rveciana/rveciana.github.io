@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Creating a D3 NPM package"
-date: 2015-12-22
+pubDate: 2015-12-22
 teaser: npm-packages.png
 categories: other
 tags: [npm, nodejs, bower, travis, mocha, tutorial, projections]

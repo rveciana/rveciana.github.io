@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "A tracking tool with Supabase and Svelte"
-date: 2021-08-07 18:40:53
+pubDate: 2021-08-07 18:40:53
 teaser: supabase-svelte-track.png
 categories: svelte
 tags: [supabase, postgis]

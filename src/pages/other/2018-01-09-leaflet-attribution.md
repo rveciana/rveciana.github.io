@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Leaflet Attribution"
-date: 2018-01-08
+pubDate: 2018-01-08
 categories: other
 tags: [leaflet]
 teaser: leaflet-attribution.png

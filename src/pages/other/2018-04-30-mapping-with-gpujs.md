@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: Mapping with gpu.js
-date: 2018-04-30
+pubDate: 2018-04-30
 teaser: gpujs-mapping.png
 categories: other
 tags: [GPU, gpujs, canvas]

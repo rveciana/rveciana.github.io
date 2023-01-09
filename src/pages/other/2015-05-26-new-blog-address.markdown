@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "The blog has moved!"
-date: 2015-05-25
+pubDate: 2015-05-25
 categories: other
 tags: [jekyll]
 ---

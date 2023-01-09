@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: Cython with PyCharm community
-date: 2017-04-20
+pubDate: 2017-04-20
 categories: python
 tags: [PyCharm, cython]
 teaser: pycharm-coverage.png

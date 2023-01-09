@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Playing with OSM Overpass and Svelte"
-date: 2021-01-10
+pubDate: 2021-01-10
 categories: svelte
 teaser: overpass-svelte.png
 tags: [osm, overpass]

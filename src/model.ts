@@ -1,6 +1,6 @@
 export interface Frontmatter {
   title: string;
-  date: string;
+  pubDate: string;
   description?: string;
   categories?: string | string[];
   tags?: string[];

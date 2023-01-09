@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Mapping with Svelte and D3js"
-date: 2019-12-08
+pubDate: 2019-12-08
 categories: other
 tags: [svelte, projections, svg]
 teaser: mapping-svelte.png

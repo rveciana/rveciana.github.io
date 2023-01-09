@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "A GeoQuiz made with D3js"
-date: 2015-07-01
+pubDate: 2015-07-01
 teaser: d3-geoquiz.png
 categories: d3
 tags: [game]

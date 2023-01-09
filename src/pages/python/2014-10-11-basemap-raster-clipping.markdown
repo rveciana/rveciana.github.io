@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Basemap raster clipping with a shapefile"
-date: 2014-10-11
+pubDate: 2014-10-11
 categories: python
 tags: [basemap, GDAL]
 teaser: basemapclipping.png

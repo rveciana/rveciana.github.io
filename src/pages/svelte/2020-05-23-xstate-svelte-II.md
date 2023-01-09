@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "XState and Svelte II: Creating the traffic lights"
-date: 2020-05-23
+pubDate: 2020-05-23
 categories: svelte
 teaser: xpath-svelte2.png
 tags: [xstate]

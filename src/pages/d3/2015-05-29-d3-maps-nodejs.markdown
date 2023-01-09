@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Creating maps using D3js and nodejs"
-date: 2015-05-29
+pubDate: 2015-05-29
 categories: d3
 tags: [npm, nodejs]
 teaser: d3-node.png

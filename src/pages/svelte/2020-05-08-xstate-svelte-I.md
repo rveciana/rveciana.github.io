@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "XState and Svelte I: initial setup"
-date: 2020-05-08
+pubDate: 2020-05-08
 categories: svelte
 teaser: xpath-svelte1.png
 tags: [xstate]

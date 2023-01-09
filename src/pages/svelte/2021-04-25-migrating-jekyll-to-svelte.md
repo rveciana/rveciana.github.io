@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Migrating a Jekyll blog to Svelte-kit"
-date: 2021-04-21 18:40:53
+pubDate: 2021-04-21 18:40:53
 teaser: migrate-jekyll-svelte.png
 categories: svelte
 tags: [jekyll, svelte-kit, markdown]
@@ -229,7 +229,7 @@ const htmlPath = post.meta.relativePath
 .join("-");
 return {
 title: post.title,
-date: post.date,
+pubDate: post.date,
 tags: post.tags,
 categories: post.categories,
 teaser: post.teaser,

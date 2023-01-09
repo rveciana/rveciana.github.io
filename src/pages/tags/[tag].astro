@@ -18,8 +18,8 @@ export async function getStaticPaths() {
       .filter((post) => post.frontmatter.tags?.includes(tag))
       .sort(
         (a, b) =>
-          new Date(b.frontmatter.date).valueOf() -
-          new Date(a.frontmatter.date).valueOf()
+          new Date(b.frontmatter.pubDate).valueOf() -
+          new Date(a.frontmatter.pubDate).valueOf()
       );
     return {
       params: { tag },

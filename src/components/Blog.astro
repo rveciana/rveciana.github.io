@@ -1,0 +1,23 @@
+---
+import type { MarkdownInstance } from "astro";
+import CategoriesList from "../components/CategoriesList.astro";
+import PostList from "../components/PostList.astro";
+import TagsCloud from "../components/TagsCloud.astro";
+import type { Frontmatter } from "../model";
+
+const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>(
+  "../pages/*/*.m*"
+);
+const indexPagePosts = allPosts.sort(
+  (a, b) =>
+    new Date(b.frontmatter.pubDate).valueOf() -
+    new Date(a.frontmatter.pubDate).valueOf()
+);
+
+console.log(indexPagePosts);
+---
+
+<CategoriesList posts={indexPagePosts} />
+<TagsCloud posts={indexPagePosts} />
+
+<PostList posts={indexPagePosts} />

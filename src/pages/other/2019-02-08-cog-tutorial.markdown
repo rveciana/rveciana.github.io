@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Cloud Optimized GeoTIFF tutorial"
-date: 2019-02-08
+pubDate: 2019-02-08
 teaser: cog.png
 categories: other
 tags: [COG, GDAL, raster]

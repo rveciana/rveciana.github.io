@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Shortest distance to a geometry in a specified direction using Python"
-date: 2014-08-16
+pubDate: 2014-08-16
 categories: python
 tags: [basemap, geometry, OGR]
 teaser: shortest-distance-to-geometry.png

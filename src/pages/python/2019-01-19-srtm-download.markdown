@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "SRTM data download"
-date: 2019-01-19
+pubDate: 2019-01-19
 teaser: srtm-download.png
 categories: other
 tags: [SRTM]

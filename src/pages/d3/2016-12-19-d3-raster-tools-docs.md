@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "d3-raster-tools-docs"
-date: 2016-12-19
+pubDate: 2016-12-19
 categories: d3
 tags: [raster, isolines, isobands, streamlines]
 teaser: d3-raster-tools-docs.png

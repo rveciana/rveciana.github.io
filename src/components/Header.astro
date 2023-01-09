@@ -1,7 +1,7 @@
 ---
 import config from "../config.json";
 
-const allPages = await Astro.glob("../pages/*md*");
+const allPages = await Astro.glob("../pages/*mdx");
 
 const pages = allPages.map((d) => ({ url: d.url, title: d.frontmatter.title }));
 ---

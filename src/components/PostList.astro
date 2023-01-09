@@ -18,7 +18,7 @@ function formatDate(date: string) {
     {
       posts.map((post) => (
         <li>
-          <span class="post-meta">{formatDate(post.frontmatter.date)}</span>
+          <span class="post-meta">{formatDate(post.frontmatter.pubDate)}</span>
           <h2>
             <a class="post-link" href={post.url}>
               {post.frontmatter.title}

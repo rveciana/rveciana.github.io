@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "D3 map scrollers"
-date: 2016-05-25
+pubDate: 2016-05-25
 categories: d3
 tags: [scroll]
 teaser: d3-map-scrollers.png

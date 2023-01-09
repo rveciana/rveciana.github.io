@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Post.astro
 title: "Using RxPY to process GIS files dependencies"
-date: 2021-10-12
+pubDate: 2021-10-12
 teaser: rxpy.png
 categories: python
 tags: [RxPy]
