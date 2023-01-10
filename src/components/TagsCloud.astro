@@ -24,7 +24,7 @@ const maxOccurrencies = Math.max(...Object.values(tags));
 <h1>Tags</h1>
 <div class="tagcloud">
   {
-    Object.entries(tags).map(([tag, occurrencies], i) => (
+    Object.entries(tags).map(([tag, occurrencies]) => (
       <a
         href={`/tags/${tag}`}
         style={{
