@@ -16,7 +16,8 @@ I made this script to download an arbitrary region that can be re-projected.
 
 ## Complete code
 
-{% highlight python %}
+```python
+
 #!/usr/bin/env python
 '''Creates a DEM file downloading the SRTM data and clipping it to the
 specified bounding box
@@ -131,4 +132,7 @@ The [space shuttle icon was taken from the Wikipedia](https://es.m.wikipedia.org
 
 [1]: https://en.wikipedia.org/wiki/Shuttle_Radar_Topography_Mission
 [2]: http://srtm.csi.cgiar.org/
+
+```
+
 ```

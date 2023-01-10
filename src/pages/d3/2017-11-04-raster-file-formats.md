@@ -192,14 +192,15 @@ oReq.send();
 
 </script>
 
-```
+````
 
 - Just parse the JSON file!
 - Of course, all the metadata is easy to add, so the format is very flexible
 
 Creating the JSON sample file using python is easy:
 
-{% highlight python %}
+```python
+
 import gdal
 import json
 from base64 import b64encode
@@ -223,7 +224,7 @@ fp = open("vardah.json", "w")
 fp.write(json.dumps(json_data))
 fp.close()
 
-```
+````
 
 - To make consistent data, put all the numbers in a list, but a matrix could be created the same way, and could be more convenient in certain cases
 
@@ -233,7 +234,8 @@ Plain JSON data is expensive in terms of space. What if we encode the data in [B
 
 Let's look first at how can we create the sample file:
 
-{% highlight python %}
+```python
+
 import gdal
 import json
 from base64 import b64encode
@@ -295,7 +297,7 @@ oReq.open("GET", "vardahb64.json");
 oReq.send();
 </script>
 
-```
+````
 
 Reading this data is quite efficient, but not as easy as plain JSON. The steps are:
 
@@ -314,7 +316,8 @@ If we want to store metadata, different data types may be involved, making the s
 
 Creating the file is easy:
 
-{% highlight python %}
+```python
+
 import gdal
 import struct
 
@@ -331,7 +334,7 @@ fp = open("vardah.bin", "wb")
 fp.write(struct.pack(str(len(out_data))+'f', \*out_data))
 fp.close()
 
-```
+````
 
 - Just use the _pack_ function to store the data
   - Note that the data is packed with the _f_ letter, this is as float32 elements
@@ -349,7 +352,7 @@ var oReq = new XMLHttpRequest();
 
 oReq.addEventListener("load", function(data){
 var t0 = performance.now();
- var floatArray= new Float32Array(this.response);
+var floatArray= new Float32Array(this.response);
 var t1 = performance.now();
 console.log("Decoding took " + (t1 - t0) + " milliseconds.")
 });
@@ -358,7 +361,8 @@ oReq.open("GET", "vardah.bin");
 oReq.responseType = 'arraybuffer';
 oReq.send();
 </script>
-```
+
+````
 
 - Note that the request must be set with an _arraybuffer_ _responsetype_
 - Just read the responsa into a new Float32Array. All the values will be there
@@ -371,7 +375,8 @@ I will use the code sample from the [rossetacode.org site][10].
 
 ### File creation using Python
 
-{% highlight python %}
+```python
+
 import gdal
 import struct
 from base64 import b64encode
@@ -418,7 +423,7 @@ fp = open("vardah.lzw.bin", "wb")
 fp.write(struct.pack(str(len(compressed))+'H', \*compressed))
 fp.close()
 
-```
+````
 
 - The compression function is copied directly from the [rossetacode.org site][10]
   - It's supposed to work with a string, so we will convert out floats list into a binary bytes string
@@ -429,7 +434,9 @@ fp.close()
 The size is reduced by 50% in our example. If a classification is used instead of float values, the compression will be much more efficient.
 
 If using python3, the _compress_ function would be:
-{% highlight python %}
+
+```python
+
 def compress(uncompressed):
 """Compress a string to a list of output symbols."""
 

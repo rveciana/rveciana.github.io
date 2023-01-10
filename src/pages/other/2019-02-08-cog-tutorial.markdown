@@ -86,7 +86,8 @@ This would make four overview images by averaging the values:
 
 The previous section results can be achieved using python directly, which is nice to integrate in the scripts that generate data.
 
-{% highlight python %}
+```python
+
 import gdal
 import numpy as np
 
@@ -114,7 +115,8 @@ data_set = None
 - As you can see, the creation options are passed as a parameter when creating the data set
 - Also, the gdal-python bindings have a nice method to create the overviews. The problem is that this will give an error in the COG format, because the pyramids were created after the tiling. It's not a big error, as we will see in the next section, but you can avoid it by using a _memory driver file_ before creating the actual one:
 
-{% highlight python %}
+```python
+
 import gdal
 import numpy as np
 
@@ -162,6 +164,7 @@ The following errors were found:
 - The offset of the first block of overview of index 1 should be after the one of the overview of index 2
 - The offset of the first block of overview of index 0 should be after the one of the overview of index 1
 - The offset of the first block of the main resolution image should be after the one of the overview of index 4
+
   ```
 
   ```
@@ -178,6 +181,7 @@ $ python3 validate_cloud_optimized_geotiff.py correct_SkySat_Freeport.tif
 The following warnings were found:
 
 - The file is greater than 512xH or Wx512, it is recommended to include internal overviews
+
   ```
 
   ```

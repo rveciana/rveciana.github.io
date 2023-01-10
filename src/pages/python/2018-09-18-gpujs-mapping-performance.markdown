@@ -48,7 +48,9 @@ You will get all the benchmarks
 ### Multi linear regression
 
 To get the regression coefficients, I used scikit-learn:
-{% highlight python %}
+
+```python
+
 def calculate_regression(data_file):
 regr = LinearRegression()
 
@@ -86,7 +88,9 @@ It's a clean and fast way to do it and allows to access the results later in the
 ### Applying the regression
 
 Applying the regression results is easy with numpy, since it's just adding several matrices:
-{% highlight python %}
+
+```python
+
 def create*regression_field(regression, vars_file):
 d_s = gdal.Open(vars_file)
 distances = d_s.GetRasterBand(1).ReadAsArray()
@@ -105,7 +109,8 @@ Interpolating the residuals can be done in several ways. I've tested three, two 
 
 The [radial basis function][8] is the one most srecommended by scipy. The results can be a bit strange and the performance is poor, but:
 
-{% highlight python %}
+```python
+
 def rbf(regression, dimensions):
 xi = linspace(regression['lons'].min(), regression['lons'].max(),
 dimensions[1])
@@ -127,7 +132,8 @@ The code, basically prepares the data for the _Rbf_ function.
 
 The inverse of the distance weighted code is [taken from a GitHub repo][9]. It's really efficient and the result is good, but more difficult to understand than the regular inverse of the distance. Also, maintains steep changes, which is not the best situation in our case, where we want a smooth residuals field all around, even if a single station has a different local value:
 
-{% highlight python %}
+```python
+
 def idw(regression, dimensions):
 X1 = array(list(zip(regression['lons'], regression['lats'])))
 
@@ -151,7 +157,8 @@ Again, the code is basically preparing the data for the function.
 
 This is the original code I used, and the one in the [previous post][1]. Calculating it with pure numpy was a bit difficult, so I made the original algorithm optimized with [cython][10], so it's as fast as coded in C. The code to call it is:
 
-{% highlight python %}
+```python
+
 def cython_id(regression, dimensions):
 
     data = {}
@@ -173,10 +180,13 @@ def cython_id(regression, dimensions):
     return result
 
 ```
+
 Note that I used geotransform, which turns things properly.
 
 The cython code is:
-{% highlight python %}
+
+```python
+
 #cython: boundscheck=False, wraparound=False, nonecheck=False, cdivision=True
 
 import numpy as np

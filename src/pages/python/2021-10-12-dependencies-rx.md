@@ -41,7 +41,8 @@ As usual, you can [get the code at GitHub][code].
 
 So the first thing to do is act when some file appears. The file could be a temperature, dew point or radar file. To do it, we'll use the [_watchdog_ library][watchdog]
 
-{% highlight python %}import time
+```python
+import time
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 from observables import source
@@ -73,7 +74,9 @@ observer.join()
 - _source_ is the RxPY thing that we'll see next. When something changes, the _on_next_ method is called with the path for the file that changed
 
 Let's see now a first version of the _RxPY_ part
-{% highlight python %}import time
+
+```python
+import time
 from os.path import basename
 from pathlib import Path
 import rx
@@ -112,7 +115,9 @@ rx.combine_latest(pot_ros, radar).subscribe(process_ros)
   - The second one takes the previpusly created file and the radar to create the final image
 
 The output is something similar to:
-{% highlight python %}
+
+```python
+
 CREATING POTENTIAL ROS ./data/pot_pon_202101010000-202101010000.tiff
 CREATING ROS FILE ./data/pon_202101010000-202101010000.tiff
 CREATING ROS FILE ./data/pon_202101010000-202101010006.tiff
@@ -135,7 +140,8 @@ CREATING ROS FILE ./data/pon_202101010100-202101010106.tiff
 
 To do it, I created a file that generates radar and temperature and td files like this:
 
-{% highlight python %}from pathlib import Path
+```python
+from pathlib import Path
 import time
 
 Path('./data/temp-202101010000.tiff').touch()
@@ -158,19 +164,22 @@ The previous code has three problems (at least)
 
 To solve the first point, we'll use _map_, that converts the input value to another thing, as in functional programming:
 
-{% highlight python %}pot_ros = rx.combine_latest(temp, td).pipe(ops.map(create_pot_data))```
+````python
+pot_ros = rx.combine_latest(temp, td).pipe(ops.map(create_pot_data))```
 
 Then, when subscribing to the _pot_ros observable_ we could receive the calculated field (calculated in _create_pot_data_) without having to save
 
 To avoid _create_pot_data_ to be run twice when _td_ and _temperature_ are different, a filter can be used:
 
-{% highlight python %}pot_ros = rx.combine_latest(temp, td).pipe(ops.filter(lambda values: get_date(values[0])==get_date(values[1])), ops.map(create_pot_data))```
+```python
+pot_ros = rx.combine_latest(temp, td).pipe(ops.filter(lambda values: get_date(values[0])==get_date(values[1])), ops.map(create_pot_data))```
 
 This way, only the elements that match the filter function will pass to the map.
 
 Finally, to solve the process blocking, we can add a _ops.subscribe_on(thread_pool_scheduler)_. This will make each subscription to run in a different process. I added a long sleep time to the file creation to show that in the same pipe, everything i in the same process. Probably this can be avoided with[_flat_map_ and _from_future_][from_future], but I'm not sure that it's a nice feature in a real case.
 
-{% highlight python %}import multiprocessing
+```python
+import multiprocessing
 import time
 from os.path import basename
 from pathlib import Path
@@ -210,7 +219,7 @@ radar = source.pipe(ops.filter(lambda text: text.find('radar')>=0))
 pot_ros = rx.combine_latest(temp, td).pipe( ops.filter(lambda values: get_date(values[0])==get_date(values[1])), ops.map(create_pot_data), ops.subscribe_on(thread_pool_scheduler))
 rx.combine_latest(pot_ros, radar).subscribe(process_ros, scheduler=thread_pool_scheduler)
 
-```
+````
 
 # Links
 
@@ -233,4 +242,7 @@ rx.combine_latest(pot_ros, radar).subscribe(process_ros, scheduler=thread_pool_s
 [combine_latest]: https://rxmarbles.com/#combineLatest
 [rxpy_parallel_threads]: https://stackoverflow.com/questions/43989153/how-to-wait-for-rxpy-parallel-threads-to-complete
 [from_future]: https://rxpy.readthedocs.io/en/latest/get_started.html
+
+```
+
 ```

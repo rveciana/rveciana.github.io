@@ -27,7 +27,8 @@ Since there are many words to add, and no way to do it fast, I have exported my 
 
 As explained in the [official cython basic tutorial][cythontutorial], the best way to compile the files is creating a _setup.py_ file with the compilation options:
 
-{% highlight python %}
+```python
+
 from distutils.core import setup
 from Cython.Build import cythonize
 
@@ -67,4 +68,7 @@ Usually, all the cython files will be compiled at once with the _setup.py_, so t
 
 [coverage]: {{ site.baseurl }}{% post_url /python/2016-02-15-code-coverage-pylint-pycharm-community %}
 [settings]: {{ site.baseurl }}/images/python/pycharm-cython/settings.jar
+
+```
+
 ```
