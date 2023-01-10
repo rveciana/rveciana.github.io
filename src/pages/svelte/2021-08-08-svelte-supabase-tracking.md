@@ -350,6 +350,4 @@ export const convertWkb = (wkb: string) => {
 [bops]: https://github.com/chrisdickinson/bops
 [svelte_leaflet]: https://ngyewch.github.io/svelte-leaflet/
 
-```
-
-```
+- [ ]
