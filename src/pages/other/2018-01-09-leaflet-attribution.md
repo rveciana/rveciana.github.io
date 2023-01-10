@@ -28,4 +28,7 @@ Removing all the attributions, then is as easy as:
 {% highlight js %}
 leafletMap.attributionControl.\_attributions = {};
 leafletMap.attributionControl.addAttribution("New attribution");
-{% endhighlight %}
+
+```
+
+```

@@ -55,7 +55,8 @@ let diff = pixelmatch(img1.data, img2.data, null, img1.width, img1.height, {thre
     test.end();
 
 });
-{% endhighlight %}
+
+```
 
 You can check [the whole script here][test-example]
 
@@ -112,3 +113,4 @@ Newer d3 versions use [GraphicsMagik][graphicsmagik] to do the same. The good th
 [imagemagik-script]: https://github.com/rveciana/d3-composite-projections/blob/v1.0.2/test/compare-images
 [tape]: https://github.com/substack/tape
 [test-example]: https://github.com/rveciana/d3-composite-projections/blob/v1.2.3/test/render-test.js
+```

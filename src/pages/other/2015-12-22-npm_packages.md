@@ -23,14 +23,16 @@ The first thing is initializing the project:
 
 {% highlight bash %}
 npm init
-{% endhighlight %}
+
+```
 
 This will prompt some questions and save the information into a file called _package.json_. You can change the file whenever you want, so mistakes are not very important.
 
 This _package.json_ file is important to publish the project, since it holds some information, but also for personal use, because stores the information about the dependencies of the project. You only keep your code, and using the command
 {% highlight bash %}
 npm install
-{% endhighlight %}
+```
+
 all the dependencies will be downloaded.
 
 To add a dependency, one of the following:
@@ -38,7 +40,8 @@ To add a dependency, one of the following:
 npm install name_of_the package
 npm install --save name_of_the package
 npm install --save-dev name_of_the package
-{% endhighlight %}
+
+```
 
 - The first will install the dependency, but won't store it into _package.json_, so using npm install won't work in the future installations.
 - The second options saves the dependency into the _dependencies_ section, so it will be always downloaded
@@ -52,7 +55,8 @@ To [install gulp][gulp-install], you have to type:
 {% highlight bash %}
 npm install --global gulp
 npm install --save-dev gulp
-{% endhighlight %}
+```
+
 This will install the dependency at the _package.json_ file.
 
 Now, a _gulpfile.js_ is needed to run gulp. A minimal one would be:
@@ -62,7 +66,8 @@ var gulp = require('gulp');
 gulp.task('default', function() {
 // place code for your default task here
 });
-{% endhighlight %}
+
+```
 Run it by typing _gulp_. The task is named _default_, and is the one run by gulp if no parameter is given. If a task named _foo_ is set, you can run just this one by typing _gulp foo_. This is useful if there are many tasks and you don't want to run them all.
 
 Gulp has many many plugins, that make almost everything you need to manage your files: testing, minifying, linting, moving, uploading, etc. Each plugin has to be installed using _npm install --save-dev plugin_name_.
@@ -80,7 +85,8 @@ return gulp.src(['./src/*.js'])
 .pipe(gp_uglify())
 .pipe(gulp.dest('./'));
 });
-{% endhighlight %}
+```
+
 This is one of the most common tasks. It takes several source files, removes the comments, merges them and, finally, minifies the resulting file.
 
 - gulp.src sets the source files. In our case, all the files under the _src_ folder
@@ -96,15 +102,16 @@ To build again the file, just type _gulp build_. Of course, usually we want to r
 {% highlight javascript %}
 gulp.task('test', ['build', 'build_separated', 'get_sample_data'], function(){
 return gulp.src('./test/test.js', {read: false})
-.pipe(gp*mocha({reporter: 'nyan'}));
+.pipe(gp\*mocha({reporter: 'nyan'}));
 });
-{% endhighlight %}
+
+```
 This task, that will test the files as we'll see later, requires the tasks *'build', 'build*separated'* and _'get_sample_data'_ to be run before it starts. It's logical, since no test can be done if the final file isn't built and the needed data is available. I like this method, since you only take care of the dependencies for each task, and the system decides what to run depending on the calculated final dependencies, which can be complicated.
 
 Usually, the _default_ task will have several dependencies, so they run all, and in parallel when possible. The default task itself can be void:
 {% highlight javascript %}
 gulp.task('default', ['lint','build', 'build_separated','test','license_year'], function(){});
-{% endhighlight %}
+```
 
 There are several libraries similar to gulp, [grunt][grunt] is the most popular. I chose gulp after looking some comparisons, and because it was the last hype. I'm happy with it, but the others seem nice too.
 
@@ -112,25 +119,29 @@ There are several libraries similar to gulp, [grunt][grunt] is the most popular.
 
 Using a [lint program][lint] helps to code better by maintaining a nice code, using a good number of methods in the classes, etc. [JSHint][jshint] is a program that flags suspicious usage in programs written in JavaScript. It can be used with gulp, by installing the _gulp-jshint_ plugin. The created task looks like this:
 {% highlight javascript %}
-return gulp.src('./src/*.js')
+return gulp.src('./src/\*.js')
 .pipe(gp_jshint())
 .pipe(gp_jshint.reporter('default'));
-{% endhighlight %}
+
+```
 Which will run for all the files under the *src\* folder (the original ones, with all the comments).
 Let's see an example, if I change
 {% highlight javascript %}
 return (y>=-0.10779&&y< 0.067673 && x >= -0.1866 && x < 0.0255 ? canaryIslands
 : iberianPeninsule).invert(coordinates);
-{% endhighlight %}
+```
+
 to
 {% highlight javascript %}
 return (y>=-.10779&&y< .067673 && x >= -0.1866 && x < .0255 ? canaryIslands
 : iberianPeninsule).invert(coordinates);
-{% endhighlight %}
+
+```
 I'll get messages like:
 {% highlight bash %}
 src/conicConformalSpain-proj.js: line 54, col 23, A leading decimal point can be confused with a dot: '.10779'.
-{% endhighlight %}
+```
+
 Sometimes, there are errors that you can't (or dont want to) avoid. In my case, I got the message:
 
 `Expected an assignment or function call and instead saw an expression`
@@ -138,7 +149,8 @@ Sometimes, there are errors that you can't (or dont want to) avoid. In my case, 
 I google it and found a [nice explanation and solution][jshint-solution], which is adding:
 {% highlight javascript %}
 /_ jshint -W030 _/
-{% endhighlight %}
+
+```
 in the function. I didn't change the code, since it was taken from the original Mike Bostock's one, and if he says it's better this way, I won't change it.
 
 ## Testing with mocha
@@ -149,7 +161,8 @@ First, I made a _test_ directory to put all the test stuff. Then, installed moch
 {% highlight bash %}
 npm install -g mocha
 npm install --save-dev gulp-mocha
-{% endhighlight %}
+```
+
 Now, you can run mocha from any project, or integrate it in your project. The tests are in the _./tests/test.js_ file, which looks like:
 {% highlight javascript %}
 var assert = require('assert');
@@ -161,7 +174,8 @@ assert.equal(-1, [1,2,3].indexOf(0));
 });
 });
 });
-{% endhighlight %}
+
+```
 You can create as many tests as you want under _describe_ and sub-tests under _it_.
 
 In the case of d3-composite-projections, I found two things a bit more difficult to test. One is creating a sample _svg_ file for each projection without using the browser. I explained how to do it in the post [Creating maps using D3js and nodejs][creating maps using d3js and nodejs].
@@ -172,8 +186,9 @@ var execfile = require("./execfile.js");
 var d3 = require('../node*modules/d3/d3.js');
 var composite_projection = execfile(\_\_dirname+"/../composite-projections.js",
 {d3: d3, console: console});
-{% endhighlight %}
-This will allow the functions in composite-projections.js to use \_d3* ant the console if necessary.
+```
+
+This will allow the functions in composite-projections.js to use \_d3\* ant the console if necessary.
 
 Mocha can do many other stuff, I have only used a very small part of it.
 
@@ -184,7 +199,8 @@ The code must be published somewhere if you want to share it. The most popular p
 You can either clone an existing repository before creating the code
 {% highlight bash %}
 git clone https://github.com/user/repo.git
-{% endhighlight %}
+
+```
 or, if you already have the code, create a repository at GitHub and then:
 {% highlight bash %}
 git init
@@ -192,7 +208,8 @@ git add .
 git commit -m "First commit"
 git remote add origin https://github.com/user/repo.git
 git remote -v
-{% endhighlight %}
+```
+
 Changing the address to the created repository.
 
 You can now change the _package.json_ file adding the new repository, so NPM can work. In the case of -d3-composite-projections, the lines are:
@@ -205,7 +222,8 @@ You can now change the _package.json_ file adding the new repository, so NPM can
 "bugs": {
 "url": "https://github.com/rveciana/d3-composite-projections/issues"
 },
-{% endhighlight %}
+
+```
 Note that GitHub has a nice issues page for the projects, and that it can be linked here.
 
 I added many directories at the .gitignore files to avoid filling the repository with temporary files.
@@ -220,7 +238,7 @@ npm publish
 npm version <update_type>
 git push --follow-tags
 npm publish
-{% endhighlight %}
+```
 
 1. You have to either create a user or set your existing user to the project.
 2. config ls will test if the user is set properly
@@ -251,7 +269,8 @@ gp_git.push('origin', 'master', {args: " --follow-tags"}, function (err) {
 if (err) throw err;
 });
 });
-{% endhighlight %}
+
+```
 
 1. The _bump_ plugin will increment all the _version_ tags in the indicated files (bower.json and package.json) with the indicated type
 2. Then, the [gulp-git][gulp-git] plugin will commit the changes
@@ -264,7 +283,7 @@ if (err) throw err;
 bower init
 bower install d3 --save
 bower register <my-package-name> <git-endpoint>
-{% endhighlight %}
+```
 
 1. init will prompt some questions and create the _bower.json_ file, as npm init did
 2. The install system is identical to the npm one
@@ -297,12 +316,12 @@ node_js:
   apt:
   sources: - ubuntu-toolchain-r-test
   packages: - g++-4.8
-  {% endhighlight %}
+  ```
   To automatize the NPM publication, you can use the travis command line. First, install it [using this instructions][travis client]. Then, just type
   {% highlight bash %}
   travis encrypt YOUR_API_KEY --add deploy.api_key
   travis setup npm
-  {% endhighlight %}
+  ```
   The API key can be found at `~/.npmrc` and must be encrypted with the first command. The second command will add the configuration at your .travis.yml file. You just have to answer the questions. You can find more information in [this tutorial][travis npm]. My final deploy section looks like this:
   {% highlight yaml %}
   deploy:
@@ -313,8 +332,9 @@ node_js:
   on:
   tags: true
   repo: rveciana/d3-composite-projections
-  {% endhighlight %}
+  ```
   The `tags: true` tag makes travis to deploy to NPM only if a tag has been changed, so other commits I may push will run the tests but won't change anything at the NPM repository.
+  ```
 
 When you go to the [travis project page][travis project page], you will find a small image like this:
 

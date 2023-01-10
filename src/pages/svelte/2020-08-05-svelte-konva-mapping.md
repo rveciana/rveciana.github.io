@@ -47,7 +47,7 @@ The code here is short, and we have only one component:
 </script>
 
 <div bind:this={container} />
-{% endhighlight %}
+```
 
 - Note how the _div_ container is binded to the variable
 - Since the component has to be binded, we'll have to wait until the component is mounted to create the Konva elements
@@ -62,7 +62,8 @@ The example is not bad, but it's not using any Svelte style coding. It would be 
 <Element x=100 y=100/>
 <Layer>
 </Stage>
-{% endhighlight %}
+
+```
 
 Then, we could use a store to put as many elements as we wanted, for instance. Let's see how to to that. [Check the interactive example here][second example]
 
@@ -77,20 +78,20 @@ The Stage component is like this:
 <script>
 	import Konva from 'konva';
 	import { onMount, setContext } from 'svelte';
-	
+
 	setContext("konva", {
 		getStage: () => stage
 	});
-	
+
 	let container;
-	let stage; 
+	let stage;
 	onMount(() => {
 	 stage = new Konva.Stage({
         container: container,
         width: 400,
         height: 400,
     });
-	
+
 	});
 	</script>
 
@@ -100,7 +101,7 @@ The Stage component is like this:
     	{/if}
 
 </div>
-{% endhighlight %}
+```
 
 - As in the other case, you'll see that we need to create the node where we'll add all the stuff, plus the binding.
 - The slot will allow us to add children components. Layers in this case.
@@ -123,7 +124,8 @@ Then the Layer component:
 </script>
 
 <slot></slot>
-{% endhighlight %}
+
+```
 
 - This one is much simpler, since we don't have to create HTML elements.
 - We create another context for the layer, so its children can have access to it.
@@ -135,17 +137,17 @@ Finally, the Circle component is:
 <script>
 	import Konva from 'konva';
 	import { getContext, onDestroy } from 'svelte';
-	
+
 	export let x = 0;
 	export let y = 0;
 	export let r = 1;
 	export let fill = "black";
 	export let stroke = "black";
 	export let strokeWidth = 1;
-	
+
 	const { getLayer } = getContext("konva_layer");
 	const layer = getLayer();
-	
+
 	const circle = new Konva.Circle({
         x: x,
         y: y,
@@ -159,7 +161,7 @@ Finally, the Circle component is:
 	onDestroy(() => circle.destroy());
 </script>
 
-{% endhighlight %}
+```
 
 - We export most of the parameters so they can be used as props, although they have a default value
 - We have to call _layer.draw()_ or the object won't be drawn. That's because we are creating it before the layer is added into the stage.
@@ -174,7 +176,8 @@ And now the cool part. To create the drawing, we only call:
 <Circle x=200 y=200 r=13 fill="green" strokeWidth=3/>
 </Layer>
 </Stage>
-{% endhighlight %}
+
+```
 
 # Creating a map
 
@@ -193,7 +196,7 @@ Let's start from the other side now! The App.svelte file is this one:
 	import Marker from './Marker.svelte';
 	import BackgroundMap from './BackgroundMap.svelte';
 	import { message } from './store.js';
-	
+
 	let message_value;
 	message.subscribe(value => {
 		message_value = value;
@@ -212,7 +215,7 @@ Let's start from the other side now! The App.svelte file is this one:
 <p>
 	{message_value}
 </p>
-{% endhighlight %}
+```
 
 - We are using a _BackgroundMap_ component and as many _Marker_ components as we want.
 - There's a writable store where the children will put the name of the hovered feature. In the App component we'll just render it.
@@ -232,7 +235,8 @@ export const projection = geoAitoff()
 .scale(110);
 
 export const path = geoPath().projection(projection);
-{% endhighlight %}
+
+```
 
 - The size and zooms are fixed. If we wanted a more complex map, we could make this a store and then chenge the values from a slider or a mouse event
 
@@ -259,24 +263,24 @@ const response = await fetch(
     const data = topoData.features;
 	data.forEach(country =>{
 		const konvaPath = new Konva.Path({
-        
+
         data: path(country),
         stroke: 'black',
 			strokeWidth: 0.5
-        
+
 			});
 		konvaPath.on('mouseover', function () {
         message.set(country.id)
      });
 		layer.add(konvaPath);
-				
+
 	})
-		
+
 		layer.draw();
 });
 </script>
 
-{% endhighlight %}
+```
 
 - We can only draw when the file with the data is downloaded, so we'll put this in an _onMount_ element
 - We iterate for each country and create a Konva element for it. So we'll have hundreds of them here.
@@ -328,7 +332,7 @@ Finally, the markers with animation:
     onDestroy(() => konvaPath.destroy());
 </script>
 
-{% endhighlight %}
+```
 
 - Very similar to the circle case, but with a Star element in this case.
 - The animation is a rotation in this case. But the color can be changed too, the size, etc.
@@ -353,3 +357,4 @@ I'm very happy with the result. In not many hours, I could make a base for mappi
 [third example]: https://svelte.dev/repl/8f38e2c895284c13a3e3f534d01dd171?version=3.24.1
 [svelte_mapping]: https://geoexamples.com/other/2019/12/08/mapping-svelte.html
 [konva]: https://konvajs.org/
+```

@@ -74,7 +74,7 @@ stream.on('end', function(){
 console.log('saved png');
 });
 
-{% endhighlight %}
+```
 
 The main parts of the script are:
 
@@ -135,7 +135,7 @@ function (err, window) {
       }
     });
 
-{% endhighlight %}
+```
 
 There are four parts in this scripts:
 
@@ -242,7 +242,8 @@ var path = d3.geo.path()
     });
 
 });
-{% endhighlight %}
+
+```
 
 ## Links
 
@@ -255,3 +256,4 @@ var path = d3.geo.path()
 [jsdom help]: http://www.ciiycode.com/0HNJNUPePjXq/jsdomenv-local-jquery-script-doesnt-work
 [async foreach]: http://stackoverflow.com/questions/5050265/javascript-node-js-is-array-foreach-asynchronous
 [python pil]: http://geospatialpython.com/2010/12/rasterizing-shapefiles-2-pure-python.html
+```

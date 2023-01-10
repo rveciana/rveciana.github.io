@@ -69,7 +69,8 @@ There are libraries to convert the data into a GeoJSON, but since we are using p
 ...
 ]
 }
-{% endhighlight %}
+
+```
 
 So for each object in `elements` we can find all the information for one of the results. The code to process the data is:
 
@@ -81,7 +82,7 @@ const dir = (180/Math.PI) \* Math.atan2((dataX - utmX)/dist, (dataY - utmY)/dist
 return{name: d.tags.name, lng: d.lon, lat: d.lat, dist, dir}
 }).filter(d=> d.name!==undefined).sort((a, b)=> a.dist - b.dist);
 })
-{% endhighlight %}
+```
 
 - fromLatLon is a small library that converts from latlon to utm coordinates. This way, we can calculate distances and directions from our current position (see _compass_ section)
 
@@ -137,7 +138,7 @@ const adjustment = screenOrientation[0] === "portrait" ? 0 : 90;
 const adjustment2 = screenOrientation[1] === "secondary" ? adjustment - 180: adjustment;
 heading = adjustment2 - ev.alpha;
 
-{% endhighlight %}
+```
 
 Again, Svelte makes really easy everything. If something in the function arguments change, the function is called. It's like the `useEffect` in react, but better!
 
@@ -180,7 +181,7 @@ And create the `manifest.json` file in the same folder:
 ],
 "splash_pages": null
 }
-{% endhighlight %}
+```
 
 Some lines seem unnecessary but if they are not there, the browser won't allow the user to save the app on the desktop.
 
@@ -225,7 +226,8 @@ return response || fetch(e.request);
 })()
 );
 });
-{% endhighlight %}
+
+```
 
 - Be careful with the paths on the cache! If something fails, the service worker is not installed.
 - There's a dedicated section to check that in the dev tools (first two on the `application` tab)
@@ -261,7 +263,7 @@ deferredPrompt = null;
         });
 
 };
-{% endhighlight %}
+```
 
 - Unistall app before trying again! I was stuck on this and it's really frustrating because nothing happens and it's difficult to know why... To uninstall, open the app and click on the second icon at the top when in a computer.
 - If the `handleInstall` function is not logging anything, check the dev tools for some tip.

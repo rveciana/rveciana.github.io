@@ -75,7 +75,8 @@ end;
 $$
 
 language plpgsql;
-{% endhighlight %}
+
+```
 
 So, since we don't have a real backend, only SQL calls, the logic has to go in the database itself, which is good to remember the SQL you forgot!
 
@@ -88,7 +89,7 @@ The idea is sending a longitude and latitude so the geometry updates adding the 
 
 {% highlight js %}await supabase
 .rpc('addtrackpoint', {track_name: trackName, lon: lng, lat:lat});
-{% endhighlight %}
+```
 
 Or using SQL, with:
 
@@ -109,7 +110,8 @@ coordinates: [] as [number, number][]
 });
 
 export const mapCenter = writable([0, 0]);
-{% endhighlight %}
+
+```
 
 Doing it like this, we don't re-render all the map if we have to pass the _linestring_ as a _prop_, since only the track component will listen to the store. The store can be updated on the root component. _mapCenter_ is used to set the center of the map when opening or creating a track.
 
@@ -149,7 +151,7 @@ import { mapCenter } from './store.js';
     	<MapTrack/>
     </LeafletMap>
 
-{% endhighlight %}
+```
 
 The store is used to get the center of the map and a _MapTrack_ component is added to show the track. This way, when the track updates, only this layer is re-rendered, which is much more efficient.
 
@@ -170,7 +172,8 @@ import { track } from './store.js';
 <Polyline latLngs={trackValue.coordinates.map(d=>[d[1],d[0]])} color="#000000">
 <Tooltip>Resorts World Sentosa to Vivo City</Tooltip>
 </Polyline>
-{% endhighlight %}
+
+```
 
 Using the store makes it so easy!
 
@@ -265,7 +268,7 @@ separator: "-"
 		</div>
 	{/if}
 </div>
-{% endhighlight %}
+```
 
 Let's see the most important parts:
 
@@ -304,7 +307,8 @@ const epsg = isBigEndian ? readUInt32BE(buffer, 5) : readUInt32LE(buffer, 5);
     return geoJSON;
 
 }
-{% endhighlight %}
+
+```
 
 - [bops] library is used as a replacement for the nodejs buffer function. It will convert from hex to the types we need
 - I play with some numbers to get the proper position of the bytes for each point. I know that is a simple linestring so I can iterate only once
@@ -329,3 +333,4 @@ const epsg = isBigEndian ? readUInt32BE(buffer, 5) : readUInt32LE(buffer, 5);
 [wkx]: https://github.com/cschwarz/wkx
 [bops]: https://github.com/chrisdickinson/bops
 [svelte_leaflet]: https://ngyewch.github.io/svelte-leaflet/
+```

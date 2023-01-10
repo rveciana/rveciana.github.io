@@ -34,7 +34,8 @@ from Cython.Build import cythonize
 setup(
 ext_modules = cythonize("helloworld.pyx")
 )
-{% endhighlight %}
+
+```
 
 The compilation is then made by running:
 
@@ -66,3 +67,4 @@ Usually, all the cython files will be compiled at once with the _setup.py_, so t
 
 [coverage]: {{ site.baseurl }}{% post_url /python/2016-02-15-code-coverage-pylint-pycharm-community %}
 [settings]: {{ site.baseurl }}/images/python/pycharm-cython/settings.jar
+```

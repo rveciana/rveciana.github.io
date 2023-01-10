@@ -65,7 +65,8 @@ FROM nuts_rg_01m_2013 a, povertry_rate b
 WHERE
 b.geo = a.nuts_id
 AND a.stat_levl* = 0
-{% endhighlight %}
+
+```
 
 - Note that the _SELECT_ is a regular PosgreSQL/PostGIS query
 - At the _FROM_ part of the query I've selected the two datasets
@@ -109,3 +110,4 @@ Once done the first time, creating new maps is really easy. I'm impressed with i
 [download regions]: http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units
 [general docs]: http://docs.cartodb.com/
 [editor docs]: http://docs.cartodb.com/cartodb-editor/
+```

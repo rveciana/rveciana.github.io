@@ -73,7 +73,7 @@ regr = LinearRegression()
                 'residuals': array(residuals),
                 'lats': array(lats), 'lons': array(lons)}
 
-{% endhighlight %}
+```
 
 Which is quite straightforward. Just prepare the data and [follow the docs][6].
 
@@ -95,7 +95,7 @@ temperature = (regression['intercept'] +
 altitudes * regression['coefs'][0] +
 distances \_ regression['coefs'][1])
 return temperature
-{% endhighlight %}
+```
 
 ### Interpolating the residuals
 
@@ -119,7 +119,7 @@ regression['residuals'], function='linear')
     residuals_field = interp(xi, yi).reshape(dimensions)
     return residuals_field
 
-{% endhighlight %}
+```
 
 The code, basically prepares the data for the _Rbf_ function.
 
@@ -143,7 +143,7 @@ X1 = array(list(zip(regression['lons'], regression['lats'])))
 
     return z2.reshape(dimensions)
 
-{% endhighlight %}
+```
 
 Again, the code is basically preparing the data for the function.
 
@@ -172,7 +172,7 @@ def cython_id(regression, dimensions):
     result = interpolate_residuals(data, dimensions, geotransform)
     return result
 
-{% endhighlight %}
+```
 Note that I used geotransform, which turns things properly.
 
 The cython code is:
@@ -251,7 +251,7 @@ denominator = 0
     if denominator != 0:
         return numerator / denominator
 
-{% endhighlight %}
+```
 
 You have to run
 

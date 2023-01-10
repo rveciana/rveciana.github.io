@@ -43,7 +43,8 @@ padding-bottom: 25vh;
 .panel p {padding-right: 50%;}
 .panel:first-child {padding-top: 5vh;}
 .panel:last-child {padding-bottom: 45vh;}
-{% endhighlight %}
+
+```
 
 - _container_ is will be the place where both the text will be placed. Note that we are using [vh units](http://www.w3schools.com/cssref/css_units.asp), which are in % of the viewport
 - _sticky_ is the place where the map will be placed. As its name indicates, it won't move. Note that is placed at the right part of the screen with the _right_ tag.
@@ -60,7 +61,7 @@ The html would be like this, but including the text:
     </div>
 
 </div>
-{% endhighlight %}
+```
 
 - Note the _content_ node. It will be used to calculate the vertical length of all the sections (panel classed divs)
 
@@ -78,7 +79,8 @@ var container = d3.select('#container');
 var content = d3.select('#content');
 
 var SCROLL_LENGTH = content.node().getBoundingClientRect().height - HEIGHT;
-{% endhighlight %}
+
+```
 
 - The initial svg map width and height of the visible window are taken from the _window_ object properties. The map will be half of the window width and all the height
 - _SCROLL_LENGTH_ is the amount of pixels you can scroll down. Since some content is already shown, it has to be calculated as the whole content height minus the viewport height which is already visible
@@ -88,7 +90,7 @@ var hayanPathScale = d3.scale.linear()
 .domain([0, SCROLL_LENGTH])
 .range([0, haiyanPath.node().getTotalLength()])
 .clamp(true);
-{% endhighlight %}
+```
 
 - The map is created as in [this example](http://bl.ocks.org/rveciana/8464690). The main change is that the animation won't be an interval but will be controlled by the scroller
 - The scale relates which portion of the path must be drawn for each scrolled pixel. So the domain will be the scroll length (we can move from 0 to SCROLL_LENGTH pixels down the page), and the range is the path length (we can draw from 0 to all the path pixels)
@@ -114,7 +116,8 @@ window.requestAnimationFrame(render)
 window.requestAnimationFrame(render)
 
 window.onresize = setDimensions
-{% endhighlight %}
+
+```
 
 Those are the functinos that controll the window resizing and scroll:
 
@@ -138,7 +141,7 @@ return haiyanPath.node().getTotalLength() - hayanPathScale(scrollTop) + 'px';
 }
 
 window.requestAnimationFrame(render)
-{% endhighlight %}
+```
 
 - After checking if the newScrollTop has changed, the only thing to change is the _stroke-dashoffset_ attribute. Take a look at [this web page](http://www.alolo.co/blog/2013/11/14/progressively-draw-svg-paths-with-d3js) to see how does it work
 
@@ -173,7 +176,8 @@ return l + 'px, ' + l + 'px';
 .style('stroke-dashoffset', function(d) {
 return d3.select(this).node().getTotalLength() - hayanPathScale(scrollTop) + 'px';
 });
-{% endhighlight %}
+
+```
 
 - The new WIDTH, HEIGHT and SCROLL_LENGTH valeus are calculated
 - The projection must be changed to adapt its scale to the new dimensions. Then the _path_ function must have the new projection
@@ -195,3 +199,4 @@ return d3.select(this).node().getTotalLength() - hayanPathScale(scrollTop) + 'px
 - [The block for the first example](http://bl.ocks.org/rveciana/eeaa71659adbc88dc4165eaf99dcb9be)
 - [Progressively drawing SVG paths with D3.js](http://www.alolo.co/blog/2013/11/14/progressively-draw-svg-paths-with-d3js)
 - Another animated paths example: [Animated arabic kufic calligraphy with D3](http://bl.ocks.org/rveciana/7664109)
+```

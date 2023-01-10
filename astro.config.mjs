@@ -8,7 +8,7 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       theme: "github-light",
-      langs: ["js", "ts", "python", "java", "bash", "json"],
+      langs: ["js", "ts", "python", "java", "bash", "json", "css"],
       wrap: true,
     },
   },

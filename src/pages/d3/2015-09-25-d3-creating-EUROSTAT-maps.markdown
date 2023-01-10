@@ -76,7 +76,8 @@ Some things deserve a little explanation.
 
 {% highlight js %}
 var scale = d3.scale.quantize().domain([10,60]).range(colorbrewer.OrRd[9]);
-{% endhighlight %}
+
+```
 I have used the _colorbrewer2_ library, which gives many color scales already made. You just have to choose how many colors to use (9 in the example) and the scale name (OrRd). Choosing one is really simple. Just go to the [library page][colorbrewer] and play with the examples until you have the codes.
 
 The domain indicates the maximum and minumum values for the scale. Since no country has values lower than 10 or higher than 60, I forced these limits.
@@ -96,7 +97,7 @@ return "#fff";
       return scale(value);
       })
 
-{% endhighlight %}
+```
 
 I took this data because it's not perfect. Some data is given by NUTS2 and other by NUTS1. This is, some is given by country and other by quite large regions.
 
@@ -227,7 +228,7 @@ var land = topojson.feature(europe, europe.objects.nuts2);
 });
 
 </script>
-{% endhighlight %}
+```
 
 [original post]: http://geoexamples.blogspot.com.es/2013/10/using-eurostats-data-with-d3js.html
 [d3-composite-projections]: http://geoexamples.com/d3-composite-projections/

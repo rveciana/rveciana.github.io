@@ -18,7 +18,8 @@ Let's do the easier one first. PyCharm comes with the _pep8.py_ and other syntax
 Install pylint if you don't have it in your system:
 {% highlight bash %}
 sudo pip install pylint
-{% endhighlight %}
+
+```
 Then, open _File->Settings->Tools->External tools_ and click the _+_ button. You will get a window that has to be filled like this:
 
 <img src="{{ site.baseurl }}/images/python/pycharm-coverage/pylint.png"/>
@@ -73,7 +74,8 @@ You can call the coverage script using _tools->External tools->noseCoverage_
 The external tool way could be improved if the packages where automatically called instead of opening a window. Unfortunately, I haven't been able to execute code inside the _parameters_ field, so the solution is creating an external file with the following command:
 {% highlight bash %}
 nosetests3 --with-coverage --cover-erase --cover-tests --cover-package `echo */|sed 's/\///g'|sed 's/ /,/g'`
-{% endhighlight %}
+```
+
 And then, create the _external tool_ this way:
 
 <img src="{{ site.baseurl }}/images/python/pycharm-coverage/coverage2.png"/>

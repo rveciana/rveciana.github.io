@@ -109,7 +109,7 @@ data_set.GetRasterBand(i + 1).WriteArray(data[i])
 data_set.BuildOverviews("NEAREST", [2, 4, 8, 16, 32, 64])
 data_set = None
 
-{% endhighlight %}
+```
 
 - As you can see, the creation options are passed as a parameter when creating the data set
 - Also, the gdal-python bindings have a nice method to create the overviews. The problem is that this will give an error in the COG format, because the pyramids were created after the tiling. It's not a big error, as we will see in the next section, but you can avoid it by using a _memory driver file_ before creating the actual one:
@@ -142,7 +142,7 @@ options=["COPY_SRC_OVERVIEWS=YES",
 data_set = None
 data_set2 = None
 
-{% endhighlight %}
+```
 
 ### Checking if a GeoTIFF is a valid COG
 
@@ -162,7 +162,9 @@ The following errors were found:
 - The offset of the first block of overview of index 1 should be after the one of the overview of index 2
 - The offset of the first block of overview of index 0 should be after the one of the overview of index 1
 - The offset of the first block of the main resolution image should be after the one of the overview of index 4
-  {% endhighlight %}
+  ```
+
+  ```
 
 We can easily correct it by running:
 
@@ -176,7 +178,9 @@ $ python3 validate_cloud_optimized_geotiff.py correct_SkySat_Freeport.tif
 The following warnings were found:
 
 - The file is greater than 512xH or Wx512, it is recommended to include internal overviews
-  {% endhighlight %}
+  ```
+
+  ```
 
 So the previous part removed the internal overviews. That's because we didn't use the _-co COPY_SRC_OVERVIEWS=YES_ option:
 
@@ -212,7 +216,8 @@ window: [200, 200, 210, 210], samples: [0]
 console.log("Values:", data);
 
 })()
-{% endhighlight %}
+
+```
 
 The output is:
 
@@ -259,7 +264,7 @@ data[i * 4 + 3] = r[i] == 0 ? 0 : 255;
 }
 return new ImageData(data, width, height);
 }
-{% endhighlight %}
+```
 
 - The r,g and b channels are separated in layers, but to draw the image, we want it in a Uint8ClampedArray
 - _context.putImageData(data, 0, 0);_ is then the way to draw the data directly. Quite easy!
@@ -312,7 +317,7 @@ rasterData = rasterData[0];
 
 })();
 
-{% endhighlight %}
+```
 
 The output will be like this (all the GeoTIFF coverage):
 
@@ -369,7 +374,7 @@ rasterData = rasterData[0];
 });
 
 })();
-{% endhighlight %}
+```
 
 The output will be like this (a zoomed portion of the previous example):
 

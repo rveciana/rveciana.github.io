@@ -85,7 +85,7 @@ data = path(land);
 <svg width="960" height="500">
   <path d={data} class="border" />
 </svg>
-{% endhighlight %}
+```
 
 - The file is structured in three parts:
   - script, where all the JavaScript goes
@@ -166,7 +166,7 @@ Let's add now more geometries and a color scale to fill them. This example and t
       fill={colorScale(feature.properties.NAME_2.length)} />
   {/each}
 </svg>
-{% endhighlight %}
+```
 
 - We are using now another projection ([geoAlbers][geoalbers]), so the next examples become more interesting
 - All the strange stuff with the topojson data is to get only the Scotland counties from the file that contains all the UK counties
@@ -215,7 +215,8 @@ color.set(rgb(initialColor).brighter(0.3));
 on:mouseout={() => {
 color.set(initialColor);
 }} />
-{% endhighlight %}
+
+```
 
 - The idea, as you can see on the tempalte section, is rendering only the SVG path element. The path itself is given by a prop (note the export on the 4th line)
 - The _color_ variable is now a [tweened function][tweened].
@@ -333,7 +334,7 @@ Change
 
 </svg>
 
-{% endhighlight %}
+```
 
 - [projectionAlbersUk][composite] is a composite projection that makes the Shetland islands closer to the mainland. [Be careful, this can't be illegal! ;)][illegal]
 - _projectionTween_ makes the magic. It takes two projections and creates the interpolated projection. The return value is a function of t. t can be a value from 0 to 1. This way, the interpolation can run from 0 to 1, and the path will be recalculated with these intermediate projections. See how is used in the _currentProj_ variable. It's a cool demonstration that _tweened_ can interpolate anything if you give the proper function to do it
@@ -365,7 +366,8 @@ export const cities = [
 { name: "Inverness", lat: 57.477772, lon: -4.224721, population: 46870 },
 { name: "Lerwick", lat: 60.154167, lon: -1.148611, population: 6958 }
 ];
-{% endhighlight %}
+
+```
 
 ## Final thoughts
 
@@ -400,3 +402,4 @@ I'm sure I've made many errors and that the code can be better, but I would spen
 [geoalbers]: https://github.com/d3/d3-geo#geoAlbers
 [composite]: https://github.com/rveciana/d3-composite-projections
 [illegal]: http://www.legislation.gov.uk/asp/2018/12/contents
+```

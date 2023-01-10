@@ -31,7 +31,8 @@ button
 };
 
 drawOptions();
-{% endhighlight %}
+
+```
 
 Basically, the first thing to do is drawing the region to ask for, and the buttons with the options. All this is made in the _drawOptions_ function, we will se how a bit later.
 
@@ -90,7 +91,7 @@ results.append("rect")
 .attr("height",20)
 .attr("x",0)
 .style("fill", "#4f4");
-{% endhighlight %}
+```
 
 As you can see, I create the svg with the desired size here, and add three _rect_ elements, that will be the score bar. All them are in a group called _results_
 
@@ -116,7 +117,8 @@ var remaining_ids = ids.slice();
 
 var positive_answers = 0;
 var negative_answers = 0;
-{% endhighlight %}
+
+```
 
 - The land and the capitals are both in the same topojson.
 - _ids_ will have all the regions id nmbers (they go from 1 to 41)
@@ -142,7 +144,8 @@ remaining_ids.splice(remaining_ids.indexOf(id_question),1);
             return d3.ascending(land.features[a].properties.name ,land.features[b].properties.name);
           });
 
-{% endhighlight %}
+```
+
 This first part takes the region to ask from the _remaining_ids_ array, and three more false answers to create the buttons.
 {% highlight js %}
 //Drawing the answer buttons
@@ -161,7 +164,7 @@ var selection = d3.select("#answers")
       .exit()
       .remove();
 
-{% endhighlight %}
+```
 Here, the buttons are drawn. Note the use of _selection.exit()_. This will remove the buttons when the new question comes, since the _options_ will be different.
 {% highlight js %}
 //Drawing the selected region
@@ -241,7 +244,8 @@ if (d.properties.id_comarca == parseInt(land_feature.properties.comarca)) return
         .remove();
 
 };
-{% endhighlight %}
+```
+
 Finally, the selected region is drawn, along with the point indicating the capital name and the capital nema. Again, the _selection.exit()_ method is used to remove the elements when a new one is created.
 
 The first lines match the region id with the capital.
@@ -259,7 +263,8 @@ negative_answers++;
 var selectionLand = svg.select(".selectedPath")
 .style("fill","#f44");
 }
-{% endhighlight %}
+
+```
 This is the part where the answer is checked. Of course, when the answer is correct, the counter of correct answers goes up (and the same for wrong answers). The region color is changed too depending on the answer.
 
 The next steps simply change the status bar or put the final result at the end.
@@ -345,7 +350,8 @@ svg.select(".positiveAnswers")
       }
 
 };
-{% endhighlight %}
+```
+
 If there are still elements into _remaining_ids_, the _drawOptions_ function is called again. If the game has ended, the buttons and selected region and capital are removed and the final results are displayed with some delay.
 
 ## Next steps

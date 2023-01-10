@@ -51,7 +51,8 @@ on: { TOGGLE: "inactive" }
 }
 }
 );
-{% endhighlight %}
+
+```
 
 As you can see, the initial state would be _inactive_ and can be changed to _active_ by sending the _TOGGLE_ action. Let's see the javascript file that does this:
 
@@ -87,7 +88,7 @@ As you can see, the initial state would be _inactive_ and can be changed to _act
   <h1>Hello {$state.value}</h1>
   <button on:click={handleClick}>Toggle</button>
 </main>
-{% endhighlight %}
+```
 
 As all the svelte projects, every component has three parts with the javsascript, the css and the html template.
 

@@ -71,7 +71,7 @@ if **name** == '**main**':
 
     print closest_polygon(3, 3, 90, polygons)
 
-{% endhighlight %}
+```
 
 - The main section creates the two squares [using shapely](http://toblerity.org/shapely/manual.html#polygons)
 - The closest_polygon function calculates the closest polygon and its distance:
@@ -190,7 +190,7 @@ def draw_map(self, num_angles = 360, width_factor = 1.0):
 
     plt.title('Closest country')
 
-{% endhighlight %}
+```
 
 - The first steps are used to calculate the closest country in each direction, storing the result in a dict. The distance is calculated using the closest_polygon method, explained in the previous section..
 - The actual map size is then calculated, taking the distance where the 90% of the polygons will appear. The width_factor can change this, because some times the result is not pretty enough. Some times has to much zoom and some, too few. Note that the aeqd i.e., [Azimuthal Equidistant projection](http://en.wikipedia.org/wiki/Azimuthal_equidistant_projection) is used, since is the one that makes the distances in all directions comparable.

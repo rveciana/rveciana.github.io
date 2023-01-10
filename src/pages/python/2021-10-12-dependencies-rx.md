@@ -66,7 +66,8 @@ time.sleep(1)
 finally:
 observer.stop()
 observer.join()
-{% endhighlight %}
+
+```
 
 - The _Observer_ object will call the methods in _MyHandler_ when some change occurs in the path
 - _source_ is the RxPY thing that we'll see next. When something changes, the _on_next_ method is called with the path for the file that changed
@@ -101,7 +102,7 @@ pot_ros = source.pipe(ops.filter(lambda text: text.find('pot_ros')>=0))
 
 rx.combine_latest(temp, td).subscribe(process_potential_ros)
 rx.combine_latest(pot_ros, radar).subscribe(process_ros)
-{% endhighlight %}
+```
 
 - The first functions are just mock functions that simulate the creation of the actual files. That's why the _time.sleep()_ is there
 - _source_ is a _Subject_, that can recieve the _on_next_ method and be subscribed. Basically, whan any file changes, the _source_ will emit its path
@@ -129,7 +130,8 @@ CREATING POTENTIAL ROS ./data/pot_pon_202101010100-202101010100.tiff
 CREATING ROS FILE ./data/pon_202101010000-202101010106.tiff
 CREATING ROS FILE ./data/pon_202101010000-202101010106.tiff
 CREATING ROS FILE ./data/pon_202101010100-202101010106.tiff
-{% endhighlight %}
+
+```
 
 To do it, I created a file that generates radar and temperature and td files like this:
 
@@ -144,7 +146,7 @@ Path('./data/td-202101010000.tiff').touch()
 time.sleep(1)
 Path('./data/radar-202101010006.tiff').touch()
 ...
-{% endhighlight %}
+```
 
 # Improving the code by using more RxPY
 
@@ -156,13 +158,13 @@ The previous code has three problems (at least)
 
 To solve the first point, we'll use _map_, that converts the input value to another thing, as in functional programming:
 
-{% highlight python %}pot_ros = rx.combine_latest(temp, td).pipe(ops.map(create_pot_data)){% endhighlight %}
+{% highlight python %}pot_ros = rx.combine_latest(temp, td).pipe(ops.map(create_pot_data))```
 
 Then, when subscribing to the _pot_ros observable_ we could receive the calculated field (calculated in _create_pot_data_) without having to save
 
 To avoid _create_pot_data_ to be run twice when _td_ and _temperature_ are different, a filter can be used:
 
-{% highlight python %}pot_ros = rx.combine_latest(temp, td).pipe(ops.filter(lambda values: get_date(values[0])==get_date(values[1])), ops.map(create_pot_data)){% endhighlight %}
+{% highlight python %}pot_ros = rx.combine_latest(temp, td).pipe(ops.filter(lambda values: get_date(values[0])==get_date(values[1])), ops.map(create_pot_data))```
 
 This way, only the elements that match the filter function will pass to the map.
 
@@ -207,7 +209,8 @@ radar = source.pipe(ops.filter(lambda text: text.find('radar')>=0))
 
 pot_ros = rx.combine_latest(temp, td).pipe( ops.filter(lambda values: get_date(values[0])==get_date(values[1])), ops.map(create_pot_data), ops.subscribe_on(thread_pool_scheduler))
 rx.combine_latest(pot_ros, radar).subscribe(process_ros, scheduler=thread_pool_scheduler)
-{% endhighlight %}
+
+```
 
 # Links
 
@@ -230,3 +233,4 @@ rx.combine_latest(pot_ros, radar).subscribe(process_ros, scheduler=thread_pool_s
 [combine_latest]: https://rxmarbles.com/#combineLatest
 [rxpy_parallel_threads]: https://stackoverflow.com/questions/43989153/how-to-wait-for-rxpy-parallel-threads-to-complete
 [from_future]: https://rxpy.readthedocs.io/en/latest/get_started.html
+```

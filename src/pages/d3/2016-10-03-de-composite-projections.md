@@ -136,7 +136,7 @@ svg
 });
 
 </script>
-{% endhighlight %}
+```
 
 - The new D3js v4 can be included from this address: https://d3js.org/d3.v4.min.js
 - The d3-composite-projections is uploaded at the [cdnjs project](https://cdnjs.cloudflare.com/)
@@ -175,7 +175,7 @@ All the examples linked to the projections are done this way. Create an _html_ f
 
   <script src="bundle.js"></script>
 
-{% endhighlight %}
+```
 
 And then, the node file (I called it draw.js):
 
@@ -235,7 +235,7 @@ var us = topojson.feature(topojsonData, topojsonData.objects.nuts0);
           .attr("d", projection.getCompositionBorders());
 
 });
-{% endhighlight %}
+```
 
 To create the _bundle.js_ file with browserify, run:
 
@@ -309,7 +309,8 @@ d3_composite[projectionSymbol]().drawCompositionBorders(context);
 context.stroke();
 
 canvas.pngStream().pipe(fs.createWriteStream("./" + projectionName + ".png"));
-{% endhighlight %}
+
+```
 
 - The script takes three arguments:
   1. The projection name i.e. conicConformalPortugal
@@ -324,3 +325,4 @@ Install the dependencies with:
 and run it like:
 
     node test.js conicConformalSpain provincias.json provincias d3-geo
+```

@@ -25,7 +25,8 @@ Let's see a simple way draw a semaphore:
 <circle r="40" fill={status==="yellow"?"yellow":"grey"} cx="60" cy="160" />
 <circle r="40" fill={status==="green"?"lime":"grey"} cx="60" cy="260" />
 </svg>
-{% endhighlight %}
+
+```
 Basically, `status` can be `green`, `yellow` and `red`. This is what will decide for each light, if it's gray or coloured. The size can be changed too, so we can create as many traffic lights as we want with the needed size.
 
 But this semaphore changed the values too fast. To make it more realistic, the lights should turn off and on with a short transition. This can be done with a [svelte tweened motion][tweened]:
@@ -79,7 +80,7 @@ But this semaphore changed the values too fast. To make it more realistic, the l
 <circle r="40" fill={$colorYellow} cx="60" cy="160" />
 <circle r="40" fill={$colorGreen} cx="60" cy="260" />
 </svg>
-{% endhighlight %}
+```
 
 - First, define the `tweened` motion for each light. We set the initial value to grey. The interpolation is taken from the d3js library, because it's a nice way to interpolate colors. Any function that does this would work.
 - Then, a reactive function is set. Depending on the status, the colors are set as needed. The motion will do its magic, and the colors will change with a short (200ms) animation.
@@ -116,7 +117,7 @@ Well, but what about controlling the lights? Now that we can draw the lights, we
 	<TrafficLight status={status}/>
 	<TrafficLightAnimated status={status}/>
 </main>
-{% endhighlight %}
+```
 
 Of course, XState could be used as well, we'll se it later.
 
@@ -157,7 +158,8 @@ The pedestrian lights are similar. The basic difference is that the _yellow stat
 <AmpelmannGrun status={greenStatus} width="70" height="70"/>
 </g>
 </svg>
-{% endhighlight %}
+
+```
 
 - Since the SVG is more complicated (source: Wikipedia), the two _Ampelmann_ are included from separete files
 - The green light has three states now: `on`, `off` and `blink`. The blink effect is done with svg animations. Check [the original file on the project][codesandbox_2]
@@ -168,7 +170,7 @@ The part of the svg to animate is on line 199:
 {#if status==="blink"}
 <animate attributeName="stop-color" values="{color1}; {colorGrey1}; {color1}" dur="1s" repeatCount="indefinite"></animate>
 {/if}
-{% endhighlight %}
+```
 
  <iframe
      src="https://codesandbox.io/embed/traffic-lights-pedestrian-1ky4d?autoresize=1&fontsize=14&hidenavigation=1&theme=dark"
@@ -225,7 +227,8 @@ message: "Red for traffic, red for pedestrians"
 }
 }
 });
-{% endhighlight %}
+
+```
 
 Now, let's see how do we control the lights:
 
@@ -274,7 +277,7 @@ Now, let's see how do we control the lights:
 <style>
 </style>
 
-{% endhighlight %}
+```
 
 - We just have to mainain two reactive statements that read the state. Depending on its value, they set the status for the two different actual traffic lights we have.
 - Then, the lights are added as in the previous examples

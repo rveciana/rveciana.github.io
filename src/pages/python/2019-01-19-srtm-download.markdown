@@ -120,7 +120,7 @@ ARGS = PARSER.parse_args()
         print("An error occurred")
         print(err)
 
-{% endhighlight %}
+```
 
 ## Links
 
@@ -131,3 +131,4 @@ The [space shuttle icon was taken from the Wikipedia](https://es.m.wikipedia.org
 
 [1]: https://en.wikipedia.org/wiki/Shuttle_Radar_Topography_Mission
 [2]: http://srtm.csi.cgiar.org/
+```

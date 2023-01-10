@@ -91,7 +91,8 @@ const RightSide = numeric.dot(X_T,Y);
 result.beta = numeric.dot(LeftSide,RightSide);
 const yhat = numeric.dot(X, result.beta);
 result.residual = numeric.sub(Y, yhat);
-{% endhighlight %}
+
+```
 
 Notice that the code is very easy to understand given the original formula:
 
@@ -116,7 +117,7 @@ let interpResult = calculateInterp(
 GPU.input(Float32Array.from(fixData.data[1]), [1000, 968]),
 GPU.input(Float32Array.from(fixData.data[0]), [1000, 968]),
 regression_result.beta);
-{% endhighlight %}
+```
 
 As always when using gpu.js, the kernel mush be generated first. In this case, the parameters are altitude and distance to the sea, which are just matrices read from a goetiff, since are fixed values, and the regression result. Check the [fix data cell][13] to see how to read the data as a Float32 array and calculate the geotransform using the [GeoTIFF.js library][14].
 
@@ -153,7 +154,8 @@ let flagDist = -1;
 .setConstants({ numPoints: xPos.length, tiffWidth: fixData.xSize, tiffHeight: fixData.ySize })
 .setOutput([fixData.xSize, fixData.ySize]);
 let residualsResult = calculateResidues(xPos, yPos, regression_result.residual);
-{% endhighlight %}
+
+```
 
 - First, the station positions must be converted to pixels using the geotransform to be able to interpolate them
 - The gpu kernel function gets these positions plus the values of the errors in each station
@@ -172,7 +174,7 @@ return interpResult[this.thread.y][this.thread.x] - residuesResult[this.thread.y
 .setOutput([fixData.xSize, fixData.ySize]);
 
 let temperatureField = addResidues(interpolation_result, residuals_result);
-{% endhighlight %}
+```
 
 ### [Drawing the data][18]
 
@@ -189,7 +191,8 @@ this.color(colorScale[color * 4]/255, colorScale[1+color * 4]/255, colorScale[2+
 .setGraphical(true);
 
 render(final_result, tempColorScale);
-{% endhighlight %}
+
+```
 
 - Of course, the _graphical_ option is used here
 - A hidden canvas with the color scale is created in an other cell of the notebook containing the colorscale. Also explained in the [previous post][1]
@@ -254,3 +257,4 @@ ObservableHQ example:
 [16]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#residuals_result
 [17]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#final_result
 [18]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#final_result_drawing
+```

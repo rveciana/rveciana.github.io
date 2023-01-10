@@ -72,7 +72,8 @@ for contour in cs.collections:
  contour.set_clip_path(clip)
 
 plt.show()
-{% endhighlight %}
+
+```
 
 - I used the pyshp library for reading the shapefile, since Fiona and GDAL don't work well together, and OGR was longer
 - Lines 14 to 27 create the path. A Matplotlib path is made by two arrays. One with the points (called vertices in the script), and the other with the functions for every point (called codes)
@@ -91,3 +92,4 @@ plt.show()
 - [Clipping an image in Basemap](http://matplotlib.org/examples/pylab_examples/image_clip_path.html)
 - [Understanding Basemap transformations](http://matplotlib.org/users/transforms_tutorial.html)
 - [Clipping a raster with GDAL python](http://geospatialpython.com/2011/02/clip-raster-using-shapefile.html)
+```

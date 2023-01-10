@@ -22,13 +22,13 @@ From a regular web page, just include:
 
 <script src="/path/to/js/gpu.min.js"></script>
 
-{% endhighlight %}
+```
 
 then, initialize the library calling
 
 {% highlight js %}
 const gpu = new GPU();
-{% endhighlight %}
+```
 
 It's possible to pass to the GPU constructor the options:
 
@@ -51,7 +51,8 @@ And require the module with:
 
 {% highlight js %}
 GPU = require('https://wzrd.in/standalone/gpu.js')
-{% endhighlight %}
+
+```
 
 ## First working example
 
@@ -66,7 +67,7 @@ return (this.thread.x + this.thread.y);
 }).setOutput([2,2]);
 
 console.info(gpuKernel());
-{% endhighlight %}
+```
 
 - After initializing the class, a kernel is created with _createKernel_
   - The function that calculates every point is passed as the parameter
@@ -94,7 +95,8 @@ for(let i = 0; i <this.constants.xSize; i++){
 return (this.thread.x + this.thread.y);
 }).setOutput([2,2])
 .setConstants({xSize:2, ySize: 2});
-{% endhighlight %}
+
+```
 
 - The JavaScript operators that can be called inside the kernel functions are quite limited. [Here's the list][6]. Also, no _console.log_ and many other functions can go there.
 
@@ -121,7 +123,7 @@ const canvas = render.getCanvas();
 document.getElementsByTagName('body')[0].appendChild(canvas);
 
 </script>
-{% endhighlight %}
+```
 
 - The method _setGraphical(true)_ has to be called to make the kernel draw on a Canvas. The _setOutput_ method will set now the Canvas size
 - Later, get the Canvas with _getCanvas()_
@@ -165,7 +167,8 @@ flagDist = i;
     this.color(colorScale[c*4]/255, colorScale[1 + c*4]/255, colorScale[2 + c*4]/255, 1);
 
 }
-{% endhighlight %}
+
+```
 
 - We only iterate the points, but not hte pixels, referenced by _this.thread.x_ and _this.thread.y_, that will be done in parallel
 
@@ -198,7 +201,7 @@ let hs*value = Math.sin(altituderad) * Math.sin(slope) + Math.cos(altituderad) \
 this.color(hs_value, hs_value, hs_value, 0.1);
 
 }
-{% endhighlight %}
+```
 
 - If you compare it with the [original hillshade example][107], the main difference is that no _for loops_ have to be used to calculate all the pixel values. Instead, the _this.thread.x_ and _this.thread.y_ variables are used, and all the points will be done at once.
 - Note that _Math.atan_ is used instead of _Math.atan2_. This is because the _GSLS_ functions have to be used instead of the ones in JavaScript. All the available functions are [referenced in their docs][9]
@@ -270,7 +273,8 @@ krender(xPos, yPos, values, csImageData);
 let result = krender.getCanvas();
 context.drawImage(result, 0, 0);
 }
-{% endhighlight %}
+
+```
 
 - Get the gpujs canvas with _getCanvas()_
 - Draw in in the leaflet canvas with _context.drawImage(result, 0, 0)_
@@ -322,3 +326,4 @@ context.drawImage(result, 0, 0);
 [107]: https://beta.observablehq.com/@rveciana/shaded-relief
 [200]: https://bl.ocks.org/rveciana/c664dffd8b94f0598543958433d415f4
 [201]: https://bl.ocks.org/rveciana/7419081f8931227769bae5255579e792
+```

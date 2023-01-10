@@ -70,7 +70,8 @@ And that's it. Now, all the code has to be written so the blog renders the markd
 "watch-md": "nodemon -e md -x \"npm run contentGen\"",
 "dev-md": "concurrently \"npm run dev\" \"npm run watch-md\""
 }
-{% endhighlight %}
+
+```
 
 - _npm run dev will_ start the main svelte server, and reload the content when the Svelte files change. The result can be seen on _localhost:3000_ by default
 - _npm run contentGen_ will process the markdown files
@@ -92,7 +93,7 @@ This is where the markdown files are rendered into a JSON object with the html t
 "metadata": true,
 "server": false
 }
-{% endhighlight %}
+```
 
 The result, for each entry, is something like this:
 
@@ -115,16 +116,20 @@ The result, for each entry, is something like this:
 "formattedSize": "2.6 KB"
 }
 }
-{% endhighlight %}
+
+```
 
 The first three fields and the metadata will always appear, while the other fields will match the [front matter section][front-matter] of your Jekyll file:
 
 ```
+
 ---
+
 property: value
 tags: [first, second, third]
 -npm--
-```
+
+````
 
 Those properties are necessary to classify and sort the posts and pages.
 
@@ -148,7 +153,7 @@ noExternal: Object.keys(pkg.dependencies || {})
 }
 }
 }
-};{% endhighlight %}
+};```
 
 - appDir generates a static site
 - adapter needs to set the build directory as specified. I needed using different repos for the build and the svelte app, so that's the way you can get a build in another directory
@@ -162,7 +167,7 @@ noExternal: Object.keys(pkg.dependencies || {})
   	import type { PageSummary } from '$lib/model';
   	export async function load({ fetch }) {
   		const resultPages = await fetch('/summary_pages.json');
-  
+
   		const pages = (await resultPages.json()) as PageSummary[];
   		return {
   			props: { pages }
@@ -171,7 +176,7 @@ noExternal: Object.keys(pkg.dependencies || {})
   </script>
   <script lang="ts">
   	import '../app.scss';
-  
+
   	import Footer from '$lib/components/Footer.svelte';
   	import Header from '$lib/components/Header.svelte';
   	export let pages: PageSummary[] = [];
@@ -183,7 +188,7 @@ noExternal: Object.keys(pkg.dependencies || {})
   	</div>
   </main>
   <Footer />
-  {% endhighlight %}
+````
 
 - We have to define all the scripts as typescript or we'll get errors
 - Note that there are two scripts:
@@ -201,7 +206,8 @@ _data.json.ts_ could be like:
 export function get() {
 return { body: {value: 42}, status: 200 };
 }
-{% endhighlight %}
+
+````
 
 The get function sets the get HTTP method, and returns the body of the response and the status. Playing with this is possible to create a complete REST API easily
 
@@ -240,7 +246,7 @@ slug: `/${post.categories}/${postDate.getFullYear()}/${postDate.toLocaleDateStri
 					}
 				)}/${postDate.toLocaleDateString("en-US", { day: "2-digit" })}/${htmlPath}`
 };
-});{% endhighlight %}
+});```
 
 This is the function that converts the _data.json_ file into the object we need.
 
@@ -303,7 +309,7 @@ props: { posts, tagsAndCategories }
 	</ul>
 </article>
 <p class="rss-subscribe">subscribe <a href="http://feeds.feedburner.com/Geoexamples">via RSS</a></p>
-{% endhighlight %}
+````
 
 Only 50 lines to show all entries and a tag cloud! Again, a _module_ context script is run before the component is mounted and provides the data.
 
@@ -327,7 +333,7 @@ The file, then, has to go into an identical path and can use the _page_ variable
 	}
 </script>
 
-{% endhighlight %}
+````
 
 Using it gives us the value of the path. When generating the static web, each possible call will be rendered and we'll have the json and the html file.
 
@@ -342,7 +348,7 @@ const template = Handlebars.compile(mdContent);
 
     const text = template(configuration);
 
-    const codeMatches = text.match(/{% highlight [a-z]* %}(.|\n)*?{% endhighlight %}/g);
+    const codeMatches = text.match(/{% highlight [a-z]* %}(.|\n)*?```/g);
 
     const formattedCode = codeMatches?.map((d) => {
     	const lang = d
@@ -356,7 +362,7 @@ const template = Handlebars.compile(mdContent);
     		.replace(/&lt;/gi, '<')
     		.replace(/&gt;/gi, '>')
     		.replace(/{% highlight [a-z]* %}/g, '')
-    		.replace(/{% endhighlight %}/g, '');
+    		.replace(/```/g, '');
 
     	switch (lang) {
     		case 'js':
@@ -375,7 +381,7 @@ const template = Handlebars.compile(mdContent);
     return codeMatches?.reduce((acc, curr, i) => acc.replace(curr, formattedCode[i]), text) ?? text;
 
 };
-{% endhighlight %}
+````
 
 - The placeholders from Jekyll are replaced using handlebars. For instance {{author}} would be changed to the name in the configuration.
 - Prism has to detect the language. The problem is that by default it doesn't include Python and I didn't find the way to do it in Svelte (instructions are for babel). Using the Javascript hightlighting for python doesn't give a bad result.

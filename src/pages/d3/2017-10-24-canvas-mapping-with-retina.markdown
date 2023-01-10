@@ -37,7 +37,8 @@ canvas
     context.scale(window.devicePixelRatio, window.devicePixelRatio);
 
 }
-{% endhighlight %}
+
+```
 
 - _window.devicePixelRatio_ is the property you can use to detect the retina display. The value is 1 (or -1) in regular devices and 2 in the retina displays
 - The _canvas_ is made two times bigger in each dimension, so the number of pixels will be the good one
@@ -63,3 +64,4 @@ I don't have it neither! Fortunately, firefox allows a way to simulate it:
 - [Stack Overflow question about the topic](https://stackoverflow.com/questions/12243549/how-to-test-a-webpage-meant-for-retina-display)
 - [Proper value in Firefox to change the resolution](https://support.mozilla.org/ca/questions/981038)
 - [Source of the image used for this post](https://www.flickr.com/photos/ivyfield/4731067716)
+```

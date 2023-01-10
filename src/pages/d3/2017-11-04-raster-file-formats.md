@@ -96,7 +96,7 @@ oReq.onload = function(oEvent) {
 oReq.send(); //start process
 </script>
 
-{% endhighlight %}
+```
 
 - Note that the request must be set with an _arraybuffer_ _responsetype_
 
@@ -132,10 +132,10 @@ oReq.open("GET", urlpath, true);
 oReq.responseType = "blob";
 
 oReq.onload = function(oEvent) {
-  var t0 = performance.now();    
+  var t0 = performance.now();
   var blob = oReq.response;
   reader_url = new FileReader();
-  
+
   reader_url.onload = function(e) {
     var t0 = performance.now();
     reader = new netcdfjs(this.result);
@@ -143,16 +143,16 @@ oReq.onload = function(oEvent) {
     var t1 = performance.now();
     console.log("Decoding took " + (t1 - t0) + " milliseconds.")
   }
-      
+
   var arrayBuffer = reader_url.readAsArrayBuffer(blob);
-  
+
 };
 oReq.send(); //start process
 
 
 </script>
 
-{% endhighlight %}
+```
 
 - The variables _lat_ and _lon_ return the geographical coordinates for every pixel, which is a good feature
 - Some metadata is stored in different variables and fields. Take a look to the library api to see them, but:
@@ -192,7 +192,7 @@ oReq.send();
 
 </script>
 
-{% endhighlight %}
+```
 
 - Just parse the JSON file!
 - Of course, all the metadata is easy to add, so the format is very flexible
@@ -223,7 +223,7 @@ fp = open("vardah.json", "w")
 fp.write(json.dumps(json_data))
 fp.close()
 
-{% endhighlight %}
+```
 
 - To make consistent data, put all the numbers in a list, but a matrix could be created the same way, and could be more convenient in certain cases
 
@@ -258,7 +258,8 @@ json_data['data'] = b64
 fp = open("vardahb64.json", "w")
 fp.write(json.dumps(json_data))
 fp.close()
-{% endhighlight %}
+
+```
 
 - Just encode the list after packing it as a binary string
   - I have packed the elements using a _f_, so as float32 values. If this is changed, remember to change the decoding part! Some variables such as classifications can be stored as bytes, which is much more efficient
@@ -287,14 +288,14 @@ oReq.addEventListener("load", function(data){
     var float32Data = new Float32Array(b.buffer);
     var t1 = performance.now();
     console.log("Decoding took " + (t1 - t0) + " milliseconds.")
-    
+
 });
 
 oReq.open("GET", "vardahb64.json");
 oReq.send();
 </script>
 
-{% endhighlight %}
+```
 
 Reading this data is quite efficient, but not as easy as plain JSON. The steps are:
 
@@ -329,7 +330,8 @@ out_data.append(float(data[j][i]))
 fp = open("vardah.bin", "wb")
 fp.write(struct.pack(str(len(out_data))+'f', \*out_data))
 fp.close()
-{% endhighlight %}
+
+```
 
 - Just use the _pack_ function to store the data
   - Note that the data is packed with the _f_ letter, this is as float32 elements
@@ -346,7 +348,7 @@ Reading the binary data is really easy using [Javascript typed arrays][8]:
 var oReq = new XMLHttpRequest();
 
 oReq.addEventListener("load", function(data){
-var t0 = performance.now();  
+var t0 = performance.now();
  var floatArray= new Float32Array(this.response);
 var t1 = performance.now();
 console.log("Decoding took " + (t1 - t0) + " milliseconds.")
@@ -356,7 +358,7 @@ oReq.open("GET", "vardah.bin");
 oReq.responseType = 'arraybuffer';
 oReq.send();
 </script>
-{% endhighlight %}
+```
 
 - Note that the request must be set with an _arraybuffer_ _responsetype_
 - Just read the responsa into a new Float32Array. All the values will be there
@@ -415,7 +417,8 @@ compressed = compress(out_data_bytes)
 fp = open("vardah.lzw.bin", "wb")
 fp.write(struct.pack(str(len(compressed))+'H', \*compressed))
 fp.close()
-{% endhighlight %}
+
+```
 
 - The compression function is copied directly from the [rossetacode.org site][10]
   - It's supposed to work with a string, so we will convert out floats list into a binary bytes string
@@ -452,7 +455,7 @@ def compress(uncompressed):
         result.append(dictionary[w])
     return result
 
-{% endhighlight %}
+```
 
 - _str_ vars in python 2 become _bytes_ in python3, so everything has to be adapted
 - _xrange_ has to be changed to _range_
@@ -524,7 +527,7 @@ dictionary[i] = String.fromCharCode(i);
     }
 
 </script>
-{% endhighlight %}
+```
 * As in the other cases, just cll the *uncompress* function and the float array data will be in the variable
 * The *uncompress* function it the same of the one at the [rossetacode.org site][10], but modified to convert the bytes string to a [Float32Array][8]
     * By splitting all the chars in the string, map all the characters to the *UTF-16 codes* using *String.charCodeAt*

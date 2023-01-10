@@ -44,7 +44,7 @@ blog_by_category.html
     {{ "{% endif " }}%}
 </div>
 
-{% endhighlight %}
+```
 
 blog_by_tag.html
 {% highlight html %}
@@ -60,7 +60,7 @@ blog_by_tag.html
     {{ "{% endif " }}%}
 </div>
 
-{% endhighlight %}
+```
 
 And the plugin to the _\_plugins_ dir:
 
@@ -100,8 +100,10 @@ class TagsGenerator < Generator
 
 end
 end
-{% endhighlight %}
+
+```
 
 Now you will have the url _/tags/[name_of_the_tag]_ and _/categories/[name_of_teh_category]_ pages accessible. There are many ways to create the links to them. To put an example, I create a category list and a tag word cloud using this code in the _blog_ page:
 
 Next post will be about maps again!
+```

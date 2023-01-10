@@ -34,7 +34,8 @@ const supabaseUrl = **api.env.SVELTE_APP_SUPABASE_URL
 const supabaseAnonKey = **api.env.SVELTE_APP_SUPABASE_ANON_KEY
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
-{% endhighlight %}
+
+```
 
 Then, the data can be accessed like this (that would get all the elements from the _geometries_ table)
 
@@ -45,7 +46,7 @@ const supabaseUrl = **api.env.SVELTE_APP_SUPABASE_URL
 const supabaseAnonKey = **api.env.SVELTE_APP_SUPABASE_ANON_KEY
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
-{% endhighlight %}
+```
 
 ## Creating the table
 
@@ -58,7 +59,8 @@ Then, at the tables section, create a table (I'll call it _geometries_) with the
 As you can't add the geom column, go to the _sql_ section and run
 
 {% highlight js %}SELECT AddGeometryColumn ('','geometries','geom',4326,'POINT',2);
-{% endhighlight %}
+
+```
 
 The first argument is the schema (public or nothing in our case), the second the table and then the column name, type, projection SRID and dimensions
 
@@ -78,7 +80,7 @@ end
 $$
 
 language plpgsql;
-{% endhighlight %}
+```
 
 This function will take the name, longitude and latitude and, besides inserting the name, uses postgis to calculate the geometry (_st_MakePoint_).
 It's returning the new value so we don't have to query the data again to how the new point.
@@ -125,7 +127,7 @@ import { feature } from "topojson";
         <circle r=10 cx={projection(point.geom.coordinates)[0]} cy={projection(point.geom.coordinates)[1]}/>
     {/each}
   </svg>
-{% endhighlight %}
+```
 
 This is a regular d3 map. _export let points;_ gets the points from the props and adds them on the map. Points are in geoJSON format, and inside the _geom_ column. That's why the values are got like _point.geom.coordinates_.
 
@@ -202,20 +204,22 @@ loading = false
 		</div>
 	  </form>
 </div>
-{% endhighlight %}
+```
 
 The two _supabase_ related chunks are:
 
 {% highlight js %}const { data, error } = await supabase
 .from('geometries')
 .select();
-{% endhighlight %}
+
+```
 
 That retrieves the data (all rows, in a real app this should be limited)
 
 {% highlight js %}const { data: dataInsert, error } = await supabase.rpc('addgeomerty', {location_name: newPointName, lon: newPointLon, lat:newPointLat})
 geometries = [...geometries, ...dataInsert]
-{% endhighlight %}
+```
+
 This calls the function and gets its results. The newly created rows are added to the existing ones so the data is in sync with the server.
 
 ## Links
