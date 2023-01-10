@@ -33,7 +33,8 @@ The easiest way to explore the use of d3 and nodejs is creating PNG files using 
 
 The script for generating the PNG above:
 
-{% highlight js %}
+```js
+
 var fs = require('fs');
 var Canvas = require('canvas');
 var d3 = require('d3');
@@ -93,48 +94,44 @@ To create an SVG file, a DOM has to be created before. This is done using the _j
 
 The script for generating the SVG above:
 
-{% highlight js %}
-var jsdom = require('jsdom');
-var fs = require('fs');
-var topojson = require('topojson');
+```js
+var jsdom = require("jsdom");
+var fs = require("fs");
+var topojson = require("topojson");
 
 jsdom.env({
-html: "<html><body></body></html>",
-scripts: [
-__dirname + '/node_modules/d3/d3.min.js'
-],
-done:
-
-function (err, window) {
-
+  html: "<html><body></body></html>",
+  scripts: [__dirname + "/node_modules/d3/d3.min.js"],
+  done: function (err, window) {
     var width = 900,
-    height = 500;
-
+      height = 500;
 
     var projection = window.d3.geo.mercator();
-    var path = window.d3.geo.path()
-      .projection(projection);
+    var path = window.d3.geo.path().projection(projection);
 
-    var svg = window.d3.select("body").append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .attr("xmlns", "http://www.w3.org/2000/svg");
+    var svg = window.d3
+      .select("body")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("xmlns", "http://www.w3.org/2000/svg");
 
-    var data = JSON.parse(fs.readFileSync(__dirname +"/world-50m.json", 'utf8'));
+    var data = JSON.parse(
+      fs.readFileSync(__dirname + "/world-50m.json", "utf8")
+    );
 
-    var land = topojson.feature(data, data.objects['land']);
-      svg
-        .datum(land)
-        .append("path")
-        .attr("class", "land")
-        .style("fill","#aca")
-        .style("stroke","#000")
-        .attr("d", path);
+    var land = topojson.feature(data, data.objects["land"]);
+    svg
+      .datum(land)
+      .append("path")
+      .attr("class", "land")
+      .style("fill", "#aca")
+      .style("stroke", "#000")
+      .attr("d", path);
 
-      fs.writeFileSync("test.svg", window.d3.select("body").html());
-      }
-    });
-
+    fs.writeFileSync("test.svg", window.d3.select("body").html());
+  },
+});
 ```
 
 There are four parts in this scripts:
@@ -170,7 +167,9 @@ I haven't compared it with other libaries such as using [Python + PIL][python pi
 The output file for Gambia
 
 The script:
-{% highlight js %}
+
+```js
+
 var fs = require('fs');
 var Canvas = require('canvas');
 var d3 = require('d3');
@@ -256,4 +255,7 @@ var path = d3.geo.path()
 [jsdom help]: http://www.ciiycode.com/0HNJNUPePjXq/jsdomenv-local-jquery-script-doesnt-work
 [async foreach]: http://stackoverflow.com/questions/5050265/javascript-node-js-is-array-foreach-asynchronous
 [python pil]: http://geospatialpython.com/2010/12/rasterizing-shapefiles-2-pure-python.html
+
+```
+
 ```

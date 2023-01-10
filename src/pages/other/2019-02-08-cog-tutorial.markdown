@@ -204,23 +204,22 @@ I learnt how to work with COG and geotiff.js looking at [this ObservableHQ examp
 
 The first point to understand is that geotiff-js has now many asynchronous methods, because it has to open the file, but also read the different parts of it. Let's see a small example that just reads a square of 10x10 pixels.
 
-{% highlight js %}
-(async function() {
-const tiff = await GeoTIFF.fromUrl("out.tiff");
-console.log("Number of images (pyramids):", await tiff.getImageCount());
+```js
+(async function () {
+  const tiff = await GeoTIFF.fromUrl("out.tiff");
+  console.log("Number of images (pyramids):", await tiff.getImageCount());
 
-const image = await tiff.getImage();
-console.log("Bounding box:", image.getBoundingBox());
-console.log("Width:", image.getWidth());
+  const image = await tiff.getImage();
+  console.log("Bounding box:", image.getBoundingBox());
+  console.log("Width:", image.getWidth());
 
-let data = await image.readRasters({
-window: [200, 200, 210, 210], samples: [0]
-});
+  let data = await image.readRasters({
+    window: [200, 200, 210, 210],
+    samples: [0],
+  });
 
-console.log("Values:", data);
-
-})()
-
+  console.log("Values:", data);
+})();
 ```
 
 The output is:
@@ -254,7 +253,8 @@ There's [a nice example at ObservableHQ][observable_example] showing how to use 
 
 The _interesting_ part is this one:
 
-{% highlight js %}
+```js
+
 readImageData = async (image, options = {}) => {
 const rasters = await image.readRasters(options);
 let [r, g, b] = rasters;
@@ -280,47 +280,44 @@ In this case, the data in the GeoTIFF is a matrix with the numerical values (tem
 I'm using the marching squares algorithm to show the regions where the data is between two thresholds. You can see [a tutorial here][isobands_tutorial].
 
 [Click here to see the working example][block1]]
-{% highlight js %}
 
-(async function() {
-const tiff = await GeoTIFF.fromUrl("sample.tiff");
-let image = await tiff.getImage(3);
-let rasterData = await image.readRasters({samples: [0]});
-rasterData = rasterData[0];
+```js
+(async function () {
+  const tiff = await GeoTIFF.fromUrl("sample.tiff");
+  let image = await tiff.getImage(3);
+  let rasterData = await image.readRasters({ samples: [0] });
+  rasterData = rasterData[0];
 
-    let data = new Array(image.getHeight());
-    for (let j = 0; j<image.getHeight(); j++){
-        data[j] = new Array(image.getWidth());
-        for (let i = 0; i<image.getWidth(); i++){
-          data[j][i] = rasterData[i + j*image.getWidth()];
-        }
+  let data = new Array(image.getHeight());
+  for (let j = 0; j < image.getHeight(); j++) {
+    data[j] = new Array(image.getWidth());
+    for (let i = 0; i < image.getWidth(); i++) {
+      data[j][i] = rasterData[i + j * image.getWidth()];
     }
+  }
 
+  let intervals = [-2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+  let bands = rastertools.isobands(data, [0, 1, 0, 0, 0, 1], intervals);
 
-    let intervals = [-2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
-    let bands = rastertools.isobands(data, [0, 1, 0, 0, 0, 1], intervals);
-
-    let colorScale = d3.scaleSequential(d3.interpolateBuPu);
-    let canvas = d3.select("body").append("canvas")
+  let colorScale = d3.scaleSequential(d3.interpolateBuPu);
+  let canvas = d3
+    .select("body")
+    .append("canvas")
     .attr("width", 680)
     .attr("height", 500);
 
-    let context = canvas.node().getContext("2d");
+  let context = canvas.node().getContext("2d");
 
-    let path = d3.geoPath()
-                 .context(context);
+  let path = d3.geoPath().context(context);
 
-    bands.features.forEach(function(d, i) {
-      context.beginPath();
-      context.globalAlpha = 0.7;
-      context.fillStyle = colorScale((2 + intervals[i])/22);
-      path(d);
-      context.fill();
-
-});
-
+  bands.features.forEach(function (d, i) {
+    context.beginPath();
+    context.globalAlpha = 0.7;
+    context.fillStyle = colorScale((2 + intervals[i]) / 22);
+    path(d);
+    context.fill();
+  });
 })();
-
 ```
 
 The output will be like this (all the GeoTIFF coverage):
@@ -335,48 +332,50 @@ Let's see another example using the image with the highest resolution, but downl
 
 [Click here to see the working example][block2]]
 
-{% highlight js %}
-(async function() {
-let origin = [700, 600];
-let size = [500, 450];
-const tiff = await GeoTIFF.fromUrl("/rveciana/raw/9d9ef3282959a41c3e54cedb717bdddf/sample.tiff");
-let image = await tiff.getImage(0);
-let rasterData = await image.readRasters({window: [origin[0], origin[1],
-origin[0] + size[0], origin[1] + size[1]],
-samples: [0]});
-rasterData = rasterData[0];
+```js
+(async function () {
+  let origin = [700, 600];
+  let size = [500, 450];
+  const tiff = await GeoTIFF.fromUrl(
+    "/rveciana/raw/9d9ef3282959a41c3e54cedb717bdddf/sample.tiff"
+  );
+  let image = await tiff.getImage(0);
+  let rasterData = await image.readRasters({
+    window: [origin[0], origin[1], origin[0] + size[0], origin[1] + size[1]],
+    samples: [0],
+  });
+  rasterData = rasterData[0];
 
-    let data = new Array(size[1]);
-    for (let j = 0; j<size[1]; j++){
-        data[j] = new Array(size[0]);
-        for (let i = 0; i<size[0]; i++){
-          data[j][i] = rasterData[i + j*size[0]];
-        }
+  let data = new Array(size[1]);
+  for (let j = 0; j < size[1]; j++) {
+    data[j] = new Array(size[0]);
+    for (let i = 0; i < size[0]; i++) {
+      data[j][i] = rasterData[i + j * size[0]];
     }
+  }
 
-    let intervals = [-2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
-    let bands = rastertools.isobands(data, [0, 1, 0, 0, 0, 1], intervals);
+  let intervals = [-2, 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+  let bands = rastertools.isobands(data, [0, 1, 0, 0, 0, 1], intervals);
 
-    let colorScale = d3.scaleSequential(d3.interpolateBuPu);
+  let colorScale = d3.scaleSequential(d3.interpolateBuPu);
 
-    let canvas = d3.select("body").append("canvas")
+  let canvas = d3
+    .select("body")
+    .append("canvas")
     .attr("width", 680)
     .attr("height", 500);
 
-    let context = canvas.node().getContext("2d");
+  let context = canvas.node().getContext("2d");
 
-    let path = d3.geoPath()
-                 .context(context);
+  let path = d3.geoPath().context(context);
 
-    bands.features.forEach(function(d, i) {
-      context.beginPath();
-      context.globalAlpha = 0.7;
-      context.fillStyle = colorScale((2 + intervals[i])/22);
-      path(d);
-      context.fill();
-
-});
-
+  bands.features.forEach(function (d, i) {
+    context.beginPath();
+    context.globalAlpha = 0.7;
+    context.fillStyle = colorScale((2 + intervals[i]) / 22);
+    path(d);
+    context.fill();
+  });
 })();
 ```
 

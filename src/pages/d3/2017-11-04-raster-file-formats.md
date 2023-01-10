@@ -65,7 +65,8 @@ Another thing to take in account is the metadata. The geotransform data is store
 
 ### HTML example
 
-{% highlight js %}
+```js
+
 
 <!DOCTYPE html>
 <html>
@@ -112,7 +113,8 @@ The name of the output band will be _Band1_, which is not very nice, since the a
 
 ### HTML example
 
-{% highlight js %}
+```js
+
 
 <!DOCTYPE html>
 <html>
@@ -167,7 +169,8 @@ This format is the first that comes in mind when thinking about sharing data. It
 
 ### HTML example
 
-{% highlight js %}
+```js
+
 
 <!DOCTYPE html>
 <html>
@@ -183,7 +186,7 @@ oReq.addEventListener("load", function(data){
     var jsonData = JSON.parse(this.response);
     var t1 = performance.now();
     console.log("Decoding took " + (t1 - t0) + " milliseconds.")
-    
+
 });
 
 oReq.open("GET", "vardah.json");
@@ -192,7 +195,7 @@ oReq.send();
 
 </script>
 
-````
+```
 
 - Just parse the JSON file!
 - Of course, all the metadata is easy to add, so the format is very flexible
@@ -224,7 +227,7 @@ fp = open("vardah.json", "w")
 fp.write(json.dumps(json_data))
 fp.close()
 
-````
+```
 
 - To make consistent data, put all the numbers in a list, but a matrix could be created the same way, and could be more convenient in certain cases
 
@@ -269,7 +272,8 @@ fp.close()
 
 ### HTML example
 
-{% highlight js %}
+```js
+
 
 <!DOCTYPE html>
 <html>
@@ -297,7 +301,7 @@ oReq.open("GET", "vardahb64.json");
 oReq.send();
 </script>
 
-````
+```
 
 Reading this data is quite efficient, but not as easy as plain JSON. The steps are:
 
@@ -334,7 +338,7 @@ fp = open("vardah.bin", "wb")
 fp.write(struct.pack(str(len(out_data))+'f', \*out_data))
 fp.close()
 
-````
+```
 
 - Just use the _pack_ function to store the data
   - Note that the data is packed with the _f_ letter, this is as float32 elements
@@ -342,7 +346,9 @@ fp.close()
 ### HTML example
 
 Reading the binary data is really easy using [Javascript typed arrays][8]:
-{% highlight js %}
+
+```js
+
 
 <!DOCTYPE html>
 <html>
@@ -362,7 +368,7 @@ oReq.responseType = 'arraybuffer';
 oReq.send();
 </script>
 
-````
+```
 
 - Note that the request must be set with an _arraybuffer_ _responsetype_
 - Just read the responsa into a new Float32Array. All the values will be there
@@ -423,7 +429,7 @@ fp = open("vardah.lzw.bin", "wb")
 fp.write(struct.pack(str(len(compressed))+'H', \*compressed))
 fp.close()
 
-````
+```
 
 - The compression function is copied directly from the [rossetacode.org site][10]
   - It's supposed to work with a string, so we will convert out floats list into a binary bytes string
@@ -469,7 +475,8 @@ def compress(uncompressed):
 
 ### HTML example
 
-{% highlight js %}
+```js
+
 
 <!DOCTYPE html>
 <html>
@@ -478,7 +485,7 @@ def compress(uncompressed):
 var oReq = new XMLHttpRequest();
 
 oReq.addEventListener("load", function(data){
-var t0 = performance.now();  
+var t0 = performance.now();
  var compressedArray = new Uint16Array(this.response);
 console.info(compressedArray.length);
 var uncompressed = uncompress(compressedArray);
@@ -535,11 +542,12 @@ dictionary[i] = String.fromCharCode(i);
 
 </script>
 ```
-* As in the other cases, just cll the *uncompress* function and the float array data will be in the variable
-* The *uncompress* function it the same of the one at the [rossetacode.org site][10], but modified to convert the bytes string to a [Float32Array][8]
-    * By splitting all the chars in the string, map all the characters to the *UTF-16 codes* using *String.charCodeAt*
-    * Put all the values to a *Uint8Array* JavaScript typed array, so we can convert them later
-    * The unsigned short array is then converted to a *Float32Array* using buffers
+
+- As in the other cases, just cll the _uncompress_ function and the float array data will be in the variable
+- The _uncompress_ function it the same of the one at the [rossetacode.org site][10], but modified to convert the bytes string to a [Float32Array][8]
+  - By splitting all the chars in the string, map all the characters to the _UTF-16 codes_ using _String.charCodeAt_
+  - Put all the values to a _Uint8Array_ JavaScript typed array, so we can convert them later
+  - The unsigned short array is then converted to a _Float32Array_ using buffers
 
 Not so difficult! If some metadata has to be added, things can be a bit more complicated, specially if different types are involved
 

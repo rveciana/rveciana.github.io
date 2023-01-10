@@ -39,7 +39,8 @@ To run this project, we'll use a single table. The table looks like this:
 
 So it's that easy! Now, the function to add a new point:
 
-{% highlight js %}create or replace function addTrackPoint (track_name varchar, lon float, lat float)
+```js
+create or replace function addTrackPoint (track_name varchar, lon float, lat float)
 returns SETOF tracks as
 
 $$
@@ -87,8 +88,12 @@ The idea is sending a longitude and latitude so the geometry updates adding the 
 - We are actually using an _upsert_ which means inserting when the record doesn't exist and updating it otherwise. The _if found then_ part is the one that checks the update result and runs the insert if nothing was updated.
 - A new point can be added now from the Supabase library:
 
-{% highlight js %}await supabase
-.rpc('addtrackpoint', {track_name: trackName, lon: lng, lat:lat});
+```js
+await supabase.rpc("addtrackpoint", {
+  track_name: trackName,
+  lon: lng,
+  lat: lat,
+});
 ```
 
 Or using SQL, with:
@@ -102,7 +107,8 @@ You can [check the code on GitHub][source_code], I'll comment on the basic point
 - [Check the last post][previous_post] to see how I created the basic project
 - I created two stores in at stores.ts
 
-{% highlight js %}import { writable } from 'svelte/store';
+```js
+import { writable } from 'svelte/store';
 
 export const track = writable({
 type: "LineString",
@@ -117,7 +123,8 @@ Doing it like this, we don't re-render all the map if we have to pass the _lines
 
 - The _Map_ Component uses [svelte-leaflet][svelte_leaflet] to create the map. This allows using _leaflet_ as components. Check its docs to see how it's installed (or take a look at the _rollup.config.js_ file in the project)
 
-{% highlight js %}<script>
+```js
+<script>
 import {LeafletMap, TileLayer} from 'svelte-leafletjs';
 import MapTrack from './MapTrack.svelte';
 import { mapCenter } from './store.js';
@@ -157,7 +164,8 @@ The store is used to get the center of the map and a _MapTrack_ component is add
 
 - The _MapTrack_ component looks like this:
 
-{% highlight js %}<script>
+```js
+<script>
 import {Tooltip, Polyline} from 'svelte-leafletjs';
 import { track } from './store.js';
 
@@ -179,7 +187,8 @@ Using the store makes it so easy!
 
 - The _App.svelte_ file is the one that does most of the job:
 
-{% highlight js %}<script lang="ts">
+```js
+<script lang="ts">
 import { supabase } from "./supabaseClient";
 import type { RealtimeSubscription } from '@supabase/supabase-js'
 import { onMount } from 'svelte';
@@ -285,29 +294,36 @@ When using the real-time feature, the result is given in WKB format because Supa
 
 So I created this small function that decodes a _linestring_ from WKB to GeoJSON
 
-{% highlight js %}import {from, readDoubleBE, readDoubleLE, readUInt32LE, readUInt32BE} from 'bops'
-export const convertWkb = (wkb:string) => {
-const buffer = from(wkb, "hex");
-const isBigEndian = wkb.substring(0,2) === '00';
-const epsg = isBigEndian ? readUInt32BE(buffer, 5) : readUInt32LE(buffer, 5);
+```js
+import {
+  from,
+  readDoubleBE,
+  readDoubleLE,
+  readUInt32LE,
+  readUInt32BE,
+} from "bops";
+export const convertWkb = (wkb: string) => {
+  const buffer = from(wkb, "hex");
+  const isBigEndian = wkb.substring(0, 2) === "00";
+  const epsg = isBigEndian ? readUInt32BE(buffer, 5) : readUInt32LE(buffer, 5);
 
-    const numberOfPoints = (wkb.length - 26)/32;
-    const coordinates = [];
+  const numberOfPoints = (wkb.length - 26) / 32;
+  const coordinates = [];
 
+  for (let i = 0; i < numberOfPoints; i++) {
+    coordinates.push([
+      readDoubleLE(buffer, 13 + i * 16),
+      readDoubleLE(buffer, 13 + 8 + i * 16),
+    ]);
+  }
 
-    for(let i = 0; i < numberOfPoints; i++){
-        coordinates.push([readDoubleLE(buffer, 13 + i * 16), readDoubleLE(buffer, 13 + 8 + i * 16)]);
-    }
+  const geoJSON = {
+    type: "LineString",
+    coordinates: coordinates,
+  };
 
-    const geoJSON =  {
-        type: "LineString",
-        coordinates: coordinates
-    }
-
-    return geoJSON;
-
-}
-
+  return geoJSON;
+};
 ```
 
 - [bops] library is used as a replacement for the nodejs buffer function. It will convert from hex to the types we need
@@ -333,4 +349,7 @@ const epsg = isBigEndian ? readUInt32BE(buffer, 5) : readUInt32LE(buffer, 5);
 [wkx]: https://github.com/cschwarz/wkx
 [bops]: https://github.com/chrisdickinson/bops
 [svelte_leaflet]: https://ngyewch.github.io/svelte-leaflet/
+
+```
+
 ```

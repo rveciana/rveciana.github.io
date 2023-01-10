@@ -19,12 +19,13 @@ Let's see first how to plot _something_ using Konva and Svelte. [You can check t
 
 The code here is short, and we have only one component:
 
-{% highlight js %}
+```js
+
 
 <script>
 	import {onMount} from 'svelte';
 	import Konva from 'konva';
-	
+
 	let container;
 	onMount(() => {
 	const stage = new Konva.Stage({
@@ -56,7 +57,9 @@ The code here is short, and we have only one component:
 # Konva as Svelte components
 
 The example is not bad, but it's not using any Svelte style coding. It would be cool declaring things like:
-{% highlight html %}
+
+```html
+
 <Stage>
 <Layer>
 <Element x=100 y=100/>
@@ -73,7 +76,8 @@ We'll create a component for the Stage, another for the Layer and finally, a Cir
 
 The Stage component is like this:
 
-{% highlight js %}
+```js
+
 
 <script>
 	import Konva from 'konva';
@@ -109,7 +113,8 @@ The Stage component is like this:
 
 Then the Layer component:
 
-{% highlight js %}
+```js
+
 
 <script>
 	import Konva from 'konva';
@@ -132,7 +137,8 @@ Then the Layer component:
 
 Finally, the Circle component is:
 
-{% highlight js %}
+```js
+
 
 <script>
 	import Konva from 'konva';
@@ -169,7 +175,8 @@ Finally, the Circle component is:
 
 And now the cool part. To create the drawing, we only call:
 
-{% highlight js %}
+```js
+
 <Stage>
 <Layer>
 <Circle x=100 y=100 r=23 fill="red" strokeWidth=3/>
@@ -187,7 +194,8 @@ So now, with the knowledge from the previous examples, we can create a map. [I c
 
 Let's start from the other side now! The App.svelte file is this one:
 
-{% highlight js %}
+```js
+
 
 <script>
 	import {onMount} from 'svelte';
@@ -223,26 +231,26 @@ Let's start from the other side now! The App.svelte file is this one:
 
 The projection and D3 GeoPath are defined in their own file so they can be accessed from all the components:
 
-{% highlight js %}
-import { geoPath } from 'd3-geo';
-import { geoAitoff } from 'd3-geo-projection';
+```js
+import { geoPath } from "d3-geo";
+import { geoAitoff } from "d3-geo-projection";
 
 const width = 600;
 const height = 400;
 
 export const projection = geoAitoff()
-.translate([width / 2, height / 2])
-.scale(110);
+  .translate([width / 2, height / 2])
+  .scale(110);
 
 export const path = geoPath().projection(projection);
-
 ```
 
 - The size and zooms are fixed. If we wanted a more complex map, we could make this a store and then chenge the values from a slider or a mouse event
 
 The BackgroundMap component is:
 
-{% highlight js %}
+```js
+
 
 <script>
 import Konva from 'konva';
@@ -288,20 +296,21 @@ const response = await fetch(
 
 Finally, the markers with animation:
 
-{% highlight js %}
+```js
+
 
 <script>
 	import Konva from 'konva';
 	import { projection } from './projection';
   import { message } from './store.js';
 	import { getContext, onDestroy } from 'svelte';
-	
+
 	export let lon = 0;
 	export let lat = 0;
 	export let fill = "black";
 	export let markerMessage = "Marker";
 	const coords = projection([lon, lat]);
-	
+
 	const { getLayer } = getContext("konva_layer");
 	const layer = getLayer();
 
@@ -313,21 +322,21 @@ Finally, the markers with animation:
 		numPoints: 5,
         innerRadius: 5,
         outerRadius: 10,
-        
+
 			});
 	konvaPath.on('mouseover', function () {
         message.set(markerMessage)
      });
 	layer.add(konvaPath);
-	
+
 	const angularSpeed = 30;
       const anim = new Konva.Animation(function (frame) {
         var angleDiff = (frame.timeDiff * angularSpeed) / 1000;
         konvaPath.rotate(angleDiff);
       }, layer);
-			
+
       anim.start();
-	
+
 	layer.draw();
     onDestroy(() => konvaPath.destroy());
 </script>
@@ -357,4 +366,7 @@ I'm very happy with the result. In not many hours, I could make a base for mappi
 [third example]: https://svelte.dev/repl/8f38e2c895284c13a3e3f534d01dd171?version=3.24.1
 [svelte_mapping]: https://geoexamples.com/other/2019/12/08/mapping-svelte.html
 [konva]: https://konvajs.org/
+
+```
+
 ```

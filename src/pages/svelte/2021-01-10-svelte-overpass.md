@@ -70,11 +70,12 @@ There are libraries to convert the data into a GeoJSON, but since we are using p
 ]
 }
 
-```
+````
 
 So for each object in `elements` we can find all the information for one of the results. The code to process the data is:
 
-{% highlight js %}
+```js
+
 .then(data =>{features = data.elements.map(d=>{
 const {easting: dataX, northing: dataY} = fromLatLon(d.lat, d.lon);
 const dist = Math.sqrt((dataX - utmX)**2 + (dataY - utmY)**2);
@@ -82,7 +83,7 @@ const dir = (180/Math.PI) \* Math.atan2((dataX - utmX)/dist, (dataY - utmY)/dist
 return{name: d.tags.name, lng: d.lon, lat: d.lat, dist, dir}
 }).filter(d=> d.name!==undefined).sort((a, b)=> a.dist - b.dist);
 })
-```
+````
 
 - fromLatLon is a small library that converts from latlon to utm coordinates. This way, we can calculate distances and directions from our current position (see _compass_ section)
 
@@ -130,14 +131,15 @@ The orientation seemed easy too, but it's not. I found a [compass example][compa
 
 The event to listen to is `window.addEventListener("deviceorientationabsolute", setHeading);` (not a navigator event!?). And it's using a callback too. In this case, an angle has to be added if the device is in landscape mode (and it can have two positions in landscape mode). The screen orientation lives in the `screen` object.
 
-{% highlight js %}
-
-const screenOrientation = (screen?.orientation?.type??"portrait-primary").split("-");
+```js
+const screenOrientation = (
+  screen?.orientation?.type ?? "portrait-primary"
+).split("-");
 
 const adjustment = screenOrientation[0] === "portrait" ? 0 : 90;
-const adjustment2 = screenOrientation[1] === "secondary" ? adjustment - 180: adjustment;
+const adjustment2 =
+  screenOrientation[1] === "secondary" ? adjustment - 180 : adjustment;
 heading = adjustment2 - ev.alpha;
-
 ```
 
 Again, Svelte makes really easy everything. If something in the function arguments change, the function is called. It's like the `useEffect` in react, but better!
@@ -181,13 +183,15 @@ And create the `manifest.json` file in the same folder:
 ],
 "splash_pages": null
 }
-```
+
+````
 
 Some lines seem unnecessary but if they are not there, the browser won't allow the user to save the app on the desktop.
 
 The next step is adding the service worker. This is also necessary. It must have the `fetch` method, that many times is omitted.
 
-{% highlight js %}
+```js
+
 
 var cacheName = "svelte-overpass-cache-" + Date.now();
 var filesToCache = [
@@ -227,7 +231,7 @@ return response || fetch(e.request);
 );
 });
 
-```
+````
 
 - Be careful with the paths on the cache! If something fails, the service worker is not installed.
 - There's a dedicated section to check that in the dev tools (first two on the `application` tab)
@@ -238,30 +242,27 @@ Once this is done, the site must listen to the `beforeunnstallprompt` event:
 
 Once the event is stored, it's possible to call it when clicking a button. Here the function to prepare and the one that actually installs:
 
-{% highlight js %}
-const handleInstall = (e:Event) => {
-console.log(`app install called`)
-e.preventDefault();
-deferredPrompt = e;
-btnInstallAppVisible = true;
-console.log(`app install call complete`)
+```js
+const handleInstall = (e: Event) => {
+  console.log(`app install called`);
+  e.preventDefault();
+  deferredPrompt = e;
+  btnInstallAppVisible = true;
+  console.log(`app install call complete`);
 };
 
-const installApp = (e:Event) => {
-btnInstallAppVisible = false;
-deferredPrompt.prompt();
-deferredPrompt.userChoice
-.then((choiceResult) => {
-if (choiceResult.outcome === 'accepted') {
-btnInstallAppVisible = false;
-console.log('User accepted the A2HS prompt');
-} else {
-console.log('User dismissed the A2HS prompt');
-}
-deferredPrompt = null;
-
-        });
-
+const installApp = (e: Event) => {
+  btnInstallAppVisible = false;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === "accepted") {
+      btnInstallAppVisible = false;
+      console.log("User accepted the A2HS prompt");
+    } else {
+      console.log("User dismissed the A2HS prompt");
+    }
+    deferredPrompt = null;
+  });
 };
 ```
 

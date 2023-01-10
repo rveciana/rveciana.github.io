@@ -28,7 +28,8 @@ I used the [supabase tutorial for Svelte][supabasesvelte] to do it. Basically, y
 
 This will be used in a file called _supabaseClient.js_ that connects to the service:
 
-{% highlight js %}import { createClient } from '@supabase/supabase-js'
+```js
+import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = **api.env.SVELTE_APP_SUPABASE_URL
 const supabaseAnonKey = **api.env.SVELTE_APP_SUPABASE_ANON_KEY
@@ -39,7 +40,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 Then, the data can be accessed like this (that would get all the elements from the _geometries_ table)
 
-{% highlight js %}
+```js
+
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = **api.env.SVELTE_APP_SUPABASE_URL
@@ -58,14 +60,17 @@ Then, at the tables section, create a table (I'll call it _geometries_) with the
 
 As you can't add the geom column, go to the _sql_ section and run
 
-{% highlight js %}SELECT AddGeometryColumn ('','geometries','geom',4326,'POINT',2);
+```js
+SELECT AddGeometryColumn ('','geometries','geom',4326,'POINT',2);
 
 ```
 
 The first argument is the schema (public or nothing in our case), the second the table and then the column name, type, projection SRID and dimensions
 
 The table can be now used, but we can't insert geometries unless we have them in WKB format. [WKX][wkx] is a library that does this, but I wasn't able to make it work with Svelte's rollup. I get this [unsolved bug][bug]. Without being able to create the WKB format, we have to use PostGIS to do it for us, but the insert function accepts only values. The solution is using a stored procedure. Open the SQL section and run:
-{% highlight js %}create or replace function addGeomerty (location_name varchar, lon float, lat float)
+
+```js
+create or replace function addGeomerty (location_name varchar, lon float, lat float)
 returns SETOF geometries as
 
 $$
@@ -91,7 +96,8 @@ It's returning the new value so we don't have to query the data again to how the
 
 We'll use two components, one for the map and the other for the rest. Let's see the map:
 
-{% highlight js %}<script>
+```js
+<script>
 import { geoEqualEarth, geoPath } from "d3-geo";
 import { onMount } from "svelte";
 import { feature } from "topojson";
@@ -133,7 +139,8 @@ This is a regular d3 map. _export let points;_ gets the points from the props an
 
 The main component of the site is _App.svelte_:
 
-{% highlight js %}<script>
+```js
+<script>
 import Map from "./Map.svelte";
 import { supabase } from "./supabaseClient";
 let geometries=[];
@@ -208,16 +215,19 @@ loading = false
 
 The two _supabase_ related chunks are:
 
-{% highlight js %}const { data, error } = await supabase
-.from('geometries')
-.select();
-
+```js
+const { data, error } = await supabase.from("geometries").select();
 ```
 
 That retrieves the data (all rows, in a real app this should be limited)
 
-{% highlight js %}const { data: dataInsert, error } = await supabase.rpc('addgeomerty', {location_name: newPointName, lon: newPointLon, lat:newPointLat})
-geometries = [...geometries, ...dataInsert]
+```js
+const { data: dataInsert, error } = await supabase.rpc("addgeomerty", {
+  location_name: newPointName,
+  lon: newPointLon,
+  lat: newPointLat,
+});
+geometries = [...geometries, ...dataInsert];
 ```
 
 This calls the function and gets its results. The newly created rows are added to the existing ones so the data is in sync with the server.

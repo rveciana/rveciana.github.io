@@ -48,7 +48,8 @@ Now, d3-composite-projections can be used with Canvas and SVG, from nodejs, node
 
 The most common case to see. [This example showing the Congressional Representatives](http://bl.ocks.org/rveciana/fe6b452c853146e674dd6dd09c1cc6e3) uses it and is similar to [this Chilean map using the old version](http://bl.ocks.org/rveciana/f0a8ec08d0b63d0cdc6985cc37468b9a). The code:
 
-{% highlight js %}
+```js
+
 
 <!DOCTYPE html>
 <meta charset="utf-8">
@@ -165,7 +166,9 @@ The first time may be a bit tricky, but the final small size it's worth the effo
 ## SVG + browserify
 
 All the examples linked to the projections are done this way. Create an _html_ file:
-{% highlight js %}
+
+```js
+
 
 <!DOCTYPE html>
 <meta charset="utf-8">
@@ -179,7 +182,7 @@ All the examples linked to the projections are done this way. Create an _html_ f
 
 And then, the node file (I called it draw.js):
 
-{% highlight js %}
+```js
 var d3_composite = require("d3-composite-projections");
 var d3_geo = require("d3-geo");
 var d3_request = require("d3-request");
@@ -192,48 +195,44 @@ var height = 500;
 
 var projection = d3_composite.geoConicConformalEurope();
 
-var path = d3_geo.geoPath()
-.projection(projection);
+var path = d3_geo.geoPath().projection(projection);
 
-var svg = d3_selection.select("map").append("svg")
-.attr("width", width)
-.attr("height", height);
+var svg = d3_selection
+  .select("map")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
 
-var t = d3_transition.transition()
-.on("interrupt", function(d,i){
-console.info(i);
+var t = d3_transition.transition().on("interrupt", function (d, i) {
+  console.info(i);
 });
 
-d3_request.json("nuts0.json", function(error, topojsonData) {
-var us = topojson.feature(topojsonData, topojsonData.objects.nuts0);
+d3_request.json("nuts0.json", function (error, topojsonData) {
+  var us = topojson.feature(topojsonData, topojsonData.objects.nuts0);
 
-    svg.selectAll(".region")
-      .data(us.features)
-      .enter()
-      .append("path")
-      .attr("d", path)
-      .attr("class","region")
-      .style("fill", "#aca")
-      .style("stroke", "#000")
-      .style("stroke-width", "0.5px")
-      .on("mouseover", function(d,i) {
-        d3_selection.select(this)
-          .transition(t)
-          .style("fill", "red");
-        })
-      .on("mouseout", function(d,i) {
-        d3_selection.select(this).interrupt();
-        d3_selection.select(this)
-          .transition(t)
-          .style("fill", "#aca");
-        });
+  svg
+    .selectAll(".region")
+    .data(us.features)
+    .enter()
+    .append("path")
+    .attr("d", path)
+    .attr("class", "region")
+    .style("fill", "#aca")
+    .style("stroke", "#000")
+    .style("stroke-width", "0.5px")
+    .on("mouseover", function (d, i) {
+      d3_selection.select(this).transition(t).style("fill", "red");
+    })
+    .on("mouseout", function (d, i) {
+      d3_selection.select(this).interrupt();
+      d3_selection.select(this).transition(t).style("fill", "#aca");
+    });
 
-      svg
-        .append("path")
-          .style("fill","none")
-          .style("stroke","#f00")
-          .attr("d", projection.getCompositionBorders());
-
+  svg
+    .append("path")
+    .style("fill", "none")
+    .style("stroke", "#f00")
+    .attr("d", projection.getCompositionBorders());
 });
 ```
 
@@ -253,32 +252,36 @@ Of course, you will have to install all the dependencies, browserify and uglify 
 
 If you want to draw png maps from the command line, you can adapt the test scripts included in the library:
 
-{% highlight js %}
+```js
 var width = 960,
-height = 500,
-projectionName = process.argv[2],
-topojsonName = process.argv[3],
-layerName = process.argv[4],
-projectionSymbol = "geo" + projectionName[0].toUpperCase() + projectionName.slice(1);
+  height = 500,
+  projectionName = process.argv[2],
+  topojsonName = process.argv[3],
+  layerName = process.argv[4],
+  projectionSymbol =
+    "geo" + projectionName[0].toUpperCase() + projectionName.slice(1);
 
-if (!/^[a-z0-9]+$/i.test(projectionName)) {throw new Error();}
+if (!/^[a-z0-9]+$/i.test(projectionName)) {
+  throw new Error();
+}
 
 var fs = require("fs"),
-topojson = require("topojson"),
-Canvas = require("canvas"),
-d3_geo = require("d3-geo"),
-d3_composite = require("d3-composite-projections");
+  topojson = require("topojson"),
+  Canvas = require("canvas"),
+  d3_geo = require("d3-geo"),
+  d3_composite = require("d3-composite-projections");
 
 var canvas = new Canvas(width, height),
-context = canvas.getContext("2d");
+  context = canvas.getContext("2d");
 
-var data = JSON.parse(fs.readFileSync(topojsonName, 'utf8')),
-graticule = d3_geo.geoGraticule(),
-outline = {type: "Sphere"};
+var data = JSON.parse(fs.readFileSync(topojsonName, "utf8")),
+  graticule = d3_geo.geoGraticule(),
+  outline = { type: "Sphere" };
 
-var path = d3_geo.geoPath()
-.projection(d3_composite[projectionSymbol]().precision(0.1))
-.context(context);
+var path = d3_geo
+  .geoPath()
+  .projection(d3_composite[projectionSymbol]().precision(0.1))
+  .context(context);
 
 context.fillStyle = "#fff";
 context.fillRect(0, 0, width, height);
@@ -309,7 +312,6 @@ d3_composite[projectionSymbol]().drawCompositionBorders(context);
 context.stroke();
 
 canvas.pngStream().pipe(fs.createWriteStream("./" + projectionName + ".png"));
-
 ```
 
 - The script takes three arguments:
@@ -325,4 +327,7 @@ Install the dependencies with:
 and run it like:
 
     node test.js conicConformalSpain provincias.json provincias d3-geo
+
+```
+
 ```

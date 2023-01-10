@@ -44,14 +44,15 @@ padding-bottom: 25vh;
 .panel:first-child {padding-top: 5vh;}
 .panel:last-child {padding-bottom: 45vh;}
 
-```
+````
 
 - _container_ is will be the place where both the text will be placed. Note that we are using [vh units](http://www.w3schools.com/cssref/css_units.asp), which are in % of the viewport
 - _sticky_ is the place where the map will be placed. As its name indicates, it won't move. Note that is placed at the right part of the screen with the _right_ tag.
 - The _divs_ with the class _panel_ will have the content that scrolls. Note the _padding-top_ and _padding-bottom_ that are with vh units. This will be useful to maintain a separation when texts are short. Two secions with a single word would still make a nice visualization. The _padding-right_ asserts that the content will be in two columns.
 
 The html would be like this, but including the text:
-{% highlight html %}
+```html
+
 
 <div id="sticky"></div>
 <div id="container">
@@ -61,7 +62,7 @@ The html would be like this, but including the text:
     </div>
 
 </div>
-```
+````
 
 - Note the _content_ node. It will be used to calculate the vertical length of all the sections (panel classed divs)
 

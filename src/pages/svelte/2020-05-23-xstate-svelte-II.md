@@ -11,28 +11,36 @@ In the [last post][last_post], the [XState][xstate] machine combined with Svelte
 Now, let's check how to prepare a semaphore to show the library capabilities in a nice way.
 
 Let's see a simple way draw a semaphore:
-{% highlight html %}
 
+```html
 <script>
-    export let width = 150;
-    export let height = 150;
-    export let status = "green";
+  export let width = 150;
+  export let height = 150;
+  export let status = "green";
 </script>
 
 <svg {width} {height} viewBox="0 0 120 320">
-<rect x="10" y="10"  width="100" height="300" rx="10" ry="10" stroke-width="10" stroke="black" />
-<circle r="40" fill={status==="red"?"red":"grey"} cx="60" cy="60" />
-<circle r="40" fill={status==="yellow"?"yellow":"grey"} cx="60" cy="160" />
-<circle r="40" fill={status==="green"?"lime":"grey"} cx="60" cy="260" />
+  <rect
+    x="10"
+    y="10"
+    width="100"
+    height="300"
+    rx="10"
+    ry="10"
+    stroke-width="10"
+    stroke="black"
+  />
+  <circle r="40" fill={status==="red"?"red":"grey"} cx="60" cy="60" /> <circle
+  r="40" fill={status==="yellow"?"yellow":"grey"} cx="60" cy="160" /> <circle
+  r="40" fill={status==="green"?"lime":"grey"} cx="60" cy="260" />
 </svg>
-
 ```
+
 Basically, `status` can be `green`, `yellow` and `red`. This is what will decide for each light, if it's gray or coloured. The size can be changed too, so we can create as many traffic lights as we want with the needed size.
 
 But this semaphore changed the values too fast. To make it more realistic, the lights should turn off and on with a short transition. This can be done with a [svelte tweened motion][tweened]:
 
-{% highlight html %}
-
+```html
 <script>
   import { interpolateLab } from "d3-interpolate";
   import { tweened } from "svelte/motion";
@@ -42,17 +50,17 @@ But this semaphore changed the values too fast. To make it more realistic, the l
 
   const colorRed = tweened("rgb(128,128,128)", {
     duration: 200,
-    interpolate: interpolateLab
+    interpolate: interpolateLab,
   });
 
   const colorYellow = tweened("rgb(128,128,128)", {
     duration: 200,
-    interpolate: interpolateLab
+    interpolate: interpolateLab,
   });
 
   const colorGreen = tweened("rgb(128,128,128)", {
     duration: 200,
-    interpolate: interpolateLab
+    interpolate: interpolateLab,
   });
 
   $: switch (status) {
@@ -75,10 +83,19 @@ But this semaphore changed the values too fast. To make it more realistic, the l
 </script>
 
 <svg {width} {height} viewBox="0 0 120 320">
-<rect x="10" y="10"  width="100" height="300" rx="10" ry="10" stroke-width="10" stroke="black" />
-<circle r="40" fill={$colorRed} cx="60" cy="60" />
-<circle r="40" fill={$colorYellow} cx="60" cy="160" />
-<circle r="40" fill={$colorGreen} cx="60" cy="260" />
+  <rect
+    x="10"
+    y="10"
+    width="100"
+    height="300"
+    rx="10"
+    ry="10"
+    stroke-width="10"
+    stroke="black"
+  />
+  <circle r="40" fill="{$colorRed}" cx="60" cy="60" />
+  <circle r="40" fill="{$colorYellow}" cx="60" cy="160" />
+  <circle r="40" fill="{$colorGreen}" cx="60" cy="260" />
 </svg>
 ```
 
@@ -87,35 +104,32 @@ But this semaphore changed the values too fast. To make it more realistic, the l
 
 Well, but what about controlling the lights? Now that we can draw the lights, we can create a simple function with the states:
 
-{% highlight html %}
-
+```html
 <script>
-	import TrafficLight from "./TrafficLight.svelte";
-	import TrafficLightAnimated from "./TrafficLightAnimated.svelte";
-	let status = "green";
+  import TrafficLight from "./TrafficLight.svelte";
+  import TrafficLightAnimated from "./TrafficLightAnimated.svelte";
+  let status = "green";
 
-	function handleClick() {
-	  switch (status) {
-	    case "green":
-	      status = "yellow";
-	      break;
-	    case "yellow":
-	      status = "red";
-	      break;
-	    case "red":
-	      status = "green";
-	      break;
-	    default:
-	      throw new Error(`Bad status: ${status}`);
-	  }
-	}
+  function handleClick() {
+    switch (status) {
+      case "green":
+        status = "yellow";
+        break;
+      case "yellow":
+        status = "red";
+        break;
+      case "red":
+        status = "green";
+        break;
+      default:
+        throw new Error(`Bad status: ${status}`);
+    }
+  }
 </script>
 <main>
-	<button on:click={handleClick}>
-		Change
-	</button>
-	<TrafficLight status={status}/>
-	<TrafficLightAnimated status={status}/>
+  <button on:click="{handleClick}">Change</button>
+  <TrafficLight status="{status}" />
+  <TrafficLightAnimated status="{status}" />
 </main>
 ```
 
@@ -133,32 +147,39 @@ The result is this one:
 
 The pedestrian lights are similar. The basic difference is that the _yellow state_ is the binking green state:
 
-{% highlight html %}
-
+```html
 <script>
-   import AmpelmannGrun from "./AmpelmannGrun.svelte";
-   import AmpelmannRot from "./AmpelmannRot.svelte";
-   export let width = 150;
-   export let height = 150;
-   export let status = "green";
+  import AmpelmannGrun from "./AmpelmannGrun.svelte";
+  import AmpelmannRot from "./AmpelmannRot.svelte";
+  export let width = 150;
+  export let height = 150;
+  export let status = "green";
 
-   $: greenStatus =
-     status === "green" ? "on" : status === "yellow" ? "blink" : "off";
-   $: redStatus = status === "red" ? "on" : "off";
+  $: greenStatus =
+    status === "green" ? "on" : status === "yellow" ? "blink" : "off";
+  $: redStatus = status === "red" ? "on" : "off";
 </script>
 
 <svg {width} {height} viewBox="0 0 120 220">
-<rect x="10" y="10"  width="100" height="200" rx="10" ry="10" stroke-width="10" stroke="black" />
-<circle r="40" fill="#555555" cx="60" cy="60" />
-<g transform="translate(23, 25)">
-<AmpelmannRot status={redStatus} width="70" height="70"/>
-</g>
-<circle r="40" fill="#555555" cx="60" cy="160" />
-<g transform="translate(28, 125)">
-<AmpelmannGrun status={greenStatus} width="70" height="70"/>
-</g>
+  <rect
+    x="10"
+    y="10"
+    width="100"
+    height="200"
+    rx="10"
+    ry="10"
+    stroke-width="10"
+    stroke="black"
+  />
+  <circle r="40" fill="#555555" cx="60" cy="60" />
+  <g transform="translate(23, 25)">
+    <AmpelmannRot status="{redStatus}" width="70" height="70" />
+  </g>
+  <circle r="40" fill="#555555" cx="60" cy="160" />
+  <g transform="translate(28, 125)">
+    <AmpelmannGrun status="{greenStatus}" width="70" height="70" />
+  </g>
 </svg>
-
 ```
 
 - Since the SVG is more complicated (source: Wikipedia), the two _Ampelmann_ are included from separete files
@@ -166,9 +187,14 @@ The pedestrian lights are similar. The basic difference is that the _yellow stat
 
 The part of the svg to animate is on line 199:
 
-{% highlight html %}
+```html
 {#if status==="blink"}
-<animate attributeName="stop-color" values="{color1}; {colorGrey1}; {color1}" dur="1s" repeatCount="indefinite"></animate>
+<animate
+  attributeName="stop-color"
+  values="{color1}; {colorGrey1}; {color1}"
+  dur="1s"
+  repeatCount="indefinite"
+></animate>
 {/if}
 ```
 
@@ -182,101 +208,93 @@ The part of the svg to animate is on line 199:
 
 Finally, we can [see how xstate can help to coordinate both lights][codesandbox_3]. Let's look at the _machine_. I've added a _message_ property to each state to understand what are they. There are more than what can seem at first sight:
 
-{% highlight js %}
+```js
 import { Machine } from "xstate";
 
 export const trafficLightsMachine = Machine({
-id: "trafficLights",
-initial: "gtrp",
-states: {
-gtrp: {
-on: { NEXT: "ytrp" },
-meta: {
-message: "Green for traffic, red for pedestrians"
-}
-},
-ytrp: {
-on: { NEXT: "rtrp" },
-meta: {
-message: "Yellow for traffic, red for pedestrians"
-}
-},
-rtrp: {
-on: { NEXT: "rtgp" },
-meta: {
-message: "Red for traffic, red for pedestrians"
-}
-},
-rtgp: {
-on: { NEXT: "rtyp" },
-meta: {
-message: "Red for traffic, green for pedestrians"
-}
-},
-rtyp: {
-on: { NEXT: "rtrp2" },
-meta: {
-message: "Red for traffic, blinking for pedestrians"
-}
-},
-rtrp2: {
-on: { NEXT: "gtrp" },
-meta: {
-message: "Red for traffic, red for pedestrians"
-}
-}
-}
+  id: "trafficLights",
+  initial: "gtrp",
+  states: {
+    gtrp: {
+      on: { NEXT: "ytrp" },
+      meta: {
+        message: "Green for traffic, red for pedestrians",
+      },
+    },
+    ytrp: {
+      on: { NEXT: "rtrp" },
+      meta: {
+        message: "Yellow for traffic, red for pedestrians",
+      },
+    },
+    rtrp: {
+      on: { NEXT: "rtgp" },
+      meta: {
+        message: "Red for traffic, red for pedestrians",
+      },
+    },
+    rtgp: {
+      on: { NEXT: "rtyp" },
+      meta: {
+        message: "Red for traffic, green for pedestrians",
+      },
+    },
+    rtyp: {
+      on: { NEXT: "rtrp2" },
+      meta: {
+        message: "Red for traffic, blinking for pedestrians",
+      },
+    },
+    rtrp2: {
+      on: { NEXT: "gtrp" },
+      meta: {
+        message: "Red for traffic, red for pedestrians",
+      },
+    },
+  },
 });
-
 ```
 
 Now, let's see how do we control the lights:
 
-{% highlight html %}
-
+```html
 <script>
-		import TrafficLight from "./TrafficLight.svelte";
-		import PedestrianLights from "./PedestrianLights.svelte";
-		import { useMachine } from "./useMachine";
-		import { trafficLightsMachine } from "./trafficLightsMachine";
+  import TrafficLight from "./TrafficLight.svelte";
+  import PedestrianLights from "./PedestrianLights.svelte";
+  import { useMachine } from "./useMachine";
+  import { trafficLightsMachine } from "./trafficLightsMachine";
 
-		const { state, send } = useMachine(trafficLightsMachine);
-		function handleClick() {
-		  send("NEXT");
-		}
-		$: trafficState =
-		  $state.value.indexOf("gt") >= 0
-		    ? "green"
-		    : $state.value.indexOf("yt") >= 0
-		    ? "yellow"
-		    : "red";
+  const { state, send } = useMachine(trafficLightsMachine);
+  function handleClick() {
+    send("NEXT");
+  }
+  $: trafficState =
+    $state.value.indexOf("gt") >= 0
+      ? "green"
+      : $state.value.indexOf("yt") >= 0
+      ? "yellow"
+      : "red";
 
-		$: pedestrianState =
-		  $state.value.indexOf("gp") >= 0
-		    ? "green"
-		    : $state.value.indexOf("yp") >= 0
-		    ? "yellow"
-		    : "red";
+  $: pedestrianState =
+    $state.value.indexOf("gp") >= 0
+      ? "green"
+      : $state.value.indexOf("yp") >= 0
+      ? "yellow"
+      : "red";
 </script>
 <main>
-
-    <TrafficLight status={trafficState}/>
-    <PedestrianLights height={100} status={pedestrianState}/>
+  <TrafficLight status="{trafficState}" />
+  <PedestrianLights height="{100}" status="{pedestrianState}" />
+  <div>
     <div>
-    	<div>{#each Object.keys($state.meta) as thing}
-    		{$state.meta[thing].message}
-    	{/each}
-    	</div>
-    	<button on:click={handleClick}>
-    		Change
-    	</button>
+      {#each Object.keys($state.meta) as thing} {$state.meta[thing].message}
+      {/each}
     </div>
-
+    <button on:click="{handleClick}">Change</button>
+  </div>
 </main>
 
-<style>
-</style>
-
+<style></style>
 ```
 
 - We just have to mainain two reactive statements that read the state. Depending on its value, they set the status for the two different actual traffic lights we have.
@@ -307,3 +325,7 @@ As you can see, it's really easy to control when the states are well defined
 [codesandbox_2]: https://codesandbox.io/s/traffic-lights-pedestrian-1ky4d?file=/App.svelte
 [codesandbox_3]: https://codesandbox.io/s/traffic-lights-state-nodes-9w9n6?file=/App.svelte
 [tweened]: https://svelte.dev/tutorial/tweened
+
+```
+
+```

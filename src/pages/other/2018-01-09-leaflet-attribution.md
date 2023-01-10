@@ -25,9 +25,12 @@ Looking at [the code](https://github.com/Leaflet/Leaflet/blob/master/src/control
 
 Removing all the attributions, then is as easy as:
 
-{% highlight js %}
+```js
+
 leafletMap.attributionControl.\_attributions = {};
 leafletMap.attributionControl.addAttribution("New attribution");
+
+```
 
 ```
 

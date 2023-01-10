@@ -18,15 +18,13 @@ The library is awesome, but I found some issues trying to run my things, so I wi
 
 From a regular web page, just include:
 
-{% highlight js %}
-
+```js
 <script src="/path/to/js/gpu.min.js"></script>
-
 ```
 
 then, initialize the library calling
 
-{% highlight js %}
+```js
 const gpu = new GPU();
 ```
 
@@ -49,22 +47,23 @@ And require the module with:
 
 [ObservableHQ][3] is a new and awesome site to publish interactive examples. Requiring libraries is possible, but they have to be in UMD or AMD, which is not the case of [gpu.js][1]. A working solution is using the [wzrd][4] service
 
-{% highlight js %}
-GPU = require('https://wzrd.in/standalone/gpu.js')
-
+```js
+GPU = require("https://wzrd.in/standalone/gpu.js");
 ```
 
 ## First working example
 
 Let's see the simplest calculation using node:
 
-{% highlight js %}
+```js
 var GPU = require("gpu.js");
 var gpu = new GPU();
 
-var gpuKernel = gpu.createKernel(function() {
-return (this.thread.x + this.thread.y);
-}).setOutput([2,2]);
+var gpuKernel = gpu
+  .createKernel(function () {
+    return this.thread.x + this.thread.y;
+  })
+  .setOutput([2, 2]);
 
 console.info(gpuKernel());
 ```
@@ -87,7 +86,8 @@ gpuKernel([1,2,3])
 
 - The size of the matrix is not accessible, unless a constant is declared
 
-{% highlight js %}
+```js
+
 var gpuKernel = gpu.createKernel(function() {
 for(let i = 0; i <this.constants.xSize; i++){
 ....
@@ -104,7 +104,8 @@ return (this.thread.x + this.thread.y);
 
 One of the points that make [gnu.js][1] really interesting is that the gpu function can draw directly on a Canvas element, which is what we need when mapping. Here's a simple example, to run directly on the browser:
 
-{% highlight js %}
+```js
+
 
 <!DOCTYPE html>
 <meta charset="utf-8">
@@ -141,7 +142,9 @@ It's easy! The result looks like this:
 In [one of the first posts of this blog][7] I made a python script for drawing a grid from a set of scattered points. Using gpu.js this can be done at real-time and see the results when changing the parameters, as in [this ObservableHQ notebook][100]
 
 The function to calculate the values is:
-{% highlight js %}
+
+```js
+
 invDist = function(xpos, ypos, values, smoothing, colorScale) {
 var nominator=0;
 var denominator=0;
@@ -176,7 +179,8 @@ flagDist = i;
 
 The hillshade algorithm depends on the current pixel and the one around it, so it's possible [to use gpu.js easily][104]:
 
-{% highlight js %}
+```js
+
 function hillshade(demData) {
 let azimuthrad = this.constants.azimuth _ 0.017453292519943295;
 let altituderad = this.constants.angleAltitude _ 0.017453292519943295;
@@ -212,7 +216,9 @@ Until now, the examples don't show an easy way to put a map on the result. A nic
 I'm using [a small class called canvasOverlay][8].
 
 As you can see in [this observable][106], the function to call from the canvasOverlay would be like:
-{% highlight js %}
+
+```js
+
 drawCanvas = function(canvasOverlay, params) {
 
 let canvas = params.canvas;
@@ -326,4 +332,7 @@ context.drawImage(result, 0, 0);
 [107]: https://beta.observablehq.com/@rveciana/shaded-relief
 [200]: https://bl.ocks.org/rveciana/c664dffd8b94f0598543958433d415f4
 [201]: https://bl.ocks.org/rveciana/7419081f8931227769bae5255579e792
+
+```
+
 ```

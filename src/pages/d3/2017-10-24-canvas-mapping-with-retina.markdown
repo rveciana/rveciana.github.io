@@ -26,7 +26,8 @@ You can see the [example in the image here](https://bl.ocks.org/rveciana/fc4be95
 
 The way to solve it is pretty simple, just add:
 
-{% highlight js %}
+```js
+
 if (window.devicePixelRatio){
 canvas
 .attr('width', width _ window.devicePixelRatio)
@@ -64,4 +65,7 @@ I don't have it neither! Fortunately, firefox allows a way to simulate it:
 - [Stack Overflow question about the topic](https://stackoverflow.com/questions/12243549/how-to-test-a-webpage-meant-for-retina-display)
 - [Proper value in Firefox to change the resolution](https://support.mozilla.org/ca/questions/981038)
 - [Source of the image used for this post](https://www.flickr.com/photos/ivyfield/4731067716)
+
+```
+
 ```

@@ -31,23 +31,22 @@ Copy the following files to the _\_layouts_ dir:
 
 blog_by_category.html
 
-{% highlight html %}
-
+```html
 <h1>Articles by category :{{ page.category }}</h1>
 <div>
-    {{ "{% if site.categories[page.category] " }}%}
-        {{ "{% for post in site.categories[page.category] " }}%}
-            <a href="{{  post.url  }}">{{ "{{ post.title  }}"}}</a>
-        {{ "{% endfor " }}%}
-    {{ "{% else " }}%}
-        <p>There are no posts for this category.</p>
-    {{ "{% endif " }}%}
+  {{ "{% if site.categories[page.category] " }}%} {{ "{% for post in
+  site.categories[page.category] " }}%}
+  <a href="{{  post.url  }}">{{ "{{ post.title }}"}}</a>
+  {{ "{% endfor " }}%} {{ "{% else " }}%}
+  <p>There are no posts for this category.</p>
+  {{ "{% endif " }}%}
 </div>
-
 ```
 
 blog_by_tag.html
-{% highlight html %}
+
+```html
+
 
 <h1>Articles by tag :{{ page.tag }}</h1>
 <div>

@@ -34,29 +34,27 @@ Start the project running
 
 Now we can create one of the simplest state machine taken from the docs, that just toggles between two states:
 
-{% highlight js %}
+```js
 import { Machine } from "xstate";
 
-export const toggleMachine = Machine(
-{
-id: "toggle",
-initial: "inactive",
-states: {
-inactive: {
-on: { TOGGLE: "active" }
-},
-active: {
-on: { TOGGLE: "inactive" }
-}
-}
-}
-);
-
+export const toggleMachine = Machine({
+  id: "toggle",
+  initial: "inactive",
+  states: {
+    inactive: {
+      on: { TOGGLE: "active" },
+    },
+    active: {
+      on: { TOGGLE: "inactive" },
+    },
+  },
+});
 ```
 
 As you can see, the initial state would be _inactive_ and can be changed to _active_ by sending the _TOGGLE_ action. Let's see the javascript file that does this:
 
-{% highlight js %}
+```js
+
 
 <script>
   import { useMachine } from "./useMachine";

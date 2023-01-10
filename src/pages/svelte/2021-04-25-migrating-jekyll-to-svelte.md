@@ -137,7 +137,8 @@ Those properties are necessary to classify and sort the posts and pages.
 
 The svelte config I used is the following, prepared to generate the static site:
 
-{% highlight js %}
+```js
+
 const sveltePreprocess = require("svelte-preprocess");
 const nodeStatic = require("@sveltejs/adapter-static");
 const pkg = require("./package.json");
@@ -162,7 +163,8 @@ noExternal: Object.keys(pkg.dependencies || {})
 
 - All svelte-kit projects have the app.html which is the place to import libraries (I didn't, better do it with an import inside the svelte files), add meta tags and so on. The meta tags can be added later, but the fixed ones can go here.
 - $layout.svelte is the base to our page, its where the header and footer are added. Let's see it, as it's similar to the other svelte files:
-  {% highlight html %}
+  ```html
+
   <script lang="ts" context="module">
   	import type { PageSummary } from '$lib/model';
   	export async function load({ fetch }) {
@@ -202,12 +204,11 @@ You can create as many endpoints as you want by adding \*ts files to the routes.
 
 _data.json.ts_ could be like:
 
-{% highlight js %}
+```js
 export function get() {
-return { body: {value: 42}, status: 200 };
+  return { body: { value: 42 }, status: 200 };
 }
-
-````
+```
 
 The get function sets the get HTTP method, and returns the body of the response and the status. Playing with this is possible to create a complete REST API easily
 
@@ -215,7 +216,8 @@ The get function sets the get HTTP method, and returns the body of the response 
 
 A real endpoint using the data created with _markdown-json_ is using this function to do it (_get_contents.ts_):
 
-{% highlight js %}
+````js
+
 import { data } from '$lib/data.json';
 import type { PostSummary } from './model';
 
@@ -263,7 +265,8 @@ Routing is one of the nice svelte-kit features. The only problem I found is that
 
 There are some routes that don't have variable, like _blog.svelte_
 
-{% highlight js %}<script lang="ts" context="module">
+```js
+<script lang="ts" context="module">
 export async function load({ fetch }) {
 const resultPosts = await fetch('blog.json');
 const posts = (await resultPosts.json()) as PostSummary[];
@@ -321,7 +324,8 @@ Each blog entry takes from Jekyll a category and a date in the form:
 
 The file, then, has to go into an identical path and can use the _page_ variable in the _load_ function:
 
-{% highlight js %}
+```js
+
 
 <script lang="ts" context="module">
 	export async function load({ page, fetch }) {
@@ -333,53 +337,73 @@ The file, then, has to go into an identical path and can use the _page_ variable
 	}
 </script>
 
-````
+```
 
 Using it gives us the value of the path. When generating the static web, each possible call will be rendered and we'll have the json and the html file.
 
 The endpoint will then have the same path but finished in _json.ts_. The important part is that the text stored in the data file has to be translated into the final html. This includes replacing the Jekyll placeholders and using _Prism_ to translate the code:
 
-{% highlight js %}import { configuration } from '$lib/config';
-import Handlebars from 'handlebars';
-import Prism from 'prismjs';
+````js
+import { configuration } from "$lib/config";
+import Handlebars from "handlebars";
+import Prism from "prismjs";
 
 export const md2html = (mdContent: string): string => {
-const template = Handlebars.compile(mdContent);
+  const template = Handlebars.compile(mdContent);
 
-    const text = template(configuration);
+  const text = template(configuration);
 
-    const codeMatches = text.match(/{% highlight [a-z]* %}(.|\n)*?```/g);
+  const codeMatches = text.match(/{% highlight [a-z]* %}(.|\n)*?```/g);
 
-    const formattedCode = codeMatches?.map((d) => {
-    	const lang = d
-    		.match(/{% highlight [a-z]* %}/g)[0]
-    		.replace(/{% highlight /g, '')
-    		.replace(/ %}/g, '');
-    	const code = d
-    		.replace(/<p>/g, '\n')
-    		.replace(/<\/p>/g, '')
-    		.replace(/&quot;/gi, `"`)
-    		.replace(/&lt;/gi, '<')
-    		.replace(/&gt;/gi, '>')
-    		.replace(/{% highlight [a-z]* %}/g, '')
-    		.replace(/```/g, '');
+  const formattedCode = codeMatches?.map((d) => {
+    const lang = d
+      .match(/{% highlight [a-z]* %}/g)[0]
+      .replace(/{% highlight /g, "")
+      .replace(/ %}/g, "");
+    const code = d
+      .replace(/<p>/g, "\n")
+      .replace(/<\/p>/g, "")
+      .replace(/&quot;/gi, `"`)
+      .replace(/&lt;/gi, "<")
+      .replace(/&gt;/gi, ">")
+      .replace(/{% highlight [a-z]* %}/g, "")
+      .replace(/```/g, "");
 
-    	switch (lang) {
-    		case 'js':
-    			return `<pre><code>${Prism.highlight(code, Prism.languages.javascript)}</code></pre>`;
-    		case 'json':
-    			return `<pre><code>${Prism.highlight(code, Prism.languages.javascript)}</code></pre>`;
-    		case 'html':
-    			return `<pre><code>${Prism.highlight(code, Prism.languages.html)}</code></pre>`;
-    		case 'python':
-    			return `<pre><code>${Prism.highlight(code, Prism.languages.js)}</code></pre>`;
-    		default:
-    			return `<pre><code>${Prism.highlight(code, Prism.languages.js)}</code></pre>`;
-    	}
-    });
+    switch (lang) {
+      case "js":
+        return `<pre><code>${Prism.highlight(
+          code,
+          Prism.languages.javascript
+        )}</code></pre>`;
+      case "json":
+        return `<pre><code>${Prism.highlight(
+          code,
+          Prism.languages.javascript
+        )}</code></pre>`;
+      case "html":
+        return `<pre><code>${Prism.highlight(
+          code,
+          Prism.languages.html
+        )}</code></pre>`;
+      case "python":
+        return `<pre><code>${Prism.highlight(
+          code,
+          Prism.languages.js
+        )}</code></pre>`;
+      default:
+        return `<pre><code>${Prism.highlight(
+          code,
+          Prism.languages.js
+        )}</code></pre>`;
+    }
+  });
 
-    return codeMatches?.reduce((acc, curr, i) => acc.replace(curr, formattedCode[i]), text) ?? text;
-
+  return (
+    codeMatches?.reduce(
+      (acc, curr, i) => acc.replace(curr, formattedCode[i]),
+      text
+    ) ?? text
+  );
 };
 ````
 

@@ -41,21 +41,22 @@ I'm using tape to make the tests. Because d3js uses it and becase is simple and 
 
 The function would be:
 
-{% highlight js %}
-tape("Checks the actual image outputs", async function(test) {
-projections.forEach(async d => {
-await render(d.name, d.topojson, d.field);
-let img1 = PNG.sync.read(fs.readFileSync("test/output/" + d.name + ".png"));
-let img2 = PNG.sync.read(fs.readFileSync("test/samples/" + d.name + ".png"));
-let diff = pixelmatch(img1.data, img2.data, null, img1.width, img1.height, {threshold: 0.0});
+```js
+tape("Checks the actual image outputs", async function (test) {
+  projections.forEach(async (d) => {
+    await render(d.name, d.topojson, d.field);
+    let img1 = PNG.sync.read(fs.readFileSync("test/output/" + d.name + ".png"));
+    let img2 = PNG.sync.read(
+      fs.readFileSync("test/samples/" + d.name + ".png")
+    );
+    let diff = pixelmatch(img1.data, img2.data, null, img1.width, img1.height, {
+      threshold: 0.0,
+    });
 
-        test.true(diff == 0, d.name + " matches the sample file");
-
-       });
-    test.end();
-
+    test.true(diff == 0, d.name + " matches the sample file");
+  });
+  test.end();
 });
-
 ```
 
 You can check [the whole script here][test-example]
@@ -113,4 +114,7 @@ Newer d3 versions use [GraphicsMagik][graphicsmagik] to do the same. The good th
 [imagemagik-script]: https://github.com/rveciana/d3-composite-projections/blob/v1.0.2/test/compare-images
 [tape]: https://github.com/substack/tape
 [test-example]: https://github.com/rveciana/d3-composite-projections/blob/v1.2.3/test/render-test.js
+
+```
+
 ```

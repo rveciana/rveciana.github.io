@@ -74,17 +74,18 @@ Some things deserve a little explanation.
 
 ### Creating the color scale:
 
-{% highlight js %}
-var scale = d3.scale.quantize().domain([10,60]).range(colorbrewer.OrRd[9]);
-
+```js
+var scale = d3.scale.quantize().domain([10, 60]).range(colorbrewer.OrRd[9]);
 ```
+
 I have used the _colorbrewer2_ library, which gives many color scales already made. You just have to choose how many colors to use (9 in the example) and the scale name (OrRd). Choosing one is really simple. Just go to the [library page][colorbrewer] and play with the examples until you have the codes.
 
 The domain indicates the maximum and minumum values for the scale. Since no country has values lower than 10 or higher than 60, I forced these limits.
 
 ### Choosing the color to paint the region:
 
-{% highlight js %}
+```js
+
 .style("fill",function(d){
 var value = data[d.id];
 if (isNaN(value)){
@@ -109,7 +110,8 @@ To show a small tooltip, a similar solution is used.
 
 The whole code, running at [bl.ocks.org][gist example] is this one:
 
-{% highlight js %}
+```js
+
 
 <!DOCTYPE html>
 <meta charset="utf-8">

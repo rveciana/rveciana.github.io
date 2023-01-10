@@ -19,19 +19,19 @@ After looking several examples on creating a quiz using JavaScript, I finally go
 
 So we need two functions. I've called them _drawOptions_ and _checkAnswer_. The code would be more or less:
 
-{% highlight js %}
-var checkAnswer = function(correct_answer, selected_answer){
-//Check the answer, draw the results, whatever, here
-drawOptions();
+```js
+var checkAnswer = function (correct_answer, selected_answer) {
+  //Check the answer, draw the results, whatever, here
+  drawOptions();
 };
 
-var drawOptions = function(){
-button
-.on("click", function(d){checkAnswer(id_question, d);});
+var drawOptions = function () {
+  button.on("click", function (d) {
+    checkAnswer(id_question, d);
+  });
 };
 
 drawOptions();
-
 ```
 
 Basically, the first thing to do is drawing the region to ask for, and the buttons with the options. All this is made in the _drawOptions_ function, we will se how a bit later.
@@ -46,51 +46,55 @@ The complete code can be found at [GitHub][github], but the most important parts
 
 # Creating the svg
 
-{% highlight js %}
+```js
 var width = 580,
-height = 450;
+  height = 450;
 
-var projection = d3.geo.conicConformal()
-.center([3.6,41.5])
-.scale(12000);
+var projection = d3.geo.conicConformal().center([3.6, 41.5]).scale(12000);
 
-var path = d3.geo.path()
-.projection(projection);
+var path = d3.geo.path().projection(projection);
 
-var svg = d3.select("#map").append("svg")
-.attr("width", width)
-.attr("height", height);
+var svg = d3
+  .select("#map")
+  .append("svg")
+  .attr("width", width)
+  .attr("height", height);
 
-var results = svg.append("g")
-.attr("id", "results")
-.attr("transform", "translate(140,390)");
+var results = svg
+  .append("g")
+  .attr("id", "results")
+  .attr("transform", "translate(140,390)");
 
-results.append("text")
-.attr("dy", "-0.25em")
-.attr("dx", ".0em")
-.style("font-family","'Helvetica Neue', Helvetica, Arial, sans-serif")
-.text("Progrés");
+results
+  .append("text")
+  .attr("dy", "-0.25em")
+  .attr("dx", ".0em")
+  .style("font-family", "'Helvetica Neue', Helvetica, Arial, sans-serif")
+  .text("Progrés");
 
-results.append("rect")
-.attr("class","pendingAnswers")
-.attr("width",300)
-.attr("height",20)
-.attr("x",0)
-.style("fill", "#888");
+results
+  .append("rect")
+  .attr("class", "pendingAnswers")
+  .attr("width", 300)
+  .attr("height", 20)
+  .attr("x", 0)
+  .style("fill", "#888");
 
-results.append("rect")
-.attr("class","negativeAnswers")
-.attr("width",0)
-.attr("height",20)
-.attr("x",0)
-.style("fill", "#f44");
+results
+  .append("rect")
+  .attr("class", "negativeAnswers")
+  .attr("width", 0)
+  .attr("height", 20)
+  .attr("x", 0)
+  .style("fill", "#f44");
 
-results.append("rect")
-.attr("class","positiveAnswers")
-.attr("width",0)
-.attr("height",20)
-.attr("x",0)
-.style("fill", "#4f4");
+results
+  .append("rect")
+  .attr("class", "positiveAnswers")
+  .attr("width", 0)
+  .attr("height", 20)
+  .attr("x", 0)
+  .style("fill", "#4f4");
 ```
 
 As you can see, I create the svg with the desired size here, and add three _rect_ elements, that will be the score bar. All them are in a group called _results_
@@ -98,7 +102,9 @@ As you can see, I create the svg with the desired size here, and add three _rect
 # Creating the base map
 
 To create the base map, I just draw a simple polygon map as usual:
-{% highlight js %}
+
+```js
+
 d3.json("comarques.topo.json", function(error, comarques) {
 var land = topojson.feature(comarques, comarques.objects.comarques);
 var capitals = topojson.feature(comarques, comarques.objects.capitals);
@@ -127,7 +133,8 @@ var negative_answers = 0;
 
 # drawOptions()
 
-{% highlight js %}
+```js
+
 var drawOptions = function(){
 var id_question = remaining_ids[Math.floor(Math.random() * remaining_ids.length)];
 remaining_ids.splice(remaining_ids.indexOf(id_question),1);
@@ -147,26 +154,34 @@ remaining_ids.splice(remaining_ids.indexOf(id_question),1);
 ```
 
 This first part takes the region to ask from the _remaining_ids_ array, and three more false answers to create the buttons.
-{% highlight js %}
+
+```js
 //Drawing the answer buttons
-var selection = d3.select("#answers")
-.selectAll(".answer")
-.data(options, function(d){return d;});
+var selection = d3
+  .select("#answers")
+  .selectAll(".answer")
+  .data(options, function (d) {
+    return d;
+  });
 
-    selection
-      .enter()
-      .append("button")
-      .attr("class","answer")
-      .text(function(d){return land.features[d].properties.name;})
-      .on("click", function(d){checkAnswer(id_question, d);});
+selection
+  .enter()
+  .append("button")
+  .attr("class", "answer")
+  .text(function (d) {
+    return land.features[d].properties.name;
+  })
+  .on("click", function (d) {
+    checkAnswer(id_question, d);
+  });
 
-    selection
-      .exit()
-      .remove();
-
+selection.exit().remove();
 ```
+
 Here, the buttons are drawn. Note the use of _selection.exit()_. This will remove the buttons when the new question comes, since the _options_ will be different.
-{% highlight js %}
+
+```js
+
 //Drawing the selected region
 var land_feature = land.features[id_question]
 var capitals_feature = capitals.features.filter(
@@ -252,7 +267,8 @@ The first lines match the region id with the capital.
 
 # checkAnswer
 
-{% highlight js %}
+```js
+
 var checkAnswer = function(correct_answer, selected_answer){
 if (correct_answer == selected_answer){
 positive_answers++;
@@ -265,10 +281,13 @@ var selectionLand = svg.select(".selectedPath")
 }
 
 ```
+
 This is the part where the answer is checked. Of course, when the answer is correct, the counter of correct answers goes up (and the same for wrong answers). The region color is changed too depending on the answer.
 
 The next steps simply change the status bar or put the final result at the end.
-{% highlight js %}
+
+```js
+
 svg.select(".positiveAnswers")
 .transition()
 .duration(1000)

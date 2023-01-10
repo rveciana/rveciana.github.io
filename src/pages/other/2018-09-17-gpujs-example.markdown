@@ -79,19 +79,19 @@ To make the example interactive and easier to split and understand, I made [this
 ### [Multiple linear regression][11]
 
 I'm using [numeric.js][8] here to avoid many complex gpu.js coding, since with only two hundred weather station, the ellapsed time is a very small part of the total (2 ms).
-{% highlight js %}
+
+```js
 let result = {};
 const conv = convertData(data);
 const X = conv.X;
-const Y = conv.Y
+const Y = conv.Y;
 const X_T = numeric.transpose(X);
-const multipliedXMatrix = numeric.dot(X_T,X);
+const multipliedXMatrix = numeric.dot(X_T, X);
 const LeftSide = numeric.inv(multipliedXMatrix);
-const RightSide = numeric.dot(X_T,Y);
-result.beta = numeric.dot(LeftSide,RightSide);
+const RightSide = numeric.dot(X_T, Y);
+result.beta = numeric.dot(LeftSide, RightSide);
 const yhat = numeric.dot(X, result.beta);
 result.residual = numeric.sub(Y, yhat);
-
 ```
 
 Notice that the code is very easy to understand given the original formula:
@@ -105,7 +105,8 @@ $$
 
 In this case, [gpu.js][2] will be used, since I've set a 1000x970 output field, which involves repeating the same operation about one million times, and this is where the gpu makes things much faster:
 
-{% highlight js %}
+```js
+
 let gpu = new GPU();
 
 const calculateInterp = gpu.createKernel(function(altitude, dist, regrCoefs) {
@@ -131,30 +132,40 @@ Also, I used the GPU.input method to pass the big matrices, since it's much fast
 
 To calculate the residuald field, we take the error in each weather station and apply the inverse of the distance in each pixel of the field. It's the most intensive calculation of all the process.
 
-{% highlight js %}
-let xPos = station_data.map(d => {return (d.lon - fixData.geoTransform[0])/fixData.geoTransform[1];});
-let yPos = station_data.map(d => {return (d.lat - fixData.geoTransform[3])/fixData.geoTransform[5];});
+```js
+let xPos = station_data.map((d) => {
+  return (d.lon - fixData.geoTransform[0]) / fixData.geoTransform[1];
+});
+let yPos = station_data.map((d) => {
+  return (d.lat - fixData.geoTransform[3]) / fixData.geoTransform[5];
+});
 let gpu = new GPU();
-const calculateResidues = gpu.createKernel(function(xpos, ypos, values) {
-let nominator=0;
-let denominator=0;
-let flagDist = -1;
+const calculateResidues = gpu
+  .createKernel(function (xpos, ypos, values) {
+    let nominator = 0;
+    let denominator = 0;
+    let flagDist = -1;
 
     for (let i = 0; i < this.constants.numPoints; i++) {
-
-      let dist = 5 + Math.sqrt((this.thread.x-xpos[i])*(this.thread.x-xpos[i])+
-                               (this.thread.y-ypos[i])*(this.thread.y-ypos[i]) + 2);
-      nominator=nominator+(values[i]/dist)
-      denominator=denominator+(1/dist)
-
+      let dist =
+        5 +
+        Math.sqrt(
+          (this.thread.x - xpos[i]) * (this.thread.x - xpos[i]) +
+            (this.thread.y - ypos[i]) * (this.thread.y - ypos[i]) +
+            2
+        );
+      nominator = nominator + values[i] / dist;
+      denominator = denominator + 1 / dist;
     }
-    return nominator/denominator;
-
-})
-.setConstants({ numPoints: xPos.length, tiffWidth: fixData.xSize, tiffHeight: fixData.ySize })
-.setOutput([fixData.xSize, fixData.ySize]);
+    return nominator / denominator;
+  })
+  .setConstants({
+    numPoints: xPos.length,
+    tiffWidth: fixData.xSize,
+    tiffHeight: fixData.ySize,
+  })
+  .setOutput([fixData.xSize, fixData.ySize]);
 let residualsResult = calculateResidues(xPos, yPos, regression_result.residual);
-
 ```
 
 - First, the station positions must be converted to pixels using the geotransform to be able to interpolate them
@@ -166,12 +177,16 @@ let residualsResult = calculateResidues(xPos, yPos, regression_result.residual);
 
 That's the easiest part, only substract the error to the original interpolation field:
 
-{% highlight js %}
+```js
 let gpu = new GPU();
-const addResidues = gpu.createKernel(function(interpResult, residuesResult) {
-return interpResult[this.thread.y][this.thread.x] - residuesResult[this.thread.y][this.thread.x];
-})
-.setOutput([fixData.xSize, fixData.ySize]);
+const addResidues = gpu
+  .createKernel(function (interpResult, residuesResult) {
+    return (
+      interpResult[this.thread.y][this.thread.x] -
+      residuesResult[this.thread.y][this.thread.x]
+    );
+  })
+  .setOutput([fixData.xSize, fixData.ySize]);
 
 let temperatureField = addResidues(interpolation_result, residuals_result);
 ```
@@ -180,7 +195,8 @@ let temperatureField = addResidues(interpolation_result, residuals_result);
 
 Since the example was not about projections or mapping, I didn't draw any border nor reprojected the data nor added it into a Leaflet layer. [Check the previous post][1] for that. Just drawing the matrices is easy:
 
-{% highlight js %}
+```js
+
 let gpu = new GPU();
 let render = gpu.createKernel(function(interpolation*result, colorScale) {
 let color = Math.ceil(255 * (interpolation*result[(this.constants.height - 1 - this.thread.y) * this.constants.width + this.thread.x] - this.constants.minVal)/(this.constants.maxVal - this.constants.minVal));
@@ -257,4 +273,7 @@ ObservableHQ example:
 [16]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#residuals_result
 [17]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#final_result
 [18]: https://beta.observablehq.com/@rveciana/temperature-interpolation-using-gpu-js#final_result_drawing
+
+```
+
 ```

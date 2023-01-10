@@ -51,7 +51,8 @@ To run all the examples, severall libraries have to be installed too:
 
 The _App.svelte_ file would be:
 
-{% highlight html %}
+```html
+
 
 <script>
   import { geoAlbers, geoPath } from "d3-geo";
@@ -103,7 +104,8 @@ Let's add now more geometries and a color scale to fill them. This example and t
 
 <img width="50%" src="/images/d3/mapping-svelte/example2.png"/>
 
-{% highlight html %}
+```html
+
 
 <script>
   import { geoAlbers, geoPath } from "d3-geo";
@@ -183,7 +185,8 @@ Also, we want to change the projection to a composed one when clicking a button.
 
 Let's start with the nested component, called _Feature.svelte_. Copy this into your project too!
 
-{% highlight html %}
+```html
+
 
 <script>
   import { tweened } from "svelte/motion";
@@ -227,7 +230,8 @@ color.set(initialColor);
 
 Let's see now the _App.svelte_ file. This will handle the projection transition and the _Feature_ rendering:
 
-{% highlight html %}
+```html
+
 
 <script>
   import { geoAlbers, geoPath, geoProjection } from "d3-geo";
@@ -354,7 +358,8 @@ I won't put all the code, since it's very similar to the previous one. [Check th
 
 cities.js:
 
-{% highlight html %}
+```html
+
 export const cities = [
 { name: "Perth", lat: 56.396999, lon: -3.437, population: 47180 },
 { name: "Glasgow", lat: 55.860916, lon: -4.251433, population: 598830 },
