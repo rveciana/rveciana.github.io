@@ -17,19 +17,19 @@ So I created this new example. On a mobile phone (allowing geolocation), we writ
 
 The first screen asks if you want to create a track or follow one:
 
-<img src="{{ site.baseurl }}/images/svelte/svelte-supabase-track/initial.png" />
+<img src="/images/svelte/svelte-supabase-track/initial.png" />
 
 When selecting _Start a new track_, a random name will be assigned to it so it's possible to use it with the option _Follow track_ from any other device.
 
 In both cases, you will see the map with the track:
 
-<img src="{{ site.baseurl }}/images/svelte/svelte-supabase-track/map.png" />
+<img src="/images/svelte/svelte-supabase-track/map.png" />
 
 # Supabase
 
 To run this project, we'll use a single table. The table looks like this:
 
-<img src="{{ site.baseurl }}/images/svelte/svelte-supabase-track/table.png" />
+<img src="/images/svelte/svelte-supabase-track/table.png" />
 
 - The _name_ field will be used to follow a single track. Only who has created it knows the name, so you can follow only your tracks
 - _geometry_ has the track, which is a _linestring_. Ideally, it could be a _multilinestring_ and divide the track in sections if the GPS stops or something, but this is out of the scope for a simple demo

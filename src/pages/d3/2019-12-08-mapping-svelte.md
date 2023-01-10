@@ -47,7 +47,7 @@ To run all the examples, severall libraries have to be installed too:
 
 [This first example][basic] creates the easiest map:
 
-<img width="50%" src="{{ site.baseurl }}/images/d3/mapping-svelte/example1.png"/>
+<img width="50%" src="/images/d3/mapping-svelte/example1.png"/>
 
 The _App.svelte_ file would be:
 
@@ -101,7 +101,7 @@ data = path(land);
 
 Let's add now more geometries and a color scale to fill them. This example and the next ones are all based on [this Observable][scotland-observable]. [Check the result][multiple]
 
-<img width="50%" src="{{ site.baseurl }}/images/d3/mapping-svelte/example2.png"/>
+<img width="50%" src="/images/d3/mapping-svelte/example2.png"/>
 
 {% highlight html %}
 
@@ -179,7 +179,7 @@ Let's add now more geometries and a color scale to fill them. This example and t
 Well, this starts to be interesting. This is where Svelte makes things really easier. We want the same map we had on the previous example but when we hover on a county, we want this county color change a little so the user knows it. This means having behaviours for each path, so we will need nested components.
 Also, we want to change the projection to a composed one when clicking a button. [Check the result][transitions]
 
-<img width="50%" src="{{ site.baseurl }}/images/d3/mapping-svelte/example3.png"/>
+<img width="50%" src="/images/d3/mapping-svelte/example3.png"/>
 
 Let's start with the nested component, called _Feature.svelte_. Copy this into your project too!
 
@@ -345,7 +345,7 @@ Change
 
 The last example is just to show that the usual extra data can be added without any problem.
 
-<img width="50%" src="{{ site.baseurl }}/images/d3/mapping-svelte/example4.png"/>
+<img width="50%" src="/images/d3/mapping-svelte/example4.png"/>
 
 I won't put all the code, since it's very similar to the previous one. [Check the example here][circles]
 

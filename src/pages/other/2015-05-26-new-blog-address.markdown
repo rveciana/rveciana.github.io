@@ -10,7 +10,7 @@ After four years hosted at [blogger](geoexamples.blogger.com), I decided to move
 
 [http://geoexamples.com](http://geoexamples.com) is here!
 
-<img src="{{ site.baseurl }}/images/other/IMG_0987.jpg"/>
+<img src="/images/other/IMG_0987.jpg"/>
 
 The new blog uses [Jekyll](http://jekyllrb.com/), so the interactive will work much better.
 

@@ -15,11 +15,11 @@ Here is how I managed to do it.
 
 cython files end with _.pyx_. The syntaxis is similar to python, but the program doesn't recognize the file. Also, it has some special words that would give error in python, such as _cdef_. So a new file type must be created. Go to _File->Settings->Editor->File Types_ and add a file type:
 
-<img src="{{ site.baseurl }}/images/python/pycharm-cython/pyx.png"/>
+<img src="/images/python/pycharm-cython/pyx.png"/>
 
 Then, edit it to make it good for the cython syntax:
 
-<img src="{{ site.baseurl }}/images/python/pycharm-cython/cython.png"/>
+<img src="/images/python/pycharm-cython/cython.png"/>
 
 Since there are many words to add, and no way to do it fast, I have exported my settings in [this file][settings], which you can import from _File->Import Settings_. I'll try to keep it updated by adding more keywords.
 
@@ -46,7 +46,7 @@ Is possible to automatize this with an _external tool_:
 
 Open _File->Settings->Tools->External tools_ and click the _+_ button. You will get a window that has to be filled like this:
 
-<img src="{{ site.baseurl }}/images/python/pycharm-cython/tool.png"/>
+<img src="/images/python/pycharm-cython/tool.png"/>
 
 You can run the compilation by going to _tools->External tools->cython compile_ any moment or right clicking the file name at the project pane. Then, re-run it by clicking on the play button on the lower pane.
 
@@ -67,7 +67,7 @@ Usually, all the cython files will be compiled at once with the _setup.py_, so t
 [filetypes]: https://www.jetbrains.com/help/pycharm/2016.3/new-file-type.html
 
 [coverage]: {{ site.baseurl }}{% post_url /python/2016-02-15-code-coverage-pylint-pycharm-community %}
-[settings]: {{ site.baseurl }}/images/python/pycharm-cython/settings.jar
+[settings]: /images/python/pycharm-cython/settings.jar
 
 ```
 

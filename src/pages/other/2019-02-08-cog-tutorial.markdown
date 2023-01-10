@@ -225,7 +225,7 @@ console.log("Values:", data);
 
 The output is:
 
-<img src="{{ site.baseurl }}/images/other/cog/console_gtiffjs.png"/>
+<img src="/images/other/cog/console_gtiffjs.png"/>
 
 - I used the async/await technique to make the code easier to understand. In this case, opening the image, getting the actual image and reading the image data are three asynchronous methods.
 - _getImage()_ will return the main pyramid, with the original resolution. Is the same as _.getImage(0)_. In the example, another pyramid is created, so using _.getImage(1)_, an image with a 500px width would returned
@@ -235,7 +235,7 @@ The output is:
 
 What about the queries? This is the _network_ tab on the developer tools:
 
-<img src="{{ site.baseurl }}/images/other/cog/network_gtiffjs.png"/>
+<img src="/images/other/cog/network_gtiffjs.png"/>
 
 We can see three downloads of the _out.tiff_ file:
 
@@ -250,7 +250,7 @@ Note that all the above has been transparent, which is really cool.
 
 There's [a nice example at ObservableHQ][observable_example] showing how to use an RGB GeoTIFF when it's cloud optimized.
 
-<img src="{{ site.baseurl }}/images/other/cog/rgb.png"/>
+<img src="/images/other/cog/rgb.png"/>
 
 The _interesting_ part is this one:
 
@@ -325,7 +325,7 @@ rasterData = rasterData[0];
 
 The output will be like this (all the GeoTIFF coverage):
 
-<img src="{{ site.baseurl }}/images/other/cog/js_example1.png"/>
+<img src="/images/other/cog/js_example1.png"/>
 
 - In this case, only the smallest overlay is used. Why? Because it's got about 350x350 pixels. This is enough to create the isobands. So, in case you don't know which overlay to take, this is a good orientation
   - _tiff.getImage(3)_ is the place where the overlay is chosen
@@ -382,7 +382,7 @@ rasterData = rasterData[0];
 
 The output will be like this (a zoomed portion of the previous example):
 
-<img src="{{ site.baseurl }}/images/other/cog/js_example2.png"/>
+<img src="/images/other/cog/js_example2.png"/>
 
 - _tiff.getImage(0)_ will get the main image, not an overview. Using _tiff.getImage()_ would give the same result
 - Note that _image.getHeight()_ and _image.getWidth()_ have been changed by the width and height we want to show. That's, of course, because we want to get just a part of the image

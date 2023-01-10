@@ -295,7 +295,7 @@ bower register <my-package-name> <git-endpoint>
 
 The first thing to set up Travis is to create your account. You can do it directly from GitHub, who will ask you a permission. Then, you can take the three steps shown in this image:
 
-<img src="{{ site.baseurl }}/images/other/d3-library/travis.png"/>
+<img src="/images/other/d3-library/travis.png"/>
 
 - Select the project you want to link
 - Create the .travis.yml file. In our case, use the [Travis javascript tutorial][travis node], and specifically the [Travis gulp section][travis gulp]

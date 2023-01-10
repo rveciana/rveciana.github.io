@@ -7,7 +7,7 @@ tags: [EUROSTAT, Open Data]
 teaser: d3-nuts.png
 ---
 
-<img width="50%" src="{{ site.baseurl }}/images/d3/d3-nuts/example.png"/>
+<img width="50%" src="/images/d3/d3-nuts/example.png"/>
 
 [click to see the original map by EUROSTAT][example map]
 
@@ -46,7 +46,7 @@ To create the final topoJSON for nuts level 1, type:
 
 If yo don't want to create the same topojson, you can just get them from [this GIST][gist], with the names nuts0.json, nuts1.json, etc.
 
-[Here][example gist], you can see a [working example][example gist] too, that gives this result: <img  src="{{ site.baseurl }}/images/d3/d3-nuts/example-gist.png"/>
+[Here][example gist], you can see a [working example][example gist] too, that gives this result: <img  src="/images/d3/d3-nuts/example-gist.png"/>
 
 [download regions]: http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units
 [population data]: http://appsso.eurostat.ec.europa.eu/nui/show.do?dataset=demo_r_pjanaggr3&lang=en

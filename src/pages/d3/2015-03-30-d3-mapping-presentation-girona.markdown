@@ -9,7 +9,7 @@ teaser: d3-mapping-presentation-girona.png
 
 Every year, [SIGTE](http://www.sigte.udg.edu/) organizes workshops and a [conference about Free GIS software](http://www.sigte.udg.edu/jornadassiglibre/) in [Girona](http://www.openstreetmap.org/#map=15/41.9750/2.8234).
 
-<img src="{{ site.baseurl }}/images/d3/d3-mapping-presentation-girona.png"/>
+<img src="/images/d3/d3-mapping-presentation-girona.png"/>
 
 This year I gave a workshop about D3js mapping.
 

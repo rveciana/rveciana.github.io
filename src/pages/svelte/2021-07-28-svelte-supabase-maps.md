@@ -13,7 +13,7 @@ I discovered [supabase][supabase] some days ago as a substitute for Firebase. As
 
 Using supabase is not that straightforward, but it's not that difficult, so supabase can be a great solution if your backend it's not really complex.
 
-<img src="{{ site.baseurl }}/images/svelte/svelte-supabase/map.png" />
+<img src="/images/svelte/svelte-supabase/map.png" />
 
 We'll show the user's point data on a map, a list and will let them add new points too. You can see the [working example here][workingexample].
 
@@ -85,7 +85,7 @@ language plpgsql;
 This function will take the name, longitude and latitude and, besides inserting the name, uses postgis to calculate the geometry (_st_MakePoint_).
 It's returning the new value so we don't have to query the data again to how the new point.
 
-<img src="{{ site.baseurl }}/images/svelte/svelte-supabase/table.png"/>
+<img src="/images/svelte/svelte-supabase/table.png"/>
 
 ## Svelte components
 

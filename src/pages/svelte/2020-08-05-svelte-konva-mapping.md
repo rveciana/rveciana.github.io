@@ -67,7 +67,7 @@ The example is not bad, but it's not using any Svelte style coding. It would be 
 
 Then, we could use a store to put as many elements as we wanted, for instance. Let's see how to to that. [Check the interactive example here][second example]
 
-<img src="{{ site.baseurl }}/images/svelte/svelte-konva-mapping/circles.png"/>
+<img src="/images/svelte/svelte-konva-mapping/circles.png"/>
 
 We'll create a component for the Stage, another for the Layer and finally, a Circle component that acually draws a circle.
 
@@ -183,7 +183,7 @@ And now the cool part. To create the drawing, we only call:
 
 So now, with the knowledge from the previous examples, we can create a map. [I created an intermediate (simpler) version of the map, in case somebody wants to take a look][intermediate third example]. [The final version is here][third example].
 
-<img src="{{ site.baseurl }}/images/svelte/svelte-konva-mapping/map.png"/>
+<img src="/images/svelte/svelte-konva-mapping/map.png"/>
 
 Let's start from the other side now! The App.svelte file is this one:
 

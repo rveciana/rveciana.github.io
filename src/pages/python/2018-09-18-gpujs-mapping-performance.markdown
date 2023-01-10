@@ -326,13 +326,13 @@ Finally, it would be nice to check the performance against python + GPU, but I h
 
 [1]: {{ site.baseurl }}/other/2018/09/17/gpujs-example.html
 [2]: http://gpu.rocks
-[3]: {{ site.baseurl }}/images/python/gpujs-performance/calculate_temp.py
-[4]: {{ site.baseurl }}/images/python/gpujs-performance/setup.py
-[5]: {{ site.baseurl }}/images/python/gpujs-performance/interpolate_residuals.pyx
-[6]: {{ site.baseurl }}/images/python/gpujs-performance/idw.py
+[3]: /images/python/gpujs-performance/calculate_temp.py
+[4]: /images/python/gpujs-performance/setup.py
+[5]: /images/python/gpujs-performance/interpolate_residuals.pyx
+[6]: /images/python/gpujs-performance/idw.py
 [7]: scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
 [8]: https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.Rbf.html
 [9]: https://github.com/paulbrodersen/inverse_distance_weighting
 [10]: http://cython.org/
-[11]: {{ site.baseurl }}/images/python/gpujs-performance/vars.tiff
-[12]: {{ site.baseurl }}/images/python/gpujs-performance/station_data.json
+[11]: /images/python/gpujs-performance/vars.tiff
+[12]: /images/python/gpujs-performance/station_data.json

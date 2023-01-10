@@ -29,7 +29,7 @@ About a moth ago, the library _jsdom_ didn't work with the last version in nodej
 
 The easiest way to explore the use of d3 and nodejs is creating PNG files using the [node-canvas library][node-canvas library].
 
-<img src="{{ site.baseurl }}/images/d3/d3-nodejs/png-example.png" width="70%"/>
+<img src="/images/d3/d3-nodejs/png-example.png" width="70%"/>
 
 The script for generating the PNG above:
 
@@ -89,7 +89,7 @@ The main parts of the script are:
 
 To create an SVG file, a DOM has to be created before. This is done using the _jsdom_ library and it's a bit more complicated.
 
-<img src="{{ site.baseurl }}/images/d3/d3-nodejs/svg-example.svg" width="70%"/>
+<img src="/images/d3/d3-nodejs/svg-example.svg" width="70%"/>
 
 The script for generating the SVG above:
 
@@ -165,7 +165,7 @@ I made a script that makes the 900x500px map for each country in the world-50m t
 
 I haven't compared it with other libaries such as using [Python + PIL][python pil] with the same data, but the results seem quite good. And you can generate SVGs too!
 
-<img src="{{ site.baseurl }}/images/d3/d3-nodejs/Gambia.png" width="70%"/>
+<img src="/images/d3/d3-nodejs/Gambia.png" width="70%"/>
 
 The output file for Gambia
 

@@ -11,7 +11,7 @@ Basemap is a great tool for creating maps using python in a simple way. It's a [
 
 Basemap has got [some documentation](http://matplotlib.org/basemap/index.html), but some things are a bit more difficult to find. I started a readthedocs page to extend a little the original documentation and examples, but it grew a little, and now covers many of the basemap possibilities.
 
-<img src="{{ site.baseurl }}/images/python/basemaptutorial.png" width="50%"/>
+<img src="/images/python/basemaptutorial.png" width="50%"/>
 
 Some of the examples from the tutorial
 

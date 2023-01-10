@@ -22,7 +22,7 @@ sudo pip install pylint
 ```
 Then, open _File->Settings->Tools->External tools_ and click the _+_ button. You will get a window that has to be filled like this:
 
-<img src="{{ site.baseurl }}/images/python/pycharm-coverage/pylint.png"/>
+<img src="/images/python/pycharm-coverage/pylint.png"/>
 
 - Remember to check the _Show console when a message is printed to standard output stream_ and the same with errors. If not, the [pylint][pylint] output won't be shown.
 - _Program_ is the path to the program to be executed. No parameters can be passed here
@@ -59,7 +59,7 @@ Now, when running the test, the console will output the coverage result
 
 As in the pylint case, an external tool can be set: Open _File->Settings->Tools->External tools_ and click the _+_ button.
 
-<img src="{{ site.baseurl }}/images/python/pycharm-coverage/coverage1.png"/>
+<img src="/images/python/pycharm-coverage/coverage1.png"/>
 
 - The program is _nosetests3_ in my case, since I'm running a python3 project
 - The parameters are the same as in the other case, but calling the macro _$Prompt$_ to give the name of the packages. This will open a window to ask which packages to check
@@ -78,7 +78,7 @@ nosetests3 --with-coverage --cover-erase --cover-tests --cover-package `echo */|
 
 And then, create the _external tool_ this way:
 
-<img src="{{ site.baseurl }}/images/python/pycharm-coverage/coverage2.png"/>
+<img src="/images/python/pycharm-coverage/coverage2.png"/>
 
 - All the available packages are passed to the _--cover-package_ option so no prompt is needed
 - Since the _working directory_ is set to the project root, the paths are at the correct point

@@ -19,7 +19,7 @@ The problem in using _canvas_ is the _retina display_ devices, like the IPhone. 
 ## Blurry edges
 
 The image below shows the problem when drawing canvas with a retina display:
-<img src="{{ site.baseurl }}/images/d3/canvas-mapping-retina/retina_example.png"/>
+<img src="/images/d3/canvas-mapping-retina/retina_example.png"/>
 When setting up a _canvas_ element, the numebr of actual pixels in a retina display is 4 times the declared in the canvas. That's why the computer interpolates the drawing and gets the blur effect.
 
 You can see the [example in the image here](https://bl.ocks.org/rveciana/fc4be951e972d945204ad79423c58106). If you don't have a retina display device, all the parts of the map will look ok. Take a look at the section below to simulate the retina display.

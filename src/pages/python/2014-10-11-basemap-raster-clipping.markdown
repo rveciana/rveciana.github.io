@@ -17,7 +17,7 @@ The example plots some elevation data, taken from the SRTM. After looking for so
 The shapefile will be the border of Andorra, taken from Natural Earth
 The result is a little poor because the resolution is low, but works well for the example.
 
-<img src="{{ site.baseurl }}/images/python/basemapclipping.png" width="50%"/>
+<img src="/images/python/basemapclipping.png" width="50%"/>
 
 ## The script
 

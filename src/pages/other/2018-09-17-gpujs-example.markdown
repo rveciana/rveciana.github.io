@@ -43,7 +43,7 @@ Once the _beta values_ are calculated, a temperature field can be created if the
 
 The result will look like this:
 
-<img src="{{ site.baseurl }}/images/other/complex-gis-calculations-gpu/first_temp.png"/>
+<img src="/images/other/complex-gis-calculations-gpu/first_temp.png"/>
 
 The problem with stopping here is that we are assuming that the formula is valid for all the territory, but we know that some regions have their own particularities (some regions may be a bit hotter or colder than what the formula expect). Let's try to correct that with the _residues method_:
 
@@ -57,11 +57,11 @@ $$e=y-\hat{y}$$
 
 Once we have the error in each point, we can interpolate them to create a _residuals field_ that can be added to the original temperature calculation. To do it, we will use the inverse of the distance, which will give a result similar to:
 
-<img src="{{ site.baseurl }}/images/other/complex-gis-calculations-gpu/inverse.png"/>
+<img src="/images/other/complex-gis-calculations-gpu/inverse.png"/>
 
 Finally, when adding the layer, some differences emerge:
 
-<img src="{{ site.baseurl }}/images/other/complex-gis-calculations-gpu/final_result.png"/>
+<img src="/images/other/complex-gis-calculations-gpu/final_result.png"/>
 
 So, to create the final map, the following things must be calculated. We will use a 1000x1000 pixels so the calculation is long using the CPU:
 

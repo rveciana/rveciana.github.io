@@ -13,11 +13,11 @@ Unfortunately, I didn't find an easy way to do that using D3js, so I wrote [a po
 
 The idea is creating the maps as [Eurostat does][example map]:
 
-<a href="http://ec.europa.eu/eurostat/statistics-explained/images/a/ae/Urban_rural_typology_for_NUTS3_new.png"><img width="50%" src="{{ site.baseurl }}/images/d3/d3-nuts/example.png"/></a>
+<a href="http://ec.europa.eu/eurostat/statistics-explained/images/a/ae/Urban_rural_typology_for_NUTS3_new.png"><img width="50%" src="/images/d3/d3-nuts/example.png"/></a>
 
 You can see the [working example at bl.ocks.org][gist example], and it looks like this:
 
-<img width="50%" src="{{ site.baseurl }}/images/d3/d3-nuts/final-map.png"/>
+<img width="50%" src="/images/d3/d3-nuts/final-map.png"/>
 
 ## Downloading some sample data
 
@@ -44,23 +44,23 @@ Population and Social conditions -> Income and living conditions -> Main Tables 
 
 From there, choose _Tables, maps and graphs interface_:
 
-<img src="{{ site.baseurl }}/images/d3/d3-nuts/table.png"/>
+<img src="/images/d3/d3-nuts/table.png"/>
 
 Choose the _More data in the source dataset_ button:
 
-<img src="{{ site.baseurl }}/images/d3/d3-nuts/source-dataset.png"/>
+<img src="/images/d3/d3-nuts/source-dataset.png"/>
 
 Then, the GEO _+ button_:
 
-<img src="{{ site.baseurl }}/images/d3/d3-nuts/geo.png"/>
+<img src="/images/d3/d3-nuts/geo.png"/>
 
 Once there, ask to get not just the region names, but the labels too, so the topoJSON codes can be used. Don't forget to click the _update_ button:
 
-<img src="{{ site.baseurl }}/images/d3/d3-nuts/labels.png"/>
+<img src="/images/d3/d3-nuts/labels.png"/>
 
 Now you can click the _download_ button and ask to have the labels in a separate column from the name (or doing it yourself will be a mess, believe me):
 
-<img src="{{ site.baseurl }}/images/d3/d3-nuts/download.png"/>
+<img src="/images/d3/d3-nuts/download.png"/>
 
 Oce the excel file is generated, export it to CSV. In our case, two tables are generated. I have chosen the first one _percentage of total population_, and remove the other parts.
 

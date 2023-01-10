@@ -30,21 +30,21 @@ Once you have both files, _nuts_rg_01m_2013.zip_ and _povertry_rate.csv_, upload
 - Login to CartoDB (or create an account. I did it directly with my Google account)
 - At the main Dashboard, select _Your datasets_ next to your user name at the top left side. Now, you will have something like this:
 
-<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/upload.png"/>
+<img src="/images/other/eurostat-cartodb/upload.png"/>
 
 If you open the _nuts_rg_01m_2013_ dataset, you will get a table with all the shapefile fields. If you choose the _MAP VIEW_ option, you can get a first view of the Shapefile:
 
-<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/nuts.png"/>
+<img src="/images/other/eurostat-cartodb/nuts.png"/>
 
 Open now the _povertry_rate_ dataset. There is a thing to do here. By default, the fields are all strings, and we want the povertry rates to be floats, since then CartoDB can order and color the values. This image shoes how to do it. We will use the rate_2013 field, since its the one that will match the NUTS file from 2013 and has all the data (unlike the 2014):
 
-<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/data_type.png"/>
+<img src="/images/other/eurostat-cartodb/data_type.png"/>
 
 ## Merging the datasets
 
 There are two options to join both tables. The first one is to use the _merge datasets_ button:
 
-<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/merge_button.png"/>
+<img src="/images/other/eurostat-cartodb/merge_button.png"/>
 
 It's maybe an easiest option, but not very convenient, since it will create a new table with the merged data. If you are using the free CartoDB version, this will make you run out of space very fast. The alternative is creating a good SQL query that joins the two tables dynamically. I'll explain it in the next section.
 
@@ -54,7 +54,7 @@ Creating a map is very easy. When you select a _dataset_, there's a button to do
 
 Go to your account's maps section:
 
-<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/maps_section.png"/>
+<img src="/images/other/eurostat-cartodb/maps_section.png"/>
 
 Then, create a new map. At the _sql section_, paste the following code:
 
@@ -75,21 +75,21 @@ AND a.stat_levl* = 0
 - The other selected fields are the name and the povertry rate, necessary to put colors and create the _onclick_ queries
 - The _WHERE_ section joins both tables and selects only the countries (NUTS0, stored at the _stat*levl*_ field)
 
-<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/sql_section.png"/>
+<img src="/images/other/eurostat-cartodb/sql_section.png"/>
 
 ## Formatting the map
 
 Now, we only have to format the map a little. The first thing, let's create a choropleth map. Just put the settings as in the following image:
 
-<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/colours.png"/>
+<img src="/images/other/eurostat-cartodb/colours.png"/>
 
 This will color the map, but with the intervals set automatically. It's a nice start, but the intervals aren't the best ones. To change it, just change the _css_ section:
 
-<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/colours.png"/>
+<img src="/images/other/eurostat-cartodb/colours.png"/>
 
 You can change the scale at the _scale section_ under the _css section_. Finally, activate the _onclick_ behaviour:
 
-<img src="{{ site.baseurl }}/images/other/eurostat-cartodb/click.png"/>
+<img src="/images/other/eurostat-cartodb/click.png"/>
 
 ## The result
 

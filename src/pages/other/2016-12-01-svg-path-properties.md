@@ -56,13 +56,13 @@ Get the point position and the tangent vector at the same time (more efficient t
 
 ## Some examples
 
-[<img src="{{ site.baseurl }}/images/other/svg-path-properties/thumbnail_bostock.png"/>Canvas & svg-path-properties Point-Along-Path Interpolation](http://bl.ocks.org/rveciana/77655c3c0e3073c19da34af6dc84c4b9): Canvas version of [this block by Mike Bostock](http://bl.ocks.org/mbostock/1705868).
+[<img src="/images/other/svg-path-properties/thumbnail_bostock.png"/>Canvas & svg-path-properties Point-Along-Path Interpolation](http://bl.ocks.org/rveciana/77655c3c0e3073c19da34af6dc84c4b9): Canvas version of [this block by Mike Bostock](http://bl.ocks.org/mbostock/1705868).
 
-[<img src="{{ site.baseurl }}/images/other/svg-path-properties/thumbnail_path.png"/>Canvas path animation](http://bl.ocks.org/rveciana/209fa7efeb01f05fa4a544a76ac8ed91): A path on a map that draws itself to show a train route.
+[<img src="/images/other/svg-path-properties/thumbnail_path.png"/>Canvas path animation](http://bl.ocks.org/rveciana/209fa7efeb01f05fa4a544a76ac8ed91): A path on a map that draws itself to show a train route.
 
-[<img src="{{ site.baseurl }}/images/other/svg-path-properties/thumbnail_isolines.png"/>Label positioning with svg-path-properties](http://bl.ocks.org/rveciana/bef48021e38a77a520109d2088bff9eb): Isolines labeling. Finding the position and angle isn't possible even with SVG paths alone.
+[<img src="/images/other/svg-path-properties/thumbnail_isolines.png"/>Label positioning with svg-path-properties](http://bl.ocks.org/rveciana/bef48021e38a77a520109d2088bff9eb): Isolines labeling. Finding the position and angle isn't possible even with SVG paths alone.
 
-[<img src="{{ site.baseurl }}/images/other/svg-path-properties/thumbnail_streamlines.png"/>Drawing streamlines from a GeoTIFF file](http://bl.ocks.org/rveciana/edb1dd43f3edc5d16ecaf4839c032dec): Marking the streamlines direction with an arrow isn't possible if the position and tangent is unknown.
+[<img src="/images/other/svg-path-properties/thumbnail_streamlines.png"/>Drawing streamlines from a GeoTIFF file](http://bl.ocks.org/rveciana/edb1dd43f3edc5d16ecaf4839c032dec): Marking the streamlines direction with an arrow isn't possible if the position and tangent is unknown.
 
 I would be very happy to know if somebody is using it and creates something with the library.
 

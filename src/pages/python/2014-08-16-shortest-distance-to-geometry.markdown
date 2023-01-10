@@ -13,7 +13,7 @@ Usually, the problem is finding the closest geometry in general, which is easy u
 
 So I put me this problem: Which is the closest country that I have at each direction, knowing my geographical coordinates?
 
-<img src="{{ site.baseurl }}/images/python/shortest-distance-1.png" width="70%"/>
+<img src="/images/python/shortest-distance-1.png" width="70%"/>
 
 All the source code is, as usual, [at GitHub](https://github.com/rveciana/geoexamples/tree/master/python/closest_polygon)
 
@@ -28,11 +28,11 @@ The main idea is:
 
 So this would be the initial situation:
 
-<img src="{{ site.baseurl }}/images/python/shortest-distance-2.png" width="70%"/>
+<img src="/images/python/shortest-distance-2.png" width="70%"/>
 
 And the distance to the polygon 1 would be calculated as:
 
-<img src="{{ site.baseurl }}/images/python/shortest-distance-3.png" width="70%"/>
+<img src="/images/python/shortest-distance-3.png" width="70%"/>
 
 The main problem is how to calculate the difference between the two geometries, but fortunately, shapely comes with [this function](http://toblerity.org/shapely/manual.html#object.difference), so coding it is not so difficult:
 
@@ -80,7 +80,7 @@ if **name** == '**main**':
   - For each of the polygons to analyze, the difference is calculated using the shapely difference method
   - Then, if the line and the polygon intersect (and the line is long enough), a MultilineString will be the result of the difference operation. The first String in the MultilineString is the one that connects our point with the polygon. Its length is the distance we are looking for
 
-  <img src="{{ site.baseurl }}/images/python/shortest-distance-4.png"  width="70%"/>
+  <img src="/images/python/shortest-distance-4.png"  width="70%"/>
   <caption>The example schema, drawn with the script draw_closest.py</caption>
 
 ## Calculating the closest country in each direction
@@ -202,9 +202,9 @@ def draw_map(self, num_angles = 360, width_factor = 1.0):
 
   Some outputs:
 
-  <img src="{{ site.baseurl }}/images/python/shortest-distance-5.png"  width="70%"/>
-  <img src="{{ site.baseurl }}/images/python/shortest-distance-6.png"  width="70%"/>
-  <img src="{{ site.baseurl }}/images/python/shortest-distance-7.png"  width="70%"/>
+  <img src="/images/python/shortest-distance-5.png"  width="70%"/>
+  <img src="/images/python/shortest-distance-6.png"  width="70%"/>
+  <img src="/images/python/shortest-distance-7.png"  width="70%"/>
 
 ## Next steps: What's across the ocean
 

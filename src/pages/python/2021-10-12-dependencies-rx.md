@@ -15,7 +15,7 @@ description: Download and merge SRTM data to create a DEM
 # The problem
 
 Let's see what's reactive programming before seeing a "real" use case. The easiest way to define it (for me) is comparing it to an Excel file:
-<img src="{{ site.baseurl }}/images/python/rxpy/spreadsheet.png" />
+<img src="/images/python/rxpy/spreadsheet.png" />
 
 - The first two columns are independent values
 - Columns C and D depend on A and B
@@ -28,7 +28,7 @@ Let's imagine a GIS example now. [pypros][pypros] is a software I contributed in
 
 Basically, it takes the temperature field, the relative humidity (or dew point temperature), the radar signal and outputs a file where each pixel has a value depending on the type of precipitation. You can [see it in action here][plujaoneu].
 
-<img src="{{ site.baseurl }}/images/python/rxpy/flow.png" />
+<img src="/images/python/rxpy/flow.png" />
 
 - With temperature and the Dew point, we get what would happen if there was precipitation in a given point
 - With the previous result and the radar image, we can get the final product
@@ -164,15 +164,17 @@ The previous code has three problems (at least)
 
 To solve the first point, we'll use _map_, that converts the input value to another thing, as in functional programming:
 
-````python
-pot_ros = rx.combine_latest(temp, td).pipe(ops.map(create_pot_data))```
+```python
+pot_ros = rx.combine_latest(temp, td).pipe(ops.map(create_pot_data))
+```
 
 Then, when subscribing to the _pot_ros observable_ we could receive the calculated field (calculated in _create_pot_data_) without having to save
 
 To avoid _create_pot_data_ to be run twice when _td_ and _temperature_ are different, a filter can be used:
 
 ```python
-pot_ros = rx.combine_latest(temp, td).pipe(ops.filter(lambda values: get_date(values[0])==get_date(values[1])), ops.map(create_pot_data))```
+pot_ros = rx.combine_latest(temp, td).pipe(ops.filter(lambda values: get_date(values[0])==get_date(values[1])), ops.map(create_pot_data))
+```
 
 This way, only the elements that match the filter function will pass to the map.
 
@@ -219,7 +221,7 @@ radar = source.pipe(ops.filter(lambda text: text.find('radar')>=0))
 pot_ros = rx.combine_latest(temp, td).pipe( ops.filter(lambda values: get_date(values[0])==get_date(values[1])), ops.map(create_pot_data), ops.subscribe_on(thread_pool_scheduler))
 rx.combine_latest(pot_ros, radar).subscribe(process_ros, scheduler=thread_pool_scheduler)
 
-````
+```
 
 # Links
 
@@ -242,7 +244,3 @@ rx.combine_latest(pot_ros, radar).subscribe(process_ros, scheduler=thread_pool_s
 [combine_latest]: https://rxmarbles.com/#combineLatest
 [rxpy_parallel_threads]: https://stackoverflow.com/questions/43989153/how-to-wait-for-rxpy-parallel-threads-to-complete
 [from_future]: https://rxpy.readthedocs.io/en/latest/get_started.html
-
-```
-
-```

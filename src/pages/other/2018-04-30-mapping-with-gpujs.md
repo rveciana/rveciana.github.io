@@ -132,7 +132,7 @@ document.getElementsByTagName('body')[0].appendChild(canvas);
 
 It's easy! The result looks like this:
 
-<img src="{{ site.baseurl }}/images/other/gpujs-mapping/result1.png"/>
+<img src="/images/other/gpujs-mapping/result1.png"/>
 
 ## Some algorithms
 

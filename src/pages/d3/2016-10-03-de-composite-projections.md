@@ -15,7 +15,7 @@ Last year I created the first version of the [d3-composite-projections library](
 1. New projections have been added
 2. D3js v4 is used instead of v3. All the code has been re-written using ES2015
 
-<img src="{{ site.baseurl }}/images/d3/d3-composite-projections2/conicConformalFrance.png" width="70%"/>
+<img src="/images/d3/d3-composite-projections2/conicConformalFrance.png" width="70%"/>
 
 ## Projections
 

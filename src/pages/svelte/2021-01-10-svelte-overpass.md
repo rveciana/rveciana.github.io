@@ -13,7 +13,7 @@ It's been quite a long time since I wanted to play with the OVerpass API, so I m
 
 You can check the App [here][app]. As you can see in the picture, it shows the nearest bars (and more!) around you, taking the data from the Overpass API. It's a [PWA][pwa], so you can install it as a mobile phone application just by clicking a button.
 
-[<img src="{{ site.baseurl }}/images/svelte/svelte-overpass/app.gif" width="300"/>][app]
+[<img src="/images/svelte/svelte-overpass/app.gif" width="300"/>][app]
 
 The final code can be found at the [GitHub repo][code_repo].
 

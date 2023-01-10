@@ -11,7 +11,7 @@ My older daughter Farida is studying the Catalan regions, called _comarques_. Th
 
 You can check the game: [http://geoexamples.com/comarques/][game_web] and take a look to its code at [GitHub][github]
 
-<img src="{{ site.baseurl }}/images/d3/d3-geoquiz/screenshot.png" width="70%"/>
+<img src="/images/d3/d3-geoquiz/screenshot.png" width="70%"/>
 
 ## The main structure
 
