@@ -58,7 +58,7 @@ Go to your account's maps section:
 
 Then, create a new map. At the _sql section_, paste the following code:
 
-{% highlight sql %}
+```sql
 SELECT a.cartodb*id, a.the_geom_webmercator,
 b.rate_2013, b.geo_l_time as name
 FROM nuts_rg_01m_2013 a, povertry_rate b
@@ -110,4 +110,7 @@ Once done the first time, creating new maps is really easy. I'm impressed with i
 [download regions]: http://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/administrative-units-statistical-units
 [general docs]: http://docs.cartodb.com/
 [editor docs]: http://docs.cartodb.com/cartodb-editor/
+
+```
+
 ```

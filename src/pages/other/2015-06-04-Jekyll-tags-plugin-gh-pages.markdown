@@ -65,7 +65,7 @@ And the plugin to the _\_plugins_ dir:
 
 categories_tags_generator.rb
 
-{% highlight ruby linenos %}
+```ruby
 module Jekyll
 class TagsGenerator < Generator
 
@@ -105,4 +105,7 @@ end
 Now you will have the url _/tags/[name_of_the_tag]_ and _/categories/[name_of_teh_category]_ pages accessible. There are many ways to create the links to them. To put an example, I create a category list and a tag word cloud using this code in the _blog_ page:
 
 Next post will be about maps again!
+
+```
+
 ```

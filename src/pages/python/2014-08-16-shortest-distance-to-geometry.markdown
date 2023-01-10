@@ -36,11 +36,11 @@ And the distance to the polygon 1 would be calculated as:
 
 The main problem is how to calculate the difference between the two geometries, but fortunately, shapely comes with [this function](http://toblerity.org/shapely/manual.html#object.difference), so coding it is not so difficult:
 
-{% highlight python linenos %}
-from shapely.geometry import Polygon  
-from shapely.geometry import LineString  
-from math import cos  
-from math import sin  
+```python
+from shapely.geometry import Polygon
+from shapely.geometry import LineString
+from math import cos
+from math import sin
 from math import pi
 
 def closest_polygon(x, y, angle, polygons, dist = 10000):
@@ -117,7 +117,8 @@ For example:
      python closest_country.py -n 100 -wf 2.0 5 41
 
 The code has some functions, but the main one is draw_map:
-{% highlight python linenos %}
+
+```python
 def draw_map(self, num_angles = 360, width_factor = 1.0):
 
     #Create the map, with no countries

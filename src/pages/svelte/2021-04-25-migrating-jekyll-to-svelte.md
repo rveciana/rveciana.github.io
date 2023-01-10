@@ -59,7 +59,7 @@ And that's it. Now, all the code has to be written so the blog renders the markd
 
 ## package.json
 
-{% highlight json %}
+```json
 "scripts": {
 "dev": "svelte-kit dev",
 "build": "npm run contentGen && svelte-kit build",
@@ -82,41 +82,40 @@ And that's it. Now, all the code has to be written so the blog renders the markd
 
 This is where the markdown files are rendered into a JSON object with the html to show on the site. The important part is setting the _src_ directory where the markdown lives and a _dist_ pat where we will get all the data from
 
-{% highlight json %}
+```json
 {
-"name": "markdown-json",
-"cwd": "./",
-"src": "content/",
-"filePattern": "\*_/_.m\*",
-"ignore": "",
-"dist": "src/lib/data.json",
-"metadata": true,
-"server": false
+  "name": "markdown-json",
+  "cwd": "./",
+  "src": "content/",
+  "filePattern": "*_/_.m*",
+  "ignore": "",
+  "dist": "src/lib/data.json",
+  "metadata": true,
+  "server": false
 }
 ```
 
 The result, for each entry, is something like this:
 
-{% highlight json %}
+```json
 {
-"id": "An id that also matches the markdown path",
-"contents": "The rendered HTML",
-"excerpt": "The first part of the rendered HTML so it can be shown",
-"layout": "post",
-"title": "Post or page title",
-"date": "",
-"categories": "",
-"tags": [],
-"teaser": "d3-composite-projections.png",
-"meta": {
-"relativePath": "posts\\d3\\2015-05-12-d3-composite-projections.html",
-"createdAt": "2021-04-11T18:28:06.923Z",
-"lastModified": "2021-04-11T18:28:06.923Z",
-"size": 2668,
-"formattedSize": "2.6 KB"
+  "id": "An id that also matches the markdown path",
+  "contents": "The rendered HTML",
+  "excerpt": "The first part of the rendered HTML so it can be shown",
+  "layout": "post",
+  "title": "Post or page title",
+  "date": "",
+  "categories": "",
+  "tags": [],
+  "teaser": "d3-composite-projections.png",
+  "meta": {
+    "relativePath": "posts\\d3\\2015-05-12-d3-composite-projections.html",
+    "createdAt": "2021-04-11T18:28:06.923Z",
+    "lastModified": "2021-04-11T18:28:06.923Z",
+    "size": 2668,
+    "formattedSize": "2.6 KB"
+  }
 }
-}
-
 ```
 
 The first three fields and the metadata will always appear, while the other fields will match the [front matter section][front-matter] of your Jekyll file:
@@ -129,7 +128,7 @@ property: value
 tags: [first, second, third]
 -npm--
 
-````
+```
 
 Those properties are necessary to classify and sort the posts and pages.
 
@@ -137,7 +136,7 @@ Those properties are necessary to classify and sort the posts and pages.
 
 The svelte config I used is the following, prepared to generate the static site:
 
-```js
+````js
 
 const sveltePreprocess = require("svelte-preprocess");
 const nodeStatic = require("@sveltejs/adapter-static");

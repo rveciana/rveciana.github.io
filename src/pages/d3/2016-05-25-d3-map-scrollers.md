@@ -20,54 +20,59 @@ The example is taken from [this Tony Chu's block](http://bl.ocks.org/tonyhschu/a
 
 The code is quite simple. Le'ts see first the css part:
 
-{% highlight css %}
+```css
 #container {
-position: relative;
-z-index: 100;
-height: 100vh;
-overflow: scroll;
+  position: relative;
+  z-index: 100;
+  height: 100vh;
+  overflow: scroll;
 }
 #sticky {
-position: absolute;
-top: 5vh;
-right: 0;
-width: 48%;
-z-index: 50;
+  position: absolute;
+  top: 5vh;
+  right: 0;
+  width: 48%;
+  z-index: 50;
 }
 .panel {
-width: 100%;
-padding-left: 20px;
-padding-top: 25vh;
-padding-bottom: 25vh;
+  width: 100%;
+  padding-left: 20px;
+  padding-top: 25vh;
+  padding-bottom: 25vh;
 }
-.panel p {padding-right: 50%;}
-.panel:first-child {padding-top: 5vh;}
-.panel:last-child {padding-bottom: 45vh;}
-
-````
+.panel p {
+  padding-right: 50%;
+}
+.panel:first-child {
+  padding-top: 5vh;
+}
+.panel:last-child {
+  padding-bottom: 45vh;
+}
+```
 
 - _container_ is will be the place where both the text will be placed. Note that we are using [vh units](http://www.w3schools.com/cssref/css_units.asp), which are in % of the viewport
 - _sticky_ is the place where the map will be placed. As its name indicates, it won't move. Note that is placed at the right part of the screen with the _right_ tag.
 - The _divs_ with the class _panel_ will have the content that scrolls. Note the _padding-top_ and _padding-bottom_ that are with vh units. This will be useful to maintain a separation when texts are short. Two secions with a single word would still make a nice visualization. The _padding-right_ asserts that the content will be in two columns.
 
 The html would be like this, but including the text:
+
 ```html
-
-
 <div id="sticky"></div>
 <div id="container">
   <div id="content">
     <div class="panel">
       <p>Your text here...</p>
     </div>
-
+  </div>
 </div>
-````
+```
 
 - Note the _content_ node. It will be used to calculate the vertical length of all the sections (panel classed divs)
 
 Let's see now the relevant JavaScript parts:
-{% highlight javascript %}
+
+```js
 var WIDTH = 0.9 _ window.innerWidth / 2;
 var HEIGHT = 0.9 _ window.innerHeight;
 
@@ -86,17 +91,18 @@ var SCROLL_LENGTH = content.node().getBoundingClientRect().height - HEIGHT;
 - The initial svg map width and height of the visible window are taken from the _window_ object properties. The map will be half of the window width and all the height
 - _SCROLL_LENGTH_ is the amount of pixels you can scroll down. Since some content is already shown, it has to be calculated as the whole content height minus the viewport height which is already visible
 
-{% highlight javascript %}
-var hayanPathScale = d3.scale.linear()
-.domain([0, SCROLL_LENGTH])
-.range([0, haiyanPath.node().getTotalLength()])
-.clamp(true);
+```js
+var hayanPathScale = d3.scale
+  .linear()
+  .domain([0, SCROLL_LENGTH])
+  .range([0, haiyanPath.node().getTotalLength()])
+  .clamp(true);
 ```
 
 - The map is created as in [this example](http://bl.ocks.org/rveciana/8464690). The main change is that the animation won't be an interval but will be controlled by the scroller
 - The scale relates which portion of the path must be drawn for each scrolled pixel. So the domain will be the scroll length (we can move from 0 to SCROLL_LENGTH pixels down the page), and the range is the path length (we can draw from 0 to all the path pixels)
 
-{% highlight javascript %}
+```js
 container
 .on("scroll.scroller", function() {
 newScrollTop = container.node().scrollTop
@@ -109,7 +115,7 @@ var setDimensions = function() {
 var render = function() {
 if (scrollTop !== newScrollTop) {
 scrollTop = newScrollTop
-...  
+...
 }
 
 window.requestAnimationFrame(render)
@@ -130,25 +136,26 @@ Those are the functinos that controll the window resizing and scroll:
 With these functions we can control a simple scroller.
 
 How does the _render_ function look like:
-{% highlight javascript %}
+
+```js
 if (scrollTop !== newScrollTop) {
-scrollTop = newScrollTop
+  scrollTop = newScrollTop;
 
-haiyanPath
-.style('stroke-dashoffset', function(d) {
-return haiyanPath.node().getTotalLength() - hayanPathScale(scrollTop) + 'px';
-});
-
+  haiyanPath.style("stroke-dashoffset", function (d) {
+    return (
+      haiyanPath.node().getTotalLength() - hayanPathScale(scrollTop) + "px"
+    );
+  });
 }
 
-window.requestAnimationFrame(render)
+window.requestAnimationFrame(render);
 ```
 
 - After checking if the newScrollTop has changed, the only thing to change is the _stroke-dashoffset_ attribute. Take a look at [this web page](http://www.alolo.co/blog/2013/11/14/progressively-draw-svg-paths-with-d3js) to see how does it work
 
 Now, let's see how the _setDimensions_ function work:
 
-{% highlight javascript %}
+```js
 WIDTH = window.innerWidth / 2;
 HEIGHT = window.innerHeight;
 SCROLL_LENGTH = content.node().getBoundingClientRect().height - HEIGHT;
@@ -200,4 +207,7 @@ return d3.select(this).node().getTotalLength() - hayanPathScale(scrollTop) + 'px
 - [The block for the first example](http://bl.ocks.org/rveciana/eeaa71659adbc88dc4165eaf99dcb9be)
 - [Progressively drawing SVG paths with D3.js](http://www.alolo.co/blog/2013/11/14/progressively-draw-svg-paths-with-d3js)
 - Another animated paths example: [Animated arabic kufic calligraphy with D3](http://bl.ocks.org/rveciana/7664109)
+
+```
+
 ```

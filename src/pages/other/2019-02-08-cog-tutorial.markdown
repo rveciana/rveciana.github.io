@@ -152,7 +152,7 @@ Even Rouault made a [nice python script][cog_validator] that not only checks if 
 
 For instance, the file in the [ObservableHQ example][observable_example] works, but it's a not valid COG, because of a problem with the overviews. The script output is:
 
-{% highlight sh %}
+```bash
 
 $ python3 validate_cloud_optimized_geotiff.py SkySat_Freeport_s03_20170831T162740Z3.tif
 
@@ -165,30 +165,30 @@ The following errors were found:
 - The offset of the first block of overview of index 0 should be after the one of the overview of index 1
 - The offset of the first block of the main resolution image should be after the one of the overview of index 4
 
-  ```
+```
 
-  ```
+````
 
 We can easily correct it by running:
 
-    gdal_translate SkySat_Freeport_s03_20170831T162740Z3.tif correct_SkySat_Freeport.tiff -co COMPRESS=LZW -co TILED=YES
+  gdal_translate SkySat_Freeport_s03_20170831T162740Z3.tif correct_SkySat_Freeport.tiff -co COMPRESS=LZW -co TILED=YES
 
 Now, the output gives a warning, instead of an error:
 
-{% highlight sh %}
+```bash
 $ python3 validate_cloud_optimized_geotiff.py correct_SkySat_Freeport.tif
 
 The following warnings were found:
 
 - The file is greater than 512xH or Wx512, it is recommended to include internal overviews
 
-  ```
+````
 
-  ```
+````
 
 So the previous part removed the internal overviews. That's because we didn't use the _-co COPY_SRC_OVERVIEWS=YES_ option:
 
-    gdal_translate SkySat_Freeport_s03_20170831T162740Z3.tif correct_SkySat_Freeport.tiff -co COPY_SRC_OVERVIEWS=YES -co COMPRESS=LZW -co TILED=YES
+  gdal_translate SkySat_Freeport_s03_20170831T162740Z3.tif correct_SkySat_Freeport.tiff -co COPY_SRC_OVERVIEWS=YES -co COMPRESS=LZW -co TILED=YES
 
 It's important to create the overviews _before_ transforming the file into a GeoTIFF, or otherwise the order will be wrong and the test won't pass. It will probably work anyway, but it's better to go with the specification. There's [a post by Even Rouault][cog_overviews_error] with a discussion about this error.
 
@@ -206,21 +206,21 @@ The first point to understand is that geotiff-js has now many asynchronous metho
 
 ```js
 (async function () {
-  const tiff = await GeoTIFF.fromUrl("out.tiff");
-  console.log("Number of images (pyramids):", await tiff.getImageCount());
+const tiff = await GeoTIFF.fromUrl("out.tiff");
+console.log("Number of images (pyramids):", await tiff.getImageCount());
 
-  const image = await tiff.getImage();
-  console.log("Bounding box:", image.getBoundingBox());
-  console.log("Width:", image.getWidth());
+const image = await tiff.getImage();
+console.log("Bounding box:", image.getBoundingBox());
+console.log("Width:", image.getWidth());
 
-  let data = await image.readRasters({
-    window: [200, 200, 210, 210],
-    samples: [0],
-  });
+let data = await image.readRasters({
+  window: [200, 200, 210, 210],
+  samples: [0],
+});
 
-  console.log("Values:", data);
+console.log("Values:", data);
 })();
-```
+````
 
 The output is:
 

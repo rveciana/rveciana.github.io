@@ -42,7 +42,7 @@ All the text after the `data=` part is an [Overpass QL query][overpassql]. It's 
 
 There are libraries to convert the data into a GeoJSON, but since we are using points, taking the longitude and latitude is really easy. The format is:
 
-{% highlight json %}
+```json
 {
 "version": 0.6,
 "generator": "Overpass API 0.7.56.8 7d656e78",
@@ -70,7 +70,7 @@ There are libraries to convert the data into a GeoJSON, but since we are using p
 ]
 }
 
-````
+```
 
 So for each object in `elements` we can find all the information for one of the results. The code to process the data is:
 
@@ -83,7 +83,7 @@ const dir = (180/Math.PI) \* Math.atan2((dataX - utmX)/dist, (dataY - utmY)/dist
 return{name: d.tags.name, lng: d.lon, lat: d.lat, dist, dir}
 }).filter(d=> d.name!==undefined).sort((a, b)=> a.dist - b.dist);
 })
-````
+```
 
 - fromLatLon is a small library that converts from latlon to utm coordinates. This way, we can calculate distances and directions from our current position (see _compass_ section)
 
@@ -160,78 +160,74 @@ The first thing was adding the following line to `public/index.html`:
 
 And create the `manifest.json` file in the same folder:
 
-{% highlight json %}
+```json
 {
-"background_color": "#ffffff",
-"theme_color": "#ffebcd",
-"name": "Svelte Overpass",
-"short_name": "overpass",
-"display": "standalone",
-"start_url": "./",
-"icons": [
-{
-"src": "images/svelte-overpass-192.png",
-"sizes": "192x192",
-"type": "image/png",
-"purpose": "any maskable"
-},
-{
-"src": "images/svelte-overpass-512.png",
-"sizes": "512x512",
-"type": "image/png"
+  "background_color": "#ffffff",
+  "theme_color": "#ffebcd",
+  "name": "Svelte Overpass",
+  "short_name": "overpass",
+  "display": "standalone",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "images/svelte-overpass-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/svelte-overpass-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "splash_pages": null
 }
-],
-"splash_pages": null
-}
-
-````
+```
 
 Some lines seem unnecessary but if they are not there, the browser won't allow the user to save the app on the desktop.
 
 The next step is adding the service worker. This is also necessary. It must have the `fetch` method, that many times is omitted.
 
 ```js
-
-
 var cacheName = "svelte-overpass-cache-" + Date.now();
 var filesToCache = [
-"/",
-"./index.html",
-"./build/bundle.css",
-"./build/bundle.js"
+  "/",
+  "./index.html",
+  "./build/bundle.css",
+  "./build/bundle.js",
 ];
-self.addEventListener("install", function(e) {
-e.waitUntil(
-caches.open(cacheName).then(function(cache) {
-return cache.addAll(filesToCache);
-})
-);
+self.addEventListener("install", function (e) {
+  e.waitUntil(
+    caches.open(cacheName).then(function (cache) {
+      return cache.addAll(filesToCache);
+    })
+  );
 });
 
-self.addEventListener("activate", e => {
-e.waitUntil(
-caches.keys().then(function(cacheNames) {
-return Promise.all(
-cacheNames.map(function(thisCacheName) {
-if (thisCacheName !== cacheName) {
-return caches.delete(thisCacheName);
-}
-})
-);
-})
-);
+self.addEventListener("activate", (e) => {
+  e.waitUntil(
+    caches.keys().then(function (cacheNames) {
+      return Promise.all(
+        cacheNames.map(function (thisCacheName) {
+          if (thisCacheName !== cacheName) {
+            return caches.delete(thisCacheName);
+          }
+        })
+      );
+    })
+  );
 });
 
-self.addEventListener("fetch", e => {
-e.respondWith(
-(async function() {
-const response = await caches.match(e.request);
-return response || fetch(e.request);
-})()
-);
+self.addEventListener("fetch", (e) => {
+  e.respondWith(
+    (async function () {
+      const response = await caches.match(e.request);
+      return response || fetch(e.request);
+    })()
+  );
 });
-
-````
+```
 
 - Be careful with the paths on the cache! If something fails, the service worker is not installed.
 - There's a dedicated section to check that in the dev tools (first two on the `application` tab)
