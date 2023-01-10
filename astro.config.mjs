@@ -3,6 +3,7 @@ import mdx from "@astrojs/mdx";
 
 export default defineConfig({
   site: "https://geoexamples.com",
+  base: "/",
   markdown: {
     shikiConfig: {
       theme: "github-light",
