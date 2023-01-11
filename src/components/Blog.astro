@@ -13,8 +13,6 @@ const indexPagePosts = allPosts.sort(
     new Date(b.frontmatter.pubDate).valueOf() -
     new Date(a.frontmatter.pubDate).valueOf()
 );
-
-console.log(indexPagePosts);
 ---
 
 <CategoriesList posts={indexPagePosts} />

@@ -1,7 +1,7 @@
 ---
 import type { MarkdownInstance } from "astro";
-import type { Frontmatter } from "../model";
 import config from "../config.json";
+import type { Frontmatter } from "../model";
 
 interface Props {
   posts: MarkdownInstance<Frontmatter>[];
@@ -69,4 +69,8 @@ function formatDate(date: string) {
   </ul>
 </section>
 
-<style></style>
+<style lang="scss">
+  @import "../css/main.scss";
+  @import "../css/base.scss";
+  @import "../css/layout.scss";
+</style>
