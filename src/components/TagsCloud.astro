@@ -28,7 +28,7 @@ const maxOccurrencies = Math.max(...Object.values(tags));
       <a
         href={`/tags/${tag}`}
         style={{
-          fontSize: `${1 + (occurrencies - 1) / maxOccurrencies}em`,
+          fontSize: `${1 + (0.8 * (occurrencies - 1)) / maxOccurrencies}em`,
         }}
       >
         {tag},{" "}
@@ -36,3 +36,8 @@ const maxOccurrencies = Math.max(...Object.values(tags));
     ))
   }
 </div>
+<style lang="scss">
+  @import "../css/main.scss";
+  @import "../css/base.scss";
+  @import "../css/layout.scss";
+</style>
