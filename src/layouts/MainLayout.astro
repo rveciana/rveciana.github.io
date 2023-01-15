@@ -13,7 +13,7 @@ const { title, description, head } = Astro.props;
       description={description}
     />
   </head>
-  <body>
+  <body class="body">
     <Header />
     <main tabindex="-1" class="main-content wrapper grid-container">
       <slot />
@@ -22,6 +22,11 @@ const { title, description, head } = Astro.props;
     <style>
       .main-content {
         padding: 20px;
+      }
+      .body {
+        max-width: 900px;
+        margin-right: auto;
+        margin-left: auto;
       }
     </style>
   </body>
