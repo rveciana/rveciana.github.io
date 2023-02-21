@@ -1,0 +1,1 @@
+This example illustrates this [GeoExamples blog entry](http://geoexamples.blogspot.com/2014/01/d3-map-styling-tutorial-iii-drawing.html). It shows how to draw a path on a map.

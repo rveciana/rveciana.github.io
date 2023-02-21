@@ -1,0 +1,11 @@
+---
+const { title, slug, username } = Astro.props;
+---
+
+<a
+  class="gist gist--thumbnail"
+  style={`background-image: url('/blocks/${username}/${slug}/thumbnail.png')`}
+  href={`${username}/${slug}`}
+>
+  <div class="gist-description gist-underline">{title}</div>
+</a>

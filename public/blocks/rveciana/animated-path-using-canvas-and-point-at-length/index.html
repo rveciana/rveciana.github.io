@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="point-at-length.js"></script>
+<script>
+
+var width = 700,
+    height = 500;
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+var projection = d3.geo.stereographic()
+    .scale(900)
+    .translate([width / 2, height / 2])
+    .rotate([-90, -60])
+    .clipAngle(180 - 1e-4)
+    .clipExtent([[0, 0], [width, height]])
+    .precision(1);
+
+var path = d3.geo.path()
+    .projection(projection);
+    //.context(context);
+
+var graticule = d3.geo.graticule();
+
+
+
+d3.json("transsiberian.json", function(error, transsiberian) {
+d3.json("world-110m.json", function(error, world) {
+
+    var countries = topojson.feature(world, world.objects.countries);
+    var track = topojson.feature(transsiberian, transsiberian.objects.transsiberian);
+
+    var points = Points(path(track));
+    var length = points.length();
+
+    d3.transition()
+        .duration(5000)
+        .ease("linear")
+        .tween("zoom", function() {
+            return function(t) {
+              context.clearRect(0, 0, width, height);
+              context.strokeStyle = '#aaa';
+              context.fillStyle = '#ccc';
+
+              context.beginPath();
+              path.context(context)(graticule());
+
+
+              context.lineWidth = 0.2;
+              context.strokeStyle = 'rgba(30,30,30, 0.5)';
+              context.stroke();
+
+              context.beginPath();
+              path.context(context)(countries);
+              context.fill();
+
+              context.beginPath();
+              path.context(context)(countries);
+              context.stroke();
+
+
+              context.lineWidth = 1;
+              context.strokeStyle = 'rgba(120,60,60, 1)';
+              context.setLineDash([length]);
+              context.lineDashOffset = length*(1-t);
+
+              context.beginPath();
+              path.context(context)(track);
+              context.stroke();
+              context.setLineDash([]);
+            }
+        });
+});
+});
+
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>

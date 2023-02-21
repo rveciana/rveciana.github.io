@@ -1,0 +1,1 @@
+A modified *conic conformal* projection that shows the Canary Islands next to the Iberian Peninsula so working with data in Spain becomes easier.

@@ -1,0 +1,1 @@
+This file shows how to use the *conicConformalPortugal* projection from [d3-composite-projections](http://rveciana.github.io/d3-composite-projections/). Since the world layer is used, note that the Iberian Peninsula is clipped at the projection border. These projections work well when used at the place they are intended for.

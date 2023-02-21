@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<style>
+
+.map {
+  fill: none;
+  stroke: #777;
+  stroke-opacity: .5;
+  stroke-width: .5px;
+}
+
+.land {
+  fill: #999;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+</style>
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+<script src="pathlayout.js"></script>
+<script>
+var width = 600,
+    height = 500;
+
+var projection = d3.geo.mercator()
+    .scale(5*(width + 1) / 2 / Math.PI)
+    .translate([width / 2, height / 2])
+    .rotate([-125, -15, 0])
+    .precision(.1);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+d3.json("/mbostock/raw/4090846/world-50m.json", function(error, world) {
+d3.json("track.json", function(error, track) {
+
+    var color_scale = d3.scale.quantile().domain([1, 5]).range(colorbrewer.YlOrRd[5]);
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    var trail = d3.layout.trail()
+        .positioner(function(d) {return projection([d.lon,d.lat]);})
+        .coordType('xy');
+
+    var trail_layout = trail.data(track).layout();
+
+    svg.insert("path", ".map")
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+    svg.insert("path", ".map")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);
+
+    var hayan_trail = svg.selectAll("d").data(trail_layout);
+
+    hayan_trail.enter()
+        .append('line')
+        .attr("x1",function(d) {return d.x1}) 
+        .attr("x2",function(d) {return d.x1})
+        .attr("y1",function(d) {return d.y1}) 
+        .attr("y2",function(d) {return d.y1}) 
+        .attr("class","line")
+        .style("stroke-width",4)
+        .attr("stroke", function(d){return color_scale(d.class);})
+        .transition()
+        .ease("linear")
+        .delay(function(d,i) {return i*500})
+        .duration(500)
+        .attr("x2",function(d) {return d.x2})
+        .attr("y2",function(d) {return d.y2}) 
+    ;
+    
+});
+});
+</script>

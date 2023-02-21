@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+var width = 600,
+    height = 500,
+    radius = 240,
+    radial_speed = 500;
+
+
+var arc = d3.svg.arc()
+    .outerRadius(radius)
+    .innerRadius(radius - 130);
+
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.Porcentaje; })
+    .startAngle(-1*Math.PI/2)
+    .endAngle(Math.PI/2);    
+
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+d3.csv("https://cdn.rawgit.com/rveciana/5919944/raw//encuesta.csv", function(d){
+
+
+    var g = svg.selectAll(".arc")
+      .data(pie(d))
+        .enter().append("g")
+        .attr("class", "arc");
+
+    var path = g.append("path")
+      .attr("d", function(d) {
+            e = d3.svg.arc()
+            .outerRadius(radius)
+            .innerRadius(radius - 130);
+            e.startAngle = d.startAngle;
+            e.endAngle = e.startAngle; 
+
+            this._current = e;
+            return arc(e);
+        })
+      .style("fill", function(d) { return d3.rgb(d.data.Color); });
+      
+    delay = 0;
+    path
+        .transition()
+        .delay(function(d){
+            cur_delay = delay;
+            delay += radial_speed * (d.endAngle - this._current.endAngle);
+            return cur_delay;
+        })
+        .duration(function(d){
+            return radial_speed * (d.endAngle - this._current.endAngle);
+        })
+
+        .ease('linear')
+        .attrTween("d", function (d) {
+            var i  = d3.interpolate(this._current, d);
+            
+            return function(t) {
+                return arc(i(t));
+            };
+        });
+
+    
+    });
+
+</script>

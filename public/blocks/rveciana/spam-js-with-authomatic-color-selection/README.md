@@ -1,0 +1,1 @@
+Based on this [Martín González's block](http://bl.ocks.org/martgnz/867c95c3b13ac538ad2a64945bc5cf80), shows how to properly select the colours taking the neighbours in account as in [this other block](http://bl.ocks.org/rveciana/f46df2272b289a9ce4e7), which is based on [this other one by Jason Davies](http://bl.ocks.org/jasondavies/4188334)!

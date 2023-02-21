@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = 960,
+    height = 500;
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+var projection = d3.geo.kavrayskiy7(),
+    color = d3.scale.category20(),
+    graticule = d3.geo.graticule();
+
+var path = d3.geo.path()
+    .projection(projection)
+    .context(context);
+
+
+context.strokeStyle = '#000';
+context.beginPath();
+    path(graticule());
+    context.lineWidth = .5;
+    context.stroke();
+
+context.strokeStyle = '#333';
+context.beginPath();
+    path(graticule.outline());
+    context.lineWidth = 1.5;
+    context.stroke();
+
+
+d3.json("/mbostock/raw/4090846/world-50m.json", function(error, world) {
+  var countries = topojson.feature(world, world.objects.countries).features,
+      neighbors = topojson.neighbors(world.objects.countries.geometries);
+
+            
+      countries.forEach(function(d, i) {
+          context.fillStyle = color(d.color = d3.max(neighbors[i], function(n) { return countries[n].color; }) + 1 | 0);
+          context.beginPath(); 
+          path(d); 
+          context.fill();
+      });
+
+
+});
+
+</script>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.partido {
+    font: 12px sans-serif;
+}
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 64px;                  
+  height: 44px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+var width = 960,
+    height = 500,
+    bar_height = 100;
+
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+d3.csv("https://cdn.rawgit.com/rveciana/5919944/raw//encuesta.csv", function(d){
+
+    var r = d3.scale.linear()
+    .domain([0, d3.max(d, function(d) { return parseFloat(d.Porcentaje); })])
+    .range([1, 100]);
+
+    var div = d3.select("body").append("div")   
+        .attr("class", "tooltip")               
+        .style("opacity", 0);
+
+    svg.selectAll("rect")
+        .data(d)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i) {return i*50;})
+        .attr("y", 110)
+        .attr("width", 40)
+        .attr("height", 0)
+        .attr("fill", function(d){ return d3.rgb(d.Color).darker();})
+        .attr("stroke", function(d){ return d3.rgb(d.Color).darker();})
+        .on("mouseover", function(d) {  
+            d3.select(this)
+                .transition()
+                .style("stroke-width", 4);              
+
+            div.transition()        
+                .duration(200)      
+                .style("opacity", 0.9);      
+            div.html("Porcentaje de votos: <br/>" + d.Porcentaje + "%")  
+                .style("left", (d3.event.pageX) + "px")     
+                .style("top", (d3.event.pageY - 28) + "px");    
+            }) 
+        .on("mouseout", function(d) {     
+            d3.select(this)
+                .transition()
+                .style("stroke-width", 0); 
+            div.transition()        
+                .duration(500)      
+                .style("opacity", 0);   
+        })
+        .transition()
+            .duration(1000)
+            .delay(function(d, i){return i * 200;})
+            .ease("linear") 
+            .attr("y", function(d) { return 110 - r(d.Porcentaje); })
+            .attr("height", function(d) { return r(d.Porcentaje); })
+            .attr("fill", function(d){ return d3.rgb(d.Color); })
+            .attr("stroke", function(d){ return d3.rgb(d.Color); });
+
+    svg.selectAll(".partido")
+        .data(d)
+        .enter()
+        .append("text")
+        .attr("class","partido")
+        .text(function(d){return d.Partido})
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("transform", function(d, i) {return "translate("+((i*50)+26)+",95) rotate(-90)"});
+
+    });
+
+</script>

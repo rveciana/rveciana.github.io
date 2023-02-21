@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<body>
+<script src="d3.min.js"></script>
+<script src="topojson.min.js"></script>
+<script src="rbush.min.js"></script>
+<script src="d3.geo.projection.min.js"></script>
+<script src="spam.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/0.4.0/conicConformalSpain-proj.min.js"></script>
+
+<script type='text/javascript'>
+var graticule = d3.geo.graticule()
+
+d3.json("https://cdn.rawgit.com/rveciana/5919944/raw//provincias.json", function(error, d) {
+    topojson.presimplify(d)
+    var proj = d3.geo.conicConformalSpain();
+
+    var map = new StaticCanvasMap({
+        element: "body",
+        width: 960,
+        height: 500,
+        projection: proj,
+        data: [{
+                features: topojson.feature(d, d.objects["provincias"]),
+                static: {
+                    paintfeature: function(parameters, d) {
+                        parameters.context.lineWidth = 0.5
+                        parameters.context.strokeStyle = "#555"
+                        parameters.context.stroke()
+
+                        parameters.context.fillStyle = "#f4efec";
+                        parameters.context.fill()
+                    },
+                    postpaint: function(parameters) {
+                        parameters.context.beginPath()
+                        parameters.context.moveTo(0,0);
+                        parameters.context.lineTo(300,150);
+                        var p = new Path2D(proj.getCompositionBorders())
+                        parameters.context.strokeStyle = "#555"
+                        parameters.context.stroke(p)
+                    }
+                }
+            }
+        ]
+    })
+    map.init()
+})
+</script>

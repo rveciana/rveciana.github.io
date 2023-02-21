@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+path{
+  fill:transparent;
+  stroke:rgba(0,0,0,1);
+}
+
+/*4,*/
+
+.class-4 circle{
+  fill:red;
+}
+
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://npmcdn.com/@turf/turf/turf.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="geo2rect.js"></script>
+<script>
+var config = {
+  width : 700,
+  height : 700,
+  padding : 70,
+  projection : d3.geoMercator(),
+  duration : 1000,
+  key:function(d){return d.properties.nombre; },
+  grid : {
+    "Almería":{x:7,y:8},
+  "Cádiz":{x:5, y:9},
+  "Córdoba":{x:4, y:7},
+  "Granada":{x:6, y:8},
+  "Huelva":{x:4, y:8},
+  "Jaén":{x:6, y:7},
+  "Málaga":{x:6, y:9},
+  "Sevilla":{x:5, y:8},
+  "Huesca":{x:8, y:1},
+  "Teruel":{x:7, y:3},
+  "Zaragoza":{x:8, y:2},
+  "Asturias": {x:3, y:1},
+  "Balears, Illes": {x:10, y:4},
+  "Palmas, Las": {x:3, y:12},
+  "Santa Cruz de Tenerife": {x:2, y: 12},
+  "Cantabria": {x:4, y: 1},
+  "Albacete": {x:6, y:6},
+  "Ciudad Real": {x:5, y:7},
+  "Cuenca": {x:7, y:4},
+  "Guadalajara":{x:6, y:4},
+  "Toledo":{x:5, y:6},
+  "Ávila":{x:5, y:5},
+  "Burgos":{x:5, y:2},
+  "León":{x:3, y:2},
+  "Palencia":{x:4, y:2},
+  "Salamanca":{x:4, y:4},
+  "Segovia":{x:5, y:4},
+  "Soria":{x:6, y:3},
+  "Valladolid":{x:4, y:3},
+  "Zamora":{x:4, y:3},
+  "Barcelona":{x:9, y:2},
+  "Girona":{y:1, x:10},
+  "Lleida":{y:1, x:9},
+  "Tarragona":{x:8, y:3},
+  "Ceuta":{x:5, y:11},
+  "Alicante":{x:7, y:6},
+  "Castellón":{x:8, y:4},
+  "Valencia":{x:7, y:5},
+  "Badajoz":{x:4, y:6},
+  "Cáceres":{x:4, y:5},
+  "Coruña, A":{x:1, y:1},
+  "Lugo":{x:2, y:1},
+  "Ourense":{x:2, y:2},
+  "Pontevedra":{x:1, y:2},
+  "Rioja, La":{x:7, y:2},
+  "Madrid":{x:6, y:5},
+  "Melilla":{x:9, y:11},
+  "Murcia":{x:7, y:7},
+  "Navarra":{x:7, y:1},
+  "Álava":{x: 6, y:2},
+  "Guipúzcoa":{x:6, y:1},
+  "Vizcaya":{x:5, y:1}
+  }
+  };
+var svg = d3.select('body').append('svg').attr('width',config.width).attr('height',config.height);
+
+var g2r = new geo2rect.draw();
+
+d3.json('provincias.json', function(err, data){
+
+  var data = topojson.feature(data, data.objects.provincias);
+
+  var geojson = geo2rect.compute(data);
+
+  g2r.config = config;
+  g2r.data = geojson;
+  g2r.svg = svg.append('g');
+
+  g2r.draw();
+});
+
+d3.select('body').append('a').text('Toggle').on('click', function(){
+  g2r.toggle();
+  g2r.draw();
+  console.log(g2r.mode);
+});
+
+</script>
+</body>
+</html>

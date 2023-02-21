@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-opacity: .5;
+  stroke-width: .5px;
+}
+
+.land {
+  fill: #999;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+svg .path {
+  fill: none;
+  stroke-opacity: .8;
+  stroke-dasharray: 3,2;
+  stroke: #f44;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = 400,
+    height = 300;
+
+var projection = d3.geo.mercator()
+    .scale(5*(width + 1) / 2 / Math.PI)
+    .translate([width / 2, height / 2])
+    .rotate([-125, -15, 0])
+    .precision(.1);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var graticule = d3.geo.graticule();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
+d3.json("track.json", function(error, track) {
+d3.json("world-50m.json", function(error, world) {
+    svg.insert("path", ".graticule")
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+    svg.insert("path", ".graticule")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);
+    
+
+    var pathLine = d3.svg.line()
+        .interpolate("cardinal")
+        .x(function(d) { return projection([d.lon, d.lat])[0]; })
+        .y(function(d) { return projection([d.lon, d.lat])[1]; });
+
+    var haiyanPath = svg.append("path")
+    .attr("d",pathLine(track))
+    .attr("class","path");
+
+});
+});
+
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>

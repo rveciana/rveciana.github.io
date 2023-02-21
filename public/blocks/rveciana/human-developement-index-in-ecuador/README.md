@@ -1,0 +1,2 @@
+The Human Developement Index in Ecuador, data taken from the [Wikipedia](https://es.wikipedia.org/wiki/Anexo:Provincias_de_Ecuador_por_IDH).
+The projection is done using [d3-composite-projections](http://rveciana.github.io/d3-composite-projections/).

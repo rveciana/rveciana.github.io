@@ -1,0 +1,1 @@
+Another experiment, this time using an erode filter to make the coastline more visible

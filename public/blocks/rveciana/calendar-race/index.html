@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; 
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    svg { width:100%; height: 100% }
+  </style>
+</head>
+<body>
+  <div id="graph"></div>
+  The Islamic Calendar (or Hijri Calendar) started at 622 AD. Its years are based on the lunar calendar, shorter than the solar calendar, so it will catch the Gregorian Calendar. 
+  <script>
+    var duration = 3000;
+    var delay = 40;
+    var width = 600;
+    var margin = 30;
+    
+    var GregorianYear = (new Date()).getFullYear();
+        var HijriYear = Math.round((GregorianYear - 622) * (33 / 32));
+    
+    var colors = ["#faa", "#afa"];
+        var scaleToday = d3.scale.linear()
+            .domain([0, GregorianYear])
+            .range([0, width]);
+    
+    var endDate = 20526;
+    var scaleEnd = d3.scale.linear()
+            .domain([0, endDate])
+            .range([0, width]);
+    
+    var data = [{"name":"Gregorian","startDate": 691, "today": GregorianYear},
+               {"name":"Hijri","startDate": 0, "today": HijriYear}];
+    
+    var svg = d3.select("#graph").append("svg");
+        
+    var bars = svg.selectAll(".calbar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class","calbar")
+            .attr("fill", function(d,i){return colors[i];})
+            .attr("x", margin)
+            .attr("y", function(d,i){return margin + i*(30 + margin);})
+            .attr("height", 30)
+            .attr("width", function(d){return scaleToday(d.startDate);})
+            .transition()
+            .delay(delay)
+            .duration(duration)
+            .attr("width", function(d){return scaleToday(d.today);})
+            .transition()
+            .delay(2*delay + duration)
+            .duration(duration)
+            .attr("width", function(d){return scaleEnd(d.today);})
+            .transition()
+            .delay(3*delay + 2*duration)
+            .duration(duration)
+            .attr("width", function(d){return scaleEnd(endDate);});
+         
+    
+    var labels = svg.selectAll(".label")
+            .data(data)
+            .enter()
+        .append("text")
+            .attr("class","label")
+            .attr("x", function(d){return margin + 10 + scaleToday(d.startDate);})
+            .attr("y", function(d,i){return 50 + i*(30 + margin);})
+            .attr("text-anchor","start")
+            .text(function(d){return d.startDate;})
+            .transition()
+            .delay(delay)
+            .duration(duration)
+            .attr("x", function(d){return margin + 10 + scaleToday(d.today);})
+            .tween("text", function(d) {
+            var i = d3.interpolate(this.textContent, d.today),
+                prec = (d + "").split("."),
+                round = (prec.length > 1) ? Math.pow(10, prec[1].length) : 1;
+
+            return function(t) {
+                this.textContent = Math.round(i(t) * round) / round;
+            };
+            })
+            .transition()
+            .delay(2*delay + duration)
+            .duration(duration)
+            .attr("x", function(d){return margin + 10 + scaleEnd(d.today);})
+            .transition()
+            .delay(3*delay + 2*duration)
+            .duration(duration)
+            .attr("x", function(d){return margin + 10 + scaleEnd(endDate);})
+            .tween("text", function(d) {
+            var i = d3.interpolate(this.textContent, endDate),
+                prec = (d + "").split("."),
+                round = (prec.length > 1) ? Math.pow(10, prec[1].length) : 1;
+
+            return function(t) {
+                this.textContent = Math.round(i(t) * round) / round;
+            };
+            });
+    
+     var names = svg.selectAll(".name")
+            .data(data)
+            .enter()
+        .append("text")
+            .attr("class","label")
+            .attr("x", 2*margin)
+            .attr("y", function(d,i){return 30 + i*(30 + margin);})
+            .attr("text-anchor","start")
+            .text(function(d){return d.name;});  
+  </script>
+</body>

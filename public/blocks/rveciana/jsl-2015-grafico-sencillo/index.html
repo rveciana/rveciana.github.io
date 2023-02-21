@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+var width = 960,
+    height = 500;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+d3.csv("https://cdn.rawgit.com/rveciana/5919944/raw//encuesta.csv", function(d){
+
+    var r = d3.scale.linear()
+    .domain([0, d3.max(d, function(d) { return parseFloat(d.Porcentaje); })])
+    .range([1, 100]);
+
+    svg.selectAll("rect")
+        .data(d)
+        .enter()
+        .append("rect")
+        .attr("x", function(d, i) {return i*50;})
+        .attr("y", function(d) { return 100 - r(d.Porcentaje);})
+        .attr("width", 40)
+        .attr("height", function(d) { return r(d.Porcentaje);})
+        .attr("fill", function(d){ return d3.rgb(d.Color);});
+
+    });
+
+</script>

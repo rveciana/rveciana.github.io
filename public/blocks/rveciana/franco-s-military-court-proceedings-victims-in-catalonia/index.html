@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+    var width = 960,
+    height = 670;
+
+    var canvas = d3.select("body")
+        .append("canvas")
+        .attr('height', height)
+        .attr('width', width);
+    var canvasZoom = d3.select("body")
+        .append("canvas")
+        .attr('height', 100)
+        .attr('width', 100)
+        .style("position", 'absolute')
+        .style("top", 0)
+        .style("left",0)
+        .style("border-width",1)
+        .style("border-style", "solid")
+        .style("display", "None");
+    var context = canvas.node().getContext("2d");
+    var zoomContext = canvasZoom.node().getContext("2d");
+
+    var detachedContainer = document.createElement("custom");
+    var dataContainer = d3.select(detachedContainer);
+
+    d3.csv("llista.csv", function(data){
+        drawCustom(data);
+
+    });
+
+    function drawCustom(data) {
+        var stackHeight = 220;
+
+        var dataBinding = dataContainer.selectAll("custom.rect")
+            .data(data, function(d) { return d; });
+            
+
+        dataBinding.enter()
+            .append("custom")
+            .classed("rect", true)
+            .attr("x", function(d, i){return 3 + 3*Math.floor(i/stackHeight);})
+            .attr("y", function(d, i){return 3 + 3*(i%stackHeight);})
+            .attr("size", 2)
+            .attr("fillStyle", function(d){  
+                if(d['Pena']==='Absolt'){return "#7f7";} 
+                else if(d['Pena']==='Dotze anys i un dia de reclusió temporal'){return "#eded07";}
+                else if(d['Pena']==='Llibertat'){return "#8f8";}
+                else if(d['Pena']==='Sobreseïment'){return "#afa";}
+                else if(d['Pena']==='Sense declaració de responsabilitats'){return "#cac";}
+                else if(d['Pena']==='Mort'){return "#f00";}
+                else if(d['Pena']==='Vint anys de reclusió temporal'){return "#d18400";}
+                else if(d['Pena']==='Reclusió perpètua'){return "#d15a00";}
+                else if(d['Pena']==='Quinze anys de reclusió temporal'){return "#d1aa00";}
+                else if(d['Pena']==='Arxiu'){return "#afa";}
+                else if(d['Pena']==='Sis anys i un dia de presó major'){return "#d1c600";}
+                else if(d['Pena']==='Trenta anys de reclusió major'){return "#d16500";}
+                else if(d['Pena']==='Pena de multa'){return "#b8d100";}
+                else if(d['Pena']==='Sis mesos i un dia de presó menor'){return "#cad100";}
+                else if(d['Pena']==='Dotze anys i un dia de reclusió menor'){return "#eded07";}
+                else if(d['Pena']==='Vint anys de reclusió major'){return "#d17600";}
+                else if(d['Pena']==='Dotze anys de presó major'){return "#eded07";}
+                else if(d['Pena']==='Destinat a Batalló de Treballadors o a'){return "#156f72";}
+                else if(d['Pena']==='Un any de presó menor'){return "#cad100";}
+                else if(d['Pena']==='Desglossament en un altre procediment'){return "#bbb";}
+                else if(d['Pena']==='Absolt i un mes d\'arrest menor'){return "#e5ed04";}
+                else if(d['Pena']==='Absolt i dos mesos d\'arrest menor'){return "#eef702";}
+                else if(d['Pena']==='Tres anys i un dia de presó menor'){return "#d1c600";}
+                else if(d['Pena']==='Nou anys de presó major'){return "#d1b800";}
+                else if(d['Pena']==='Vuit anys de presó major'){return "#d1b800";}
+                else {
+                    if(d['Pena'].indexOf('anys')>1){return "#d17600";}
+                    else{return "#aaa";}}
+                });
+        
+    }
+    function renderChart() {
+        context.fillStyle = "#fff";
+        context.rect(0,0,canvas.attr("width"),canvas.attr("height"));
+        context.fill();
+        var elements = dataContainer.selectAll("custom.rect");
+        elements.each(function(d) {
+            var node = d3.select(this);
+            context.beginPath();
+            context.fillStyle = node.attr("fillStyle");
+            context.rect(node.attr("x"), node.attr("y"), node.attr("size"), node.attr("size"));
+            context.fill();
+            context.closePath();
+            
+        })
+    }
+
+    var t = d3.timer(function(elapsed) {
+        if (elapsed > 1000) t.stop();
+        renderChart();
+    });
+
+canvas.on("mousemove", function(){
+    var coords = d3.mouse(this);
+    zoomContext.fillStyle = "white";
+    zoomContext.fillRect(0,0, canvasZoom.width, canvasZoom.height);
+    zoomContext.drawImage(canvas.node(), coords[0], coords[1], 35, 35, 0,0, 100, 100);
+    canvasZoom.style('top', coords[1] + 10 + "px")
+    canvasZoom.style('left', coords[0] + 10 + "px")
+    canvasZoom.style('display', "block");
+});
+</script>
+</body>

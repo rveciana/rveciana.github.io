@@ -1,0 +1,1 @@
+This file shows how to use the *conicConformalPortugal* projection from [d3-composite-projections](http://rveciana.github.io/d3-composite-projections/). The example is the same as [the one at this block](http://bl.ocks.org/rveciana/b62832e7b32f9afc779c), but with this new composite projection gives a much better result.

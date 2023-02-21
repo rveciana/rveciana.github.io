@@ -1,0 +1,2 @@
+This is my first example using the [D3 trail layout](https://github.com/bmschmidt/D3-trail) made by [Benjamin Schmidt](https://github.com/bmschmidt).
+There is no complete *hellow world* example yet in the official docs, so I created this one.

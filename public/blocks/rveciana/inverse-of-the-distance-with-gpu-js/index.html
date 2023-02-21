@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+<script src="gpu.min.js"></script>
+<script>
+const gpu = new GPU();
+
+var numValues = 100;
+for (var values=[],i=0;i<numValues;++i) values[i]=Math.random();
+for (var xpos=[],i=0;i<numValues;++i) xpos[i]=600 * Math.random();
+for (var ypos=[],i=0;i<numValues;++i) ypos[i]=600 * Math.random();
+
+
+var cs_def = {positions:[0, 1], colors:["#ff0000", "#00ffff"]};
+  var canvasColorScale = document.createElement('canvas');
+  canvasColorScale.width = 256;
+  canvasColorScale.height = 1;
+  canvasColorScale.style.display = "none";
+  var contextColorScale = canvasColorScale.getContext("2d");
+  var gradient = contextColorScale.createLinearGradient(0, 0, 256, 1);
+
+  for (var i = 0; i < cs_def.colors.length; ++i) {
+    gradient.addColorStop(cs_def.positions[i], cs_def.colors[i]);
+  }
+  contextColorScale.fillStyle = gradient;
+  contextColorScale.fillRect(0, 0, 256, 1);
+
+  var csImageData = contextColorScale.getImageData(0, 0, 255, 1).data;
+
+const render = gpu.createKernel(function(xpos, ypos, values, smoothing, colorScale) {
+    var nominator=0;
+    var denominator=0;
+    var flagDist = -1;
+    for (var i = 0; i < this.constants.numPoints; i++) {
+        var dist = Math.sqrt((this.thread.x-xpos[i])*(this.thread.x-xpos[i])+
+            (this.thread.y-ypos[i])*(this.thread.y-ypos[i]) + smoothing*smoothing);
+        if(dist < 300){
+            nominator=nominator+(values[i]/dist)
+            denominator=denominator+(1/dist)
+            if(dist < 0.1){
+                flagDist = i;
+            }
+        }
+    }
+    var value;
+    if(flagDist >= 0){
+        value = values[flagDist];
+    } else {
+        value = nominator/denominator;
+    }
+
+    var c = Math.ceil(255 * value);
+    this.color(colorScale[c*4]/255, colorScale[1 + c*4]/255, colorScale[2 + c*4]/255, 1);
+})
+  .setConstants({ numPoints: values.length })
+  .setOutput([600, 600])
+  .setGraphical(true);
+
+render(xpos, ypos, values, 4, csImageData);
+
+const canvas = render.getCanvas();
+document.getElementsByTagName('body')[0].appendChild(canvas);
+</script>

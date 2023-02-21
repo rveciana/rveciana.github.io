@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+<script src="//d3js.org/d3.geo.projection.v0.min.js"></script>
+
+<script type="text/javascript" src="PrayTimes.js"></script>
+
+<script>
+var places = [{"name": "Mkambati", "country": "South Africa", "lat":-31.3, "lon":30, "tz":2},
+{"name": "Shurugwi", "country": "Zimbabwe", "lat": -19.677, "lon": 29.97, "tz":2},
+{"name": "Chingombe", "country": "Zambia", "lat": -14.42, "lon": 29.98, "tz":2},
+{"name": "Kazuramimba", "country": "Tanzania", "lat": -5, "lon": 30.02, "tz":3},
+{"name": "Rutana", "country": "Burundi", "lat": -3.92, "lon": 29.99, "tz":2},
+{"name": "Tumba", "country": "Rwanda", "lat": -1.69, "lon": 29.96, "tz":2},
+{"name": "Chanjojo", "country": "Uganda", "lat": 0.16, "lon": 30.01, "tz":3},
+{"name": "Ndakala", "country": "Democratic Republic of the Congo", "lat": 2.88, "lon": 30.06, "tz":2},
+{"name": "Koch", "country": "South Sudan", "lat": 8.6, "lon": 29.99, "tz":3},
+{"name": "El Obeid", "country": "Sudan", "lat": 13.22, "lon": 30.18, "tz":3},
+{"name": "El Mandara", "country": "Egypt", "lat": 31.27, "lon": 30.0, "tz":2, "tz":2},
+{"name": "Kütahya", "country": "Turkey", "lat": 39.43, "lon": 29.99, "tz":3},
+{"name": "Palanca", "country": "Moldavia", "lat": 46.4, "lon": 30.08, "tz":3},
+{"name": "Fastivets", "country": "Ukraine", "lat": 50.06, "lon": 30.03, "tz":3},
+{"name": "Smaljani", "country": "Belarus", "lat": 54.59, "lon": 30.05, "tz":3},
+{"name": "Sestroretsk", "country": "Russia", "lat": 60.1, "lon": 29.97, "tz":3},
+{"name": "Lieksa", "country": "Finland", "lat": 63.31, "lon": 30.02, "tz":3},
+{"name": "Vadsø", "country": "Norway", "lat": 70.08, "lon": 29.72, "tz":3}
+]
+var width = 960,
+    height = 550;
+var projection = d3.geo.satellite()
+    .distance(1.5)
+    .scale(787)
+    .translate([width/2,height/3.5])
+    .center([-2, 6])
+    .tilt(30)
+    .clipAngle(Math.acos(1 / 1.5) * 180 / Math.PI - 1e-6)
+    .precision(.1);
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+var graticule = d3.geo.graticule();
+
+var path = d3.geo.path()
+.projection(projection)
+.context(context);
+
+var x = width/2,
+    y = height/3,
+    // Radii of the start glow.
+    innerRadius = height/4,
+  c  // Radii of the end glow.
+    outerRadius = height/1.5,
+    // Radius of the entire circle.
+    radius = 200;
+
+d3.json("world-110m.json", function(error, data) {
+
+  var countries = topojson.object(data, data.objects.countries);
+
+  var i = -1, n=places.length, times;
+  var meridian = {
+    type: "LineString",
+    coordinates: [
+        [30, places[0].lat], [30, places[n-1].lat]
+    ]
+}
+
+  draw_map(0, [-1*places[0].lon, -1*places[0].lat, -20])
+
+  function draw_map(i, rotation){
+    projection.rotate(rotation);
+    context.clearRect(0, 0, width, height);
+    context.beginPath();
+    path({type: "Sphere"});
+    var gradient = context.createRadialGradient(x, y, innerRadius, x, y, outerRadius);
+        gradient.addColorStop(0, 'rgb(240, 240, 255)');
+        gradient.addColorStop(1, 'rgb(200, 200, 220)');
+
+    context.fillStyle = gradient;
+    context.fill();
+
+    context.strokeStyle = '#aaa';
+    context.fillStyle = '#ccc';
+
+    context.beginPath();
+    path(graticule());
+    context.lineWidth = 0.2;
+    context.strokeStyle = 'rgba(30,30,30, 0.5)';
+    context.stroke();
+
+    context.beginPath();
+    path(countries);
+    context.fill();
+
+    context.beginPath();
+    path(countries);
+    context.stroke();
+
+    context.setLineDash([5, 2]);
+    context.lineWidth = 0.7;
+    context.strokeStyle = 'rgba(255,30,30, 0.5)';
+    context.beginPath();
+    path(meridian);
+    context.stroke();
+    context.setLineDash([]);
+
+  };
+
+
+  (function transition() {
+    d3.transition()
+        .duration(1250)
+        .each("start", function() {
+          i = (i + 1) % n;
+          var latNext = places[i].lat;
+          r = d3.interpolate(projection.rotate(), [-1*places[i].lon, -1*places[i].lat, -20]);
+          times = prayTimes.getTimes(new Date(), [places[i].lat, places[i].lon], places[i].tz, 0);
+        })
+        .tween("rotate", function() {
+          return function(t) {
+            draw_map(i, r(t))
+            //drawing the circle and labels
+            context.font="15px Helvetica";
+            var projected = projection([places[i].lon, places[i].lat]);
+            context.fillStyle = "rgba(70, 70, 70, "+t+")";
+            context.beginPath();
+            context.arc(projected[0], projected[1], 4, 0, 2 * Math.PI, false);
+            context.fill();
+            context.fillText(places[i].name, projected[0] + 7, projected[1] - 3);
+            context.fillText(places[i].country, projected[0] + 7, projected[1] + 13);
+            context.fillStyle = "rgba(150, 70, 70, "+t+")";
+            context.fillText("Fajr", projected[0] - 100, projected[1] - 3);
+            context.fillText(times['fajr'], projected[0] - 45, projected[1] - 3);
+            context.fillText("Maghrib", projected[0] - 100, projected[1] + 13);
+            context.fillText(times['maghrib'], projected[0] - 45, projected[1] + 13);
+            if(i>0){
+              var projected = projection([places[i-1].lon, places[i-1].lat]);
+              context.fillStyle = "rgba(70, 70, 70, "+(1-t)+")";
+              context.beginPath();
+              context.arc(projected[0], projected[1], 4, 0, 2 * Math.PI, false);
+              context.fill();
+              context.fillText(places[i-1].name, projected[0] + 7, projected[1] - 3);
+              context.fillText(places[i-1].country, projected[0] + 7, projected[1] + 13);
+              context.fillStyle = "rgba(150, 70, 70, "+(1-t)+")";
+              context.fillText("Fajr", projected[0] - 100, projected[1] - 3);
+              context.fillText(times['fajr'], projected[0] - 45, projected[1] - 3);
+              context.fillText("Maghrib", projected[0] - 100, projected[1] + 13);
+              context.fillText(times['maghrib'], projected[0] - 45, projected[1] + 13);
+            }
+
+
+          };
+        })
+      .transition()
+        .each("end", transition);
+  })();
+
+
+
+
+});
+
+</script>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.states {
+  fill: #ccc;
+  stroke: #fff;
+}
+</style>
+<body>
+<script src="https://d3js.org/d3.v5.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://unpkg.com/d3-composite-projections@1.2.0/d3-composite-projections.min.js"></script>
+<script>
+var width = 960,
+    height = 500;
+
+var projection = d3.geoMercatorMalaysia();
+var path = d3.geoPath()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+    var t = d3.transition();
+  
+d3.json("malaysia.json").then(function(malaysia) {
+  var malaysia = topojson.feature(malaysia, malaysia.objects.land);
+  svg.selectAll(".land")
+      .data(malaysia.features)
+      .enter()
+      .append("path")
+      .attr("class", "land")
+      .attr("d", path)
+      .style("fill", "#aca")
+      .style("stroke", "#000")
+      .style("stroke-width", "0.5px")
+      .on("mouseover", function(d,i) {
+        d3.select(this).interrupt();
+        d3.select(this)
+          .transition(t)
+          .style("fill", "red");
+        })
+      .on("mouseout", function(d,i) {
+        d3.select(this).interrupt();
+        d3.select(this)
+          .transition(t)
+          .style("fill", "#aca");
+        });;
+
+  svg
+    .append("path")
+      .style("fill","none")
+      .style("stroke","#f00")
+      .attr("d", projection.getCompositionBorders());
+
+});
+
+</script>

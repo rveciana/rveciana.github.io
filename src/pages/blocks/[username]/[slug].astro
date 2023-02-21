@@ -1,0 +1,36 @@
+---
+import indexData from "/public/blocks/rveciana/api_result.json";
+
+export async function getStaticPaths() {
+  return indexData.map((block) => ({
+    params: { username: "rveciana", slug: block.slug },
+  }));
+}
+
+const { username, slug } = Astro.params;
+
+const posts = await Astro.glob("/public/blocks/**/README.md");
+
+const readme =
+  slug &&
+  username &&
+  posts
+    .find(
+      (post) => post.file.indexOf(username) >= 0 && post.file.indexOf(slug) >= 0
+    )
+    ?.compiledContent();
+
+const description = indexData.find((d) => d.slug === slug)?.description;
+---
+
+<html>
+  <body>
+    {username} - {slug}
+    <h3>{description}</h3>
+    <iframe
+      width={960}
+      height={500}
+      src={`/blocks/${username}/${slug}/index.html`}></iframe>
+    <div set:html={readme} />
+  </body>
+</html>

@@ -1,0 +1,2 @@
+This example belongs to the presentation made to the [OSGeo](http://www.osgeo.org/) local group in Barcelona [Geoinquiets](http://www.geoinquiets.cat/)
+The example is an adaptation from [Mike Bostock](http://bost.ocks.org/mike/)'s [Symbol Map example](http://bl.ocks.org/mbostock/4342045)

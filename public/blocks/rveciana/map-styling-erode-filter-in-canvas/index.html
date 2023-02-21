@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+
+<script>
+
+
+var width = 600,  
+    height = 500; 
+
+var projection = d3.geo.orthographic()
+    .scale(2800)
+    .translate([width / 2, height / 2])
+    .rotate([-3, -46.5, 5])
+    .clipAngle(90)
+    .precision(.1);
+
+
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+var path = d3.geo.path()
+  .projection(projection);
+  
+
+
+
+d3.json("https://cdn.rawgit.com/rveciana/7711139/raw/c1dcabdd8ecb142c0f6c50cba5530df7a8f68916/data.json", function(error, data) {
+
+ var land = topojson.object(data, data.objects.land);
+  
+  context.beginPath();
+  context.fillStyle='#D1BEB0'; 
+  context.strokeStyle = '#D1BEB0';
+
+  path.context(context)(land);
+  
+  //context.stroke();
+  context.fill();
+  
+
+  var canvas_filter = document.createElement('canvas');
+
+  canvas_filter.width = width;
+  canvas_filter.height = height;
+  var context_filter = canvas_filter.getContext("2d");
+
+  context_filter.beginPath(); 
+  context_filter.fillStyle='#f4efec'; 
+  context_filter.strokeStyle = '#f4efec';
+  path.context(context_filter)(land);
+  
+
+  //context_filter.stroke();
+  context_filter.fill();
+  
+
+
+
+
+  var pixels = context_filter.getImageData(0,0,width,height);
+  
+  var weights = [ 0, 1/5,  0,
+           1/5,  1/5, 1/5,
+            0, 1/5,  0];
+
+  var weights = [ 0,    1/21, 1/21, 1/21, 0,
+                  1/21, 1/21, 1/21, 1/21, 1/21,
+                  1/21, 1/21, 1/21, 1/21, 1/21,
+                  1/21, 1/21, 1/21, 1/21, 1/21,
+                  0   , 1/21, 1/21, 1/21, 0];            
+  var side = Math.round(Math.sqrt(weights.length));
+  var halfSide = Math.floor(side/2);
+  var opaque = false;
+  var src = pixels.data;
+  var w = pixels.width;
+  var h = pixels.height;
+  var alphaFac = opaque ? 1 : 0;
+
+  var output = context_filter.getImageData(0,0,w,h);
+  output.width = w;
+  output.height = h;
+  
+
+  var dst = output.data;
+  
+ 
+
+  for (var y=0; y<h; y++) {
+    for (var x=0; x<w; x++) {
+      var sy = y;
+      var sx = x;
+      var dstOff = (y*w+x)*4;
+
+      var r=1000, g=1000, b=1000, a=1000;
+      for (var cy=0; cy<side; cy++) {
+        for (var cx=0; cx<side; cx++) {
+          var scy = sy + cy - halfSide;
+          var scx = sx + cx - halfSide;
+          if (scy >= 0 && scy < h && scx >= 0 && scx < w) {
+            var srcOff = (scy*w+scx)*4;
+            var wt = weights[cy*side+cx];
+            if (wt > 0 && src[srcOff+3] < a){
+              r = src[srcOff];
+              g = src[srcOff+1];
+              b = src[srcOff+2];
+              a = src[srcOff+3];
+            }
+          }
+
+        }
+      }
+
+      dst[dstOff] = r;
+      dst[dstOff+1] = g;
+      dst[dstOff+2] = b;
+      dst[dstOff+3] = a + alphaFac*(255-a);
+
+    }
+  }
+
+  context_filter.putImageData(output, 0, 0);
+  
+  context.drawImage(canvas_filter, 0, 0);
+
+});
+
+</script>

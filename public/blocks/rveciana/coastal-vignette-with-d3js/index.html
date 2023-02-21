@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.buffer {
+  fill: none;
+}
+
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript" src="jsts.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+var width = 960,
+height = 500;
+
+var projection = d3.geoMercator()
+    .rotate([-17, -39.7])
+    .scale(1500);
+var path = d3.geoPath()
+.projection(projection);
+
+var svg = d3.select("body").append("svg")
+.attr("width", width)
+.attr("height", height)
+.style("background-color","#d6ecfa");
+
+d3.json("land.topo.json", function(error, coast) {
+var data = topojson.merge(coast, coast.objects.land.geometries);
+
+var reader = new jsts.io.GeoJSONReader();
+var input = reader.read(data);
+
+var bufferList = [];
+
+[0.1, 0.2, 0.4, 0.6, 0.8, 1.3].forEach(function(dist){
+  bufferList.push(input.buffer(dist))
+});
+
+svg.append("path")
+  .attr("class", "map")
+  .datum(data)
+  .attr("d", path)
+  .style("fill", "#c0c7bf")
+  .style("stroke", "#d6ded5")
+  .style("stroke-width", "1.6");
+
+bufferList.forEach(function(buffer, i){
+  svg.selectAll(".buffer .buffer"+i)
+    .data(getBufferCoords(buffer))
+    .enter()
+    .append("path")
+    .attr("d", d3.line())
+    .attr("class", "buffer buffer"+i)
+    .style("stroke","#9cd1f2")
+    .style("stroke-width", (1.4 - 0.14*i)+"px")
+    .style("stroke-dasharray","15 "+i+" 20 "+i)
+    .style("stroke-opacity", 1-(i/6));
+});
+
+
+});
+
+
+
+function getBufferCoords(buffer){
+  var bufferPolygons = [];
+  var geometries;
+  if ('geometries' in buffer){
+    buffer.geometries.forEach(function(geom){
+      bufferPolygons = bufferPolygons.concat(getGeomPolygons(geom));  
+    });
+  } else {
+    bufferPolygons = bufferPolygons.concat(getGeomPolygons(buffer));
+  }
+  return bufferPolygons;
+}
+
+function getGeomPolygons(geom){
+  var geomBufferPolygons = [];
+  var bufferedPoly = geom.shell.points.coordinates.map(function(pr) {
+        return projection([pr.x, pr.y]);
+    });
+    
+    geomBufferPolygons.push(bufferedPoly);
+
+    geom.holes.forEach(function(hole){
+      bufferedPoly = hole.points.coordinates.map(function(pr) {
+        return projection([pr.x, pr.y]);
+    });
+
+    geomBufferPolygons.push(bufferedPoly);
+    
+    });
+  return geomBufferPolygons;
+}
+</script>

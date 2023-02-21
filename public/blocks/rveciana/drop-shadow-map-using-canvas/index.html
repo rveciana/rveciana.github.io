@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+
+<script>
+var width = 960,
+    height = 500;
+
+var projection = d3.geo.mercator()
+    .scale(800)
+    .rotate([80, -20, 0]);
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+var path = d3.geo.path()
+.projection(projection)
+.context(context);
+
+
+
+d3.json("https://cdn.rawgit.com/mbostock/4090846/raw/8a7f176072d508218e120773943b595c998991be/world-50m.json", function(error, data) {
+
+  var land = topojson.object(data, data.objects.land);
+
+  context.fillStyle='#ccc'; 
+  context.strokeStyle = '#aaa';
+
+  context.save();
+  context.beginPath();
+
+  context.shadowBlur=5;
+  context.shadowColor='#000'; 
+  context.shadowOffsetX=5; 
+  context.shadowOffsetY=5;  
+  
+  path(land);
+  context.fill();
+  context.restore();
+  context.stroke();
+  
+});
+
+</script>

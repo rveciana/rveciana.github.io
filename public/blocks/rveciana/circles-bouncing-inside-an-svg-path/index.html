@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script>
+//Based in
+///http://bl.ocks.org/mbostock/1804919
+///http://stackoverflow.com/questions/11397961/d3-js-suggested-node-position-in-force-layout
+var margin = {top: 0, right: 0, bottom: 0, left: 0},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+
+var n = 8,
+    m = 4,
+    padding = 6,
+    maxSpeed = 3,
+    radius = d3.scale.sqrt().range([0, 8]),
+    color = d3.scale.category10().domain(d3.range(m));
+    
+var nodes = [];
+
+for (i in d3.range(n)){
+  nodes.push({radius: radius(1 + Math.floor(Math.random() * 3)), 
+             color: color(Math.floor(Math.random() * m)), 
+             x: 130 + (Math.random() * 110), 
+             y: 250 + (Math.random() * 110),
+             speedX: (Math.random() - 0.5) * 2 *maxSpeed, 
+             speedY: (Math.random() - 0.5) * 2 *maxSpeed});
+}
+
+
+var force = d3.layout.force()
+    .nodes(nodes)
+    .size([width, height])
+    .gravity(0)
+    .charge(0)
+    .on("tick", tick)
+    .start();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .attr("id","svgBox")
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+
+var flask = svg.append("svg:path")
+    .attr("d","m 125.73629,173.90892 -85.222023,161.9399 -4.574042,20.94219 3.425958,20.94219 7.425958,24.94219 7.712979,10.47109 7.712978,6.4711 213.974192,0.25141 6.95044,-7.05744 6.95044,-11.05744 5.90088,-26.11489 1.90088,-22.11489 -6.09912,-22.11488 -80.42792,-157.09767 -1.66424,-82.6335 3.71797,-36.891649 11.71797,-28.328051 -112.68588,0 11.05912,28.891649 3.05913,36.328051 z")
+    .style("fill", "None")
+    .style("stroke", "#222222")
+    .style("stroke-width",8);
+
+
+//Convert path with "moveto" to array of points
+var points = flask.attr("d").split(" ");
+var lineData = [{"x": parseFloat(points[1].split(",")[0]),"y":parseFloat(points[1].split(",")[1])}];
+for (i=2; i< points.length; i++){
+  if (points[i] != "z"){
+    var pointBefore = lineData[lineData.length - 1];
+    lineData.push({
+      "x": parseFloat(points[i].split(",")[0]) + pointBefore.x, 
+      "y": parseFloat(points[i].split(",")[1]) + pointBefore.y
+    });
+  } else {
+    lineData.push({
+      "x": lineData[0].x, 
+      "y": lineData[0].y
+    });
+  }
+}
+
+
+
+var circle = svg.selectAll("circle")
+    .data(nodes)
+  .enter().append("circle")
+    .attr("r", function(d) { return d.radius; })
+    .attr("cx", function(d) {  return d.x; })
+    .attr("cy", function(d) { return d.y; })
+    .style("fill", function(d) { return d.color; })
+    .call(force.drag);
+
+
+function tick(e) {
+  force.alpha(0.1)
+  
+  circle
+      .each(gravity(e.alpha))
+      .each(collide(.5))
+      .attr("cx", function(d) { return d.x; })
+      .attr("cy", function(d) { return d.y; });
+}
+
+
+
+//Distance between a point and a segment
+//http://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
+function sqr(x) { return x * x };
+function dist2(v, w) { return sqr(v.x - w.x) + sqr(v.y - w.y) };
+function distToSegmentSquared(p, v, w) {
+  var l2 = dist2(v, w);
+  if (l2 == 0) return dist2(p, v);
+  var t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
+  if (t < 0) return dist2(p, v);
+  if (t > 1) return dist2(p, w);
+  return dist2(p, { x: v.x + t * (w.x - v.x),
+                    y: v.y + t * (w.y - v.y) });
+}
+function distToSegment(p, v, w) { return Math.sqrt(distToSegmentSquared(p, v, w));}
+
+
+// Move nodes toward cluster focus.
+function gravity(alpha) {
+  return function(d) {
+    
+    d.x = d.x + (d.speedX * alpha);
+    d.y = d.y + (-1 * d.speedY * alpha);
+    for (i = 1; i < lineData.length; i++){
+      if (distToSegment(d, lineData[i-1], lineData[i]) < d.radius){
+        vel = Math.sqrt(d.speedX*d.speedX + d.speedY*d.speedY)
+        
+        var angleLine = Math.atan2((lineData[i].y - lineData[i-1].y), (lineData[i].x - lineData[i-1].x));
+
+        speedXRotated = d.speedX * Math.cos(angleLine) - d.speedY * Math.sin(angleLine);
+        speedYRotated = d.speedX * Math.sin(angleLine) + d.speedY * Math.cos(angleLine);
+        
+        speedYRotated = -1 * speedYRotated;
+
+        d.speedX = speedXRotated * Math.cos(-1 * angleLine) - speedYRotated * Math.sin(-1 * angleLine);
+        d.speedY = speedXRotated * Math.sin(-1 * angleLine) + speedYRotated * Math.cos(-1 * angleLine);
+
+
+        d.x = d.px + (d.speedX * d.radius * alpha);
+        d.y = d.py + (-1 * d.speedY * d.radius * alpha);
+              
+
+        break;
+      }
+      
+    }
+ };
+}
+
+// Resolve collisions between nodes.
+function collide(alpha) {
+  var quadtree = d3.geom.quadtree(nodes);
+  return function(d) {
+    var r = d.radius + radius.domain()[1] + padding,
+        nx1 = d.x - r,
+        nx2 = d.x + r,
+        ny1 = d.y - r,
+        ny2 = d.y + r;
+    quadtree.visit(function(quad, x1, y1, x2, y2) {
+      if (quad.point && (quad.point !== d)) {
+        var x = d.x - quad.point.x,
+            y = d.y - quad.point.y,
+            l = Math.sqrt(x * x + y * y),
+            r = d.radius + quad.point.radius + (d.color !== quad.point.color) * padding;
+        if (l < r) {
+          l = (l - r) / l * alpha;
+          d.x -= x *= l;
+          d.y -= y *= l;
+          quad.point.x += x;
+          quad.point.y += y;
+        }
+      }
+      return x1 > nx2
+          || x2 < nx1
+          || y1 > ny2
+          || y2 < ny1;
+    });
+  };
+}
+
+</script>

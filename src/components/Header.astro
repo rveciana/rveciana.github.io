@@ -1,9 +1,12 @@
 ---
 import config from "../config.json";
 
-const allPages = await Astro.glob("../pages/*mdx");
-
-const pages = allPages.map((d) => ({ url: d.url, title: d.frontmatter.title }));
+const pages = [
+  { url: "about", title: "About" },
+  { url: "blog", title: "Blog" },
+  { url: "blocks", title: "blocks" },
+  { url: "projects", title: "Projects" },
+];
 ---
 
 <header class="site-header">

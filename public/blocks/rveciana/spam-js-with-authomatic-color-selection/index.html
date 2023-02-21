@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="spam.js"></script>
+<script src="rbush.min.js"></script>
+<script>
+
+var width = 960,
+    height = 600
+
+var i = 0
+
+var color = d3.scale.category20()
+
+var graticule = d3.geo.graticule()
+
+// Canvas radial gradient
+var x = width / 2,
+    y = height / 2,
+    // Radii of the start glow.
+    innerRadius = 220,
+    // Radii of the end glow.
+    outerRadius = 300,
+    // Radius of the entire circle.
+    radius = 200
+
+d3.json("world-50m.json", function(error, d) {
+    topojson.presimplify(d)
+    
+    var neighbors = topojson.neighbors(d.objects.countries.geometries)
+    var countries = topojson.feature(d, d.objects.countries)
+    countries.features.forEach(function(d, i) {
+          d.properties.color = d3.max(neighbors[i], function(n) { return countries.features[n].properties.color; }) + 1|0
+          });
+
+    var map = new StaticCanvasMap({
+        element: "body",
+        width: width,
+        height: height,
+        projection: d3.geo.orthographic()
+            .clipAngle(90)
+            .precision(0.1)
+            .scale(250),
+        data: [
+            {
+                features: countries,
+                static: {
+                    prepaint: function(parameters) {
+                        parameters.context.beginPath()
+                        parameters.path({type: "Sphere"})
+                        parameters.context.lineWidth = 2
+                        parameters.context.strokeStyle = "rgb(198, 197, 197)"
+                        parameters.context.stroke()
+
+                        var gradient = parameters.context.createRadialGradient(x, y, innerRadius, x, y, outerRadius)
+                            gradient.addColorStop(0, 'rgb(248, 248, 248)')
+                            gradient.addColorStop(1, 'rgb(210, 210, 210)')
+                        
+                        parameters.context.fillStyle = gradient
+                        parameters.context.fill()
+
+                        parameters.context.beginPath()
+                        parameters.path(graticule())
+                        parameters.context.lineWidth = 0.2
+                        parameters.context.strokeStyle = 'rgba(30,30,30, 0.5)'
+                        parameters.context.stroke()
+                    },
+                    paintfeature: function(parameters, d) {
+
+                        parameters.context.lineWidth = 0.8 / parameters.scale
+                        parameters.context.strokeStyle = "rgba(0,0,0, 0.6)"
+                        parameters.context.stroke()
+
+                        parameters.context.fillStyle = color(d.properties.color)
+                        parameters.context.fill()
+                    }
+                }
+            }
+        ]
+    })
+    map.init()
+})
+</script>

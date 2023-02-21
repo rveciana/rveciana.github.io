@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.border {
+  stroke: #000;
+  fill: none;
+
+}
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 84px;
+  height: 64px;
+  padding: 2px;
+  font: 12px sans-serif;
+  background: lightgrey;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+</style>
+<body>
+<h1>People at risk of poverty or social exclusion by NUTS 2 regions</h1>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/0.3.5/conicConformalEurope-proj.min.js"></script>
+<script>
+
+var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+var width = 600,
+    height = 500;
+
+var projection = d3.geo.conicConformalEurope();
+var graticule = d3.geo.graticule();
+
+var path = d3.geo.path()
+    .projection(projection);
+
+
+
+var scale =  d3.scale.quantize().domain([10,60]).range(colorbrewer.OrRd[9]);
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+
+    svg.append("path")
+        .datum(graticule)
+        .attr("class", "graticule")
+        .attr("d", path);
+d3.json("https://cdn.rawgit.com/rveciana/5919944/raw//nuts2.json", function(error, europe) {
+  d3.csv("povertry_rate.csv", function(error, povrate) {
+    var land = topojson.feature(europe, europe.objects.nuts2);
+
+    data = {};
+    povrate.forEach(function(d) {
+      data[d.GEO] = d['2013'];
+    });
+
+    console.info(data);
+    svg.selectAll("path")
+      .data(land.features)
+      .enter()
+      .append("path")
+      .attr("d", path)
+      .style("stroke","#000")
+      .style("stroke-width",".5px")
+      .style("fill",function(d){
+            var value = data[d.id];
+            if (isNaN(value)){
+              value = data[d.id.substring(0,2)];
+            }
+            if (isNaN(value)){
+              return "#fff";
+            }
+
+            return scale(value);
+            })
+      .on("mouseover", function(d,i) {
+            var value = data[d.id];
+            if (isNaN(value)){
+              value = data[d.id.substring(0,2)];
+            }
+            div.transition()
+                .duration(200)
+                .style("opacity", 0.9);
+            div.html("<b>"+d.properties.name+"</b><br/>" + value + "%")
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+      .on("mouseout", function(d,i) {
+          div.transition()
+              .duration(500)
+              .style("opacity", 0);
+        });
+
+        svg
+          .append("path")
+            .style("fill","none")
+            .style("stroke","#000")
+            .attr("d", projection.getCompositionBorders());
+
+
+  });
+});
+
+
+</script>

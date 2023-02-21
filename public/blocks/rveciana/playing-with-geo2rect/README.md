@@ -1,0 +1,3 @@
+Example of the [d3.geo2rect](https://github.com/sebastian-meier/d3.geo2rect) library, with the data for Spain.
+
+The d3CompositeProjections won't work with this library. Also, each region gets only the biggest geometry to be drawn, so the islands are erased...

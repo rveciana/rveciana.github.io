@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.background {
+  fill: none;
+  pointer-events: all;
+}
+
+#states {
+  fill: #aaa;
+}
+
+#state-borders {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/topojson.v2.min.js"></script>
+<script>
+
+var width = 960,
+    height = 500;
+
+var projection = d3.geoMercator()
+    .scale(4000)
+    .center([2.8, 41.9])
+    .translate([width/2, height/2]);
+
+var path = d3.geoPath()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var g = svg.append("g")
+    .on("wheel.zoom",function(){
+        var currScale = projection.scale();
+        var newScale = currScale - 2*event.deltaY;
+        var currTranslate = projection.translate();
+        var coords = projection.invert([event.offsetX, event.offsetY]);
+        projection.scale(newScale);
+        var newPos = projection(coords);
+
+        projection.translate([currTranslate[0] + (event.offsetX - newPos[0]), currTranslate[1] + (event.offsetY - newPos[1])]);
+        g.selectAll("path").attr("d", path);
+
+    })
+    .call(d3.drag().on("drag", function(){
+        var currTranslate = projection.translate();
+        projection.translate([currTranslate[0] + d3.event.dx,
+                              currTranslate[1] + d3.event.dy]);
+        g.selectAll("path").attr("d", path);
+    }));
+
+g.append("rect")
+    .attr("class", "background")
+    .attr("width", width)
+    .attr("height", height)
+    .style("fill","#fcf4e0");
+
+d3.json("lim.json", function(error, us) {
+  if (error) throw error;
+
+  g.selectAll(".com")
+      .data(topojson.feature(us, us.objects.limits).features)
+      .enter()
+      .append("path")
+      .attr("id", "state-borders")
+      .attr("d", path);
+});
+
+
+
+</script>
+
+

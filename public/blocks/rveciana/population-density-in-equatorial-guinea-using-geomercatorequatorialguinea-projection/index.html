@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.states {
+  fill: #ccc;
+  stroke: #fff;
+}
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://unpkg.com/d3-composite-projections@1.2.0/d3-composite-projections.min.js"></script>
+<script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<script src="d3-legend.min.js"></script>
+
+<script>
+var width = 960,
+    height = 500;
+
+var popDensity = {"Annobón": 294.6, "Bioko Norte": 298.2, "Bioko Sur": 23.4, "Centro Sur": 12.7, "Kié-Ntem": 42.4, "Litoral": 44.8, "Wele-Nzas": 28.8};
+
+var projection = d3.geoMercatorEquatorialGuinea();
+var path = d3.geoPath()
+    .projection(projection);
+
+/*
+var colorScale = d3.scaleOrdinal(colorbrewer.PuRd[9])
+    .domain([0,50, 100, 150, 200, 250, 300]);*/
+
+    var colorScale =  d3.scaleLinear()
+       .domain([0, 300])
+       .range(["rgb(46, 73, 123)", "rgb(71, 187, 94)"]);
+
+colorScale = d3.scaleSequential(d3.interpolateYlOrRd)
+        .domain([0, 300]);
+
+console.info(colorScale(3));
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+    var t = d3.transition();
+d3.json("ge.json", function(error, ge) {
+  var france = topojson.feature(ge, ge.objects.ge);
+  svg.selectAll(".land")
+      .data(france.features)
+      .enter()
+      .append("path")
+      .attr("class", "land")
+      .attr("d", path)
+      .style("fill", function(d){console.info(colorScale(popDensity[d.properties.NAME_1])); return colorScale(popDensity[d.properties.NAME_1]);})
+      .style("stroke", "#000")
+      .style("stroke-width", "0.5px");
+
+  svg
+    .append("path")
+      .style("fill","none")
+      .style("stroke","#777")
+      .attr("d", projection.getCompositionBorders());
+
+
+    svg.append("g")
+      .attr("class", "legendLinear")
+      .attr("transform", "translate(700, 430)");
+
+    var legendLinear = d3.legendColor()
+      .labelFormat(d3.format(".0f"))
+      .title("Densidad de población (hab./km2)")
+      .shapeWidth(30)
+      .orient('horizontal')
+      .scale(colorScale);
+
+    svg.select(".legendLinear")
+      .call(legendLinear);
+
+});
+
+</script>

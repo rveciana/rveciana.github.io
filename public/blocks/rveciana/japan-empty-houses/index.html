@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Japan empty houses</title>
+<head>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.7.0/d3-legend.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/0.3.5/conicEquidistantJapan.min.js"></script>
+	<style>
+	body, html {
+			color:#c2b59b;
+			background-color: #191919;
+			margin:0;
+			padding:0;
+		}
+
+		svg {
+			background-color: #2f2f2f;
+			border-radius: 10px
+		}
+
+		 /* Styling for new <div> */
+		#tooltip {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 10;
+			margin: 0;
+			padding: 10px;
+			width: 200px;
+			height: 70px;
+			color: white;
+			font-family: sans-serif;
+			font-size: 1.2em;
+			font-weight: bold;
+			text-align: center;
+			background-color: rgba(0, 0, 0, 0.55);
+			opacity: 0;
+			pointer-events: none;
+			border-radius:5px;
+			transition: .2s;
+		}
+
+		.legendLinear
+		 {
+			font-family: "Lato";
+			fill:#c2b59b;
+		}
+
+		.legendTitle {
+			font-size: 1em;
+		}
+
+		span {
+			color:#fac863;
+			font-weight: bold;
+			/*font-size:1.5em;*/
+		}
+
+		a {
+			text-decoration:underline;
+			color:#c2b59b;
+		}
+
+	</style>
+	<link href='https://fonts.googleapis.com/css?family=Lato:900,400,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="container">
+		<div id="tooltip">
+		</div>
+	</div>
+<script>
+var w = 700,
+		h = 600;
+
+	var svg = d3.select("#container").append("svg")
+								.attr("width", w)
+								.attr("height", h);
+
+	d3.json("empty.json", function (error, json) {
+
+		var japan = topojson.feature(json, json.objects.japan).features;
+
+    	/*var projection = d3.geo.mercator()
+					        .center([137, 37])
+					        .translate([w/2, h/2])
+					        .scale(2500);*/
+
+		var projection = d3.geo.conicEquidistantJapan();
+		var path = d3.geo.path().projection(projection);
+
+
+		var color = d3.scale.linear()
+							.domain([9, 12, 16, 19, 22
+								])
+							.range(["#feebe2", "#fbb4b9","#f768a1","#c51b8a","#7a0177"]);
+
+		svg.selectAll("path")
+			.data(japan)
+			.enter()
+			.append("path")
+			.attr("d", path)
+			.attr("stroke", "#ccc")
+			.attr("stroke-width", .3)
+			.attr("fill", function(d, i){
+
+				return color(d.properties.empty);
+			})
+			.on("mouseover", function(d){
+				//Show the tooltip
+				var x = d3.event.pageX;
+				var y = d3.event.pageY - 40;
+
+				d3.select("#tooltip")
+					.style("left", x + "px")
+					.style("top", y + "px")
+					.style("opacity", 1)
+					.text( d.properties.empty + " % of the houses in " + d.id + " are vacant.");
+			})
+			.on("mouseout", function(){
+				//Hide the tooltip
+				d3.select("#tooltip")
+					.style("opacity", 0);
+			});
+
+		svg
+    	.append("path")
+      .style("fill","none")
+      .style("stroke","#000")
+      .attr("d", projection.getCompositionBorders());
+
+	});
+	//Create the Legend
+
+		var linear = d3.scale.linear()
+						.domain([9, 12, 16, 19, 22])
+						.range(["#feebe2", "#fbb4b9","#f768a1","#c51b8a","#7a0177"]);
+		d3.select("svg").append("g")
+			.attr("class", "legendLinear")
+			.attr("transform", "translate(200,500)");
+
+		var legendLinear = d3.legend.color()
+								.title("Proportion of empty home (%)")
+								.shapeHeight(20)
+								.shapeWidth(60)
+								.shapeRadius(10)
+								.cells([9, 12, 16, 19, 22])
+								.orient("horizontal")
+								.labelAlign("start")
+								.scale(linear);
+
+		svg.select(".legendLinear")
+			.call(legendLinear);
+</script>

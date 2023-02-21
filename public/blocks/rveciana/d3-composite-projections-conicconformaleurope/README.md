@@ -1,0 +1,1 @@
+This example shows how to use the conicConformalEurope projection from [d3-composite-projections](http://rveciana.github.io/d3-composite-projections/).

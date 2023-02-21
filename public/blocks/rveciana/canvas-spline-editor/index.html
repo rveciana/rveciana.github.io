@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.hiddenCanvas { display: none; }
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+var width = 960,
+    height = 500;
+
+var points = [];
+
+var dragged = null,
+    selected = null;
+
+d3.select(window)
+    .on("mousemove", mousemove)
+    .on("mouseup", mouseup)
+    .on("keydown", keydown);
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width)
+    .attr("height", height)
+    .on("mousedown", mousedown);
+
+var hiddenCanvas = d3.select("body")
+  .append('canvas')
+  .classed('hiddenCanvas', true) 
+  .attr('width', width) 
+  .attr('height', height);
+
+var context = canvas.node().getContext("2d");
+var hiddenContext = hiddenCanvas.node().getContext("2d");
+
+var colourToNode = {};
+
+var line = d3.line()
+    .curve(d3.curveNatural)
+    .context(context);
+var line2 = d3.line()
+    .curve(d3.curveNatural);
+
+var detachedContainer = document.createElement("custom");
+var dataContainer = d3.select(detachedContainer);
+
+function redraw(){
+    var circle = dataContainer.selectAll("custom.circle")
+        .data(points, function(d) { return d; });
+
+    circle.enter().append("custom")
+        .classed("circle", true)
+        .attr("r", 1e-6)
+        .attr("cx", function(d) { return d[0]; })
+        .attr("cy", function(d) { return d[1]; })
+        .attr("r", 6.5)
+        .attr('fillStyleHidden', function(d) { 
+            var newColor =  genColor();
+            colourToNode[newColor] = this;
+            return newColor;
+    	});
+    
+    circle
+        .classed("selected", function(d) {return d === selected; })
+        .attr("cx", function(d) { return d[0]; })
+        .attr("cy", function(d) { return d[1]; });
+
+    circle.exit().remove();
+
+    if (d3.event) {
+        d3.event.preventDefault();
+        d3.event.stopPropagation();
+    }
+}
+
+function drawCanvas(){
+    context.clearRect(0,0,canvas.attr("width"),canvas.attr("height"));
+    hiddenContext.clearRect(0,0,hiddenCanvas.attr("width"),hiddenCanvas.attr("height"));
+    
+    context.beginPath();
+    context.lineWidth = 1.5;
+    context.strokeStyle = "steelblue";
+    line(points);
+    context.stroke();
+
+    var elements = dataContainer.selectAll("custom.circle");
+    elements.each(function(d){
+        var node = d3.select(this);
+        context.beginPath();
+        context.arc(node.attr("cx"), node.attr("cy"), node.attr("r"), 0, 2 * Math.PI, false);
+        context.lineWidth = 1.5;
+        if(!node.classed("selected")){
+            context.strokeStyle = "rgba(70,130,180,0.7)";
+            context.stroke();
+        } else {
+            context.fillStyle = "rgba(255,127,14,0.2)";
+            context.fill();
+            context.strokeStyle = "rgba(255,127,14,0.7)";
+            context.stroke();
+        }
+        hiddenContext.beginPath();
+        hiddenContext.arc(node.attr("cx"), node.attr("cy"), node.attr("r"), 0, 2 * Math.PI, false);
+        hiddenContext.lineWidth = 1.5;
+        hiddenContext.strokeStyle = node.attr("fillStyleHidden");
+        hiddenContext.fillStyle = node.attr("fillStyleHidden");
+        hiddenContext.fill();
+        hiddenContext.stroke();
+    });
+    
+
+}
+function mouseup() {
+  if (!dragged) return;
+  mousemove();
+  dragged = null;
+}
+
+function keydown(){
+if (!selected) return;
+  switch (d3.event.keyCode) {
+    case 8: // backspace
+    case 46: { // delete
+      var i = points.indexOf(selected);
+      points.splice(i, 1);
+      selected = points.length ? points[i > 0 ? i - 1 : 0] : null;
+      redraw();
+      break;
+    }
+  }
+}
+
+
+function mousedown() {
+  var mousePos = d3.mouse(canvas.node());
+  var col = hiddenContext.getImageData(mousePos[0], mousePos[1], 1, 1).data;
+  if(col[3] == 255){
+    var colKey = 'rgb(' + col[0] + ',' + col[1] + ',' + col[2] + ')';
+    var nodeData = d3.select(colourToNode[colKey]);
+    selected = dragged = nodeData.datum();
+  } else {
+    points.push(selected = dragged = d3.mouse(canvas.node()));
+  }
+  redraw();
+  
+}
+function mousemove() {
+  if (!dragged) return;
+  var m = d3.mouse(canvas.node());
+  dragged[0] = Math.max(0, Math.min(width, m[0]));
+  dragged[1] = Math.max(0, Math.min(height, m[1]));
+  redraw();
+}
+
+/*
+  var t = d3.timer(function(elapsed) {
+        if (elapsed > 1000) t.stop();
+        drawCanvas();
+    });*/
+
+d3.timer(drawCanvas);
+
+//https://medium.freecodecamp.org/d3-and-canvas-in-3-steps-8505c8b27444
+var nextCol = 1;
+function genColor(){ 
+  
+  var ret = [];
+  if(nextCol < 16777215){ 
+    
+    ret.push(nextCol & 0xff); // R 
+    ret.push((nextCol & 0xff00) >> 8); // G 
+    ret.push((nextCol & 0xff0000) >> 16); // B
+    nextCol += 1; 
+  
+  }
+var col = "rgb(" + ret.join(',') + ")";
+return col;
+}
+</script>

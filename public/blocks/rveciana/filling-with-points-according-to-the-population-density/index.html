@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Point density according to the population density</title>
+<style>
+  .background {
+    fill: None;
+    stroke: #444;
+    stroke-width: 1;
+  }
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+<script>
+var scaleColors = ['#7308a5','#0000ff', '#00aeae', '#007900'];
+var pointSeparation = 15;
+var maxPointSize = 25;
+var width = 960,  
+    height = 500; 
+
+var projection = d3.geo.mercator()  
+    .center([2.1,41.7])  
+    .scale(9000)  
+    .translate([width / 2, height / 2]); 
+
+var path = d3.geo.path()  
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.csv("/rveciana/raw/5919944/comarques.csv", function(data_values) {
+  max_density = 0;
+  max_value = 0;
+  min_value = 100;
+  for (i=0; i<data_values.length; i++){
+    if(parseFloat(data_values[i].Density) > max_density){
+      max_density = parseFloat(data_values[i].Density);
+    }
+    if(parseFloat(data_values[i].Catalan) > max_value){
+      max_value = parseFloat(data_values[i].Catalan);
+    }
+    if(parseFloat(data_values[i].Catalan) < min_value){
+      min_value = parseFloat(data_values[i].Catalan);
+    }    
+  }
+
+
+  color = d3.scale.quantize(45).domain([min_value,max_value]).range(scaleColors);
+
+d3.json("/rveciana/raw/5919944/comarques.topo.json", function(error, us) {
+
+svg.selectAll(".mask")
+    .data(topojson.feature(us, us.objects.comarques).features)
+    .enter()
+    .append("clipPath")
+    .attr("class","mask")
+    .attr("id",function(d){return d.properties.comarca;})
+    .append("path")
+    .attr("d",path);
+
+
+ svg.selectAll(".points")
+    .data(topojson.feature(us, us.objects.comarques).features)
+    .enter()
+    .append("g")
+    .attr("class","points")
+    .attr("clip-path", function(d){return "url(#"+d.properties.comarca+")";})
+    .each(draw_circles);
+
+
+
+
+function draw_circles(d) {
+  pointSize = maxPointSize * Math.sqrt(data_values[parseInt(d.properties.comarca, 10)-1].Density/max_density);
+  bounds = path.bounds(d);
+  centroid = path.centroid(d);;
+  width_d = bounds[1][0] - bounds[0][0];
+  height_d = bounds[1][1] - bounds[0][1];
+  color_d = color(parseFloat(data_values[parseInt(d.properties.comarca, 10)-1].Catalan));
+  for (i_w = 0; i_w< Math.ceil(width_d); i_w = i_w + pointSeparation){
+    for (j_h = 0; j_h< Math.ceil(height_d); j_h = j_h + pointSeparation){
+        t_w = i_w-Math.ceil(width_d/2) + centroid[0];
+        t_h = j_h-Math.ceil(height_d/2) + centroid[1];
+        d3.select(this).append("circle")
+        .attr("r", pointSize)
+        .attr("cx",t_w)
+        .attr("cy",t_h)
+        .style("fill", color_d);
+    }
+  }
+    
+}
+
+ svg.append("g")
+  .attr("id","limits")
+  .append("path")
+      .datum(topojson.feature(us, us.objects.comarques))
+      .attr("class", "background")
+      .attr("d", path);
+  
+  scale = svg.append("g");
+  scale.append("text")
+      .attr("x",width - 400 )
+      .attr("y",height - 50)
+      .text("Can speak Catalan");
+  for (i=0; i< scaleColors.length; i++){
+    scale.append("rect")
+      .attr("width", 30)
+      .attr("height",15)
+      .attr("x",width - 400 + 37*i )
+      .attr("y",height - 40)
+      .style("fill",scaleColors[i])
+      .style("stroke","#000");
+    scale.append("text")
+      .attr("x",width - 400 + 37*i )
+      .attr("y",height - 10)
+      .text(function(){
+        return Math.round(min_value + i*(max_value - min_value)/scaleColors.length)+"%";
+      });
+
+  }
+
+
+});
+});
+</script>

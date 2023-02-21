@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
+
+  <style>
+    body { 
+      margin:0;
+      position:fixed;
+      top:0;right:0;bottom:0;left:0;
+    	font-family: Helvetica, Arial;
+   	}
+    #container {
+      position: relative;
+      z-index: 100;
+    }
+    #sticky { 
+      position: absolute; 
+      top: 5vh; 
+      right: 0; 
+      width: 48%; 
+      z-index: 50;
+    }
+    .panel {
+      width: 100%;
+      padding-left: 20px;
+      padding-top: 25vh;
+      padding-bottom: 25vh;
+    }
+    .panel p {
+      padding-right: 50%;
+    }
+    .panel:first-child {
+      padding-top: 5vh;
+    }
+    .panel:last-child {
+      padding-bottom: 45vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="sticky">
+    
+  </div>
+  <div id="container" style="height: 100vh; overflow: scroll">
+    <div id="content">
+      
+         
+      <div class="panel">
+      <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eleifend porta rhoncus. Duis consequat, nulla at auctor iaculis, quam augue semper leo, ut sodales nulla augue sed tortor. Donec lacinia at ligula vitae dapibus. Morbi turpis est, lacinia at lobortis eu, suscipit nec ante. Vivamus commodo, elit at faucibus ultrices, nunc neque rhoncus diam, et rutrum felis nisi in dui. In eros velit, convallis ac nunc in, ullamcorper porttitor mauris. Ut vitae tellus ullamcorper, fringilla nisl quis, consequat nisl. Mauris urna velit, posuere vitae libero cursus, molestie consequat lorem.
+
+      Phasellus sodales libero ut porttitor bibendum. Mauris ut neque in enim fringilla aliquet et eu nulla. Ut iaculis tincidunt magna sit amet hendrerit. Ut pharetra condimentum metus, ut ultrices sapien fermentum sit amet. Proin sollicitudin velit eu felis aliquam, eget eleifend massa sagittis. Duis sodales pharetra pulvinar. Morbi maximus, tortor ut tempus porta, lorem eros finibus sapien, in vulputate ipsum odio quis justo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam nec arcu ac metus ornare tincidunt a sit amet nibh. Quisque vestibulum arcu et varius mollis.
+
+      Nunc ultricies tincidunt porta. Aliquam ac turpis vel nunc condimentum congue. In non quam elit. Nulla id iaculis leo. Proin quis diam massa. Vestibulum condimentum feugiat eros, id mollis risus ornare eget. Aenean vulputate vitae magna vel fringilla. Vivamus blandit sem vel urna vestibulum, eu mattis dolor aliquam. In vel maximus nisl. Aenean sed lacus pharetra, elementum orci ac, dictum nisi.
+
+      Vestibulum facilisis volutpat lobortis. Ut eu felis quis nisl elementum vulputate. Nam efficitur pretium est, eget elementum ligula feugiat ut. Mauris cursus luctus porta. Aliquam et rutrum arcu. Praesent at elementum justo, et iaculis libero. In hac habitasse platea dictumst. Fusce pulvinar ante ac mauris aliquam cursus id in est. Morbi vel convallis quam. Pellentesque vehicula nibh in sagittis porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra odio lectus, nec pellentesque nulla accumsan sed. Maecenas congue rutrum mauris in blandit.
+
+      Donec ullamcorper, elit eu congue rutrum, nibh sapien dignissim orci, non facilisis leo ante non tellus. Morbi dui neque, condimentum sed sodales eu, gravida vitae urna. Nam ultrices lectus in risus scelerisque, in vulputate urna tincidunt. Donec ultricies massa in tempus gravida. Pellentesque neque nisi, cursus a rutrum ut, iaculis et augue. Sed id lorem a mauris lacinia ornare vel sed magna. Donec vestibulum a ex et accumsan. </p>
+      </div>
+      
+     
+     
+      <div class="panel">
+        <p> Cras in interdum urna. Quisque mollis urna sem, sed semper ante consectetur sit amet. Nullam feugiat nibh ut dui ultricies, non eleifend ex euismod. Vivamus fringilla felis nec vestibulum ullamcorper. Nullam sodales efficitur porttitor. Proin rutrum tempus dui. Maecenas convallis semper metus, ullamcorper faucibus dui gravida eget. Curabitur ac odio fermentum, maximus nunc vel, ultrices dolor. Nulla eu tempus turpis. Mauris tincidunt leo metus, eget aliquet ligula iaculis at. Mauris consectetur ornare convallis. Fusce mauris odio, sollicitudin et odio sed, mollis posuere eros.
+
+        Aenean ac tempor risus. Proin sed tincidunt lorem, sit amet suscipit justo. Maecenas imperdiet purus vel malesuada pulvinar. Sed maximus, arcu in volutpat imperdiet, justo purus condimentum arcu, sit amet dignissim dolor elit vel tellus. Phasellus vehicula lacus nec leo ullamcorper feugiat. Mauris ultrices, felis quis sodales tincidunt, erat libero porta mi, aliquet consectetur leo sem id nisl. Nullam malesuada nisi quis mattis sagittis. Proin sed est ut tortor molestie pulvinar id quis elit. Nullam semper mauris ut consequat lobortis.
+
+        Curabitur pellentesque, dui et rutrum mattis, velit massa scelerisque diam, quis rhoncus nisl sapien vel eros. Curabitur non ex facilisis est vulputate commodo. Vivamus in sapien maximus, porta magna quis, commodo est. Pellentesque et bibendum mauris. Sed vitae finibus mauris, sed venenatis augue. Praesent bibendum ac est ut mollis. In dapibus placerat viverra. Cras vulputate rhoncus tristique.
+
+        Duis placerat rutrum ligula at tempor. Etiam sed metus vitae tortor pharetra congue. Nam in euismod eros. Fusce pellentesque mi lorem, quis malesuada leo sollicitudin vitae. Ut vel efficitur nisi, quis dignissim quam. Nunc interdum velit ante, vel mattis sem vulputate eu. Quisque pulvinar sodales consectetur. Cras tincidunt ipsum a orci suscipit lacinia. Donec tempus velit ut dictum tempus. Quisque id nulla et tortor porta posuere ut quis nulla. Vestibulum non ante eu mi interdum facilisis sed sed tortor. Aenean laoreet ligula et luctus consectetur. Integer semper id arcu id interdum. Cras sollicitudin egestas nisl, vel rutrum augue tempus ac. Morbi nec velit orci. Integer semper, elit bibendum fringilla tincidunt, odio arcu ultricies sem, bibendum dapibus dolor mi a nibh.
+
+        Phasellus non ipsum non orci consequat vehicula pretium non dolor. Proin fringilla ultrices tincidunt. Duis ullamcorper justo ut fermentum vehicula. Donec quis rhoncus libero. Nam mollis facilisis velit gravida blandit. Donec luctus ultrices leo at facilisis. Suspendisse vel venenatis lectus. Morbi et sodales velit, a tincidunt nibh. Nunc ac purus a tortor commodo lobortis eu sit amet felis. Proin nec urna vel diam tempor pretium placerat cursus metus. Mauris. </p>
+      </div>
+    </div>
+  </div>
+ 
+  <script>
+    var WIDTH = 0.9 * window.innerWidth / 2;
+    var HEIGHT = 0.9 * window.innerHeight;
+    
+    var svg = d3.select("#sticky").append("svg")
+    	.attr('width', WIDTH)
+    	.attr('height', HEIGHT);
+
+    var body = d3.select('body').node();
+    var container = d3.select('#container');
+    var content = d3.select('#content');
+    
+    var SCROLL_LENGTH = content.node().getBoundingClientRect().height - HEIGHT;
+
+    var projection = d3.geo.mercator()
+    .scale(6*(WIDTH + 1) / 2 / Math.PI)
+    .translate([WIDTH / 2, HEIGHT / 2])
+    .rotate([-130, -15, 0])
+    .precision(.1);
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    var graticule = d3.geo.graticule();
+    var graticulePath = svg.append("path")
+      .datum(graticule)
+      .attr("class", "graticule")
+      .attr("d", path)
+      .style("fill", "none")
+      .style("stroke", "#777")
+      .style("stroke-opacity", .5)
+      .style("stroke-width", ".5px");
+
+
+    d3.json("track.json", function(error, track) {
+    d3.json("world-50m.json", function(error, world) {
+
+
+      var landPath = svg.insert("path", ".land")
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path)
+      .style("fill","#999");
+
+      var countriesPath = svg.insert("path", ".countries")
+        .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+        .attr("class", "boundary")
+        .attr("d", path)
+        .style("fill", "none")
+        .style("stroke", "#fff")
+        .style("stroke-width", ".5px");
+
+      var pathLine = d3.svg.line()
+        .interpolate("cardinal")
+        .x(function(d) { return projection([d.lon, d.lat])[0]; })
+        .y(function(d) { return projection([d.lon, d.lat])[1]; });
+
+      var haiyanPath = svg.append("path")
+      .attr("d",pathLine(track))
+      .attr("class","path")
+      .style("fill", "none")
+      .style("stroke-opacity", .8)
+      .style("stroke", "#f44")
+      .style("stroke-width", 3)
+      .style('stroke-dasharray', function(d) {
+        var l = d3.select(this).node().getTotalLength();
+        return l + 'px, ' + l + 'px';
+       })
+      .style('stroke-dashoffset', function(d) {
+      return d3.select(this).node().getTotalLength() + 'px';
+        });
+
+
+      var hayanPathScale = d3.scale.linear()
+        .domain([0, SCROLL_LENGTH])
+        .range([0, haiyanPath.node().getTotalLength()])
+        .clamp(true);
+
+        var scrollTop = 0;
+        var newScrollTop = 0;
+      
+  		container
+    		.on("scroll.scroller", function() {
+        	newScrollTop = container.node().scrollTop
+  	    });
+
+      var setDimensions = function() {
+        WIDTH = 0.9 * window.innerWidth / 2;
+  			HEIGHT = 0.9 *window.innerHeight;
+        SCROLL_LENGTH = content.node().getBoundingClientRect().height - HEIGHT;
+
+        projection.scale(6*(WIDTH + 1) / 2 / Math.PI)
+          .translate([WIDTH / 2, HEIGHT / 2]);
+
+        
+        path.projection(projection);
+
+        landPath.attr("d", path);
+        countriesPath.attr("d", path);
+        graticulePath.attr("d", path);
+
+        //Before changing the scale! If done with scale, a bad range will be created
+        haiyanPath
+          .attr("d",pathLine(track));
+
+        hayanPathScale
+          .domain([0, SCROLL_LENGTH])
+          .range([0, haiyanPath.node().getTotalLength()]);
+
+        haiyanPath
+          .style('stroke-dasharray', function(d) {
+            var l = d3.select(this).node().getTotalLength();
+            return l + 'px, ' + l + 'px';
+           })
+          .style('stroke-dashoffset', function(d) {
+            return d3.select(this).node().getTotalLength() - hayanPathScale(scrollTop) + 'px';
+          });
+
+      }
+      
+      var render = function() {
+        if (scrollTop !== newScrollTop) {
+          scrollTop = newScrollTop
+          
+          haiyanPath
+             .style('stroke-dashoffset', function(d) {
+                return haiyanPath.node().getTotalLength() - hayanPathScale(scrollTop) + 'px';
+              });
+                    
+        }
+        
+        window.requestAnimationFrame(render)
+      }
+      window.requestAnimationFrame(render)
+      
+      window.onresize = setDimensions
+    });
+    });
+  </script>
+</body>

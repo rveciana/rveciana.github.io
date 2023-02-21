@@ -1,0 +1,95 @@
+
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf8">
+	<style>
+		canvas {
+			background-color: #f5f5f5;
+			margin-right: 5px;
+			text-align: center;
+			}
+     </style>
+
+	<script src='main.js'></script>
+	<script src='colors.js'></script>
+	<script src='block.js'></script>
+	<script src='camera.js'></script>
+	<script src='painter.js'></script>
+	<script src='sortBlocks.js'></script>
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+	
+<canvas id='figure1b' width=350 height=200></canvas>
+
+		<script>
+
+			var canvas = d3.select("#figure1b");
+			var context = canvas.node().getContext("2d");
+			
+			var detachedContainer = document.createElement("custom");
+			var dataContainer = d3.select(detachedContainer);
+			var t = d3.timer(function(elapsed) {
+				if (elapsed > 1000) t.stop();
+				drawCanvas();
+				});
+
+			function drawCustom(data) {
+								
+				var dataBinding = dataContainer.selectAll("custom.rect")
+					.data(data, function(d) { return d; });
+				
+				dataBinding
+					.attr("z", 0)
+					.transition()
+					.duration(1000)
+					.attr("z", 10);
+
+				dataBinding.enter()
+					.append("custom")
+					.attr("class","rect")
+					.attr("x",  function(d){return d.x})
+					.attr("y",  function(d){return d.dy})
+					.attr("z",  function(d){return d.z})
+					.attr("dx",  function(d){return d.dx})
+					.attr("dy",  function(d){return d.dy})
+					.attr("color", function(d){return d.color})
+					.attr("dz", 0)
+					.transition()
+					.duration(1000)
+					.attr("dz", function(d){return d.dz});
+				
+				dataBinding.exit()
+					.attr("size", 8)
+					.transition()
+					.duration(1000)
+					.attr("size", 5)
+					.attr("fillStyle", "lightgrey");
+				}
+
+			function drawCanvas(){
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				
+				var blocks = [];
+				var elements = dataContainer.selectAll("custom.rect");
+				elements.each(function(d) {
+					
+					var node = d3.select(this);
+					
+					blocks.push(new IsoBlock.Block({'x': parseFloat(node.attr("x")), 'y': parseFloat(node.attr("y")),'z': parseFloat(node.attr("z"))},
+					{'x':parseFloat(node.attr("dx")), 'y':parseFloat(node.attr("dy")), 'z': parseFloat(node.attr("dz"))}, IsoBlock.colors[node.attr("color")]));
+					
+				});
+				IsoBlock.makeFigure({ canvas:'figure1b', blocks: blocks, drawPlane: false});
+			};
+			var ff = 'blue';
+			console.info(IsoBlock.colors[ff]);
+			var data = [{x:0,y:0,z:0,dx:1,dy:1,dz:3,color: 'blue'},
+			{x:1,y:1,z:0,dx:1,dy:1,dz:2,color:'red'},
+			{x:4,y:7,z:0,dx:2,dy:2,dz:3,color:'purple'}];
+			drawCustom(data);
+		</script>
+
+</body>
+</html>

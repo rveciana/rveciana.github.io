@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+ 
+<body>
+
+<div id="map"></div>
+ 
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script>
+
+var flags = {"Senegal":"http://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Flag_of_Senegal.svg/200px-Flag_of_Senegal.svg.png", 
+            "Mali":"http://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_Mali.svg/200px-Flag_of_Mali.svg.png", 
+            "Gambia":"http://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_The_Gambia.svg/200px-Flag_of_The_Gambia.svg.png", 
+            "Mauritania":"http://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Flag_of_Mauritania.svg/200px-Flag_of_Mauritania.svg.png", 
+            "Guinea-Bissau":"http://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Flag_of_Guinea-Bissau.svg/200px-Flag_of_Guinea-Bissau.svg.png",
+            "Guinea":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Flag_of_Guinea.svg/200px-Flag_of_Guinea.svg.png",
+            "Sierra Leone":"http://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Flag_of_Sierra_Leone.svg/200px-Flag_of_Sierra_Leone.svg.png",
+            "Liberia":"http://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Flag_of_Liberia.svg/200px-Flag_of_Liberia.svg.png",
+            "Côte d'Ivoire":"http://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_C%C3%B4te_d%27Ivoire.svg/200px-Flag_of_C%C3%B4te_d%27Ivoire.svg.png",
+            "Nigeria":"http://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Flag_of_Nigeria.svg/200px-Flag_of_Nigeria.svg.png",
+            "Burkina Faso":"http://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Flag_of_Burkina_Faso.svg/200px-Flag_of_Burkina_Faso.svg.png",
+            "Niger":"http://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Flag_of_Niger.svg/200px-Flag_of_Niger.svg.png",
+            "Cameroon":"http://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Flag_of_Cameroon.svg/200px-Flag_of_Cameroon.svg.png",
+            "Benin":"http://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Flag_of_Benin.svg/200px-Flag_of_Benin.svg.png",
+            "Togo":"http://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Flag_of_Togo.svg/200px-Flag_of_Togo.svg.png",
+            "Ghana":"http://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Flag_of_Ghana.svg/200px-Flag_of_Ghana.svg.png",
+            "Chad": "http://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Flag_of_Chad.svg/200px-Flag_of_Chad.svg.png",
+            "Gabon": "http://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Flag_of_Gabon.svg/200px-Flag_of_Gabon.svg.png",
+            "Equatorial Guinea": "http://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Flag_of_Equatorial_Guinea.svg/200px-Flag_of_Equatorial_Guinea.svg.png",
+            "Central African Republic": "http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Flag_of_the_Central_African_Republic.svg/200px-Flag_of_the_Central_African_Republic.svg.png",
+            "Congo": "http://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Flag_of_the_Republic_of_the_Congo.svg/200px-Flag_of_the_Republic_of_the_Congo.svg.png",
+            "Algeria": "http://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Algeria.svg/200px-Flag_of_Algeria.svg.png"};
+ 
+
+var width = 960, height = 500; 
+var projection = d3.geo.mercator()
+      .scale(1400)
+      .rotate([3,-10,0]);
+ 
+ 
+var svg = d3.select("#map").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var path = d3.geo.path()
+    .projection(projection);
+ 
+var keys = [];
+
+for(var k in flags) keys.push(k);
+  
+var q = queue()
+  .defer(d3.json, "/mbostock/raw/4090846/world-110m.json")
+  .defer(d3.tsv, "/mbostock/raw/4090846/world-country-names.tsv");
+
+  q.await(ready);
+
+
+function ready(error, world, names) {
+  if (error) {
+      alert('error: ' + error);
+      return ;
+  } 
+  var countries = topojson.feature(world, world.objects.countries),
+      land = topojson.feature(world, world.objects.land),
+      globe = {type: "Sphere"};
+      svg.append("path")  
+        .datum(globe)  
+        .style("fill", "#d8ffff")  
+        .attr("d", path); 
+      svg.append("path")  
+        .datum(land)  
+        .style("fill", "#d7c7ad")  
+        .attr("d", path);
+
+
+      flag_countries = countries.features.filter(function(d) {
+        return names.some(function(n) {
+        if (d.id == n.id && keys.indexOf(n.name) > -1) {
+          d.name = n.name
+          d.flag_src = flags[n.name];
+          return true;}
+        });
+      });
+       
+      for (i=0; i<flag_countries.length; i++) { 
+
+        var bounds = path.bounds(flag_countries[i]);
+        if (bounds[0][0] < 0) bounds[0][0] = 0;
+        if (bounds[1][0] > width) bounds[1][0] = width;
+        if (bounds[0][1] < 0) bounds[0][1] = 0;
+        if (bounds[1][1] < 0) bounds[1][1] = height;
+
+        svg.append("clipPath")
+          .attr("class","mask")
+          .attr("id",function(d){return flag_countries[i].id;})
+          .append("path")
+          .attr("d",path(flag_countries[i]));
+
+        svg.append("image")
+          .attr("xlink:href",flag_countries[i].flag_src)
+          .attr("x", bounds[0][0])
+          .attr("y", bounds[0][1])
+          .attr("width", bounds[1][0] - bounds[0][0])
+          .attr("height", bounds[1][1] - bounds[0][1])
+          .attr("preserveAspectRatio","none")
+          .attr("clip-path", function(d){return "url(#"+flag_countries[i].id+")";});
+        }
+
+      //Drawing the borders
+      svg.append("path")  
+        .datum(land)  
+        .style("stroke", "#444444")  
+        .style("fill", "None") 
+        .attr("d", path(countries));
+}
+
+</script>
+
+</body>
+</html>

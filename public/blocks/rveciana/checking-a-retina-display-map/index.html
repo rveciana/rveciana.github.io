@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+#canvasWrapper {
+    position: relative;
+    width: 680;
+    height: 500;
+}
+
+#canvasWrapper canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+</style>
+<body>
+<div id="canvasWrapper"></div>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+<script>
+
+var width = 680,
+    height = 500;
+
+var projection = d3.geoAzimuthalEqualArea()
+    .rotate([-45, -22])
+    .scale(1700);
+
+var canvas = d3.select("#canvasWrapper").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+var canvasRetina = d3.select("#canvasWrapper").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var contextRetina = canvasRetina.node().getContext("2d");
+
+if (window.devicePixelRatio){
+    canvasRetina
+        .attr('width', width * window.devicePixelRatio)
+        .attr('height', height * window.devicePixelRatio)
+        .style('width', width + 'px')
+        .style('height', height + 'px');
+
+    contextRetina.scale(window.devicePixelRatio, window.devicePixelRatio);
+}
+
+d3.json("world-110m.json", function(error, topojsonData) {
+    /*Clip path for canvasRetina*/
+    contextRetina.beginPath();
+    contextRetina.moveTo(0,0);
+    contextRetina.lineTo(0, height);
+    contextRetina.lineTo(width, height-20);
+    contextRetina.closePath();
+    contextRetina.clip();
+    
+    var countries = topojson.feature(topojsonData, topojsonData.objects.countries);
+    context.beginPath();
+    context.strokeStyle = "#777";
+    context.fillStyle = "#ccc";
+    var path = d3.geoPath()
+        .projection(projection).context(context);
+    path(countries);
+    context.fill();
+    context.stroke();
+
+    contextRetina.beginPath();
+    contextRetina.strokeStyle = "#777";
+    contextRetina.fillStyle = "#ccc";
+    var pathRetina = d3.geoPath()
+        .projection(projection).context(contextRetina);
+    pathRetina(countries);
+    contextRetina.fill();
+    contextRetina.stroke();
+
+    var points = [{"name": "Mecca", "nameAr":"مكة‎‎", "lon": 39.826, "lat": 21.422},
+    {"name": "Medina", "nameAr":"المدينة المنورة‎‎", "lon": 39.611, "lat": 24.467}];
+
+    context.font="15px Georgia";
+    contextRetina.font="15px Georgia";
+    points.forEach(function(d){
+        var coords = projection([d.lon, d.lat]);
+        context.beginPath();
+        context.arc(coords[0], coords[1], 4, 0, 2 * Math.PI, false);
+        context.fillStyle = 'green';
+        context.fill();
+        context.lineWidth = 1;
+        context.strokeStyle = '#003300';
+        context.stroke();
+
+        context.fillStyle = '#003300';
+        context.fillText(d.name, coords[0] + 7,  coords[1] - 3);
+        context.fillText(d.nameAr, coords[0] + 7,  coords[1] + 12);
+
+        contextRetina.beginPath();
+        contextRetina.arc(coords[0], coords[1], 4, 0, 2 * Math.PI, false);
+        contextRetina.fillStyle = 'green';
+        contextRetina.fill();
+        contextRetina.lineWidth = 1;
+        contextRetina.strokeStyle = '#003300';
+        contextRetina.stroke();
+
+        contextRetina.fillStyle = '#003300';
+        contextRetina.fillText(d.name, coords[0] + 7,  coords[1] - 3);
+        contextRetina.fillText(d.nameAr, coords[0] + 7,  coords[1] + 12);
+    });
+
+    contextRetina.beginPath();
+    contextRetina.moveTo(0,0);
+    contextRetina.lineTo(width, height-20);
+    contextRetina.stroke();
+});
+</script>

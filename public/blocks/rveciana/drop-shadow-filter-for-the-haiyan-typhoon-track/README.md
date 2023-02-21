@@ -1,0 +1,2 @@
+This example illustrates this [GeoExamples blog entry](http://geoexamples.blogspot.com.es/2014/01/d3-map-styling-tutorial-ii-giving-style.html). 
+The map uses the base from the [first example](http://bl.ocks.org/rveciana/8185373), but adding "drop shadow" filter as explained in [this gist](http://bl.ocks.org/cpbotha/5200394) by Charl P. Botha.

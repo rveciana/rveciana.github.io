@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-opacity: .5;
+  stroke-width: .5px;
+}
+
+.land {
+  fill: #999;
+}
+
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+<script>
+
+var width = 600,
+    height = 500;
+
+var projection = d3.geo.mercator()
+    .scale(5*(width + 1) / 2 / Math.PI)
+    .translate([width / 2, height / 2])
+    .rotate([-125, -15, 0])
+    .precision(.1);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var graticule = d3.geo.graticule();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("d", path);
+d3.json("track.json", function(error, track) {
+d3.json("/mbostock/raw/4090846/world-50m.json", function(error, world) {
+    var color_scale = d3.scale.quantile().domain([1, 5]).range(colorbrewer.YlOrRd[5]);
+    
+    var filter = svg.append("defs")
+      .append("filter")
+      .attr("id", "drop-shadow")
+      .attr("height", "130%");
+    filter.append("feGaussianBlur")
+    .attr("in", "SourceAlpha")
+    .attr("stdDeviation", 5)
+    .attr("result", "blur");
+
+     filter.append("feOffset")
+        .attr("in", "blur")
+        .attr("dx", 5)
+        .attr("dy", 5)
+        .attr("result", "offsetBlur");
+
+    var feMerge = filter.append("feMerge");
+
+    feMerge.append("feMergeNode")
+        .attr("in", "offsetBlur")
+    feMerge.append("feMergeNode")
+        .attr("in", "SourceGraphic");
+
+    svg.insert("path", ".graticule")
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path)
+      .style("filter", "url(#drop-shadow)");
+
+    svg.insert("path", ".graticule")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path);
+    
+    var dateText = svg.append("text")
+      .attr("id", "dataTitle")
+      .text("2013/11/"+track[0].day + " " + track[0].hour + ":00 class: " + track[0].class)
+      .attr("x", 70)
+      .attr("y", 20)
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "20px")
+      .attr("fill", color_scale(track[0].class));
+
+
+    var pathLine = d3.svg.line()
+        .interpolate("cardinal")
+        .x(function(d) { return projection([d.lon, d.lat])[0]; })
+        .y(function(d) { return projection([d.lon, d.lat])[1]; });
+
+    
+
+    var haiyanPath = svg.append("path")
+    .attr("d",pathLine(track))
+    .attr("fill","none")
+    .attr("stroke", color_scale(track[0].class))
+    .attr("stroke-width", 3)
+
+    .style('stroke-dasharray', function(d) {
+      var l = d3.select(this).node().getTotalLength();
+      return l + 'px, ' + l + 'px';
+    })
+    .style('stroke-dashoffset', function(d) {
+      return d3.select(this).node().getTotalLength() + 'px';
+     });
+
+
+    var haiyanPathEl = haiyanPath.node();
+    var haiyanPathElLen = haiyanPathEl.getTotalLength();
+
+    var pt = haiyanPathEl.getPointAtLength(0);
+
+    
+
+    var icon = svg.append("path")
+    .attr("d","m 20,-42 c -21.61358,0.19629 -34.308391,10.76213 -41.46346,18.0657 -7.155097,7.3036 -11.451337,17.59059 -11.599112,26.13277 0,14.45439 9.037059,26.79801 21.767213,31.69368 -14.965519,10.64929 -25.578236,6.78076 -37.671451,7.85549 C -4.429787,54.20699 14.03,37.263 23.12144,28.41572 32.2133,19.56854 34.6802,10.79063 34.82941,2.19847 c 0,-14.45219 -9.03405,-26.79679 -21.76113,-31.69364 14.90401,-10.54656 25.48889,-6.69889 37.55061,-7.77104 C 38.78869,-40.57565 29.11666,-41.95733 21.03853,-42 20.68954,-42.0105 20.34303,-42.0105 20,-42 z M 0.82306,-7.46851 c 4.72694,0 8.56186,4.27392 8.56186,9.54602 0,5.2725 -3.83492,9.54651 -8.56186,9.54651 -4.726719,0 -8.555958,-4.27401 -8.555958,-9.54651 0,-5.2721 3.829239,-9.54602 8.555958,-9.54602 z")
+    .attr("transform", "translate(" + pt.x + "," + pt.y + "), scale("+(0.15*track[0].class)+")")
+    .attr("fill", color_scale(track[0].class))
+    .attr("class","icon");
+
+    var i = 0;
+    var animation = setInterval(function(){
+      pt = haiyanPathEl.getPointAtLength(haiyanPathElLen*i/track.length);
+      icon
+        .transition()
+        .ease("linear")
+        .duration(1000)
+        .attr("transform", "translate(" + pt.x + "," + pt.y + "), scale("+(0.15*track[i].class)+"), rotate("+(i*15)+")")
+        .attr("fill", color_scale(track[i].class));
+
+      haiyanPath
+        .transition()
+        .duration(1000)
+        .ease("linear")
+        .attr("stroke", color_scale(track[i].class))
+        .style('stroke-dashoffset', function(d) {
+          var stroke_offset = (haiyanPathElLen - haiyanPathElLen*i/track.length + 9);
+          return (haiyanPathElLen < stroke_offset) ? haiyanPathElLen : stroke_offset + 'px';
+        });
+
+      dateText
+        .text("2013/11/"+track[i].day + " " + track[i].hour + ":00 class: " + track[i].class)
+        .attr("fill", color_scale(track[i].class));
+      i = i + 1;
+      if (i==track.length)
+        clearInterval(animation)
+
+    },1000);
+
+});
+});
+
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>

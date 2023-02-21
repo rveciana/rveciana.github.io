@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+<style>
+
+path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+circle {
+  fill: steelblue;
+  stroke: #fff;
+  stroke-width: 3px;
+}
+
+</style>
+<script src="//d3js.org/d3.v3.min.js"></script>
+<script src="path-properties.min.js"></script>
+<script>
+
+var points = [
+  [480, 200],
+  [580, 400],
+  [680, 100],
+  [780, 300],
+  [180, 300],
+  [280, 100],
+  [380, 400]
+];
+
+var width = 960;
+var height = 500;
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+var line = d3.svg.line()
+  .tension(0) // Catmull–Rom
+  .interpolate("cardinal-closed");
+
+var properties = spp.svgPathProperties(line(points));
+var length = properties.getTotalLength();
+
+var p = new Path2D(line(points));
+console.info(line(points));
+
+var transition = function(){
+  d3.transition()
+        .duration(10000)
+        .tween("zoom", function() {
+            return function(t) {
+              context.clearRect(0, 0, width, height);
+              context.strokeStyle = '#000';
+              context.lineWidth = 3;
+              context.beginPath();
+              context.stroke(p);
+
+              context.strokeStyle = '#fff';
+              context.lineWidth=3;
+              context.fillStyle = 'steelblue';
+
+              points.forEach(function(d){
+                context.beginPath();
+                context.arc(d[0], d[1], 4, 0, 2 * Math.PI, false);
+                context.fill();
+                context.stroke();
+              });
+
+              var point = properties.getPointAtLength(t*length)
+              context.beginPath();
+              context.arc(point.x, point.y, 13, 0, 2 * Math.PI, false);
+              context.fill();
+              context.stroke();
+            }
+
+        })
+      .each("end", transition);
+    };
+
+transition();
+
+</script>

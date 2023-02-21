@@ -1,0 +1,3 @@
+Proportion of empty houses in Japan, taken from [this page](https://yasufumisaito.github.io/emptyhouse/) by [@yasufumisaito](https://yasufumisaito.github.io/) but adapted to use the [d3-composite-projections](http://geoexamples.com/d3-composite-projections/).
+
+The data is originally from the [Statistics Bureau at Ministry of Internal Affairs and Communications](http://www.e-stat.go.jp/SG1/estat/List.do?bid=000001051892).

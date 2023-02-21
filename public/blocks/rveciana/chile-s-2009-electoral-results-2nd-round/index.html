@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.legendLinear
+ {
+  font-family: "Lato";
+  fill:#c2b59b;
+}
+
+.legendLinear2
+ {
+  font-family: "Lato";
+  fill:#c2b59b;
+}
+.legendTitle {
+  font-size: 1em;
+}
+#tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 10px;
+  width: 200px;
+  height: 70px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  border-radius:5px;
+  transition: .2s;
+}
+
+</style>
+<body>
+  <div id="container">
+  <div id="tooltip">
+  </div>
+</div>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.7.0/d3-legend.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/0.4.0/transverseMercatorChile-proj.min.js"></script>
+<script>
+
+var width = 500,
+    height = 700;
+
+var projection = d3.geo.transverseMercatorChile()
+    .translate([150, height / 2]);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("#container").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var scale1 = d3.scale.linear()
+              .domain([50, 60])
+              .range(["#ccccff","#0000ff"]);
+
+var scale2 = d3.scale.linear()
+              .domain([50, 60])
+              .range(["#ffe6e6","#b30000"]);
+
+d3.json("chile.json", function(error, chile) {
+  d3.json("elections2009.json", function(error, elections) {
+    console.info(elections);
+  var land = topojson.feature(chile, chile.objects.chile);
+
+    svg.selectAll(".region")
+      .data(land.features)
+      .enter()
+      .append("path")
+      .attr("d", path)
+      .style("stroke","#000")
+      .style("stroke-width",".5px")
+      .style("fill",function(d){
+        if (d.properties.region){
+         
+         if (elections[d.properties.region]["Sebastián Piñera Echenique"] > elections[d.properties.region]["Eduardo Frei Ruiz-Tagle"]){
+           return scale1(elections[d.properties.region]["Sebastián Piñera Echenique"]);
+         } else {
+           return scale2(elections[d.properties.region]["Eduardo Frei Ruiz-Tagle"]);
+         }
+       }
+       })
+      .attr("class","region")
+      .on("mouseover", function(d){
+        //Show the tooltip
+        var x = d3.event.pageX;
+        var y = d3.event.pageY - 40;
+
+        d3.select("#tooltip")
+          .style("left", x + "px")
+          .style("top", y + "px")
+          .style("opacity", 1)
+          .html( d.properties.region + "<br/>SP: " + elections[d.properties.region]["Sebastián Piñera Echenique"]+"%<br/>EF: "+ elections[d.properties.region]["Eduardo Frei Ruiz-Tagle"]+"%");
+        })
+        .on("mouseout", function(){
+          //Hide the tooltip
+          d3.select("#tooltip")
+            .style("opacity", 0);
+        });
+
+        svg
+          .append("path")
+            .style("fill","none")
+            .style("stroke","#000")
+            .attr("d", projection.getCompositionBorders());
+
+        d3.select("svg").append("g")
+      .attr("class", "legendLinear")
+      .attr("transform", "translate(200,400)");
+        var legendLinear = d3.legend.color()
+                .title("Sebastián Piñera Echenique (%)")
+                .shapeHeight(20)
+                .shapeWidth(60)
+                .shapeRadius(10)
+                .cells([50,55,60])
+                .orient("horizontal")
+                .labelFormat(d3.format(".0f"))
+                .labelAlign("start")
+                .scale(scale1);
+
+    svg.select(".legendLinear")
+      .call(legendLinear);
+
+       d3.select("svg").append("g")
+      .attr("class", "legendLinear2")
+      .attr("transform", "translate(200,500)");
+
+        var legendLinear2 = d3.legend.color()
+                .title("Eduardo Frei Ruiz-Tagle (%)")
+                .shapeHeight(20)
+                .shapeWidth(60)
+                .shapeRadius(10)
+                .cells([50,55,60])
+                .orient("horizontal")
+                .labelFormat(d3.format(".0f"))
+                .labelAlign("start")
+                .scale(scale2);
+
+    svg.select(".legendLinear2")
+      .call(legendLinear2);
+});
+});
+
+
+</script>

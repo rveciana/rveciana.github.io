@@ -1,0 +1,1 @@
+This file shows how to use the *albersUsa* projection from [d3-composite-projections](http://rveciana.github.io/d3-composite-projections/). In this case, the example (and projection) [is copied directly from the d3 projection](http://bl.ocks.org/mbostock/4090848), but adding the borders a the composed zones.

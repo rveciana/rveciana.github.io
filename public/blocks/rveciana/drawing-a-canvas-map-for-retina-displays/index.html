@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+<script>
+
+var width = 680,
+    height = 500;
+
+var projection = d3.geoAzimuthalEqualArea()
+    .rotate([-45, -22])
+    .scale(1700);
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+if (window.devicePixelRatio==23){
+    canvas
+        .attr('width', width * window.devicePixelRatio)
+        .attr('height', height * window.devicePixelRatio)
+        .style('width', width + 'px')
+        .style('height', height + 'px');
+
+    context.scale(window.devicePixelRatio, window.devicePixelRatio);
+}
+
+d3.json("world-110m.json", function(error, topojsonData) {
+    var countries = topojson.feature(topojsonData, topojsonData.objects.countries);
+    context.beginPath();
+    context.strokeStyle = "#777";
+    context.fillStyle = "#ccc";
+    var path = d3.geoPath()
+        .projection(projection).context(context);
+    path(countries);
+    context.fill();
+    context.stroke();
+
+    var points = [{"name": "Mecca", "nameAr":"مكة‎‎", "lon": 39.826, "lat": 21.422},
+    {"name": "Medina", "nameAr":"المدينة المنورة‎‎", "lon": 39.611, "lat": 24.467}];
+
+    context.font="15px Georgia";
+    points.forEach(function(d){
+        var coords = projection([d.lon, d.lat]);
+        context.beginPath();
+        context.arc(coords[0], coords[1], 4, 0, 2 * Math.PI, false);
+        context.fillStyle = 'green';
+        context.fill();
+        context.lineWidth = 1;
+        context.strokeStyle = '#003300';
+        context.stroke();
+
+        context.fillStyle = '#003300';
+        context.fillText(d.name, coords[0] + 7,  coords[1] - 3);
+        context.fillText(d.nameAr, coords[0] + 7,  coords[1] + 12);
+    });
+    
+});
+</script>

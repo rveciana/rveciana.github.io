@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="//roughjs.com/builds/rough.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<canvas id="myCanvas"></canvas>
+
+<script>
+var rough = new RoughCanvas(document.getElementById('myCanvas'), 900, 500);
+rough.strokeWidth = 2;
+rough.fill = "rgba(255,0,0,0.2)";
+
+var projection = d3.geoAlbersUsa();
+var mappath = d3.geoPath()
+    .projection(projection);
+
+var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
+
+d3.json("us.json", function(error, us) {
+
+  var features = topojson.feature(us, us.objects.states).features;
+  features.forEach(function(d){
+    d.geometry.coordinates.forEach(function(e){
+      var subFeature = { type: "Feature",
+      id: d.id,
+      properties: {},
+      geometry: {'type': 'Polygon', 'coordinates': e} };
+
+      var path = rough.path(mappath(subFeature));
+      path.fill = colorScale(d.id);
+      path.hachureAngle = 2*d.id;
+      path.fillWeight = 6;
+
+    });
+
+  });
+
+
+});
+
+</script>

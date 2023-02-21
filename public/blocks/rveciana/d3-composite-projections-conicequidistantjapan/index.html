@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.land {
+  fill: #222;
+}
+
+.county-boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+.state-boundary {
+  fill: none;
+  stroke: #fff;
+}
+
+.border {
+  stroke: #000;
+  fill: none;
+
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-composite-projections/0.3.5/conicEquidistantJapan.min.js"></script>
+<script>
+
+var width = 700,
+    height = 500;
+
+    var projection = d3.geo.conicEquidistantJapan();
+
+var path = d3.geo.path()
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("https://cdn.rawgit.com/rveciana/5919944/raw/a3d0f29d851893e15dcf6194997453086c408fd3/japan.json", function(error, regions) {
+  var land = topojson.feature(regions, regions.objects.japan);
+
+    svg.selectAll("path")
+      .data(land.features)
+      .enter()
+      .append("path")
+      .attr("d", path)
+      .style("stroke","#000")
+      .style("stroke-width",".5px")
+      .style("fill","#aca")
+      .on("mouseover", function(d,i) {
+        d3.select(this)
+          .transition()
+          .style("fill", "red");
+        })
+      .on("mouseout", function(d,i) {
+        d3.select(this)
+          .transition()
+          .style("fill", "#aca");
+        });
+
+  svg
+    .append("path")
+      .style("fill","none")
+      .style("stroke","#000")
+      .attr("d", projection.getCompositionBorders());
+
+
+});
+
+
+</script>

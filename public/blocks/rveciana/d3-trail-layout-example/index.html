@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="pathlayout.js"></script>
+<script>
+var width = 600,
+    height = 500;
+
+var points = [{"x":0,"y":0}, {"x":200,"y":200}, {"x":0,"y":400}, {"x":200,"y":100}];
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var trail = d3.layout.trail().coordType('xy');
+
+var trail_layout = trail.data(points).layout();
+
+paths = svg.selectAll("line").data(trail_layout);
+
+paths.enter()
+.append('line')
+.style("stroke-width",3)
+.style("stroke","black") 
+.attr("x1",function(d) {return d.x1}) 
+.attr("y1",function(d) {return d.y1}) 
+.attr("y2",function(d) {return d.y2}) 
+.attr("x2",function(d) {return d.x2}) 
+</script>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+@font-face {
+    font-family: 'mvboli';
+    src: url('mvboli.ttf');
+}
+</style>
+<body>
+<span style="font-family: 'mvboli';"></span>
+
+<script src="https://d3js.org/d3-array.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+
+<script src="https://d3js.org/d3-selection.v1.min.js"></script>
+
+<script src="https://d3js.org/d3-collection.v1.min.js"></script>
+<script src="https://d3js.org/d3-dispatch.v1.min.js"></script>
+<script src="https://d3js.org/d3-request.v1.min.js"></script>
+
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script>
+var width = 910,
+    height = 450
+    margin = 50;
+
+var projection = d3.geoAlbersUsa()
+    .translate([margin/2 + width/2, margin/2 + height/2])
+    .scale(990);
+
+var path = d3.geoPath()
+    .projection(projection);
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width + margin)
+    .attr("height", height + margin);
+
+var context = canvas.node().getContext("2d");
+
+var loadImage = function(src, cb) {
+    var img = new Image();    
+    img.src = src;
+    var error = null;
+    img.onload = function() {
+        cb(null, img);
+    };
+    img.onerror = function() {
+        cb('ERROR LOADING IMAGE ' + src, null);
+    };
+
+};
+
+
+var q = queue()
+  .defer(d3.json, "us.json");
+q.defer(loadImage, "chalkfilltexturesolidgreen.png");
+q.defer(loadImage, "vignettethumbnail.png");
+
+q.await(ready);
+
+
+
+function ready(error, us, background, overlay) {
+  var states = topojson.feature(us, us.objects.states);
+
+  context.drawImage(background, 0, 0, width + 50, height + 50);
+
+  context.lineWidth = 2;
+  context.strokeStyle = 'rgba(255,255,255, 0.6)';
+  context.setLineDash([4,3,1,6,1,4,8,1,2,3]);
+  context.beginPath();
+  path.context(context)(states);
+  context.stroke();
+
+  context.lineWidth = 5;
+  context.strokeStyle = 'rgba(255,255,255, 0.2)';
+  context.setLineDash([3,2,4,5,2,3,2,5,4]);
+  context.beginPath();
+  path.context(context)(states);
+  context.stroke();
+
+  context.lineWidth = 2;
+  context.strokeStyle = 'rgba(255,255,255, 0.6)';
+  context.fillStyle = 'rgba(255,255,255, 0.6)';
+  context.font = "30px mvboli";
+  context.fillText("States map", 150 + width/2, 50);
+  context.strokeText("States map", 150 + width/2, 50);
+
+  context.drawImage(overlay, 0, 0, width + margin, height + margin);
+
+
+};
+
+</script>
+

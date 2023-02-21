@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  background: #fcfcfa;
+}
+
+.stroke {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+.fill {
+  fill: #e5e6e1;
+}
+.boundaryNZ {
+  fill: #e5e6e1;
+  stroke: #000;
+  stroke-width: 1px;
+}
+
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+.land {
+  fill: #f9fdfc;
+  stroke: #444;
+}
+
+.boundary {
+  fill: none;
+  stroke: #444;
+  stroke-width: .5px;
+}
+
+</style>
+<body>
+<script src="//d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+<script src="//d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = 960,
+    height = 560;
+
+var projection = d3.geoArmadillo()
+    .scale(237)
+    .translate([width / 2, height/2])
+    .parallel(20)
+    .rotate([-10, 0])
+    .precision(.1);
+
+var path = d3.geoPath()
+    .projection(projection);
+
+var projectionNZ = d3.geoArmadillo()
+    .scale(300)
+    .translate([120 + (width / 2), -140 + height/2])
+    .parallel(20)
+    .rotate([-100, 0])
+    .precision(.1);
+
+var pathNZ = d3.geoPath()
+    .projection(projectionNZ);
+
+var graticule = d3.geoGraticule();
+var graticuleNZ = d3.geoGraticule().extent([[160, -50], [179, -30]]);
+
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var defs = svg.append("defs");
+
+defs.append("path")
+    .datum({type: "Sphere"})
+    .attr("id", "sphere")
+    .attr("d", path);
+
+defs.append("clipPath")
+    .attr("id", "clip")
+  .append("use")
+    .attr("xlink:href", "#sphere");
+
+svg.append("use")
+    .attr("class", "stroke")
+    .attr("xlink:href", "#sphere");
+
+svg.append("use")
+    .attr("class", "fill")
+    .attr("xlink:href", "#sphere");
+
+svg.append("path")
+    .datum({type: "Polygon", "coordinates": [[[165, -50], [165, -30], [179, -30], [179, -50],[165, -50]]]})
+    .attr("class", "boundaryNZ")
+    .attr("d", pathNZ);
+
+svg.append("path")
+    .datum(graticule)
+    .attr("class", "graticule")
+    .attr("clip-path", "url(#clip)")
+    .attr("d", path);
+
+svg.append("path")
+    .datum(graticuleNZ)
+    .attr("class", "graticule")
+    .attr("d", pathNZ);
+
+d3.json("world-50m.json").then(function(world){
+
+  var land = topojson.feature(world, world.objects.land);
+  var stream = d3.geoClipRectangle(166.509144322, -46.641235447, 178.517093541, -34.4506617165);
+  var landNZ = d3.geoProject(land, {stream});
+
+  svg.insert("path", ".graticule")
+      .datum(landNZ)
+      .attr("class", "land")
+      .attr("d", pathNZ);
+  
+  svg.insert("path", ".graticule")
+      .datum(land)
+      .attr("class", "land")
+      .attr("clip-path", "url(#clip)")
+      .attr("d", path);
+
+  svg.insert("path", ".graticule")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("clip-path", "url(#clip)")
+      .attr("d", path);
+});
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>

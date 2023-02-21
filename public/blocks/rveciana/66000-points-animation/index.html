@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+</style>
+<body>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<script>
+    const width = 960,
+    height = 670;
+    const duration = 1500;
+    const ease = d3.easeCubic;
+    let timer;
+    let currLayout = 0;
+
+    var canvas = d3.select("body")
+        .append("canvas")
+        .attr('height', height)
+        .attr('width', width);
+
+    var context = canvas.node().getContext("2d");
+
+
+     var points = [];
+
+    var penes = [{'Nom':'Dotze anys i un dia de reclusió temporal', 'Nombre': 11348, 'Color': '#eded07'},
+         {'Nom':'Sobreseïment','Nombre': 10479, 'Color': '#afa'},
+         {'Nom':'Absolt','Nombre': 7204, 'Color': '#7f7'},
+         {'Nom':'Llibertat','Nombre': 6105, 'Color': '#8f8'},
+         {'Nom':'Sense declaració de responsabilitats','Nombre': 5469, 'Color': '#cfc'},
+         {'Nom':'Mort','Nombre': 4404, 'Color': '#f00'},
+         {'Nom':'Vint anys de reclusió temporal','Nombre': 3826, 'Color': '#d18400'},   
+         {'Nom':'Reclusió perpètua','Nombre': 3740, 'Color': '#d15a00'},
+         {'Nom':'Quinze anys de reclusió temporal','Nombre': 3560, 'Color': '#d1aa00'},
+         {'Nom':'Arxiu','Nombre': 3360, 'Color': '#afa'},
+         {'Nom':'Sis anys i un dia de presó major','Nombre': 2022, 'Color': '#d1c600'},
+         {'Nom':'Trenta anys de reclusió major','Nombre': 665, 'Color': '#d16500'},
+         {'Nom':'Pena de multa','Nombre': 648, 'Color': '#b8d100'},
+         {'Nom':'Sis mesos i un dia de presó menor','Nombre': 548, 'Color': '#cad100'},
+         {'Nom':'Dotze anys i un dia de reclusió menor','Nombre': 516, 'Color': '#eded07'},
+         {'Nom':'Dotze anys de presó major','Nombre': 434, 'Color': '#eded07'},
+         {'Nom':'Destinat a Batalló de Treballadors o a','Nombre': 298, 'Color': '#156f72'},
+         {'Nom':'Un any de presó menor','Nombre': 298, 'Color': '#cad100'},
+         {'Nom':'Desglossament en un altre procediment','Nombre': 258, 'Color': '#bbb'},
+         {'Nom':'Absolt i un mes d\'arrest menor','Nombre': 199, 'Color': '#e5ed04'},
+         {'Nom':'Tres anys i un dia de presó menor','Nombre': 178, 'Color': '#d1c600'},
+         {'Nom':'Nou anys de presó major','Nombre': 178, 'Color': '#d1b800'},
+         {'Nom':'Vuit anys de presó major','Nombre': 171, 'Color': '#d1b800'},
+         {'Nom':'Vint anys de reclusió major','Nombre': 11, 'Color': '#d17600'},
+         {'Nom':'Altres','Nombre': 11, 'Color': '#aaa'},
+    ];
+    var totalVictimes = 65990;
+    var j = 0;
+    penes.forEach(function(pena){
+        for(var i = 0; i<pena['Nombre']; i++){
+            points.push({'color': pena['Color'], 'x': width/2, 'y': height/2, 'order': j});
+            j++;
+        }
+    });
+
+    for(var i=j; i<totalVictimes; i++){
+        points.push('Altres');
+    }
+ 
+
+function orderedLayout(points){
+    let stackHeight = 220;
+    points.forEach((point) => {
+        point.x = 3*Math.floor(point.order/stackHeight);
+        point.y = 3*(point.order%stackHeight);;
+    });
+    return points;
+}
+
+
+function randomLayout(points){
+    let stackHeight = 220;
+    shuffle(points)
+    points.forEach((point, i) => {
+        point.x = 3*Math.floor(i/stackHeight);
+        point.y = 3*(i%stackHeight);;
+    });
+    return points;
+}
+
+
+const layouts = [randomLayout, orderedLayout];
+
+function draw() {
+  context.clearRect(0,0,canvas.attr("width"),canvas.attr("height"));
+
+  for (let i = 0; i < points.length; ++i) {
+    const point = points[i];
+    context.fillStyle = point.color;
+    context.fillRect(point.x, point.y, 2, 2);
+  }
+}
+
+function animate(layout) {
+  // store the source position
+  points.forEach(point => {
+    point.sx = point.x;
+    point.sy = point.y;
+  });
+
+  // get destination x and y position on each point
+  layout(points);
+
+  // store the destination position
+  points.forEach(point => {
+    point.tx = point.x;
+    point.ty = point.y;
+  });
+
+  timer = d3.timer((elapsed) => {
+    // compute how far through the animation we are (0 to 1)
+    const t = Math.min(1, ease(elapsed / duration));
+
+    // update point positions (interpolate between source and target)
+    points.forEach(point => {
+      point.x = point.sx * (1 - t) + point.tx * t;
+      point.y = point.sy * (1 - t) + point.ty * t;
+    });
+
+    // update what is drawn on screen
+    draw();
+
+
+    // if this animation is over
+    if (t === 1) {
+      timer.stop();
+      
+      currLayout = (currLayout + 1) % layouts.length;
+
+      animate(layouts[currLayout]);
+
+    }
+  });
+
+}
+
+animate(layouts[currLayout]);
+
+function shuffle(array) {
+//https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+</script>
+</body>

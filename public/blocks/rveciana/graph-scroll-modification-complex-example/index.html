@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
+  <script src="graph-scroll.js"></script>
+  <style>
+  body{
+    width: 900px;
+    margin: 0px auto;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  #container_progress, #container_active, #container_both{
+    position: relative;
+    width: 100%;
+    overflow: auto;
+  }
+
+  #sections_progress, #sections_active, #sections_both{
+    width: 340px;
+    float: left;
+  }
+
+  #sections_progress > div, #sections_active > div, #sections_both > div{
+    background: white;
+    opacity: .2;
+    margin-bottom:120px;
+  }
+
+  #sections_progress > div.graph-scroll-active, #sections_active > div.graph-scroll-active, #sections_both > div.graph-scroll-active{
+    opacity: 1;
+  }
+
+
+  #graph_progress, #graph_active,#graph_both{
+    float: left;
+    margin-left: 40px;
+  }
+
+  #graph_progress.graph-scroll-fixed, #graph_active.graph-scroll-fixed, #graph_both.graph-scroll-fixed{
+    position: fixed;
+    top: 0px;
+    margin-left: 380px;
+  }
+
+  #graph_progress.graph-scroll-below, #graph_active.graph-scroll-below, #graph_both.graph-scroll-below {
+    position: absolute;
+    bottom: 0px;
+    margin-left: 380px;
+  }
+
+  h1{
+  margin: 50px;
+  }
+
+  h1, h3{
+    text-align: center;
+  }
+
+  </style>
+</head>
+
+<body>
+  <h1>Modified graph-scroll example</h1>
+  <h3>The event <i>active</i> is still the same, and creates nice effects</h3>
+  <div id='container_active'>
+    <div id='sections_active'>
+      <div><h3>First section has the initial map view</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p></div>
+      <div><h3>The second section zooms the map</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p></div>
+      <div><h3>The third section adds some points</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p></div>
+
+    </div>
+    <div id='graph_active'></div>
+  </div>
+  <h1>Section without scroller</h1>
+  <h3>You can add regular content here, and the graph-scroll library won't do anything</h3>
+  <h1>Progress</h1>
+  <h3>The modified graph-scroll library adds a <i>progress</i> event that allows to animate the graph using the amount of scroll already done:</h3>
+  <div id='container_progress'>
+    <div id='sections_progress'>
+      <div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p>
+      <p>Praesent ut turpis sed orci cursus pharetra. Sed imperdiet sem at odio vulputate, ut mollis sem porta. Mauris tempor porta lorem, at suscipit felis fringilla sit amet. Mauris feugiat neque eget mi aliquam pellentesque. Aenean augue est, tincidunt at justo eget, pretium ultrices dolor. Cras nec nisl metus. Etiam venenatis id turpis ac consectetur. In a rhoncus arcu, blandit sodales nulla.</p>
+      <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.</p>
+      </div>
+
+    </div>
+
+    <div id='graph_progress'></div>
+
+  </div>
+  
+  <h1>Mixing both events</h1>
+  <div id='container_both'>
+    <div id='sections_both'>
+      <div><p>Praesent ut turpis sed orci cursus pharetra. Sed imperdiet sem at odio vulputate, ut mollis sem porta. Mauris tempor porta lorem, at suscipit felis fringilla sit amet. Mauris feugiat neque eget mi aliquam pellentesque. Aenean augue est, tincidunt at justo eget, pretium ultrices dolor. Cras nec nisl metus. Etiam venenatis id turpis ac consectetur. In a rhoncus arcu, blandit sodales nulla.</p>
+      <p>Morbi lobortis diam ligula, ut varius leo facilisis id. Integer rutrum orci eu magna venenatis, vel scelerisque arcu ultrices. Vestibulum sit amet eros sem.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.Praesent ut turpis sed orci cursus pharetra. Sed imperdiet sem at odio vulputate, ut mollis sem porta. Mauris tempor porta lorem, at suscipit felis fringilla sit amet. Mauris feugiat neque eget mi aliquam pellentesque. Aenean augue est, tincidunt at justo eget, pretium ultrices dolor. Cras nec nisl metus. Etiam venenatis id turpis ac consectetur. In a rhoncus arcu, blandit sodales nulla.
+      Morbi lobortis diam ligula, ut varius leo facilisis id. Integer rutrum orci eu magna venenatis, vel scelerisque arcu ultrices. Vestibulum sit amet eros sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.Praesent ut turpis sed orci cursus pharetra. Sed imperdiet sem at odio vulputate, ut mollis sem porta. Mauris tempor porta lorem, at suscipit felis fringilla sit amet. Mauris feugiat</p></div>
+      <div><p>Praesent ut turpis sed orci cursus pharetra. Sed imperdiet sem at odio vulputate, ut mollis sem porta. Mauris tempor porta lorem, at suscipit felis fringilla sit amet. Mauris feugiat neque eget mi aliquam pellentesque. Aenean augue est, tincidunt at justo eget, pretium ultrices dolor. Cras nec nisl metus. Etiam venenatis id turpis ac consectetur. In a rhoncus arcu, blandit sodales nulla.</p>
+      <p>Morbi lobortis diam ligula, ut varius leo facilisis id. Integer rutrum orci eu magna venenatis, vel scelerisque arcu ultrices. Vestibulum sit amet eros sem.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.Praesent ut turpis sed orci cursus pharetra. Sed imperdiet sem at odio vulputate, ut mollis sem porta. Mauris tempor porta lorem, at suscipit felis fringilla sit amet. Mauris feugiat neque eget mi aliquam pellentesque. Aenean augue est, tincidunt at justo eget, pretium ultrices dolor. Cras nec nisl metus. Etiam venenatis id turpis ac consectetur. In a rhoncus arcu, blandit sodales nulla.
+      Morbi lobortis diam ligula, ut varius leo facilisis id. Integer rutrum orci eu magna venenatis, vel scelerisque arcu ultrices. Vestibulum sit amet eros sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ullamcorper tempus sem, non consectetur nisi finibus ac. Maecenas suscipit mattis turpis et tristique. Phasellus lectus dolor, fermentum eget rutrum a, feugiat sed tellus. Vivamus convallis nec nulla vitae volutpat. Etiam ullamcorper nisl in justo pulvinar, at tincidunt odio ullamcorper. Donec posuere lobortis lacus ut scelerisque. Nullam a sodales magna. Phasellus nec odio arcu. Etiam sollicitudin nec velit id mollis. Vestibulum fringilla, nunc ut mollis interdum, sem risus semper nisl, vel faucibus purus turpis quis diam. Morbi vitae dolor vestibulum, iaculis eros quis, tristique justo. Pellentesque eu libero ultrices tellus consectetur tempor. Mauris pulvinar felis augue, at dapibus nulla facilisis sit amet. Nunc vitae hendrerit metus. Suspendisse dignissim quam at auctor imperdiet.Praesent ut turpis sed orci cursus pharetra. Sed imperdiet sem at odio vulputate, ut mollis sem porta. Mauris tempor porta lorem, at suscipit felis fringilla sit amet. Mauris feugiat</p></div>
+    </div>
+    <div id='graph_both'></div>
+  </div>
+ 
+
+  <h1>Footer</h1>
+  <h3>Praesent ut turpis sed orci cursus pharetra. Sed imperdiet sem at odio vulputate, ut mollis sem porta. Mauris tempor porta lorem, at suscipit felis fringilla sit amet. Mauris feugiat neque eget mi aliquam pellentesque.</h3>
+  
+  <script>
+  d3.json("track.json", function(error, track) {
+  d3.json("world-50m.json", function(error, world) {
+
+  var width = 500, height = 450;
+
+  
+
+  var projection = d3.geo.mercator()
+    .scale(6*(width + 1) / 2 / Math.PI)
+    .translate([width / 2, height / 2])
+    .rotate([-130, -15, 0]);
+
+    var path = d3.geo.path()
+          .projection(projection);
+
+    var graticule = d3.geo.graticule();
+
+    var svgActive = d3.select('#graph_active')
+    .append('svg')
+      .attr({width: width, height: height});
+
+    var gActive = svgActive.append("g");
+
+    var graticulePathActive = gActive.append("path")
+      .datum(graticule)
+      .attr("class", "graticule")
+      .attr("d", path)
+      .style("fill", "none")
+      .style("stroke", "#777")
+      .style("stroke-opacity", .5)
+      .style("stroke-width", ".5px");
+
+    var landPathActive = gActive.insert("path", ".land")
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path)
+      .style("fill","#999");
+
+    var countriesPathActive = gActive.insert("path", ".countries")
+      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+      .attr("class", "boundary")
+      .attr("d", path)
+      .style("fill", "none")
+      .style("stroke", "#fff")
+      .style("stroke-width", ".5px");
+
+    var points = [{'lon': 125.05, 'lat': 13.25, 'name': 'Eastern Visayas', 'fatalities': 5877},
+                  {'lon': 122.6, 'lat': 10.6, 'name': 'Western Visayas', 'fatalities': 294},
+                  {'lon': 123.5, 'lat': 10, 'name': 'Central Visayas', 'fatalities': 74},
+                  {'lon': 119.5, 'lat': 10.66, 'name': 'Mimaropa', 'fatalities': 10}]
+    var pointsScale = d3.scale.linear()
+        .domain([0, 6000])
+        .range([5, 15]);
+    
+    graphScroll()
+        .container(d3.select('#container_active'))
+        .graph(d3.selectAll('#graph_active'))
+        .sections(d3.selectAll('#sections_active > div'))
+        .on('active', function(i){
+          if(i==0){
+            gActive
+              .transition()
+              .duration(3000)
+              .attr("transform", "translate(1,0)")
+              .style("stroke-width", ".5px");
+            gActive.selectAll(".location")
+              .remove();
+          } else if(i==1){
+            k=2.5;
+            gActive
+              .transition()
+              .duration(3000)
+              .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -200 + "," + -250 + ")")
+              .style("stroke-width", 1.5 / k + "px");
+
+            gActive.selectAll(".location")
+              .transition()
+              .duration(3000)
+              .attr("r", 0)
+              .remove();
+          } else {
+            
+            gActive.selectAll(".location")
+              .data(points)
+              .enter()
+              .append("circle")
+              .attr("cx", function(d){return projection([d.lon, d.lat])[0];})
+              .attr("cy", function(d){return projection([d.lon, d.lat])[1];})
+              .attr("fill","#f00")
+              .attr("class", "location")
+              .attr("r", 0)
+              .attr("opacity",0)
+              .transition()
+              .duration(3000)
+                .attr("r", function(d){return pointsScale(d.fatalities);})
+                .attr("opacity",0.6);
+          }
+        });
+
+    var svgProgress = d3.select('#graph_progress')
+    .append('svg')
+      .attr({width: width, height: height});
+
+    var graticulePath = svgProgress.append("path")
+      .datum(graticule)
+      .attr("class", "graticule")
+      .attr("d", path)
+      .style("fill", "none")
+      .style("stroke", "#777")
+      .style("stroke-opacity", .5)
+      .style("stroke-width", ".5px");
+
+
+    var landPath = svgProgress.insert("path", ".land")
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path)
+      .style("fill","#999");
+
+      var countriesPath = svgProgress.insert("path", ".countries")
+        .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
+        .attr("class", "boundary")
+        .attr("d", path)
+        .style("fill", "none")
+        .style("stroke", "#fff")
+        .style("stroke-width", ".5px");
+
+      var pathLine = d3.svg.line()
+        .interpolate("cardinal")
+        .x(function(d) { return projection([d.lon, d.lat])[0]; })
+        .y(function(d) { return projection([d.lon, d.lat])[1]; });
+
+      var haiyanPath = svgProgress.append("path")
+      .attr("d",pathLine(track))
+      .attr("class","path")
+      .style("fill", "none")
+      .style("stroke-opacity", .8)
+      .style("stroke", "#f44")
+      .style("stroke-width", 3)
+      .style('stroke-dasharray', function(d) {
+        var l = d3.select(this).node().getTotalLength();
+        return l + 'px, ' + l + 'px';
+       })
+      .attr('stroke-dashoffset', function(d) {
+      return d3.select(this).node().getTotalLength() + 'px';
+        });
+
+      var hayanPathScale = d3.scale.linear()
+        .domain([0, 1])
+        .range([0, haiyanPath.node().getTotalLength()])
+        .clamp(true);
+
+      graphScroll()
+        .container(d3.select('#container_progress'))
+        .graph(d3.selectAll('#graph_progress'))
+        .sections(d3.selectAll('#sections_progress > div'))
+          .on('scroll', function(i, d){
+              haiyanPath.attr('stroke-dashoffset', haiyanPath.node().getTotalLength() - hayanPathScale(d) + 'px');
+         });
+ 
+
+
+    var svgBoth = d3.select('#graph_both')
+      .append('svg')
+        .attr({width: width, height: height});
+
+    var scaleBoth = d3.scale.linear()
+        .domain([0, 1])
+        .range([0, 360])
+        .clamp(true);
+
+    var projectionBoth = d3.geo.mercator()
+    .scale(width / 2 / Math.PI)
+    .translate([width / 2, height / 2]);
+
+    var path = d3.geo.path()
+          .projection(projectionBoth);
+
+    var landPathActive = svgBoth.insert("path", ".land")
+      .datum(topojson.feature(world, world.objects.land))
+      .attr("class", "land")
+      .attr("d", path)
+      .style("fill","#999");
+
+       
+    graphScroll()
+      .container(d3.select('#container_both'))
+      .graph(d3.selectAll('#graph_both'))
+      .sections(d3.selectAll('#sections_both > div'))
+        .on('active', function(i){
+          if(i==0){
+            svgBoth.selectAll(".land")
+              .transition()
+              .duration(2000)
+              .style("fill","#b99");
+          } else{
+            svgBoth.selectAll(".land")
+              .transition()
+              .duration(2000)
+              .style("fill","#99b");
+          }
+        })
+        .on('scroll', function(i, d){
+          projectionBoth.rotate([(i==0?1:-1)*scaleBoth(d), 0, 0]);
+          svgBoth.selectAll("path")
+            .attr("d", path.projection(projectionBoth));
+        });
+
+  });
+});
+
+  </script>
+</body>

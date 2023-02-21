@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Resizing polygons according to the population density</title>
+<style>
+
+.background {
+  fill: None;
+  stroke: #444;
+  stroke-width: 1;
+}
+
+
+</style>
+<body>
+<button type="button" id="changeDensity">Resize to population density</button>
+<button type="button" id="changeActual">Resize to actual size</button>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
+<script>
+var comarques, color, max_density;
+var scaleColors = ['#c2ffbf', '#92ff8c', '#56ff4e', '#20c818'];
+var width = 960,  
+    height = 500;  
+  
+var projection = d3.geo.mercator()  
+    .center([2.1,41.7])  
+    .scale(9000)  
+    .translate([width / 2, height / 2]); 
+
+var path = d3.geo.path()  
+    .projection(projection);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.csv("/rveciana/raw/5919944/comarques.csv", function(data_values) {
+  max_density = 0;
+  max_value = 0;
+  min_value = 100;
+  for (i=0; i<data_values.length; i++){
+    if(parseFloat(data_values[i].Density) > max_density){
+      max_density = parseFloat(data_values[i].Density);
+    }
+    if(parseFloat(data_values[i].Catalan) > max_value){
+      max_value = parseFloat(data_values[i].Catalan);
+    }
+    if(parseFloat(data_values[i].Catalan) < min_value){
+      min_value = parseFloat(data_values[i].Catalan);
+    }    
+  }
+
+
+  color = d3.scale.quantize(45).domain([min_value,max_value]).range(scaleColors);
+  console.info(color(min_value));
+  console.info(color(max_value));
+d3.json("/rveciana/raw/5919944/comarques.topo.json", function(error, us) {
+
+
+
+comarques = svg.selectAll(".comarca")
+      .data(topojson.feature(us, us.objects.comarques).features)
+    .enter().append("path")
+      .attr("class", "comarca")
+      .attr("d", path)
+      .style("fill", function(d) {
+        return color(parseFloat(data_values[parseInt(d.properties.comarca, 10)-1].Catalan));
+      })
+      .style("stroke", function(d) {
+        return color(parseFloat(data_values[parseInt(d.properties.comarca, 10)-1].Catalan));
+      });
+
+  svg.append("path")
+      .datum(topojson.feature(us, us.objects.comarques))
+      .attr("class", "background")
+      .attr("d", path);
+  
+  scale = svg.append("g");
+  scale.append("text")
+      .attr("x",width - 400 )
+      .attr("y",height - 50)
+      .text("Can speak Catalan");
+  for (i=0; i< scaleColors.length; i++){
+    scale.append("rect")
+      .attr("width", 30)
+      .attr("height",15)
+      .attr("x",width - 400 + 37*i )
+      .attr("y",height - 40)
+      .style("fill",scaleColors[i])
+      .style("stroke","#000");
+    scale.append("text")
+      .attr("x",width - 400 + 37*i )
+      .attr("y",height - 10)
+      .text(function(){
+        return Math.round(min_value + i*(max_value - min_value)/scaleColors.length)+"%";
+      });
+
+  }
+
+d3.select("#changeDensity").on("click", function() {
+  comarques.transition()
+  .duration(3000)
+  .attr("transform", function(d) {
+    var comarca_code = parseInt(d.properties.comarca, 10);
+    scale_factor = Math.sqrt(data_values[comarca_code-1].Density/max_density);
+    var centroid = path.centroid(d),
+            x = centroid[0],
+            y = centroid[1];
+    return "translate(" + x + "," + y + ")"
+        + "scale(" + scale_factor + ")"
+        + "translate(" + -x + "," + -y + ")";
+  });
+});
+
+d3.select("#changeActual").on("click", function() {
+  comarques.transition()
+  .duration(3000)
+  .attr("transform", function(d) {
+    var centroid = path.centroid(d),
+            x = centroid[0],
+            y = centroid[1];
+    return "translate(" + x + "," + y + ")"
+        + "scale(" + 1 + ")"
+        + "translate(" + -x + "," + -y + ")";
+  });
+});
+
+
+});
+
+});
+</script>
