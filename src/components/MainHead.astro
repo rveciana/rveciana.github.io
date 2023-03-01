@@ -1,16 +1,44 @@
 ---
 export interface Props {
   title: string;
-  description: string;
+  description?: string;
   permalink?: string;
+  twitterImage?: string;
+  url: string;
 }
-const { title, description } = Astro.props;
+const { title, description, url, twitterImage } = Astro.props;
 ---
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
-<meta name="description" content={description} />
+
+{description && <meta name="description" content={description} />}
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+
+{
+  twitterImage && (
+    <meta
+      name="twitter:image"
+      content={`https://geoexamples.com${twitterImage}`}
+    />
+  )
+}
+<meta property="og:url" content={`https://geoexamples.com${url}`} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+
+{description && <meta property="og:description" content={description} />}
+{
+  twitterImage && (
+    <meta
+      property="og:image"
+      content={`https://geoexamples.com${twitterImage}`}
+    />
+  )
+}
 <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

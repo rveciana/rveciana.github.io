@@ -6,6 +6,7 @@ teaser: blocks-astro.png
 categories: other
 tags: [astrojs]
 thumbnail: /images/other/blocks-astro/twitter.png
+description: "So my loved bl.ocks.org disappeared! All my examples are gone but, even more, all the other people's examples are gone too! I wanted to republish mine, so I did it here"
 twitter-card: summary
 ---
 
