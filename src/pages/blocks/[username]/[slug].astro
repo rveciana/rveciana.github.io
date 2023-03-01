@@ -1,7 +1,7 @@
 ---
 import { Code } from "astro/components";
 
-import indexData from "/public/blocks/rveciana/api_result.json";
+import indexData from "../../../../public/blocks/rveciana/api_result.json";
 
 export async function getStaticPaths() {
   return indexData.map((block) => ({
