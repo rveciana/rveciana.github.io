@@ -1,4 +1,6 @@
 ---
+import { Code } from "astro/components";
+
 import indexData from "/public/blocks/rveciana/api_result.json";
 
 export async function getStaticPaths() {
@@ -11,6 +13,8 @@ const { username, slug } = Astro.params;
 
 const posts = await Astro.glob("/public/blocks/**/README.md");
 
+const indexs = import.meta.glob("/public/blocks/**/index.html", { as: "raw" });
+
 const readme =
   slug &&
   username &&
@@ -19,6 +23,16 @@ const readme =
       (post) => post.file.indexOf(username) >= 0 && post.file.indexOf(slug) >= 0
     )
     ?.compiledContent();
+
+const index =
+  slug &&
+  username &&
+  Object.entries(indexs).find(
+    (indexPage) =>
+      indexPage[0].indexOf(username) >= 0 && indexPage[0].indexOf(slug) >= 0
+  );
+
+const indexContent = await (index && index[1]());
 
 const description = indexData.find((d) => d.slug === slug)?.description;
 ---
@@ -31,6 +45,17 @@ const description = indexData.find((d) => d.slug === slug)?.description;
       width={960}
       height={500}
       src={`/blocks/${username}/${slug}/index.html`}></iframe>
+    <a href={`/blocks/${username}/${slug}/index.html`}
+      >Open raw page in new tab</a
+    >
     <div set:html={readme} />
+    <Code code={indexContent ?? ""} lang="html" theme="github-light" />
   </body>
 </html>
+
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
