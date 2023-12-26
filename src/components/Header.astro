@@ -2,10 +2,14 @@
 import config from "../config.json";
 
 const pages = [
-  { url: "about", title: "About" },
-  { url: "blog", title: "Blog" },
-  { url: "blocks", title: "blocks" },
-  { url: "projects", title: "Projects" },
+  { url: "about", title: "About", iternal: true },
+  { url: "blog", title: "Blog", iternal: true },
+  {
+    url: "https://blocks.roadtolarissa.com/rveciana",
+    title: "blocks",
+    iternal: false,
+  },
+  { url: "projects", title: "Projects", iternal: true },
 ];
 ---
 
@@ -35,7 +39,10 @@ const pages = [
         {
           Object.values(pages).map((entry) => {
             return (
-              <a class="page-link" href={`/${entry.url}`}>
+              <a
+                class="page-link"
+                href={`${entry.iternal ? "/" : ""}${entry.url}`}
+              >
                 {entry.title}
               </a>
             );
