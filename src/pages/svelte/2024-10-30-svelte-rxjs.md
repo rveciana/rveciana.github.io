@@ -301,13 +301,13 @@ The page will be now:
 
 - The function `objectValues` is the same as `Object.values`, but maintains the typing.
 
-Now, you almost havell you need to show an order book!
+Now, we almost have it, we can now show an order book!
 
 <img src="/images/svelte/svelte5-rxjs/data-input2.gif"/>
 
 Before that, I would like to test the observable, since in a real app, those can get very complex, specially if there are different data inputs that interact. Testing observables is not that straightforward, but a smart colleague did a guide for that: [Unit Testing RxJS Observables – A Practical Guide](https://weareadaptive.com/2024/01/09/unit-testing-rxjs-observables-a-practical-guide/)
 
-Let's test out last observable:
+Let's test the last observable:
 
 ```js
 const mockSubject$ = new Subject<Message>();
@@ -351,7 +351,7 @@ Note that I moved the `data$` observable to another file, since mocking a part o
 
 ### Representing the data v0.3
 
-Now we want to represent the data. I more or less copied the company orderbook from the company. See both in action:
+Now we want to represent the data. I more or less copied the company orderbook from the website. See both in action:
 
 <img src="/images/svelte/svelte5-rxjs/viz.gif" height="250px"/>
 <img src="/images/svelte/svelte5-rxjs/viz-original.gif" height="250px"/>
@@ -505,11 +505,11 @@ The styling is quite straight forward. The bar sizes are not exactly what is in 
 
 ```svelte
 {#key item.size}
-    m.size-(item.prevSize??0))/Math.max(item.size, item.prevSize??1)}%;"></span>
+    <span class="bar {item.size-(item.prevSize??0)>0?"positive":"negative"}" style="width: {100*Math.abs(item.size-(item.prevSize??0))/Math.max(item.size, item.prevSize??1)}%;"></span>
 {/key}
 ```
 
-This is to make this aprt to be rerendered again when `item.size` changes. This will make the css to fade out the bars when they are moved but the component is the same.
+This is to make this part to be rerendered again when `item.size` changes. This will make the css to fade out the bars when they are moved but the component is the same.
 
 I also added a throttling to the observable si the changes are a bit slower (100ms, not that slow anyway). Even in the original app, is hard to follow the numbers as they change too fast for my eyes. Probably the traders won't agree, but here is the new observable:
 
