@@ -16,9 +16,11 @@
     "astro": "^5.1.2"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "@types/node": "^22.10.5",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
-    "sass": "^1.83.1"
+    "sass": "^1.83.1",
+    "typescript": "^5.7.2"
   }
 }

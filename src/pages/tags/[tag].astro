@@ -4,7 +4,14 @@ import PostList from "../../components/PostList.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import type { Frontmatter } from "../../model";
 
-export async function getStaticPaths() {
+interface PathProps {
+ params: { tag: string };
+ props: {
+   page: MarkdownInstance<Frontmatter>[];
+ };
+}
+
+export async function getStaticPaths(): Promise<PathProps[]> {
   const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>(
     "./../*/*.m*d*"
   );

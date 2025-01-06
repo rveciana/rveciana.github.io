@@ -4,7 +4,14 @@ import PostList from "../../components/PostList.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import type { Frontmatter } from "../../model";
 
-export async function getStaticPaths() {
+interface PathProps {
+ params: { category: string };
+ props: {
+   page: MarkdownInstance<Frontmatter>[];
+ };
+}
+
+export async function getStaticPaths(): Promise<PathProps[]> {
   const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>(
     "./../*/*.m*d*"
   );
@@ -16,7 +23,7 @@ export async function getStaticPaths() {
         .map((category) => allCategories.add(category));
   });
 
-  return Array.from(allCategories).map((category) => {
+  return  Array.from(allCategories).map((category) => {
     const filteredPosts = allPosts
       .filter((post) => post.frontmatter.categories?.includes(category))
       .sort(
@@ -30,8 +37,9 @@ export async function getStaticPaths() {
       props: {
         page: filteredPosts,
       },
-    };
+    } as PathProps;
   });
+
 }
 const { page } = Astro.props;
 const { category } = Astro.params;
