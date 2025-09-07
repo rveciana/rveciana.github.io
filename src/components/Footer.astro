@@ -3,9 +3,9 @@ import config from "../config.json";
 ---
 
 <style lang="scss">
-  @import "../css/main.scss";
-  @import "../css/base.scss";
-  @import "../css/layout.scss";
+  @use "../css/main.scss" as *;
+  @use "../css/base.scss" as *;
+  @use "../css/layout.scss" as *;
   .site-footer {
     border-top: 1px solid $grey-color-light;
     padding: $spacing-unit 0;

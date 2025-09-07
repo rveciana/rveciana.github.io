@@ -1,7 +1,10 @@
 ---
+
 import { Code } from "astro/components";
 
 import indexData from "../../../../public/blocks/rveciana/api_result.json";
+import type { Frontmatter } from "../../../model";
+import type { MarkdownInstance } from "astro";
 
 export async function getStaticPaths() {
   return indexData.map((block) => ({
@@ -11,9 +14,11 @@ export async function getStaticPaths() {
 
 const { username, slug } = Astro.params;
 
-const posts = await Astro.glob("/public/blocks/**/README.md");
 
-const indexs = import.meta.glob("/public/blocks/**/index.html", { as: "raw" });
+const posts =Object.values(import.meta.glob<MarkdownInstance<Frontmatter>>("/public/blocks/**/README.md", { eager: true }));
+
+
+const indexs = import.meta.glob<string>("/public/blocks/**/index.html", { query: "?raw" , import: "default" });
 
 const readme =
   slug &&

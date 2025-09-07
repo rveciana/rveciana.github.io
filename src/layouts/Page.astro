@@ -17,7 +17,7 @@ const { frontmatter } = Astro.props;
 </MainLayout>
 
 <style lang="scss">
-  @import "../css/main.scss";
+  @use "../css/main.scss" as *;
 
   .post-header {
     margin-bottom: $spacing-unit;

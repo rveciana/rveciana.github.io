@@ -1,3 +1,5 @@
+@use "./base.scss" as *;
+@use "./main.scss" as *;
 /**
  * Site header
  */
@@ -112,7 +114,7 @@
     font-size: 16px;
     color: $grey-color;
     margin-left: - calc($spacing-unit / 2);
-    @extend %clearfix;
+    @extend %clearfix !optional;
 }
 
 .footer-col {

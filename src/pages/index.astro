@@ -4,7 +4,8 @@ import PostList from "../components/PostList.astro";
 import MainLayout from "../layouts/MainLayout.astro";
 import type { Frontmatter } from "../model";
 
-const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>("./*/*.m*d*");
+const allPosts =Object.values(import.meta.glob<MarkdownInstance<Frontmatter>>("./*/*.m*d*", { eager: true }));
+
 const indexPagePosts = allPosts
   .sort(
     (a, b) =>
@@ -28,7 +29,7 @@ const indexPagePosts = allPosts
 </MainLayout>
 
 <style lang="scss">
-  @import "../css/main.scss";
-  @import "../css/base.scss";
-  @import "../css/layout.scss";
+  @use "../css/main.scss";
+  @use "../css/base.scss";
+  @use "../css/layout.scss";
 </style>

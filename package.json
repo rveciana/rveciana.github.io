@@ -11,16 +11,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^4.0.3",
-    "@astrojs/rss": "^4.0.11",
+    "@astrojs/mdx": "^4.3.4",
+    "@astrojs/rss": "^4.0.12",
     "astro": "^5.1.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
-    "@types/node": "^22.10.5",
-    "prettier": "^3.4.2",
+    "@types/node": "^24.3.1",
+    "prettier": "^3.6.2",
     "prettier-plugin-astro": "^0.14.1",
-    "sass": "^1.83.1",
-    "typescript": "^5.7.2"
+    "sass": "^1.92.1",
+    "typescript": "^5.9.2"
   }
 }

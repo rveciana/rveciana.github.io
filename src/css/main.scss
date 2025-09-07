@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@use "sass:color";
+
 @import url("//fonts.googleapis.com/css?family=Lato:300,300italic|Inconsolata");
 
 // Our variables
@@ -15,18 +17,16 @@ $background-color: #fdfdfd;
 
 
 $grey-color:       #626262;
-$grey-color-light: lighten($grey-color, 40%);
-$grey-color-dark:  darken($grey-color, 25%);
+$grey-color-light: color.adjust($grey-color, $lightness: 40%);
+$grey-color-dark:  color.adjust($grey-color, $lightness: -25%);
 
 $green-color:      #7bac7b;
-$green-color-light: lighten($green-color, 18%);
-$green-color-dark:  darken($green-color, 18%);
+$green-color-light: color.adjust($green-color, $lightness: 18%);
+$green-color-dark:  color.adjust($green-color, $lightness: -18%);
 
-
-$brand-color:      darken($green-color, 15%);
+$brand-color:      color.adjust($green-color, $lightness: -15%);
 // Width of the content area
 $content-width:    800px;
-
 $on-palm:          600px;
 $on-laptop:        800px;
 
@@ -43,7 +43,6 @@ table{
         }
     }
 }
-
 
 @mixin media-query($device) {
     @media screen and (max-width: $device) {

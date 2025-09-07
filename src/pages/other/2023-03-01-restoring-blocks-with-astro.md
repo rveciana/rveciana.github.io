@@ -180,7 +180,7 @@ const { username, slug } = Astro.params;
 
 const posts = await Astro.glob("/public/blocks/**/README.md");
 
-const indexs = import.meta.glob("/public/blocks/**/index.html", { as: "raw" });
+const indexs = import.meta.glob("/public/blocks/**/index.html", {  query: "?raw", import: "default" });
 
 const readme =
   slug &&

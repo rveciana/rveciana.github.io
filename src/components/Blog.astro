@@ -5,10 +5,9 @@ import PostList from "../components/PostList.astro";
 import TagsCloud from "../components/TagsCloud.astro";
 import type { Frontmatter } from "../model";
 
-const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>(
-  "../pages/*/*.m*"
-);
-const indexPagePosts = allPosts.sort(
+const allPosts =Object.values(import.meta.glob<MarkdownInstance<Frontmatter>>("../pages/*/*.m*", { eager: true }));
+
+  const indexPagePosts = allPosts.sort(
   (a, b) =>
     new Date(b.frontmatter.pubDate).valueOf() -
     new Date(a.frontmatter.pubDate).valueOf()

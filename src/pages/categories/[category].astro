@@ -12,9 +12,9 @@ interface PathProps {
 }
 
 export async function getStaticPaths(): Promise<PathProps[]> {
-  const allPosts = await Astro.glob<MarkdownInstance<Frontmatter>>(
-    "./../*/*.m*d*"
-  );
+
+  const allPosts =Object.values(import.meta.glob<MarkdownInstance<Frontmatter>>("./../*/*.m*d*", { eager: true }));
+
   const allCategories = new Set<string>();
   allPosts.map((post) => {
     post.frontmatter.categories &&
