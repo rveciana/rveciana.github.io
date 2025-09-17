@@ -1,0 +1,26 @@
+---
+import { Picture } from "astro:assets";
+
+// Astro.props.src will be the Markdown path
+// For local images, we need to import them dynamically
+const { src, alt } = Astro.props;
+
+const images = import.meta.glob("/src/images/**/*.{png,jpg,jpeg,webp,svg}", { eager: true });
+const imageModule = images["/src" + src] ?? null;
+---
+
+{imageModule ? (
+  <Picture
+    src={imageModule.default}
+    alt={alt}
+    widths={[400, 800, 1200]}
+    sizes="(max-width: 768px) 100vw, 80vw"
+    style={{ width: "80%", margin: "1rem auto", display: "block", height: "auto" }}
+  />
+) : (
+  <img
+    src={src}
+    alt={alt}
+    style="width:80%; height:auto; display:block; margin:1rem auto;"
+  />
+)}

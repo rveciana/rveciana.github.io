@@ -2,6 +2,7 @@
 import type { MarkdownInstance } from "astro";
 import config from "../config.json";
 import type { Frontmatter } from "../model";
+import { Picture } from "astro:assets";
 
 interface Props {
   posts: MarkdownInstance<Frontmatter>[];
@@ -11,6 +12,8 @@ const { posts } = Astro.props;
 function formatDate(date: string) {
   return new Date(date).toUTCString().replace(/(\d\d\d\d) .*/, "$1");
 }
+
+const teaserImages: Record<string, ImageMetadata> = import.meta.glob("/src/images/teasers/*.{png,jpg,jpeg,webp}", { eager: true });
 ---
 
 
@@ -25,23 +28,18 @@ function formatDate(date: string) {
               {post.frontmatter.title}
             </a>
           </h2>
-          <a class="post-link" href={post.url}>
-            {!!post.frontmatter.teaser ? (
-              <img
+          <a class="post-link" href={post.url}>           
+              <Picture
+                 src={!!post.frontmatter.teaser && teaserImages[`/src/images/teasers/${post.frontmatter.teaser}`] ?
+                  teaserImages[`/src/images/teasers/${post.frontmatter.teaser}`].default
+                  : 
+                  teaserImages[`/src/images/teasers/${config.teaser}`].default}
+                alt={post.frontmatter.title}
+                widths={[400, 800, 1200]}
+                sizes="(max-width: 768px) 100vw, 80vw"
+                style={{   height: "auto" }}
                 class="teaser"
-                src={`/images/teasers/${post.frontmatter.teaser}`}
-                alt="post teaser"
-                itemprop="teaser"
               />
-            ) : (
-              <img
-                class="teaser"
-                class="teaser"
-                src={`/images/${config.teaser}`}
-                alt="teaser"
-                itemprop="teaser"
-              />
-            )}
           </a>
           {post.frontmatter.categories && (
             <div class="categories">

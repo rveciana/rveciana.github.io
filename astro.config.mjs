@@ -1,10 +1,12 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
+import remarkPicture from "./plugins/remark-picture.js";
 
 export default defineConfig({
   site: "https://geoexamples.com",
   base: "/",
   markdown: {
+    remarkPlugins: [remarkPicture],
     shikiConfig: {
       theme: "github-light",
       langs: [
@@ -21,5 +23,6 @@ export default defineConfig({
       wrap: true,
     },
   },
+  
   integrations: [mdx()],
 });
