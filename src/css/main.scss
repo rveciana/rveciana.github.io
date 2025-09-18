@@ -2,7 +2,6 @@
 
 @use "sass:color";
 
-@import url("//fonts.googleapis.com/css?family=Lato:300,300italic|Inconsolata");
 
 // Our variables
 $base-font-family: "Lato", Helvetica, Arial, sans-serif;
@@ -24,7 +23,7 @@ $green-color:      #7bac7b;
 $green-color-light: color.adjust($green-color, $lightness: 18%);
 $green-color-dark:  color.adjust($green-color, $lightness: -18%);
 
-$brand-color:      color.adjust($green-color, $lightness: -15%);
+$brand-color:      color.adjust($green-color, $lightness: -20%);
 // Width of the content area
 $content-width:    800px;
 $on-palm:          600px;

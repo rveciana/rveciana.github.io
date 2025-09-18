@@ -20,7 +20,7 @@ const teaserImages: Record<string, {default:ImageMetadata}> = import.meta.glob("
 <section>
   <ul class="post-list">
     {
-      posts.map((post) => (
+      posts.map((post, idx) => (
         <li>
           <span class="post-meta">{formatDate(post.frontmatter.pubDate)}</span>
           <h2>
@@ -39,6 +39,7 @@ const teaserImages: Record<string, {default:ImageMetadata}> = import.meta.glob("
                 sizes="(max-width: 768px) 100vw, 80vw"
                 style={{   height: "auto" }}
                 class="teaser"
+                loading={idx === 0 ? "eager" : "lazy"}
               />
           </a>
           {post.frontmatter.categories && (
