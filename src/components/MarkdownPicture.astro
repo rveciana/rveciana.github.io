@@ -6,7 +6,7 @@ import { Picture } from "astro:assets";
 const { src, alt } = Astro.props;
 
 const images = import.meta.glob("/src/images/**/*.{png,jpg,jpeg,webp,svg}", { eager: true });
-const imageModule = images["/src" + src] ?? null;
+const imageModule = images["/src" + src] as {default: ImageMetadata}?? null;
 ---
 
 {imageModule ? (

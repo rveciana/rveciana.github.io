@@ -13,7 +13,7 @@ function formatDate(date: string) {
   return new Date(date).toUTCString().replace(/(\d\d\d\d) .*/, "$1");
 }
 
-const teaserImages: Record<string, ImageMetadata> = import.meta.glob("/src/images/teasers/*.{png,jpg,jpeg,webp}", { eager: true });
+const teaserImages: Record<string, {default:ImageMetadata}> = import.meta.glob("/src/images/teasers/*.{png,jpg,jpeg,webp}", { eager: true });
 ---
 
 
