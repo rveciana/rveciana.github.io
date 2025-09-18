@@ -2,19 +2,19 @@
 layout: ../../layouts/Post.astro
 title: "Exercice maps with python"
 pubDate: 2025-09-20
-teaser: exercice-map.png
+teaser: exercise-map.png
 categories: python
 tags: [valhalla, contextily, geopandas]
-thumbnail: /images/python/exercice-map/twitter.png
+thumbnail: /images/python/exercise-map/twitter.png
 twitter-card: summary
-description: Create a Strava-like exercice map from GPS traces
+description: Create a Strava-like exercise map from GPS traces
 ---
 
 import MarkdownPicture from "../../components/MarkdownPicture.astro";
 
 I use a bike to commute in Barcelona since my teenage years. I recently bought a speedometer that has a GPS to store the tracks. So I opened Strava and saw a cool heatmap with the most frequently used routes and an option to see mine... that was behind a paywall. So instead of paying for it (the wise solution) I decided to code my own convoluted solution.
 
-![Final result](/images/python/exercice-map/final.png)
+![Final result](/images/python/exercise-map/final.png)
 
 I decided to use a python script and output a png image, because my idea is creating a map for each month and put it in my Obsidian vault.
 
@@ -29,11 +29,11 @@ I decided to use a python script and output a png image, because my idea is crea
 
 ### Downloading the data
 
-I am using Strava, the most popular service for storing exercice data, because it's where my GPS device exports. Strava offers two ways to export bulk data, an API and a bulk export from the settings. I used both but the bulk export doesn't work sometimes, so my favourite method is API.
+I am using Strava, the most popular service for storing exercise data, because it's where my GPS device exports. Strava offers two ways to export bulk data, an API and a bulk export from the settings. I used both but the bulk export doesn't work sometimes, so my favourite method is API.
 
 #### Getting the API keys
 
-To run the script, you will need the API keys, which is what makes this method more complicated. Strava provides a [step by step tutorial here][keys]. Essencially, you have to create an _application_ with the proper permissions and you will be given the data. The permissions you need to give are:
+To run the script, you will need the API keys, which is what makes this method more complicated. Strava provides a [step by step tutorial here][keys]. Essentially, you have to create an _application_ with the proper permissions and you will be given the data. The permissions you need to give are:
 
 - profile:read_all
 - activity:read
@@ -110,7 +110,7 @@ activities = get_all_activities(token)
 ```
 
 - get_access_token is the function that calls the endpoint to get the new access token, that changes with time
-- In get_all_activities it's possible to see how to use the token in the header. The enpoint returns all the activities with some metadata. The real path is in another endpoint, though
+- In get_all_activities it's possible to see how to use the token in the header. The endpoint returns all the activities with some metadata. The real path is in another endpoint, though
 
 To get one of the activities data and convert it into a pandas dataframe, we create two more functions:
 
@@ -142,7 +142,7 @@ def stream_to_df(streams):
 
 ### Drawing the map
 
-I did several itrerations before drawing the final map. I will put the code snippets because they explain the decisions I took
+I did several iterations before drawing the final map. I will put the code snippets because they explain the decisions I took
 
 ```python
 from shapely.geometry import Point
@@ -165,7 +165,7 @@ plt.close()
 
 This gives the following result:
 
-![Initial result](/images/python/exercice-map/initial_gps_track.png)
+![Initial result](/images/python/exercise-map/initial_gps_track.png)
 
 We can use the _contextily_ library to add a basemap so we can understand if the path is correct:
 
@@ -177,7 +177,7 @@ ctx.add_basemap(ax, crs=gdf.crs.to_string(), source=ctx.providers.OpenStreetMap.
 
 This will give the following result:
 
-![Initial result with background](/images/python/exercice-map/initial_gps_background.png)
+![Initial result with background](/images/python/exercise-map/initial_gps_background.png)
 
 It's easy to see that the GPS precision is not enough to properly follow the streets. The solution I thought was snapping all points to the closest street from OpenStreetMap. This is trickier than it seems, but there are libraries that help! I chose doing it in [valhalla] running in docker, as it was the easiest way. It's possible installing the library, but not using pip or any easy python method. This method exposes a REST API in localhost that can then be used in any programming language.
 
@@ -210,7 +210,7 @@ The request would be:
 ```
 
 - We transform our dataframe with lat, lon and time to json
-- We format the request, where the parameters we can toucj are in _meili_tail_
+- We format the request, where the parameters we can touch are in _meili_tail_
   - costing can be set to road or bike too, but it didn't detect the streets I ride, because those are too narrow. Pedestrian seems better for dense cities like Barcelona. Search radius could be changed too
 
 The result has to be transformed again into a dataframe to be plotted in the map
@@ -238,7 +238,7 @@ if r.status_code == 200:
     ].reset_index(drop=True)
 ```
 
-Essentially, we transform the data from the response json and filter the points that havent found a road to be assigned.
+Essentially, we transform the data from the response json and filter the points that haven't found a road to be assigned.
 
 We connect the points into lines to fill the possible gaps (it usually works) and convert it into a geoPandas dataframe again:
 
@@ -251,7 +251,7 @@ gdf_line_opt.plot(ax=ax, color='red', linewidth=1.2)
 
 And this is the result, that properly follows the basemap streets:
 
-![Optimized path](/images/python/exercice-map/optimized_path.png)
+![Optimized path](/images/python/exercise-map/optimized_path.png)
 
 ### Final script
 
@@ -449,7 +449,7 @@ def main(download_activities=False):
     for spine in ax.spines.values():
         spine.set_visible(False)
     ax.set_xticks([])
-    ax.set_yticks([])
+    ax.set_yticks([])x
 
     plt.savefig("map.png", dpi=300, bbox_inches='tight', pad_inches=0)
     plt.close()
@@ -459,10 +459,10 @@ if __name__ == "__main__":
     main(True)
 ```
 
-- I removed the axes and spacing, it's a bit tricky in matplotlib
-- I used a darkmode base map because I like dark mode
+- I removed the axes and spacing; it's a bit tricky in matplotlib
+- I used a dark mode base map because I like dark mode
 
-![Final result](/images/python/exercice-map/final.png)
+![Final result](/images/python/exercise-map/final.png)
 
 ### Links
 
